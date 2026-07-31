@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf6e3"/>
+      <stop offset="1" stop-color="#f1e5cc"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7e6"/>
+      <stop offset="1" stop-color="#e9d9b8"/>
+    </linearGradient>
+    <linearGradient id="antenna" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7c8a8"/>
+      <stop offset="1" stop-color="#d8956a"/>
+    </linearGradient>
+    <radialGradient id="cheek" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f4a5b6" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#f4a5b6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+
+  <g stroke="#3a2e1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="180" y1="710" x2="640" y2="710" opacity="0.18"/>
+  </g>
+
+  <g transform="translate(400 470)">
+    <ellipse cx="-60" cy="220" rx="180" ry="22" fill="#3a2e1f" opacity="0.08"/>
+
+    <g>
+      <rect x="-180" y="-50" width="360" height="320" rx="80" fill="url(#body)" stroke="#3a2e1f" stroke-width="4"/>
+      <rect x="-150" y="-20" width="300" height="220" rx="50" fill="#fbf3df" stroke="#3a2e1f" stroke-width="3"/>
+
+      <circle cx="-95" cy="80" r="38" fill="#ffffff" stroke="#3a2e1f" stroke-width="3"/>
+      <circle cx="95" cy="80" r="38" fill="#ffffff" stroke="#3a2e1f" stroke-width="3"/>
+      <circle cx="-90" cy="84" r="14" fill="#3a2e1f"/>
+      <circle cx="100" cy="84" r="14" fill="#3a2e1f"/>
+      <circle cx="-95" cy="80" r="5" fill="#ffffff"/>
+      <circle cx="95" cy="80" r="5" fill="#ffffff"/>
+
+      <path d="M -40 150 Q 0 175 40 150" stroke="#3a2e1f" stroke-width="4" fill="none"/>
+
+      <ellipse cx="-150" cy="120" rx="32" ry="22" fill="url(#cheek)"/>
+      <ellipse cx="150" cy="120" rx="32" ry="22" fill="url(#cheek)"/>
+
+      <line x1="-150" y1="200" x2="-150" y2="200"/>
+    </g>
+
+    <g transform="translate(0 -210)">
+      <line x1="0" y1="0" x2="0" y2="80" stroke="url(#antenna)" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="0" cy="-12" r="18" fill="#f7c8a8" stroke="#3a2e1f" stroke-width="3"/>
+      <circle cx="-4" cy="-16" r="4" fill="#ffffff"/>
+    </g>
+
+    <g transform="translate(170 60) rotate(20)">
+      <rect x="0" y="0" width="60" height="14" rx="6" fill="#3a2e1f"/>
+      <polygon points="60,0 78,7 60,14" fill="#3a2e1f"/>
+    </g>
+
+    <g transform="translate(-160 130) rotate(-10)">
+      <rect x="0" y="0" width="60" height="60" rx="30" fill="#f3b87a" stroke="#3a2e1f" stroke-width="3"/>
+      <line x1="30" y1="60" x2="22" y2="90" stroke="#3a2e1f" stroke-width="4" stroke-linecap="round"/>
+      <line x1="30" y1="60" x2="38" y2="90" stroke="#3a2e1f" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#3a2e1f" opacity="0.85">
+    <text x="60" y="60">exception@studio</text>
+    <text x="60" y="92" font-size="16" opacity="0.6">~ /about $ whoami</text>
+  </g>
+
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" fill="#3a2e1f" opacity="0.7">
+    <text x="60" y="760">— drawn with a fountain pen —</text>
+  </g>
+</svg>
