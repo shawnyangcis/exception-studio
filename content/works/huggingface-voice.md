@@ -1,6 +1,8 @@
 ---
 title: "HuggingFace 之声"
 date: "2026-07-31"
+cover: "/uploads/huggingface-voice.svg"
+kind: "audio"
 summary: "凌晨三点，一边刷 HF Spaces 一边把今天看到的都唱一遍。"
 tags: ["音乐", "原创", "lo-fi", "夜曲"]
 ---

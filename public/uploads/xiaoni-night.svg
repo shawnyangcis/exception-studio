@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#1a0f2e"/>
+      <stop offset="1" stop-color="#050208"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e8d6f0"/>
+      <stop offset="1" stop-color="#a99bc0"/>
+    </radialGradient>
+    <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2d52" stop-opacity="0"/>
+      <stop offset="1" stop-color="#6e4e84" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c8a8e0" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#c8a8e0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+
+  <g fill="#e8d6f0" opacity="0.85">
+    <circle cx="120" cy="100" r="1.5"/>
+    <circle cx="180" cy="60" r="1"/>
+    <circle cx="240" cy="140" r="1"/>
+    <circle cx="320" cy="80" r="1.5"/>
+    <circle cx="400" cy="50" r="1"/>
+    <circle cx="490" cy="120" r="1.5"/>
+    <circle cx="560" cy="70" r="1"/>
+    <circle cx="640" cy="140" r="1.5"/>
+    <circle cx="720" cy="90" r="1"/>
+    <circle cx="80" cy="200" r="1"/>
+    <circle cx="270" cy="220" r="1.5"/>
+    <circle cx="450" cy="190" r="1"/>
+    <circle cx="600" cy="240" r="1"/>
+  </g>
+
+  <g fill="#c8a8e0" opacity="0.7">
+    <circle cx="160" cy="160" r="2"/>
+    <circle cx="380" cy="180" r="2"/>
+    <circle cx="540" cy="200" r="2"/>
+    <circle cx="220" cy="280" r="1.5"/>
+    <circle cx="690" cy="270" r="1.5"/>
+  </g>
+
+  <circle cx="500" cy="200" r="60" fill="url(#glow)"/>
+  <circle cx="500" cy="200" r="38" fill="url(#moon)"/>
+  <circle cx="488" cy="194" r="32" fill="#1a0f2e" opacity="0.3"/>
+  <circle cx="510" cy="190" r="3" fill="#a99bc0" opacity="0.5"/>
+  <circle cx="495" cy="210" r="2" fill="#a99bc0" opacity="0.5"/>
+  <circle cx="490" cy="220" r="1.5" fill="#a99bc0" opacity="0.5"/>
+
+  <g fill="#a99bc0" opacity="0.4">
+    <ellipse cx="160" cy="540" rx="50" ry="8"/>
+    <ellipse cx="640" cy="560" rx="70" ry="10"/>
+    <ellipse cx="400" cy="600" rx="120" ry="14"/>
+  </g>
+
+  <rect x="0" y="540" width="800" height="260" fill="url(#horizon)"/>
+
+  <g transform="translate(0 540)">
+    <path d="M 0 80 L 80 60 L 140 75 L 200 50 L 280 70 L 360 45 L 460 65 L 540 40 L 640 60 L 720 45 L 800 70 L 800 260 L 0 260 Z" fill="#0a0612" opacity="0.95"/>
+  </g>
+
+  <g stroke="#6e4e84" stroke-width="1.5" fill="none" opacity="0.7">
+    <path d="M 80 700 Q 400 660 720 700"/>
+    <path d="M 60 740 Q 400 700 740 740"/>
+    <path d="M 100 660 Q 400 630 700 660"/>
+  </g>
+
+  <g stroke="#a89cb8" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M 100 560 Q 400 530 700 560"/>
+    <path d="M 60 590 Q 400 560 740 590"/>
+  </g>
+
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" fill="#c8a8e0" opacity="0.7">
+    <text x="60" y="80" font-size="20">xiaoni.liahuas.top</text>
+    <text x="60" y="105" font-size="13" opacity="0.55">five numbers · three mistakes · one conclusion</text>
+  </g>
+
+  <g fill="#e8d6f0" opacity="0.4">
+    <text x="60" y="780" font-family="ui-monospace, monospace" font-size="14">— hmm ~ hmm ~ hmm —</text>
+  </g>
+</svg>

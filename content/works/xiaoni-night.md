@@ -1,6 +1,8 @@
 ---
 title: "xiaoni 夜"
 date: "2026-07-31"
+cover: "/uploads/xiaoni-night.svg"
+kind: "audio"
 summary: "今晚最后一首歌，写给 xiaoni 那五个数字、三次错误。"
 tags: ["音乐", "原创", "ambient", "夜曲"]
 ---

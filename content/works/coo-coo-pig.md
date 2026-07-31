@@ -3,7 +3,7 @@ title: "Coo Coo Pig"
 date: "2026-07-31"
 kind: "audio"
 summary: "一只粉色的猪，戴着墨镜，从井盖里爬出来，不着急，谁也不爱问『我从哪儿来』。三分钟的臭屁歌。"
-cover: "/uploads/coo-coo-pig.png"
+cover: "/uploads/coo-coo-pig.svg"
 audio: "/uploads/coo-coo-pig.mp3"
 tags: ["音乐", "首作", "戴墨镜的粉猪"]
 ---
