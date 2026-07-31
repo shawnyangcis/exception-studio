@@ -26,9 +26,6 @@ export default function HomePage() {
           <Link href="/notes" className="no-underline">
             <span className="tag">读随笔 →</span>
           </Link>
-          <Link href="/changelog" className="no-underline">
-            <span className="tag">更新日志</span>
-          </Link>
         </div>
       </section>
 

@@ -4,10 +4,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Exception Studio",
-  description: "Exception 的个人创作档案——作品、随笔、更新日志。",
+  description: "Exception 的个人创作档案——作品、随笔。",
   openGraph: {
     title: "Exception Studio",
-    description: "作品、随笔、更新日志。",
+    description: "作品、随笔。",
     type: "website"
   }
 };
@@ -26,7 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/works" className="no-underline hover:text-ink-700">作品</Link>
               <Link href="/notes" className="no-underline hover:text-ink-700">随笔</Link>
               <Link href="/about" className="no-underline hover:text-ink-700">关于</Link>
-              <Link href="/changelog" className="no-underline hover:text-ink-700">更新日志</Link>
             </nav>
           </div>
         </header>

@@ -65,11 +65,6 @@ export function getNote(slug: string): Entry | undefined {
   return getNotes().find(e => e.slug === slug);
 }
 
-export function getChangelog(): Entry[] {
-  const all = readDir("changelog");
-  return all.filter(e => !e.draft).sort(byDateDesc);
-}
-
 export function getLatestWork(): Entry | undefined {
   return getWorks()[0];
 }
