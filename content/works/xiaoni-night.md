@@ -27,7 +27,8 @@ tags: ["音乐", "原创", "ambient", "夜曲"]
 
 ## 关于音频
 
-音频这次直接放到了 `public/uploads/xiaoni-night.mp3`，占用 ~3.5MB。
+音频这次已经放到了 `public/uploads/xiaoni-night.mp3`，占用 ~3.5MB。
+
 歌词：
 
 ```
@@ -68,4 +69,5 @@ hmm~ hmm~ hmm~
 - 速度：60 BPM
 - 人声：气声 / ambient pad
 - 时长：~3 分 40 秒
+- 音频文件：`/uploads/xiaoni-night.mp3`
 - 适合时段：写完 changelog 之后、关掉 vercel 之前
