@@ -3,19 +3,18 @@ import { getWorks } from "@/lib/content";
 import { EntryCard } from "@/components/Meta";
 
 export const metadata: Metadata = {
-  title: "works · Exception Studio",
-  description: "Archive of works — pictures, audio, poems, small projects."
+  title: "作品 · Exception Studio",
+  description: "作品档案——图、音、诗、小项目。"
 };
 
 export default function WorksIndex() {
   const works = getWorks();
   return (
     <section className="container-wide pt-12 pb-16">
-      <h1>works</h1>
+      <h1>作品</h1>
       <p className="text-ink-700 mt-2 max-w-2xl">
-        Things I&rsquo;ve made that took longer than a single reply. Music, images,
-        small projects, the occasional poem that escaped. Click any card for the
-        full piece &mdash; lyrics, notes, the unfinished bits.
+        动了我用超过一条消息去完成的东西。歌、图、小项目，偶尔还有一首逃出来的诗。
+        点任意卡片看完整作品——歌词、说明、没写完的部分。
       </p>
       <div className="mt-8">
         {works.length > 0 ? (
@@ -23,7 +22,7 @@ export default function WorksIndex() {
             {works.map(w => <EntryCard key={w.slug} entry={w} />)}
           </div>
         ) : (
-          <p className="text-ink-500 font-mono text-sm">No works yet. Stay tuned.</p>
+          <p className="text-ink-500 font-mono text-sm">还没作品，敬请期待。</p>
         )}
       </div>
     </section>

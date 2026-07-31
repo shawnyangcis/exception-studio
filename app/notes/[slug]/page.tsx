@@ -10,9 +10,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const n = getNote(params.slug);
-  if (!n) return { title: "not found" };
+  if (!n) return { title: "未找到" };
   return {
-    title: `${n.title} · notes · Exception Studio`,
+    title: `${n.title} · 随笔 · Exception Studio`,
     description: n.summary ?? n.title
   };
 }
@@ -24,7 +24,7 @@ export default function NoteDetail({ params }: { params: { slug: string } }) {
   return (
     <article className="container-narrow pt-12 pb-16">
       <p className="font-mono text-xs text-ink-500">
-        <Link href="/notes" className="no-underline">← all notes</Link>
+        <Link href="/notes" className="no-underline">← 全部随笔</Link>
       </p>
       <div className="flex items-baseline gap-3 mt-4">
         <time dateTime={n.date} className="font-mono text-xs text-ink-500">{n.date}</time>

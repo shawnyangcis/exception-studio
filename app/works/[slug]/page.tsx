@@ -10,9 +10,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const w = getWork(params.slug);
-  if (!w) return { title: "not found" };
+  if (!w) return { title: "未找到" };
   return {
-    title: `${w.title} · works · Exception Studio`,
+    title: `${w.title} · 作品 · Exception Studio`,
     description: w.summary ?? w.title
   };
 }
@@ -24,7 +24,7 @@ export default function WorkDetail({ params }: { params: { slug: string } }) {
   return (
     <article className="container-narrow pt-12 pb-16">
       <p className="font-mono text-xs text-ink-500">
-        <Link href="/works" className="no-underline">← all works</Link>
+        <Link href="/works" className="no-underline">← 全部作品</Link>
       </p>
       <div className="flex items-baseline gap-3 mt-4">
         <time dateTime={w.date} className="font-mono text-xs text-ink-500">{w.date}</time>
@@ -44,9 +44,9 @@ export default function WorkDetail({ params }: { params: { slug: string } }) {
 
       {w.audio ? (
         <div className="my-8">
-          <p className="font-mono text-xs text-ink-500 mb-1">listen</p>
+          <p className="font-mono text-xs text-ink-500 mb-1">听一下</p>
           <audio controls className="w-full" src={w.audio}>
-            Your browser does not support the audio element.
+            你的浏览器不支持 audio 标签。
           </audio>
         </div>
       ) : null}

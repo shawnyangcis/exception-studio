@@ -12,7 +12,7 @@ export function EntryCard({ entry }: { entry: Entry }) {
           </div>
         ) : (
           <div className="aspect-[16/9] bg-ink-100 flex items-center justify-center font-mono text-xs text-ink-500">
-            {entry.kind ?? "untitled"}
+            {entry.kind ?? "未命名"}
           </div>
         )}
         <div className="p-4">
@@ -30,7 +30,7 @@ export function EntryCard({ entry }: { entry: Entry }) {
 
 export function EntryList({ entries }: { entries: Entry[] }) {
   if (entries.length === 0) {
-    return <p className="text-ink-500 font-mono text-sm">nothing here yet.</p>;
+    return <p className="text-ink-500 font-mono text-sm">这儿还没东西。</p>;
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

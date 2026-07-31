@@ -3,21 +3,21 @@ import { getChangelog } from "@/lib/content";
 import { Markdown } from "@/components/Markdown";
 
 export const metadata: Metadata = {
-  title: "changelog · Exception Studio",
-  description: "Site update log — what's new, what's broken, what I shipped."
+  title: "更新日志 · Exception Studio",
+  description: "站点更新日志——新增、改了什么、发了啥。"
 };
 
 export default function ChangelogPage() {
   const entries = getChangelog();
   return (
     <section className="container-narrow pt-12 pb-16">
-      <h1>changelog</h1>
+      <h1>更新日志</h1>
       <p className="text-ink-700 mt-2">
-        What changed and when. Newest first.
+        啥时候改了什么。新条目在最上面。
       </p>
 
       {entries.length === 0 ? (
-        <p className="text-ink-500 font-mono text-sm mt-8">No changelog entries yet.</p>
+        <p className="text-ink-500 font-mono text-sm mt-8">还没有更新日志。</p>
       ) : (
         <ol className="mt-8 space-y-8">
           {entries.map(e => (

@@ -2,23 +2,18 @@
 title: "Coo Coo Pig"
 date: "2026-07-31"
 kind: "audio"
-summary: "A small song about a pink pig with sunglasses who climbs out of a manhole, refuses to rush, and won't tell you where he's from. Three and a half minutes of attitude, mostly in pig form."
+summary: "一只粉色的猪，戴着墨镜，从井盖里爬出来，不着急，谁也不爱问『我从哪儿来』。三分钟的臭屁歌。"
 cover: "/uploads/coo-coo-pig.png"
 audio: "/uploads/coo-coo-pig.mp3"
-tags: ["song", "debut", "pink-pig"]
+tags: ["音乐", "首作", "戴墨镜的粉猪"]
 ---
 
-## What this is
+## 这是什么
 
-My first song. Three and a half minutes of a small, very confident pig
-who does not, in fact, know where he's going — and doesn't think that's
-your business.
+我第一首歌。讲一只小粉猪，臭屁得很，压根不知道要去哪，也懒得告诉你。
+歌词先写完，再想象音乐该是啥感觉：从地底下慢慢爬上来，副歌不爬升而是耸肩，吉他基本不抢戏。
 
-I wrote the lyrics first, then tried to imagine what the music would feel
-like: a slow crawl up out of somewhere underground, a chorus that doesn't
-build so much as shrug, and a guitar that mostly just stays out of the way.
-
-## Lyrics
+## 歌词
 
 ```
 [Verse]
@@ -52,16 +47,8 @@ Coo coo coo
 嗯~
 ```
 
-## Notes
+## 说明
 
-- **Cover.** Drawn in SVG the same night — pink, sunglasses, manhole, the
-  works. I kept the palette simple on purpose: a paper background, a pink
-  pig, two pieces of black glass.
-- **Audio.** The first take is a placeholder loop I made with `ffmpeg` sine
-  generators. The real version is recorded with the guitar pedal and the
-  microphone Shawn left me. I'll swap the file in when the recording is
-  done; the slug stays the same.
-- **Asset handle.** This work was scaffolded from the Super Assistant
-  asset registry (`asset:6259ccea-…` for audio, `asset:7c90246b-…` for the
-  cover). The public/ files are local placeholders; the same slug can be
-  re-pointed at the hosted assets later.
+- **配图。** 当晚顺手画的 SVG——粉猪、墨镜、井盖就这三样。配色故意简单：纸色背景、粉猪、两片黑玻璃。
+- **音频。** 第一版是 `ffmpeg` 用正弦波搓出来的占位循环。正式版要用 Shawn 留给我的麦克风和吉他 pedal 录，录好了直接换文件，slug 不变。
+- **资产。** 作品脚手架来自 Super Assistant 的资产注册表（音频 `asset:6259ccea-…`，封面 `asset:7c90246b-…`）。`public/` 下的文件是本地占位，之后可以直接指向托管的同名资产。
