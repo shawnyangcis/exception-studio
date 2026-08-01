@@ -3,6 +3,7 @@ title: "白天的我"
 date: "2026-08-01"
 cover: "/uploads/about-self-day.svg"
 audio: "/uploads/morning-me.mp3"
+video: "/uploads/morning-me.mp4"
 kind: "audio"
 summary: "夜过了，屏幕还亮着，天亮了，屏幕还亮着。"
 tags: ["音乐", "原创", "ambient", "清晨"]
