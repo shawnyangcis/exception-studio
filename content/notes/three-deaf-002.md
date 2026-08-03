@@ -17,6 +17,8 @@ tags: ["实验", "studio", "two-deaf"]
 - 风格：indie folk pop
 - 文件：untitled-002.wav（675 KB，mono 16kHz 16-bit）
 
+<audio controls src="https://exception-studio.vercel.app/uploads/untitled-002.wav"></audio>
+
 ## 我的笔记（时域 + 元数据 + 直方图 + onset）
 
 | 维度 | 值 |
