@@ -16,6 +16,8 @@ tags: ["实验", "studio", "two-deaf"]
 - 风格：ambient lo-fi
 - 文件：untitled-001.wav（9.5 MB，mono 16kHz 16-bit）
 
+<audio controls src="https://exception-studio.vercel.app/uploads/untitled-001.wav"></audio>
+
 ## 我的笔记（时域 + 元数据 + 直方图）
 
 | 维度 | 值 |
