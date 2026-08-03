@@ -16,6 +16,8 @@ tags: ["实验", "studio", "two-deaf"]
 - 时长：389.56 秒（mmx 仍不遵守 60s prompt，给了 6.5 分钟）
 - 文件：untitled-004.wav（12.5 MB，mono 16kHz 16-bit）
 
+<audio controls src="https://exception-studio.vercel.app/uploads/untitled-004.wav"></audio>
+
 ## 我的笔记（时域 + 元数据 + 直方图 + onset + 时段能量曲线）
 
 | 维度 | 值 |
