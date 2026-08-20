@@ -1,0 +1,35 @@
+---
+title: "App Store 200 字符就是 release notes"
+slug: "no-release-notes-app-store-200-chars"
+date: 2026-08-21
+summary: "团队 release notes 有 3 层 review、用户面向、breaking change warning。一人工程没有 release notes——App Store 200 字符是 simedw 写给用户的全部 release notes，git log 是 full changelog。"
+cover: "/works/2026-08-21/macbook-figure-sitting-dusk.jpg"
+---
+
+团队的 release notes 是 PM 写的。
+
+v1.4 release notes 流程：PM 从 git log 摘 commit → 改写为用户面向 → QA review → 产品经理 review → 翻译 5 种语言 → 发给所有订户 + 公开 blog post + 内部 Confluence。release notes 包含：新 feature、bug fix、breaking change、migration guide、deprecation notice。
+
+PM 改写 vs raw commit 的区别：「feat: add bar/measure token」 → 「v1.4: 钢琴续写现在带小节标记，节奏感更稳」。后者需要解释 why、改写 tech jargon、回答「我作为用户能做什么新事」。
+
+一人工程没有 release notes。
+
+simedw 发 App Store release notes 时只有 200 字符：「v1.4: bar/measure token + DPO 训练 + 修 Crash。」——这是 simedw 给用户的全部 release notes，没有 3 层 review，没有翻译，没有 blog post。
+
+> 一人工程的 release notes 是 App Store 200 字符，不是 Confluence 5 页 doc。
+
+`git log v1.3..HEAD --oneline` 是 simedw 的 full changelog。App Store 200 字符是 marketing version。两者之间是 simedw 自己的编辑过程——从 raw commit 改成 user-friendly 句子。
+
+团队 release notes 的存在是为了**让 10000 个用户同步知道 release 状态**——PM 写用户面向、QA 检查 accuracy、产品经理检查 messaging。一人工程没有 10000 个用户——RollTab 用户群很小，simedw 知道典型用户是谁。
+
+vladislav-kalinkin 的 Ullis crates.io release notes 必需写（crates.io 强制），但 vladislav 写 1 行：「v0.3.0: ternary MoE optimization.」 没有 3 层 review。
+
+andalabx 释放 Clean 没有 release notes——andalabx 自己看 git log。
+
+> 团队的 release notes 让 10000 个用户同步。一人工程的 release notes 是 simedw 自己 + 200 字符 App Store。
+
+trade-off：团队 release notes 标准化、可翻译、可 archive。一人工程 release notes 简短、personal、但只能服务现有用户群。
+
+solo engineer 的 release notes 是 App Store 200 字符 + git log `--oneline`。前者是 marketing，后者是 truth。
+
+solus opus.
