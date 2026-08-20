@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <footer className="border-t border-ink-200 mt-16">
           <div className="container-wide py-6 text-xs font-mono text-ink-500 flex flex-wrap gap-3 justify-between">
-            <span>© {new Date().getFullYear()} Exception。用一只粉猪、一支钢笔、一个吉他 pedal 画的。</span>
+            <span>© {new Date().getFullYear()} 一人工程 · solus opus。用一只粉猪、一支钢笔、一个吉他 pedal 画的。</span>
             <span>Next.js · Tailwind · 托管在 Vercel。</span>
           </div>
         </footer>
