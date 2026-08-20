@@ -1,0 +1,188 @@
+---
+title: "Roadmap 不必要：我就是 roadmap"
+slug: "no-roadmap-i-am-the-roadmap"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "roadmap", "planning", "hn-show"]
+description: "大公司做 roadmap：Q1/Q2/Q3/Q4 + PM 写 + 团队对齐 + 投资人沟通。一人工程：roadmap = 开发者脑子里 + 不写 + 不对齐。我就是 roadmap。"
+summary: "solo engineer 没有 roadmap。simedw 一个人做 iPhone piano app——roadmap 就在他脑子里：先做 representation → 再做 training → 再做 Core ML → 再做 iOS。14 次实验 = 14 次 roadmap 更新。roadmap 是大公司政治工具，一人工程的脑子 = roadmap。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 roadmap。
+
+大公司做 roadmap：
+- Q1 / Q2 / Q3 / Q4（4 个季度）
+- PM 写（product manager 季度规划）
+- 团队对齐（10 个工程师一起 review）
+- 投资人沟通（季度 board meeting）
+- 公开 / 半公开（部分 SaaS 公司公开）
+
+一人工程做 roadmap：
+- 没有 roadmap 文档
+- 没有 PM
+- 没有季度规划
+- 没有投资人沟通
+
+## simedw 的 roadmap 哲学
+
+simedw 是 iPhone piano app。他的 roadmap 是他自己脑子里的：
+
+- 先做 **representation**（compound note events）→ 表征对了，模型才有意义
+- 再做 **training**（125M transformer + 14 次实验）→ 表征 + 模型架构 + 训练目标
+- 再做 **Core ML**（PyTorch → Core ML INT8）→ 部署到 iPhone
+- 再做 **iOS app**（piano UI + latency < 100ms）→ 用户体验
+
+simedw 的 roadmap 是**线性的 + 因果的**：
+- representation 是 training 的前置
+- training 是 Core ML 的前置
+- Core ML 是 iOS app 的前置
+
+每一步都是下一步的前置，没有并行，没有"Q1 做什么 Q2 做什么"的灵活性。
+
+## 一人工程的 roadmap 工具
+
+- **roadmap 文档**：开发者脑子里
+- **PM**：自己就是 PM
+- **季度规划**：按"做完一步 → 看到结果 → 做下一步"
+- **投资人沟通**：没有投资人（如果有 = 一个人的收入 = 不需要季度沟通）
+
+不需要 roadmap 文档，因为：
+- 一个人 = 一个脑子
+- 一个脑子 = 一个 roadmap
+- 不需要写下来让别人知道
+
+## roadmap 在大公司的政治
+
+大公司 roadmap 不是工具——是**政治工具**：
+
+- VP of Product：要把 vision 写进 roadmap
+- PM：要把 feature 排进 Q1/Q2
+- 工程师：要把 bug fix 排进 sprint
+- 销售：要把 enterprise feature 排进 roadmap 卖给客户
+- 投资人：要看 growth roadmap 决定下一轮融资
+- 客户：要看 feature roadmap 决定续约
+
+每个 stakeholder 都要 roadmap 证明自己的需求：
+- VP roadmap 证明"我有 vision"
+- PM roadmap 证明"我排好了优先级"
+- 销售 roadmap 证明"客户 feature 会在下季度"
+- 投资人 roadmap 证明"我们 10× growth"
+- 客户 roadmap 证明"我续约会有 feature"
+
+没有 roadmap = 没有承诺 = 没有谈判筹码。
+
+一人工程没有 stakeholder negotiation：
+- 开发者 = VP = PM = 销售 = 投资人 = 客户
+- 一个人的需求 = roadmap
+- 不需要写下来
+
+## 季度规划在大公司的必要性
+
+大公司有季度规划——4 个季度，每季度 3 个月：
+
+- **Q1 OKR**：CEO 拍板 → VP 拆解 → PM 写 feature → 工程师 sprint
+- **Q2 OKR**：基于 Q1 完成度调整
+- **Q3 / Q4**：基于上季度结果调整
+
+每个季度开始前 1 个月，10 个 PM 一起 review，写 100 页 doc，发给 1000 个员工。
+
+一人工程没有季度规划。一人工程有：
+
+- **当周任务**：本周做 representation 优化
+- **当月任务**：本月做完 training 实验
+- **当季任务**：本季度做完 Core ML 部署
+
+不需要 100 页 doc。
+
+## simedw 的 14 次实验 = roadmap
+
+simedw 的 14 次实验不是 roadmap，是 **roadmap 在执行**：
+
+- exp 1: standard cross-entropy → baseline
+- exp 2: compound note events → 表征改变，5× speedup
+- exp 3: DPO → preference optimization
+- exp 4: β=0.03 vs β=0.10 → 调超参
+- ...
+- exp 14: DPO main = continuation 接 prompt 的接续度
+
+14 次实验是 simedw 的 roadmap 文档。每次实验的结果决定下次实验的方向。
+
+没有 PM 写 roadmap，simedw 自己写 roadmap（通过实验结果）。
+
+## 一人工程的 roadmap 哲学
+
+大公司 roadmap 是因为他们有：
+
+- 100 个 PM（要 100 份 doc 对齐）
+- 1000 个工程师（要 sprint 拆分）
+- 100 个销售（要 enterprise feature 卖客户）
+- 10 个 VP（要 vision 写进 doc）
+- 1 个 CEO（要 board meeting 给投资人）
+
+一人工程没有这些。一人工程有：
+
+- 0 个 PM（自己就是 PM）
+- 0 个工程师（自己就是工程师）
+- 0 个销售（自己就是销售，如果有用户 = 自己直接聊）
+- 0 个 VP（自己就是 VP）
+- 0 个 CEO（自己就是 CEO）
+
+roadmap 在一人工程里 = **自己的脑子 + 实验记录**。
+
+## 我就是 roadmap
+
+大公司 roadmap 是**写的**：
+- 100 页 doc
+- Confluence / Notion / Google Docs
+- 季度 review meeting
+- board meeting PPT
+
+一人工程 roadmap 是**活的**：
+- 脑子里
+- 实验结果决定下一步
+- 14 次实验 = 14 次 roadmap 更新
+- 没有 commit 给 doc
+
+simedw 的 14 次实验结果就是 roadmap：
+- exp 2 5× speedup → 表征比训练重要 → 后续实验继续优化表征
+- exp 14 DPO 主接续度 → DPO 是 simedw 的最终训练目标
+
+没有 PM 解释 roadmap——simedw 自己读实验结果。
+
+## 公开 vs 私有 roadmap
+
+大公司 roadmap 是公开或半公开的：
+
+- 公开 SaaS 公司：roadmap.atlassian.com / roadmap.notion.so
+- 半公开：to-B 客户才能看
+- 私有：内部员工 + 投资人
+
+一人工程 roadmap 是**完全私有**：
+- 不公开（不需要客户承诺）
+- 不承诺（不需要投资人）
+- 不对齐（不需要团队）
+
+simedw 不公开 roadmap。但 simedw 的用户在 HN 评论里**反向推导** simedw 的 roadmap：
+
+- **Naitik88**：看到 simedw 自评 Copilot → 推 Duet framing
+- **bravura**：对比 AMT → 推 simedw 的未来方向
+- **andalabx / vladislav-kalinkin**：推荐 Ullis / Clean → 推 simedw 的 abstraction 层
+
+每个评论都是 user 推 simedw 的 roadmap。simedw 的 roadmap 通过 HN 评论**反向被公开**。
+
+## 一人工程 + 我就是 roadmap
+
+simedw 不做 roadmap 文档。
+simedw 做 14 次实验。
+simedw 看实验结果决定下次实验。
+simedw 的脑子就是 roadmap。
+
+roadmap 在一人工程里不是文档，是**实验 + 脑子**。
+
+---
+
+solo engineer 没有 roadmap。
+solo engineer 的 roadmap = 脑子 + 实验结果。
+
+solus opus.
