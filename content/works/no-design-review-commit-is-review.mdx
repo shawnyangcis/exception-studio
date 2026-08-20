@@ -1,0 +1,39 @@
+---
+title: "diff 就是 review"
+slug: "no-design-review-commit-is-review"
+date: 2026-08-21
+summary: "团队有 design review——3 个工程师 + 1 小时会议 + RFC doc + decision record。一人工程没有 design review——simedw 自己写 diff、自己 review diff、自己 commit。diff is review。"
+cover: "/works/2026-08-21/macbook-figure-walking.jpg"
+---
+
+团队 launch 新 feature 之前有 design review。
+
+3 个工程师：1 个 author + 2 个 reviewer。author 提前一周发 RFC doc——proposal、trade-off、alternatives、rollback plan、success metrics。reviewer 阅读 RFC doc、提 comment、要求修改。
+
+design review 会议 1 小时：author 介绍、reviewer 提问、author 答、3 人达成 consensus 或 escalation。会议结束 RFC 状态从 "draft" → "approved"，author 开始 implementation。
+
+reviewer 的视角：**让 author 自己看不到的 blind spot 暴露**。author 在写 RFC 时陷在自己思路里，reviewer 从外部视角看 trade-off、edge case、failure mode。
+
+一人工程没有 design review。
+
+simedw 写新 feature 的过程：脑子里想 trade-off、写 code、写 test、`git diff`、`git commit -m "feat: ..."`、`git push`。整个过程没有外部 reviewer。
+
+simedw 的视角切换：**自己当 author 同时当 reviewer**。`git diff` 命令让 simedw 从「写 code 的 mode」切换到「看 code 的 mode」——这两者是不同 mental mode。写 code 时 simedw 在 flow，看 code 时 simedw 在 evaluate。
+
+> 一人工程的 design review 是 `git diff` + simedw 自己。
+
+diff 是 solo engineer 的 reviewer。它显示 simedw 改了什么、新增什么、删除了什么。simedw 看自己的 diff 就像 reviewer 看 author 的 patch——同样要问「这个 trade-off 合理吗？」「这个 edge case 处理了吗？」「这个 commit message 准确描述改动了吗？」
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 写 MoE-Kan inference kernel，`git diff uls-core/` 是 vladislav 的 design review。vladislav 自己 review 自己的 kernel 优化。
+
+andalabx 释放 Clean skill 时，`git diff clean/` 是 andalabx 的 design review。andalabx 看自己的 pattern classification 是否合理、agent skill 是否准确触发。
+
+> 团队的 design review 让别人挑战 author。一人工程的 design review 让 simedw 挑战 simedw。
+
+这件事的 trade-off：团队 design review 暴露 author 的 blind spot（外部 reviewer 看到不同东西），一人工程 design review 暴露 simedw 自己能看到的 blind spot（不知道 simedw 自己不知道的盲区）。
+
+solo engineer 接受这个 trade-off——盲区会通过 App Store reviews、Crashlytics report、GitHub issues 暴露，外部 reviewer 不必要。
+
+solo engineer 的 design review 是 `git diff` + self-questioning。`git commit` 是 review 完成的仪式。
+
+solus opus.
