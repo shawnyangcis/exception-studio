@@ -1,0 +1,42 @@
+---
+title: "App Store 在线率就是 SLA"
+slug: "no-sla-app-store-uptime-is-sla"
+date: 2026-08-21
+summary: "团队有 99.99% availability SLA + 4 个 9 赔偿条款 + enterprise customer legal review。一人工程没有 SLA——simedw 自己 iPhone 上跑 RollTab + Crashlytics latency report + App Store reviews 就是 SLA monitor。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+团队有 99.99% availability SLA。
+
+「保证月度可用性 99.99%——月度 downtime 不超过 4.32 分钟。downtime 超过 4.32 分钟，按未满足比例 × 月费 × 10 倍赔偿客户」。SLA 是 enterprise customer legal contract 的一部分，VP engineering 签字。
+
+SLA 的执行：Synthetic monitoring 每分钟 probe production（5 个 region）、incident 时自动 claim、post-incident 算 downtime、quarterly review。
+
+99.99% SLA 倒推 infrastructure：multi-region deployment、automatic failover、chaos engineering、disaster recovery drill。
+
+一人工程没有 SLA。
+
+simedw 的 RollTab 没有 enterprise customer、没有 legal contract、没有 99.99% guarantee。simedw 的 SLA monitor 是：
+- simedw 自己 iPhone 上跑 RollTab、看 latency 数字
+- Crashlytics crash rate report
+- App Store reviews 用户反馈
+
+三个数据源，没有 synthetic monitoring、没有 legal contract、没有赔偿条款。
+
+> 一人工程的 SLA monitor 是 simedw 自己 + Crashlytics + App Store reviews。
+
+团队 SLA 的存在是因为 **enterprise customer 需要 service guarantee**——他们付 enterprise price，要 legal binding contract。一人工程 simedw 的 RollTab 是 consumer app、没有 enterprise tier、不需要 legal SLA。
+
+vladislav-kalinkin 的 Ullis 没有 SLA——crates.io download 没有 service guarantee。
+
+andalabx 的 Clean skill 没有 SLA——GitHub sponsors 没有 99.99% guarantee。
+
+> 团队的 SLA 让 enterprise customer 信任服务。一人工程的 Crashlytics 让 simedw 自己 trust 服务。
+
+trade-off：团队 SLA 让 enterprise customer 安心付费（premium price 包含 SLA 成本）。一人工程没有 SLA 让 simedw 不付 enterprise infrastructure 成本（multi-region、DR drill、SRE team）。
+
+solo engineer 接受这个 trade-off——simedw 的 RollTab 不卖给 enterprise customer，不需要 SLA。
+
+solo engineer 的 SLA 是 App Store 在线率 + Crashlytics crash rate + App Store review 五星率。
+
+solus opus.
