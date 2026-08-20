@@ -1,0 +1,41 @@
+---
+title: "simedw 公开的三个下一步"
+slug: "simedw-next-three-steps"
+date: 2026-08-21
+summary: "simedw 在 HN 评论里公开的下一步：bar/measure token、longer-term planning、parallel continuation picking。这三个映射出优先级：表征 > 算法 > UX。一人工程的 roadmap = engineer 脑子里的 priority queue，没有 PM 协调。"
+cover: "/works/2026-08-21/apple-after-noon.jpg"
+---
+
+simedw 在 HN 帖子评论区里被人问「下一步是什么」，他用四行字回了三个：
+
+> "I want to add **bar/measure tokens** to give the model rhythmic anchors, try **longer-term planning** (basically a CoT-style planning step), and add **parallel continuation picking** so the iPhone UI can show the user a few options to pick from."
+
+三个下一步——一个表征层（bar/measure token）、一个算法层（longer-term planning）、一个 UX 层（parallel continuation picking）。
+
+团队的 roadmap 不是这样。团队的 roadmap 是季度 OKR 排出来的：「Q3 重点交付 X、Q4 上线 Y、Q1 拓展 Z」。每个季度配一个 PM 协调，3 个并行 feature 在 JIRA 板上画 swimlane，每个 feature 配一个 tech lead、两个工程师、一个 designer。roadmap 是 negotiation 的产物。
+
+simedw 的 roadmap 是工程师脑子里的 priority queue——他自己排、自己估、自己写 commit message。HN 评论里那四行字就是他整个 Q3 计划。
+
+> 一人工程的 roadmap 不写在 Confluence 上，写在 HN 评论里。
+
+三个下一步映射出 simedw 的优先级：
+1. **bar/measure token** —— 表征层。5× speedup 的核心教训：表征改变 > inference 优化。所以下一步先改表征。
+2. **longer-term planning** —— 算法层。CoT-style planning step 是 simedw 给模型加更长 horizon 的能力。
+3. **parallel continuation picking** —— UX 层。给 iPhone UI 一次显示几个 continuation 让用户挑。
+
+这个顺序本身就是一人工程的哲学：**表征先于算法、算法先于 UX**。表征对了，5× speedup 自然来；表征错了，算法优化是浪费时间。simedw 用 700 DPO examples 验证了这个优先级，所以下一步继续押注表征。
+
+团队的 PM 会问：「为什么表征比 UX 先做？用户不会感知到表征」。simedw 不需要回答这个问题，因为 simedw 的 PM 是 simedw 自己，他知道表征对了所有下游都受益。
+
+vladislav-kalinkin 在 HN 描述 Ullis 的下一步也是同样姿态——没有 release calendar、没有 PM 协调、没有 JIRA 看板。HN 评论一行字就是 roadmap。
+
+> 一人工程的 roadmap 是 engineer 自己写的、自己估的、自己 ship 的。
+
+那四行字会被 simedw 转成几个 commit：
+- `feat: add bar/measure token`
+- `feat: implement planning step (CoT)`
+- `feat: parallel continuation UI`
+
+每个 commit 的 author 都是 simedw。每个 commit 的 reviewer 都是 simedw。每个 commit 的 deploy 都是 simedw。这就是一人工程 roadmap 的全部流程。
+
+solus opus.
