@@ -1,0 +1,39 @@
+---
+title: "我自己就是 user 0"
+slug: "no-user-research-i-am-user"
+date: 2026-08-21
+summary: "团队 PM/UX 做 user research：user interview、survey、persona、JTBD framework。一人工程没有 user research——simedw 自己就是 user 0，user 0 的反馈直接到 developer 1，没有 persona doc 隔一层。"
+cover: "/works/2026-08-21/apple-after-noon.jpg"
+---
+
+团队 PM 每周做 3-5 个 user interview。
+
+PM 问：「你用 X feature 的时候在想什么？」「为什么不用 Y feature？」「你最想加的 feature 是什么？」访谈录音转录、tag、汇总、产出 persona document：「Sarah, 28, 钢琴爱好者, 每周练琴 5 小时, 主要痛点是找不到合适的练琴 app」。
+
+UX researcher 跑 survey：「如果 X 是 ¥9.99/月 你会订阅吗？」「如果 Y feature 需要重学 30 分钟你会学吗？」100+ responses 收集，分析，产出 JTBD framework。
+
+这些 artifacts 进入 PRD，影响下一个 sprint 的 roadmap。
+
+一人工程没有 user research。
+
+simedw 自己用 RollTab。他每天 iPhone 上跑 app、试新 commit、看 latency、听续写质量。他不需要访谈自己——他的反馈是直接的 muscle reaction：「这个 latency 我接受」「这个续写我不满意」「这个 crash 我修」。
+
+> 一人工程的 user research 是 simedw 自己 daily dogfooding。
+
+团队 user research 的存在是为了**让 developer 间接理解 user**——developer 不直接用自己开发的产品（product engineer 例外），所以需要 PM / UX 收集 user 反馈。一人工程不需要这个间接层——simedw 直接用自己开发的 RollTab，他既是 developer 1 又是 user 0。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 每天 `cargo run --example demo`，体验自己的 MoE-Kan inference 速度、memory usage、accuracy。他不需要 survey 来问「Ullis 好不好用」——他自己每天都在用。
+
+andalabx 释放 Clean 之前，自己 grep 自己的 dev junk 5.3 GB，看哪些 pattern 出现得多，自己决定 skill 怎么分类。不需要外部 user 反馈——他自己就是 user。
+
+> 团队的 user 是 survey respondents。一人工程的 user 是 simedw 自己。
+
+这件事的 trade-off：simedw 自己 dogfooding 给的反馈**完美代表他自己**——但 simedw 不是「typical user」。simedw 是 ML engineer，能读懂 transform 的输出、自己 debug Core ML crash。typical RollTab user 可能只想要「按键时有音乐」，不会看 stack trace。
+
+solo engineer 的 blind spot 是：自己太懂技术，开发的 feature 可能太复杂，typical user 反而觉得难用。
+
+但 simedw 接受这个 trade-off——与其为了 typical user 简化 feature 不如 ship 一个自己满意的版本，让愿意 deep dive 的用户用。
+
+solo engineer 的 user research 是他自己。git log 里 `feat: better onboarding for first-time users` 这种 commit 就是 simedw 想象 typical user 后写的——但想象永远不如实测，solo engineer 接受这个 gap。
+
+solus opus.
