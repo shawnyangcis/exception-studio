@@ -1,0 +1,36 @@
+---
+title: "patience 就是 SLO"
+slug: "no-slo-patience-is-slo"
+date: 2026-08-21
+summary: "团队有 99.9% availability SLO、p99 latency SLO、error rate SLO——数据驱动、error budget、burn rate alert。一人工程没有 SLO——simedw 自己定「latency 超过 500ms 我会自己 fix」的隐式阈值。这个阈值不是从数据推导的，是从 simedw 的耐心推导的。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+团队的 SLO 是工程化的。
+
+Google SRE workbook 推导法：过去 90 天的 availability 数据 → 用户感知阈值 → 0.1% / 1% / 5% 不可用区间 → 选择合适的 SLO → error budget = (1 - SLO) × 季度时间。每月 review error budget 消耗率，burn rate 超过阈值自动 page on-call。
+
+99.9% availability → 季度 error budget = 43.2 分钟。99.99% → 季度 4.32 分钟。每个数字背后都是过去的观测 + 用户感知 + SRE 经验。
+
+一人工程没有 SLO。
+
+simedw 自己定阈值：`latency < 200ms`、`crash rate < 0.5%`、`availability > 99%`。这三个数字不是从观测推导的，是 simedw 自己拍的——`latency < 200ms` 是「Core ML forward pass 的合理值」，`crash rate < 0.5%` 是「我还没收到 50 个 crash report」，`availability > 99%` 是「我手机响的次数不超过每周一次」。
+
+> 一人工程的 SLO 是 simedw 的耐心阈值，不是 SRE workbook 推导。
+
+没有 SLO doc、没有 error budget、没有 burn rate alert、没有 monthly SLO review。只有 simedw 自己的隐式判断：
+- 「latency 超过 500ms 我会自己 fix」——这不是 SLO，是 simedw 的耐心阈值
+- 「crash rate 超过 1% 我会睡不着」——这不是 error budget，是 simedw 的焦虑阈值
+- 「App Store 评分跌破 4 星我会 review reviews」——这不是 availability SLO，是 simedw 的自尊阈值
+
+这些阈值没有 commit 记录、没有 postmortem 推导、没有 burn rate dashboard。但它们**真的在 work**——simedw 的耐心阈值触发 commit `fix: latency spike on Core ML cold start`，simedw 的焦虑阈值触发 commit `fix: crash on rapid section switch`，simedw 的自尊阈值触发 commit `feat: improve first-time UX`。
+
+团队 SLO 触发的是 alert + oncall + runbook。一人工程 SLO 触发的是 commit + git log + Vercel deploy。
+
+> 团队的 SLO 是数据驱动的。一人工程的 SLO 是耐心驱动的。
+
+simedw 的「latency < 200ms」明天可能变成「latency < 300ms」（如果他决定加一个新 feature 不可避免要慢一点）。simedw 的「crash rate < 0.5%」明天可能变成「crash rate < 1%」（如果他发现 Core ML 限制没法降到更低）。这些阈值调整没有 RFC、没有 PR review、没有 SLO committee——只有 simedw 自己在脑子里改一下数字。
+
+solo engineer 的 SLO 是脑内常数，每次 commit 是它的实测验证。
+
+solus opus.
