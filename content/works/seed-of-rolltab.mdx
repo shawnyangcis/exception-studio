@@ -1,0 +1,112 @@
+---
+title: "Simon 把 125M 钢琴塞进 iPhone"
+date: "2026-08-20"
+kind: "essay"
+summary: "Simon Edwardsson 用 Python 写了一个 125M 参数 transformer，跑在 iPhone 15 上 108 notes/sec。它叫 RollTab。"
+cover: "/works/2026-08-20/seed-of-rolltab.jpg"
+image: "/works/2026-08-20/seed-of-rolltab.jpg"
+tags: ["一人工程", "音乐", "钢琴", "iPhone"]
+---
+
+# Simon 把 125M 钢琴塞进 iPhone
+
+RollTab 是个 iPhone App：
+接上 MIDI 键盘，
+iPhone 听到你弹一个 motif，
+把接下来 12 个音摆在每个键上方当注解。
+免费。
+一个人做。
+App Store 上 iOS 17+。
+
+背后不是一个工程团队。
+是 Simon Edwardsson
+和 14 次实验，
+和一个 125M 参数的 transformer。
+
+## 一、表示才是关键
+
+第一版他用 MIDI 标准表示：
+NOTE_ON / NOTE_OFF / TIME_SHIFT 三流。
+跑出来：
+音飘着不释放、active 状态搞丢、
+安静时假小节反复出现。
+改名 grammar-masked 表示：
+[NOTE_ON, PITCH, VELOCITY] | [NOTE_OFF, PITCH] | [TIME_SHIFT, DURATION]
+一个音要 4 个 autoregressive step，太慢。
+
+落地的表示：
+一个 token 装五件事：
+`NOTE(pitch, delta_onset, duration, velocity)`
+silence 用 delta_onset 表示，不需要 TIME_SHIFT。
+chord 用 delta_onset=0 排序。
+5 个 categorical field，每个独立 embedding，输出 5 个 head。
+一次 autoregressive 出一个音。
+
+## 二、踏板不用再预测
+
+一般 MIDI 钢琴复现，第一件烦的事是 sustain pedal。
+有些音在踏板按下时弹出，钢琴编辑器会延后释放。
+Simon 的做法：
+不引入 sustain pedal 事件，
+直接把 sustain 时间合并进 note duration：
+- 释放时踏板还按着 → 延长到 pedal-up
+- 同样音高被重触发 → 提前 cut off 旧音
+于是模型只需要 pitch / onset / duration / velocity 四件事。
+
+## 三、5 倍数据更差
+
+流水线选钢琴主导的 → 砍掉多轨病理混录 →
+按密度 / 音域 / 时间覆盖筛 → 指纹去重 →
+同曲不同版本归到同一 split。
+又试 5 倍数据 → 模型更差。
+清洗胜过堆量。
+
+## 四、训练目标
+
+5 个 head 的交叉熵求和。
+Scheduled sampling 50% 概率用模型预测的 pitch
+作后续字段输入。
+验证 loss 上升，但 rollout 质量变好。
+Gemini pairwise 偏好 64.3% vs 35.7%。
+
+DPO：
+- base    24.55%
+- β=0.01  61.08%
+- β=0.03  57.14%
+- β=0.10  38.10%
+- consensus(β=0.03)  69.05%
+
+## 五、部署
+
+PyTorch → Core ML + INT8 量化。
+iPhone 15 上 108 notes/sec。
+上下文 512 notes 上限。
+长会话截到最近 384 重建 KV cache。
+RoPE 理论可做 ring buffer，
+Core ML 不暴露 Q/K/V，
+算了，挺快乐。
+
+第一个版本苹果审核 11 天。
+新版本正在审：
+top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换。
+
+## 六、姿态
+
+Simon 是 V7 招募的一个工程师。
+他博客写：
+deliberately 故意没读太多论文，
+先做自己的事再比对文献。
+最后以 GitHub Copilot 类比 RollTab：
+"GPT-2 but for piano"。
+
+---
+
+这不是一家公司。
+不是一篇 paper。
+不是一条 startup pitch。
+是一个人的 iPhone app，
+能在你弹完 motif 之后，
+告诉你下一个音可能会去哪。
+
+「一人工程」就在这里悄悄发生。
+不动声色地做完，不开后漏风。
