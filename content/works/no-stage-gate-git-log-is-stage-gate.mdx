@@ -1,0 +1,46 @@
+---
+title: "git log 就是 stage gate"
+slug: "no-stage-gate-git-log-is-stage-gate"
+date: 2026-08-21
+summary: "团队 ship 决策有 stage gate——每 gate 评估可行性、决定 continue or kill。一人工程没有 stage gate——simedw 自己 ship 决定，git log 是他的 stage gate，每个 commit 是一个 gate evaluation。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队 ship 决策有 stage gate。
+
+stage-gate model (Cooper 1986)：每个产品 / feature 走 5 个 stage——Discovery → Scoping → Business Case → Development → Testing & Validation → Launch。每个 stage 结束有 gate review：stage 1 → gate 1 → decision go / kill / recycle / hold。
+
+gate review 的执行：cross-functional review 委员会评估 stage deliverable、决定 go / kill。go → 进入下个 stage、allocate resource；kill → 项目终止、释放 resource；recycle → 回上 stage 改进；hold → 暂停、等待市场变化。
+
+stage gate 的存在是为了**让大项目风险 early kill**——避免 sunk cost fallacy 在 stage 5 launch 才失败。
+
+一人工程没有 stage gate。
+
+simedw ship 决策没有 5 个 stage + 5 个 gate review。simedw 的 ship 决策是 `git log --oneline` 里的每个 commit：
+
+```
+ed43c382 fix: crash on rapid section switch   ← bug fix (reactive)
+5b81b67e feat: compound note events          ← optimization (proactive)
+2c53bba5 feat: implement planning step (CoT) ← new feature
+1cfa3ff4 docs: update README                  ← docs
+```
+
+每个 commit 是 simedw 的「gate evaluation」——他决定 ship 这一步的 deliverable。如果 commit 是 `feat:` → 继续；如果 commit 是 `revert:` → recycle；如果一个月没新 commit → 项目 hold（暂停）。
+
+> 一人工程的 stage gate 是 simedw 自己 + git log + 每个 commit 的 go/kill/recycle/hold 决定。
+
+团队 stage gate 的存在是因为 **5-10 个 stakeholder 需要 alignment**——SVP engineering、PM、SVP product、CEO 都要对齐「这个项目是否继续投入」。一人工程 simedw 不需要 alignment，因为 simedw 自己 = 所有 stakeholder。
+
+vladislav-kalinkin 的 Ullis 没有 stage gate——vladislav 自己 ship 决定。
+
+andalabx 的 Clean skill 没有 stage gate——andalabx 自己 ship 决定。
+
+> 团队的 stage gate 让 5 个 stakeholder 一起决定 ship or kill。一人工程的 git log 让 simedw 自己决定 ship or kill。
+
+trade-off：团队 stage gate 让 cross-functional 视角评估，避免单一个人 bias。一人工程 simedw 的 git log 让单一个人 bias 完全暴露——如果 simedw 走错路，没有外部提醒。
+
+solo engineer 接受这个 trade-off——simedw 自己知道自己的 bias，App Store reviews 帮他纠正。
+
+solo engineer 的 stage gate 是每个 commit 的 go/kill/recycle/hold 决定 + git log 的 history pattern。
+
+solus opus.
