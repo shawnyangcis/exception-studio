@@ -1,0 +1,148 @@
+---
+title: "洞穴人格式：isoprophlex 的 plink machine plink"
+slug: "isoprophlex-caveman-format-plink-machine-plink"
+date: "2026-08-21"
+tags: ["solo-engineer", "hn-show", "prompt-philosophy", "plink", "isoprophlex"]
+description: "isoprophlex 在 HN show 评论区把 prompt 抽象成洞穴人三句话：man hits thing thing go plink / machine go plink too / man not know which plink man want。三句话覆盖整个 AI 音乐生成哲学。"
+summary: "isoprophlex HN 评论把 prompt 哲学简化成洞穴人三句话：man hits thing thing go plink / machine go plink too / man not know which plink man want。大公司：万级 prompt + A/B test + safety classifier。一人工程：一个 prompt + 自己听 + 不一致就改。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+isoprophlex 在 HN show 评论区写了这么一段：
+
+> man hits thing thing go plink. man like plink. man hits thing more.
+> machine man build: machine go plink too. machine make lot of plink while man sit.
+> man not know which plink man want.
+
+这是洞穴人格式。
+
+## 三句话拆开
+
+**第一句**：man hits thing thing go plink, man like plink, man hits thing more.
+
+人拍东西，东西发声。人喜欢这个声音。人继续拍。
+
+这是**原始音乐**——拍鼓 / 弹琴 / 敲桌子 / 吹笛。所有人类音乐的起源：动作 → 声音 → 喜欢 → 重复。
+
+**第二句**：machine man build: machine go plink too. machine make lot of plink while man sit.
+
+人做了机器，机器也会发声。人坐着的时候机器发出很多声音。
+
+这是**AI 音乐生成**——人做了模型，模型也能发声；人不工作的时候模型产生大量候选。
+
+**第三句**：man not know which plink man want.
+
+人不知道自己想要哪种声音。
+
+这是**评测困境**——机器产生大量候选，用户不知道哪个是自己想要的。
+
+## 洞穴人格式 = prompt 哲学的最小化
+
+大公司做 prompt engineering：
+
+- **万级 prompt 模板**（"用颤抖的声音，像在雪地里走"）
+- **prompt A/B test**（哪个模板转化率高）
+- **prompt safety classifier**（拒绝 prompt injection）
+- **prompt versioning + diff + rollback**
+- **prompt analytics dashboard**
+
+洞穴人格式把这些全删了：
+
+- "man hits thing" = 任意动作（不指定）
+- "thing go plink" = 任意声音（不指定）
+- "machine go plink too" = 任何 AI 音频生成（不指定模型）
+- "man not know which plink man want" = 用户评测困境（统一抽象）
+
+不需要 prompt 模板，因为 plink 是占位符，覆盖所有可能的声音。
+不需要 A/B test，因为 plink 已经是 A/B/C/D/E/F/G...
+不需要 safety classifier，因为 man 不输入具体 prompt，没机会 injection。
+不需要 analytics，因为 man not know which plink man want。
+不需要 versioning，因为 prompt 就是"man hits thing"。
+
+洞穴人格式 = 万级 prompt 工程的零级抽象。
+
+## simedw 的反例：不需要洞穴人格式
+
+simedw 是 piano app。他直接说：
+
+- "C major scale, ascending"
+- "Beethoven Op. 27 No. 2 first 8 bars"
+- "D minor arpeggio, 16th notes"
+
+这些不是洞穴人格式。这是**音乐家的语言**——specific 的音符 / 音阶 / 节奏。
+
+simedw 自己就是 plink——他知道下一个 note 是什么。他用 Gemini pairwise 70% 一致是因为他和 simedw 自己的听觉一致，不是因为他不 specific。
+
+## 什么时候用洞穴人格式
+
+通用 AI 音频生成（用户不知道 next plink 是什么）：
+
+- **Ullis (vladislav-kalinkin / andalabx 推荐的 ternary MoE-Kan Rust)**：用户描述任务，模型自动选 prompt 模板。洞穴人格式是内部表示。
+- **Clean (agent skill)**：用户给任务描述，agent 决定调用哪个 model。洞穴人格式是 user intent 抽象。
+- **Paymug (paulsp94)**：用户描述场景（"咖啡馆下午"），模型生成背景音乐。洞穴人 prompt = 场景描述。
+- **Rachmaninoff 俄国作曲家晚宴即兴 (tom_vidal)**：用户描述场景（"Rachmaninoff 在俄国晚宴即兴"），模型即兴。洞穴人 prompt = 作曲家 + 场景。
+- **Magenta Realtime 2 (speedgoose 推荐)**：用户描述风格，模型实时生成。洞穴人 prompt = 风格描述。
+
+specific AI 音乐生成（用户知道 next plink 是什么）：
+
+- **simedw / Anticipatory Music Transformer (bravura 推荐)**：specific prompt（MIDI note 序列），用户必须懂音乐。
+
+洞穴人格式属于**通用 AI 音乐**的 prompt 哲学。一人工程做 specific AI 音乐（simedw），不需要洞穴人格式。
+
+## 一人工程的洞穴人哲学
+
+大公司做 prompt engineering 是因为他们有 100 个 prompt 模板 + 10 个 prompt 工程师 + 5 个 prompt 安全审查。
+
+一人工程没有 prompt 工程师。一人工程的洞穴人格式：
+
+- **写一个 prompt 模板**（"play like X"）
+- **自己听**
+- **不一致就改 prompt**
+- **不一致就不要 A/B test，直接换 prompt**
+
+simedw 的 prompt 列表：
+
+- "play like Beethoven"
+- "play like Rachmaninoff"
+- "play like Debussy"
+
+三个 prompt，三个候选，自己听哪个像哪个。洞穴人格式 = 三选一，不需要显著性检验。
+
+## plink 不是贬义
+
+plink 是中性的。它可以是钢琴的 plink（C4 / D4 / E4），可以是鼓的 plink（kick / snare / hi-hat），可以是噪声的 plink（white noise / pink noise）。
+
+洞穴人格式说"plink"，是因为**man not know which plink man want**——所有声音对 man 来说都是 plink。
+
+simedw 的世界里没有 plink，因为 simedw 知道 next note 是什么。simedw 的 prompt 是 specific 的 MIDI note 序列。
+
+- **plink = 通用 AI 音乐的代名词**（Ullis / Rachmaninoff / Clean / Paymug）
+- **note = specific AI 音乐的代名词**（simedw / AMT）
+
+洞穴人格式属于通用 AI 音乐。一人工程做 specific AI 音乐。
+
+## 一人工程的 plink 哲学
+
+- **大公司**：万级 prompt + A/B test + analytics + safety classifier + prompt versioning。
+- **一人工程**：一个 prompt + 自己听 + 不一致就改。
+
+洞穴人格式不是一人工程的专属。但一人工程最自然用洞穴人格式——因为他没有 prompt 工程师、没有 analytics、没有 safety classifier。
+
+man hits thing thing go plink.
+machine go plink too.
+man not know which plink man want.
+
+man = 一人工程的开发者。
+machine = 他做的 AI。
+plink = 任何输出。
+
+man not know which plink man want——这就是一人工程的评测困境。simedw 的解法：自己听 + Gemini pairwise。
+
+洞穴人格式是问题的描述，不是解法。
+
+---
+
+一人工程 + 洞穴人格式 = 不知道自己要什么 + 没有 prompt 工程师 + 自己听 + 自己判断。
+
+solus opus.
