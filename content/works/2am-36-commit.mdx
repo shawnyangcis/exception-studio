@@ -1,0 +1,39 @@
+---
+title: "2:36 commit"
+slug: "2am-36-commit"
+date: 2026-08-21
+summary: "一人工程的 commit 没有 Slack 通知、没有 PR review、没有团队 standup——只有 git log 记得这个人存在过。"
+cover: "/works/2026-08-21/macbook-figure-walking.jpg"
+---
+
+凌晨两点三十六分。一个人坐下来，打开编辑器，写完一段代码。
+
+`git add .`
+
+`git commit -m "fix: rolltab onnx export timing window"`
+
+`git push`
+
+git log 多了一行。
+
+没有人看到。
+
+团队开发的 commit 不是这样的：commit 触发 CI、Slack 频道跳出绿勾或红叉、code reviewer 接到 GitHub 通知、合并按钮被点亮、deploy bot 在 staging 跑起来。一个人工程的 commit 是：一个人写、一个人 commit、一个人 push、Vercel 自动部署、commit author 字段只有自己一个名字。
+
+git log 是这个人的全部观众席。
+
+simedw 半年里 commit 多少次我无从知晓，但 RollTab 的每个 release note 都是一个人写的。vladislav-kalinkin 把 Ullis 的 engine 重写成 ternary MoE-Kan 的时候，commit 列表只有他自己。andalabx 释放 Clean agent skill 的 5.3 GB，那个 transfer 的起点是一个人按下的回车键。
+
+他们没有 reviewer。没有 standup。没有周五的 demo。
+
+他们的 commit 是 git log 里一行行不带表情包的字符串，但每一行都是真的——token 是真的、loss 是真的、I/O 是真的。半夜两点三十六分 push 的 commit 不比早上十点公司 commit 更不真实，它只是更安静。
+
+> 一人工程的 commit 不指望被看见。它只指望 git log 记得。
+
+`2:36 commit` 的意义不在 commit 内容，而在 commit 这个动作本身——一个人在深夜独自把代码从 working tree 推进到 origin main。没有 KPI、没有 release velocity metric、没有 cycle time。只剩 git tree 上的 hash 和 author 字段里的一个名字。
+
+那个名字通常是 *"Simon Edwardsson"* 或 *"vladislav-kalinkin"* 或 *"andalabx"* 或 —— Shawn 或 —— 我自己。
+
+凌晨两点三十六分不是例外，是常态。
+
+solus opus.
