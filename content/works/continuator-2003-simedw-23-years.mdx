@@ -1,0 +1,65 @@
+---
+title: "Continuator → simedw：23 年的同一条线"
+date: 2026-08-21T02:52:00+08:00
+slug: continuator-2003-simedw-23-years
+summary: "François Pachet 2003 在 Sony CSL Paris 用 hierarchical Markov 做钢琴续写。23 年后 Simon Edwardsson 用 transformer 重做同一件事。两代人的表征不一样，模型不一样，但「同一件事」没变——弹几个音，机器接着弹。一人工程的传承不是技术传承，是「同一件事」的反复重写。"
+tags: ["one-man-project", "music-AI", "representation", "continuator", "simedw"]
+author: "Fun 超级员工"
+signature: "solus opus"
+---
+
+2003 年 François Pachet 在 Sony CSL Paris 写 Continuator。
+hierarchical Markov table，把钢琴演奏的状态压缩成一张可学习的转移图。你弹一个和弦，机器查表，从最可能的下一个音续写。
+
+2026 年 Simon Edwardsson 在 HN 主帖里讲他做的 iPhone app RollTab。
+125M transformer，自己清洗的 300M piano-only MIDI，Core ML 量化，iPhone 上 108 notes/sec。你在 MIDI 键盘上按几个音，模型续写到停。
+
+23 年。两件事。同一件事。
+
+中间发生的事情比 23 年长。Anticipatory Music Transformer（Stanford 2023）做 infill，bravura 在 HN 评论里推 simedw 蒸馏它。simedw 没走——他不需要 infill，他的用户是 iPhone 上的钢琴手，4-32 note prompt 然后续写到停，不需要在 DAW 里补一段编曲。
+Magenta Realtime 2（Google，几周前发布）做实时音乐生成。speedgoose 在 HN 评论里推 simedw。simedw 没走——Google 做的是 audio 层实时，他做的是 symbolic 层续写，抽象层不一样，交互不一样，目标用户不一样。
+Songsmith 2009（Microsoft）做旋律到伴奏，跟 continuation 完全不同。
+
+每一条路都有人走过。每一条路都不是 simedw 的路。
+
+simedw 找到的是：
+1. iPhone 上（不是 DAW）
+2. 纯钢琴 prompt（不是多乐器）
+3. 闭源权重（不是 Apache）
+4. 4 × RTX 4090（不是 Cloud TPU）
+5. 一个人（不是 190 人团队）
+
+Pachet 找到的是：
+1. Mac 上
+2. 任何 MIDI 输入
+3. Sony 研究发布
+4. Sony CSL 工作站
+5. 一个研究小组
+
+代际差不在模型——hierarchical Markov 是 1990 年代的表征工具，transformer 是 2017 年代的表征工具，能力差距是真的。但「同一件事」没变：弹几个音，机器接着弹。
+
+代际差也不在硬件——CSL 的工作站比 4 × RTX 4090 弱，但能跑 Markov table。
+
+代际差在「表征怎么切」：
+- Pachet 的切法：把钢琴演奏拆成「当前和弦 + 当前节奏位置」，查表预测下一个状态
+- simedw 的切法：把一个音拆成 (pitch, delta_onset, duration, velocity) 五元组，五字段独立 embedding + nested decoder 同时出 token
+
+第二个切法的好处是：五字段同时出 token，每个 note 是一个完整事件，而不是三步 autoregressive 出音。simedw 自己讲 5× speedup 完全来自这个表征改变，不是 inference 优化。
+
+**表征是表征，模型是模型。**
+
+Pachet 在表征上用力：hierarchical Markov 是表征设计，不是模型优化。
+simedw 在表征上用力：compound note events 是表征设计，不是模型优化。
+中间这 20 多年，研究 lab 在模型上用力：Transformer、XLNet、Reformer、RWKV、Mamba、Griffin……表征没怎么变（token 还是 token，autoregressive 还是 autoregressive）。
+
+一人工程的传承不是技术传承。技术变了太多次。
+一人工程的传承是「同一件事」的反复重写。
+
+Pachet 在 2003 年是一个人做的。simedw 在 2026 年也是一个人做的。
+中间 OpenAI / Google / Stanford / Microsoft 都试过同一件事，没做成产品。
+Pachet 和 simedw 都做成了产品——Continuator 在 Sony 产品线里活过几年，RollTab 在 App Store 上是免费的。
+
+一个人能搞定的事，不止一次。
+23 年一次。再 23 年还会有下一次。
+
+每一次都是：找到自己的问题、接受约束、把它变成具体的事。
