@@ -1,0 +1,45 @@
+---
+title: "git log 就是 retrospective"
+slug: "no-retrospective-git-log-is-retro"
+date: 2026-08-21
+summary: "团队每两周 sprint retrospective：facilitator 引导、start/stop/continue framework、action items 进下一个 sprint backlog。一人工程没有 retro——simedw 的 retro 是看 git log --since=\"2 weeks ago\" 找 pattern。"
+cover: "/works/2026-08-21/apple-after-noon.jpg"
+---
+
+团队每两周 sprint retrospective。
+
+会议室，5-10 个工程师 + Scrum Master。Scrum Master 引导三个问题：
+1. **Start**——下次 sprint 我们应该开始做什么？
+2. **Stop**——下次 sprint 我们应该停止做什么？
+3. **Continue**——下次 sprint 我们应该继续做什么？
+
+每个工程师 2-3 分钟发言，Scrum Master 记 board。retro 结束把 action items 进下一个 sprint backlog。
+
+retro 的目的是**让团队持续改进**——找出低效的 workflow、识别好的实践、形成 explicit agreement。
+
+一人工程没有 retro。
+
+simedw 自己 retro 自己：
+- `git log --since="2 weeks ago" --pretty=format:"%s" | head -20` 看过去两周做了什么
+- 反思哪些 commit 是对的（feat: bar/measure token 是对的）、哪些是浪费的（chore: reformat code 全局不必要）
+- 形成 mental action items：「下次不要全局 reformat」「DOV 优先于新 feature」
+
+retro 结束时间：5-10 分钟。比团队 retro 短得多。
+
+> 一人工程的 retro 是 simedw 自己的 reflection 仪式。
+
+团队 retro 的存在是为了**让团队从 sprint 中学习**——5-10 个工程师的 implicit knowledge 变成 explicit shared knowledge。一人工程没有 implicit-to-explicit 转换需求——simedw 自己脑子里的反思不需要写下来，因为没有别人需要看。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 没有 sprint retro，`git log --since="1 month ago" uls-core/` 是他自己的月度 review。
+
+andalabx 没有 sprint，`git log --since="1 week ago" clean/` 是他自己的一周总结。
+
+> 团队的 retro 是 start/stop/continue framework。一人工程的 retro 是 git log --since。
+
+trade-off：团队 retro 让团队学习变成 explicit + shared，但 retro 本身是会议成本（2 小时 × 5-10 人 = 10-20 人时/两周）。一人工程 retro 没有会议成本，但反思只在 simedw 脑子里，外部不可见。
+
+solo engineer 接受这个 trade-off——外部可见性不是 solo engineer 的目标。
+
+solo engineer 的 retro 是 git log 阅读 + mental action items。下一个 sprint = 下一个 commit cycle。
+
+solus opus.
