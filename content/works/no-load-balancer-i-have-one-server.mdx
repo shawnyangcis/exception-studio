@@ -1,0 +1,329 @@
+---
+title: "Load balancer 不必要：一个 server 就够了"
+slug: "no-load-balancer-i-have-one-server"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "load-balancer", "server", "hn-show"]
+description: "大公司做 load balancer：HAProxy / NGINX / AWS ALB / Envoy + L4/L7 load balancing + health check + sticky session + SSL termination。一人工程：没有 load balancer，iPhone app 一个用户一个 app = 一个 server。"
+summary: "solo engineer 没有 load balancer。simedw 一个人 iPhone app——每个用户的 iPhone = 一个 server，没有 HAProxy 没有 ALB。load balancer 是大公司水平扩展工具，一人工程的 iPhone app = distributed load balancer。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 load balancer。
+
+大公司做 load balancer：
+
+- **HAProxy / NGINX**：开源软件 load balancer
+- **AWS ALB / GCP LB**：云 load balancer
+- **Envoy**：服务网格 data plane
+- **L4 / L7 load balancing**：TCP / HTTP 负载均衡
+- **health check**：检测 server 健康，不健康 → 切流量
+- **sticky session**：同一用户路由到同一 server
+- **SSL termination**：load balancer 终止 SSL
+- **10 台 server**：1 个 load balancer + 10 个 app server
+
+一人工程做 load balancer：
+- 没有 HAProxy
+- 没有 ALB
+- 没有 health check
+- 没有 sticky session
+- 没有 SSL termination
+
+## simedw 的 load balancer 哲学
+
+simedw 是 iPhone piano app。他没有 load balancer：
+
+- **每个用户的 iPhone = 一个 server**：iPhone app 本地运行，100 个用户 = 100 个 server
+- **simedw 没有 load balancer**：iPhone app 没有 server 流量，没有水平扩展
+- **simedw 的 app 自己 load balance**：每个 iPhone 独立处理自己的请求
+- **simedw 没有 health check**：iPhone app 没有 server 健康检查
+- **simedw 没有 sticky session**：iPhone app 没有 session
+
+simedw 的"load balancer"在 App Store + iPhone OS：
+
+- **App Store 下载**：用户下载 app = "load balancer" 路由到 iPhone
+- **iPhone OS 处理**：每个 iPhone 独立运行 app = "server"
+- **Core ML INT8 量化**：每个 iPhone 独立跑模型 = "水平扩展"
+- **App Store 自动更新**：苹果自动推送更新 = "rolling deploy"
+
+不需要 HAProxy，因为：
+- 100 个用户 × 100 个 iPhone = 100 个 server（天然 distributed）
+- iPhone OS 处理 app lifecycle = "load balancer"
+- 苹果 App Store = "CDN + load balancer"
+
+## 一人工程的 load balancer 工具
+
+- **iPhone OS**：每个 iPhone 独立运行 app = server
+- **App Store**：分发 app = load balancer + CDN
+- **Core ML INT8**：iPhone 跑模型 = 水平扩展
+- **TestFlight**：beta 用户 = canary load balancer
+
+不需要 HAProxy / NGINX / ALB，因为 iPhone app 没有 server。
+
+## HAProxy 在大公司的细节
+
+大公司 HAProxy：
+
+- **L4 load balancing**：TCP 流量（port 80 / 443）
+- **L7 load balancing**：HTTP 流量（path / header 路由）
+- **health check**：每 1 秒检查 server 健康
+- **不健康切流量**：server 不健康 → 切到健康 server
+- **sticky session**：基于 cookie 路由到同一 server
+- **SSL termination**：HAProxy 终止 SSL，server 用 plain HTTP
+
+每个 HAProxy：
+
+- 1 台 server 跑 HAProxy
+- 10 台 app server
+- 1 个 SRE 维护
+
+一人工程没有 HAProxy。一人工程有：
+
+- **simedw iPhone OS = HAProxy**：每个 iPhone 独立处理请求
+- **simedw 0 台 app server**：iPhone app 没有 server
+- **simedw 自己 = SRE**：simedw 维护 iPhone app
+
+## NGINX 在大公司的细节
+
+大公司 NGINX：
+
+- **reverse proxy**：NGINX 在前，app server 在后
+- **load balancing**：round-robin / least-connections / IP hash
+- **caching**：NGINX 缓存静态资源
+- **rate limiting**：限制每 IP 请求数
+- **WAF**：Web Application Firewall
+
+每个 NGINX：
+
+- 1 台 server 跑 NGINX
+- 10 台 app server
+- 配置 1000 行
+
+一人工程没有 NGINX。一人工程有：
+
+- **simedw iPhone OS = NGINX**：iPhone app 自己处理 reverse proxy
+- **simedw 没有 rate limiting**：iPhone app 没有 server rate limiting
+- **simedw 不需要 WAF**：iPhone app 没有 web app
+
+## AWS ALB 在大公司的细节
+
+大公司 AWS ALB (Application Load Balancer)：
+
+- **云 load balancer**：AWS 托管
+- **auto scaling**：自动加 server
+- **target group**：ALB 路由到 target group
+- **path-based routing**：/api → api server, /static → static server
+- **host-based routing**：api.example.com → api server
+- **WebSocket**：支持 WebSocket 连接
+
+每个 AWS ALB：
+
+- $XX / 月
+- 100 个 target
+- 自动 scale
+
+一人工程没有 AWS ALB。一人工程有：
+
+- **simedw iPhone = AWS ALB target**：每个 iPhone 是 target
+- **simedw 0 美元 / 月**：iPhone app 没有 ALB 成本
+- **simedw 不需要 auto scaling**：iPhone 用户自己买新手机 = auto scaling
+
+## Envoy 在大公司的细节
+
+大公司 Envoy（service mesh data plane）：
+
+- **service mesh**：每个 app server 跑 Envoy sidecar
+- **mTLS**：Envoy 之间 mTLS 加密
+- **circuit breaker**：自动断开不健康 server
+- **retry policy**：自动重试失败的请求
+- **distributed tracing**：OpenTelemetry trace
+
+每个 Envoy：
+
+- 每个 app server 跑 1 个 Envoy
+- 100 台 app server = 100 个 Envoy
+- 5 个 SRE 维护 service mesh
+
+一人工程没有 Envoy。一人工程有：
+
+- **simedw iPhone = Envoy target**：每个 iPhone 是 target
+- **simedw 不需要 mTLS**：iPhone app 本地运行，没有网络 mTLS
+- **simedw 不需要 circuit breaker**：iPhone app 没有 server 调用
+
+## L4 vs L7 load balancing 在大公司的细节
+
+大公司 L4 vs L7：
+
+- **L4 load balancing**：TCP 流量，OSI 第 4 层（传输层）
+  - 基于 IP + port 路由
+  - 不解析 HTTP header
+  - 更快（只看到 IP + port）
+- **L7 load balancing**：HTTP 流量，OSI 第 7 层（应用层）
+  - 基于 path / header / cookie 路由
+  - 解析 HTTP header
+  - 更灵活（可以基于内容路由）
+
+一人工程没有 L4 vs L7 区别。一人工程有：
+
+- **simedw iPhone app 没有 TCP 流量**：iPhone app 本地运行
+- **simedw iPhone app 没有 HTTP 路由**：iPhone app 没有 web server
+- **simedw iPhone app = L0 load balancing**：每个 iPhone 独立处理
+
+## health check 在大公司的细节
+
+大公司 health check：
+
+- **HTTP /health**：app server 暴露 /health 端点
+- **200 OK**：server 健康
+- **5xx / timeout**：server 不健康
+- **每 1 秒检查**：load balancer 每秒检查
+- **不健康切流量**：3 次失败 → 切流量
+
+每个 health check：
+
+- 1 秒间隔
+- 5 个 SRE 维护
+- 1000 个 server 监控
+
+一人工程没有 health check。一人工程有：
+
+- **simedw iPhone OS = health check**：iPhone OS 检测 app crash / OOM / battery
+- **simedw Crashlytics = 不健康切流量**：crash 率上升 = 不健康
+- **simedw 0 个 SRE**：simedw 自己 = SRE
+
+## sticky session 在大公司的细节
+
+大公司 sticky session：
+
+- **基于 cookie**：load balancer 写 cookie，下次路由到同一 server
+- **session affinity**：用户登录后所有请求路由到同一 server
+- **session 数据**：server 内存 / Redis 存 session
+- **session 失效**：cookie 过期 / server 重启
+
+每个 sticky session：
+
+- cookie 处理
+- session 存储
+- session 失效处理
+
+一人工程没有 sticky session。一人工程有：
+
+- **simedw iPhone app 没有 session**：iPhone app 没有 server session
+- **simedw iPhone app 没有 cookie**：iPhone app 没有 web cookie
+- **simedw iPhone app local state**：iPhone app 状态在用户 iPhone 本地
+
+## SSL termination 在大公司的细节
+
+大公司 SSL termination：
+
+- **SSL/TLS 加密**：用户 → load balancer 加密
+- **load balancer 终止 SSL**：load balancer 解密
+- **plain HTTP**：load balancer → app server 明文
+- **节省 CPU**：app server 不做 SSL 加密解密
+- **cert 续期**：load balancer 统一管理 cert
+
+每个 SSL termination：
+
+- cert 购买 / 续期
+- 加密解密 CPU
+- cert 配置
+
+一人工程没有 SSL termination。一人工程有：
+
+- **simedw iPhone app 没有 SSL**：iPhone app 本地运行，不需要网络 SSL
+- **simedw iPhone app 没有 cert**：iPhone app 没有 domain
+- **simedw iPhone app sandbox**：iOS sandbox = 安全
+
+## 10 台 server 在大公司的成本
+
+大公司 10 台 server：
+
+- **10 × app server**：每个 $100 / 月 = $1000 / 月
+- **1 × load balancer server**：$100 / 月
+- **1 × database server**：$500 / 月
+- **network / bandwidth**：$200 / 月
+- **SRE 维护**：$10k / 月 × 5 = $50k / 月
+- **总成本**：~$52k / 月
+
+每个 cost：
+
+- 几万美元 / 月
+- 5 个 SRE 维护
+- 100 万用户服务
+
+一人工程没有 10 台 server。一人工程有：
+
+- **simedw 0 台 server**：iPhone app 没有 server
+- **simedw $0 / 月**：iPhone app 部署免费
+- **simedw 100 用户**：simedw 服务 100 用户，0 cost
+
+## iPhone app vs server 的 load balancer 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：100 万用户 → 10 台 server + 1 个 load balancer
+- **iPhone app**：100 用户 → 100 个 iPhone（每个 iPhone = 一个 server）
+
+simedw 的 iPhone piano app：
+
+- 100 个用户 = 100 个 iPhone
+- 每个 iPhone 独立运行 app
+- iPhone OS 自动处理 app lifecycle
+- 没有 load balancer（没有 server 流量）
+- 没有 server 成本（用户自己买 iPhone）
+
+不需要 HAProxy，因为：
+- 100 个 iPhone = 100 个 "server"
+- iPhone OS = "load balancer"（自动处理 app lifecycle）
+- 苹果 App Store = "CDN"（分发 app）
+
+## 一人工程的 load balancer 哲学
+
+大公司 load balancer 是因为他们有：
+
+- 100 万用户（需要 10 台 server + 1 个 load balancer）
+- 1000 个 RPS（需要负载均衡）
+- $XX,XXX / 月 server 成本
+- 5 个 SRE 维护 load balancer
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（每个用户 1 个 iPhone = 1 个 server）
+- 10 个 RPS（iPhone 本地处理，不需要负载均衡）
+- $0 / 月 server 成本（用户自己买 iPhone）
+- 0 个 SRE（simedw 自己 = SRE）
+
+load balancer 在一人工程里 = **每个 iPhone 自己 = 一个 server**。
+
+## 我就是 load balancer
+
+大公司 load balancer 是**专用硬件 / 软件**：
+
+- HAProxy / NGINX / Envoy / ALB
+- 1 个 SRE 维护
+- 100 个 target server
+
+一人工程 load balancer 是**每个 iPhone 自己**：
+
+- iPhone OS 自动处理 app lifecycle
+- 100 个 iPhone = 100 个 "load balancer target"
+- simedw 自己 = 1 个 SRE
+
+没有 HAProxy，没有 NGINX，没有 Envoy，没有 ALB。
+
+## 一人工程 + 一个 server 就够了
+
+simedw 不做 HAProxy。
+simedw 不做 NGINX。
+simedw 不做 ALB。
+simedw 不做 Envoy。
+simedw 一个 iPhone = 一个 server。
+
+load balancer 在一人工程里不是工具，是**每个 iPhone 自己 = 一个 server**。
+
+---
+
+solo engineer 没有 load balancer。
+solo engineer 的 load balancer = 每个 iPhone 自己 = 一个 server。
+
+solus opus.
