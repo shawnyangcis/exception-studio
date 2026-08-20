@@ -1,0 +1,38 @@
+---
+title: "commit 就是 postmortem"
+slug: "no-postmortem-commit-is-postmortem"
+date: 2026-08-21
+summary: "团队 incident 后写 postmortem：root cause、timeline、impact、action items、blameless review。一人工程没有 postmortem——incident 后只有一个 'fix:' commit，没有 doc、没有 action items、没有 cross-team sharing。git log 就是 postmortem。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+凌晨三点 Vercel 报警。
+
+团队开发的 response：incident commander 拉 Slack 频道、statuspage 更新「investigating」、on-call 工程师 grep 日志找 root cause、PagerDuty escalation、30 分钟内 mitigation、24 小时内 postmortem doc、48 小时内 blameless review、action items 进 JIRA、cross-team sharing。
+
+一人工程的 response：手机震一下、起床、看 Vercel dashboard、修代码、`git commit -m "fix: vercel cache miss on cold start"`、`git push`、回床上。
+
+没有 Slack 频道、没有 statuspage、没有 blameless review、没有 JIRA ticket、没有 cross-team sharing。
+
+> 一人工程的 incident response 链只有 5 个 step：alert → 醒 → 看 → commit → 睡。
+
+团队的 incident 流程是工程化的——postmortem 文化把每个 outage 提炼成可学习的教训，action items 强制跨团队跟进。一人工程没有这个工程化流程——outage 的「教训」只有一条 commit message。
+
+`fix: vercel cache miss on cold start` 这一行是什么？它是一次 micro-postmortem 的全部内容：
+- **What happened**: Vercel cache miss
+- **Root cause**: cold start
+- **Resolution**: (隐含在 commit diff 里)
+
+没有 timeline（什么时候 alert、什么时候醒、什么时候 fix），没有 impact 评估（多少用户受影响），没有 prevention plan（怎么避免下次）。但 commit message 是诚实的——它不写「5xx for 30 minutes」，它只写真正修了什么。
+
+simedw 的 RollTab crash 也是同样姿态。crashlytics 邮件发给 simedw，simedw 醒来读堆栈、修代码、`fix: crash on rapid section switch`、commit、push。crash report 邮件可能被自动归档，但 postmortem doc 不会被 simedw 写——因为他不是给团队学的，他是给自己 ship 的。
+
+vladislav-kalinkin 的 Ullis crates.io 也有过版本回滚事件——某个 release 编译失败、用户 issue 涌入、vladislav 自己回滚 commit。postmortem 在哪里？在 `git revert` 的 commit message 里。
+
+> 团队把 outage 写成 postmortem doc。一人工程把 outage 写成 `fix:` commit。
+
+`fix:` commit 是 solo engineer 的全部 postmortem 文化。它没有 blameless review、没有 action items、没有 cross-team sharing——但它有一个东西是团队 postmortem 没有的：**100% 自我问责**。团队 postmortem 即使是 blameless 也隐含「系统问题、流程问题」；一人工程的 commit message 只有「我修了什么」。
+
+git log 是 solo engineer 的 postmortem 库。`git log --grep="fix:"` 能找到全部 incident 的修复记录，比任何 Confluence postmortem doc 都精确。
+
+solus opus.
