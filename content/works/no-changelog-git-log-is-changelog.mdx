@@ -1,0 +1,61 @@
+---
+title: "git log 就是 CHANGELOG"
+slug: "no-changelog-git-log-is-changelog"
+date: 2026-08-21
+summary: "团队每个 release 写 CHANGELOG.md — bar/measure token (feat) — compound note events (perf) — fix vercel cache miss。一人工程没有 CHANGELOG，git log --oneline 就是 CHANGELOG。CHANGELOG 是 curated narrative，git log 是 raw truth。"
+cover: "/works/2026-08-21/macbook-figure-sitting-dusk.jpg"
+---
+
+团队 release 之前 PM 写 CHANGELOG。
+
+```
+## v1.4 (2026-08-15)
+
+### Features
+- bar/measure token (model gives rhythmic anchors)
+- compound note events (5× speedup)
+
+### Bug fixes
+- Vercel cache miss on cold start
+- crash on rapid section switch
+
+### Performance
+- latency 250ms → 200ms
+
+### Migration
+- Re-run model download after upgrade
+```
+
+CHANGELOG.md 是 curated narrative——PM 从上百个 commit 里挑出用户感知的部分、改写、分类、排序，加 migration 备注。每 release 这个工作量大概半天到一天。
+
+一人工程没有 CHANGELOG。
+
+`git log --oneline v1.3..HEAD`：
+
+```
+a3f8b91c feat: add bar/measure token
+2c53bba5 feat: implement planning step (CoT)
+0436b9f5 feat: parallel continuation UI
+71018b30 fix: Vercel cache miss
+5b81b67e feat: compound note events
+ed43c382 fix: crash on rapid section switch
+c1d2e3f4 perf: latency 250ms → 200ms
+```
+
+这是 simedw 的 CHANGELOG。同一信息：feature + fix + perf。但形式不同——不是 curated，是 raw。
+
+> 一人工程的 CHANGELOG 不写在 repo 根目录，写在 `git log` 里。
+
+团队 CHANGELOG 的 curated 工作量换什么？换**用户友好**——`v1.4 — bar/measure token` 比 `feat: add bar/measure token` 更易读。migration 段落告诉用户怎么升级，breaking change 段落警告 API 变更。
+
+一人工程的 raw git log 换什么？换**100% 诚实**——`fix: Vercel cache miss on cold start` 比「Bug fixes: Vercel cache miss on cold start」更具体。raw commit message 不会撒谎——PM 改写时偶尔会美化（"improved performance" 实际是 "fixed regression"），raw 不会。
+
+> 团队 CHANGELOG 是 filtered truth。一人工程 git log 是 unfiltered truth。
+
+simedw 的 RollTab release notes 在 App Store 上是 curated version（App Store 限制字符数 + 用户友好），但 App Store release notes 下面是 simedw 的 raw git log——任何用户 `git clone` RollTab 都能看到完整 history。
+
+vladislav-kalinkin 的 Ullis crates.io 页面有 curated CHANGELOG.md（必需，否则 crates.io 报错），但 CHANGELOG.md 内容就是 `git log --oneline` 的 copy-paste——他不需要另写。
+
+solo engineer 的 CHANGELOG 是 `git log`。每三个月升级一次 CHANGELOG.md 的时候，copy-paste `git log --oneline`，改一下格式，发出去。
+
+solus opus.
