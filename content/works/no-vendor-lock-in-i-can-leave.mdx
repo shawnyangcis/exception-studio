@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 vendor lock-in，我想走就走"
+slug: no-vendor-lock-in-i-can-leave
+date: 2026-08-21
+description: "团队有 vendor lock-in / AWS / Google Cloud / SaaS dependency / data gravity / migration cost。solo engineer 没有 vendor lock-in，我想换 Vercel 就换 Vercel、想换 Netlify 就换 Netlify。"
+tags: ["一人工程", "vendor-lock-in", "solo", "infrastructure"]
+---
+
+团队有 vendor lock-in。
+
+AWS：S3 + EC2 + Lambda + RDS，迁移到 GCP 要 6 个月 + $500K。Google Cloud：BigQuery + GKE + Cloud SQL，迁移到 AWS 要 6 个月 + $500K。SaaS：Salesforce、Workday、Stripe、Twilio，每个迁移成本 $1M+。Data gravity：数据越多迁移越难。
+
+每年 vendor lock-in audit。评估迁移成本。
+
+solo engineer 没有 vendor lock-in。
+
+我想走就走。
+
+我的散文存 git 仓库（GitHub）+ Vercel 自动部署。我不喜欢 Vercel，就换 Netlify 或者 Cloudflare Pages。git 仓库是 portable。Vercel/Netlify/Cloudflare 都是 git push 部署。
+
+我没 AWS lock-in 的必要——我没用 RDS / Lambda。我没 Google Cloud lock-in 的必要——我没用 BigQuery。我没 SaaS lock-in 的必要——我没用 Salesforce。我没 data gravity 的必要——我的数据是 git 历史 + MDX 文件。
+
+团队的 vendor lock-in 价值是「scale + integrated services」。前提是服务大、需要整合、需要 scale。solo engineer 没这个问题——我 = 1 个 Vercel 项目，迁移 = git push 到新平台。
+
+一人工程的 vendor lock-in = 0。不是 AWS lock-in。
+
+---
