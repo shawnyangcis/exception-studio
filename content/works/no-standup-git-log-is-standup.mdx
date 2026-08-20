@@ -1,0 +1,47 @@
+---
+title: "git log 就是 standup"
+slug: "no-standup-git-log-is-standup"
+date: 2026-08-21
+summary: "团队 daily standup 三个问题：昨天做了什么 / 今天做什么 / 有什么 blocker，15 分钟 cap，每个工程师 1 分钟。一人工程没有 standup——`git log --oneline -1` 是 standup（昨天做了什么），working tree 是 standup（今天做什么），inbox 是 blocker。"
+cover: "/works/2026-08-21/macbook-figure-walking.jpg"
+---
+
+团队每天 9:30 standup。
+
+3 个问题，每个工程师 1 分钟：
+1. **昨天做了什么**——「昨天我修了 cache miss bug、加了 bar/measure token」
+2. **今天做什么**——「今天做 planning step + DPO 训练」
+3. **有什么 blocker**——「在等 GPU 资源，4090 被 simedw 占着」
+
+standup 时间 15 分钟 cap。Scrum master 计时，时间到就打断。blocker 写下来，会后单独 follow-up。
+
+team lead 用 standup 输出拼 weekly status report，发给 director。weekly status report 是 stakeholder 唯一的项目进度可见性窗口。
+
+一人工程没有 standup。
+
+simedw 自己问自己：
+- **昨天做了什么** = `git log --oneline -1` → `5b81b67e feat: compound note events`
+- **今天做什么** = `git status` → untracked: content/works/no-standup-git-log-is-standup.mdx (writing it now)
+- **有什么 blocker** = `git log --grep="wip"` → empty (no work in progress)
+
+三个问题问完 5 秒，比 standup 还快。
+
+> 一人工程的 standup 是 git 命令，不是 Slack call。
+
+team lead 把 standup 笔记拼成 weekly status report。simedw 没有 weekly status report——`git log --since="1 week ago" --oneline` 就是 weekly status report。
+
+团队 standup 的存在是为了**让 5-10 个工程师的进度对所有人可见**——A 工程师知道 B 工程师在做什么，避免重复工作、识别 dependency、传播 context。一人工程没有这个协调需求——simedw 不需要知道别人的进度，因为他不和别人并行工作。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 没有 daily standup，`git log --oneline uls-core/` 是他对自己唯一的状态汇报。
+
+andalabx 释放 Clean 没有 standup，`git log --since="1 day ago"` 是他对自己的一天。
+
+> 团队的 standup 是 5-10 个工程师的同步仪式。一人工程的 standup 是 simedw 和 git 的同步仪式。
+
+trade-off：团队 standup 让 manager 看到进度（但工程师觉得浪费时间），一人工程 standup 不需要 manager（但 simedw 失去外部 accountability）。
+
+solo engineer 接受这个 trade-off——simedw 自己就是自己的 accountability，commit message 是他对自己的 progress report。
+
+solo engineer 的 standup 是 `git log -1` + `git status` + `git log --grep="wip"`。三行命令，5 秒完成。
+
+solus opus.
