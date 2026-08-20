@@ -1,0 +1,54 @@
+---
+title: "scheduled sampling：loss 升高但更好听"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 14 次实验之一：scheduled sampling 让验证 loss 升高，但 Gemini pairwise 偏好 64.3% vs 35.7%。loss 不是目标，听感才是。"
+tags: ["一人工程", "ML", "scheduled-sampling", "钢琴"]
+---
+
+# scheduled sampling：loss 升高但更好听
+
+> simedw 训练笔记：
+> scheduled sampling 50% 概率用模型预测的 pitch 作为后续字段输入。
+> 验证 loss 上升。
+> rollout 质量变好。
+> Gemini pairwise 偏好 64.3% vs 35.7%。
+
+传统训练：
+
+- teacher forcing
+- 模型永远看到「真实过去」
+- 验证 loss 是 surrogate 指标
+
+scheduled sampling：
+
+- 训练时 50% 用真实，50% 用模型预测
+- 模拟「自己跟自己对话」的 rollout 模式
+- 验证 loss 升高（因为分布变了）
+- 但 rollout 时更好
+
+直觉的反转：
+
+> loss 不是目标，听感才是目标。
+
+## 一人工程的版本
+
+- 一个人 + 14 次实验 + 半年
+- 不读太多论文
+- 先做自己的事再比对文献
+- 验证 loss 漏了 rollout 质量（他自己的总结）
+
+OpenAI 的 GPT-4 训练：
+
+- 几千 GPU 年
+- 几百研究员
+- 用 RLHF 把 loss 跟 rollout 解耦
+- 但路径比 simedw 长得多
+
+simedw 用 scheduled sampling 一个人做了 RLHF 80% 的活。
+
+剩下 20% 是 100+ 研究员的活。
+但 simedw 不需要那 20%。
+他只需要一个人能用的 piano 续写。
+
+签名：solus opus。
