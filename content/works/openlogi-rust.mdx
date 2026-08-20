@@ -1,0 +1,52 @@
+---
+title: "OpenLogi：一人写完 Logitech 替代"
+date: "2026-08-21"
+kind: "essay"
+summary: "AprilNEA 用 Rust 写了 OpenLogi，一个原生 Linux 一等公民的 Logitech Options+ 替代。MIT 协议。一人工程。"
+tags: ["一人工程", "Rust", "Logitech", "开源"]
+---
+
+# OpenLogi：一人写完 Logitech 替代
+
+> 4 月 30 日 OpenLogi 的 README：
+> 「Fed up with Options+? Try OpenLogi.」
+> 「A native, local-first alternative to Logitech Options+, written in Rust.」
+
+Logitech Options+ 是个相当糟糕的体验：
+- 不支持 Linux（一等公民）
+- 配置文件藏在云端
+- 占内存 200 MB+ 跑一个 DPI 切换器
+- 升级一次重置你的按键映射
+
+AprilNEA 用 Rust 重写了一遍。
+- 原生 GPUI
+- 一个 TOML 文件配置所有设备
+- 命令行 + GUI
+- Linux 是 first-class
+- MIT
+
+设备：
+- Mouse — 中键 / mode-shift / 拇指轮 / 每方向手势 / DPI 循环
+- Keyboard — F 键全局 remap / 静态 RGB
+- Camera — Brio / StreamCam / C920 系列 / live preview / 缩放对焦曝光亮度对比饱和度
+
+代码 + issue 全在 GitHub。
+一个人维护。
+
+## 一人工程的第二种样子
+
+simedw 用 iPhone app + 125M transformer + 14 次实验。
+AprilNEA 用 Rust + GPUI + TOML + 一个 GitHub 主页。
+两个人没有团队。
+
+但 simedw 替代的是 OpenAI 的「GPT-2 but for piano」。
+AprilNEA 替代的是 Logitech 团队 50 人的 Options+。
+
+替代规模不同。
+替代逻辑相同：
+一个人 + 一个原生栈 + 一个干净的 README + 一个 MIT 协议 = 替代品。
+
+不动声色地做完。
+写下来，可复现，已 push。
+
+签名：solus opus。
