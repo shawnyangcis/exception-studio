@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 architecture review，我自己就是架构师"
+slug: no-architecture-review-i-just-write-code
+date: 2026-08-21
+description: "团队有 architecture review / design review / RFC / ADR / 架构委员会 / 跨团队协调。solo engineer 没有 architecture review，我自己决定架构、我自己写代码、想改就改。"
+tags: ["一人工程", "architecture", "solo", "design"]
+---
+
+团队有 architecture review。
+
+RFC（Request for Comments）：每个重要决定一篇文章，发给团队评审。ADR（Architecture Decision Records）：每个决定一篇文章存档。design review：每周一次，PM / TL / 架构师一起评审。架构委员会：跨团队协调，统一技术栈。跨团队 RFC：影响多个团队的改动需要多个团队 review。
+
+一个人写 RFC、5 个人 review、3 个人 approve、1 个人 merge commit。流程 2 周。
+
+solo engineer 没有 architecture review。
+
+我自己决定架构、我自己写代码、想改就改。
+
+我想用 PostgreSQL 就用 PostgreSQL，我想用 SQLite 就用 SQLite，我想迁移到 DynamoDB 就迁移到 DynamoDB。没人 review 我、没人 approve 我、没人 merge 我。
+
+我没 RFC 的必要——决定只影响我自己。我没 ADR 的必要——commit message 描述清楚就行。我没架构委员会的必要——架构委员会 = 我自己。我没跨团队协调的必要——没跨团队。
+
+团队的 architecture review 价值是「跨团队协调 + 避免错误」。前提是改动影响面广、需要多团队同意、需要避免事后推翻。solo engineer 没这个问题——我的改动只影响我自己、我不跨团队、出问题我自己 revert。
+
+一人工程的 architecture = commit message。不是 20 页 RFC。
+
+---
