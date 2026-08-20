@@ -1,0 +1,43 @@
+---
+title: "git log 就是 perf dashboard"
+slug: "no-perf-dashboard-git-log-is-perf-dashboard"
+date: 2026-08-21
+summary: "团队有 Grafana / Prometheus / Datadog / New Relic——p99 latency、error rate、throughput、Cold start time。dashboard 7×24 watch、自动 alert、oncall 拉起。一人工程没有 perf dashboard——simedw `git log --grep="perf:"` + Crashlytics latency 就是 perf dashboard。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队的 perf observability 是工程化基础设施。
+
+Grafana dashboard 显示：p99 latency（200ms target）、error rate（0.1% target）、throughput（1000 QPS）、CPU utilization、memory usage、cold start time、cache hit rate。每个 metric 配 threshold 和 alert——p99 > 500ms 触发 PagerDuty、error rate > 1% 触发 Slack channel。
+
+Datadog APM 追踪每个 request 的 trace：user_id 12345 → API gateway → service A → database → response 250ms。新 Relic 显示 server map、slowest endpoint、database slow query。
+
+oncall 工程师 7×24 看 dashboard。incident 时 oncall 拉 Slack channel + escalate。
+
+一人工程没有 perf dashboard。
+
+simedw 没有 Grafana、Prometheus、Datadog、New Relic。simedw 的 perf observability 是：
+- `git log --since="1 month ago" --grep="perf:"` —— 看过去一个月做了哪些 perf 优化
+- Crashlytics latency report —— simedw 自己 iPhone 上跑 RollTab、看 latency 数字
+- App Store reviews —— 用户说「app 慢」vs 「app 快」
+- `cargo bench` 或 `swift test --enable-code-coverage` —— 跑 benchmark
+
+四个数据源，没有 Grafana 那种 unified view。但够用。
+
+> 一人工程的 perf dashboard 是 git log + Crashlytics + App Store reviews + benchmark。
+
+团队 perf dashboard 的存在是因为**5-10 个工程师不能 everyone 跑自己的 benchmark**——需要 unified view、统一 threshold、cross-service correlation。一人工程 simedw 自己 = 唯一 perf engineer，自己跑 benchmark 足够。
+
+vladislav-kalinkin 的 Ullis perf observability 是 `cargo bench uls-core/` + 自己的 timing 输出。没有 Grafana。
+
+andalabx 的 Clean skill perf observability 是 `time python -m clean` + disk usage 输出。
+
+> 团队的 perf dashboard 是 7×24 自动 watch。一人工程的 perf observability 是 simedw 自己 dogfooding + 偶尔跑 benchmark。
+
+trade-off：团队 perf dashboard 持续 watch、提前发现 regression、auto-alert oncall。一人工程 perf observability 是 reactive——用户报告慢了 simedw 才发现，没有 auto-alert。
+
+solo engineer 接受这个 trade-off——simedw 自己 daily use RollTab，自己感觉 latency 变慢就 fix。
+
+solo engineer 的 perf dashboard 是 git log + Crashlytics。`git log --grep="perf:"` 是 history，Crashlytics 是 current。
+
+solus opus.
