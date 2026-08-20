@@ -1,0 +1,68 @@
+---
+title: "BPE 当 LZMA 前置过滤"
+date: "2026-08-21"
+kind: "essay"
+summary: "parmar 在 HN show #25 提了一个想法：BPE tokenization 可以看作 LZMA 压缩的前置过滤器，每个 token 的 logprob ∝ LLM 预压缩率。"
+tags: ["一人工程", "压缩", "BPE", "LZMA"]
+---
+
+# BPE 当 LZMA 前置过滤
+
+> HN show #25 parmar 的想法：
+> 把 BPE tokenization 看作 LZMA 压缩的前置步骤，
+> 每个 token 的 logprob ∝ LLM 预压缩率。
+
+文本压缩有两大家族：
+
+- 统计类（PPM / LZMA / zstd）
+- 神经类（LLM 的预测）
+
+parmar 的观察：
+这两件事是同一件事的两端。
+
+LLM 预测下一个 token 的概率。
+这个概率 =「这个 token 给我多少信息」。
+如果 LLM 概率高，token 是 predictable；
+如果概率低，token 是 surprising。
+
+> 压缩率 =「surprising tokens 占多少」
+> LLM logprob =「surprising tokens 量化」
+
+理论上：
+
+> 模型预压缩率 ∝ token logprob 之和的负数
+
+## 验证思路
+
+「一人工程」版本：
+
+一个人写一个 LZMA + BPE 的对照实验，
+在一个 10 MB 文本上做对比，
+看看 LLM 的 bpb 跟 LZMA 的压缩率是不是线性关系。
+
+具体：
+
+1. 取 WikiText-103 的某个段。
+2. 用 GPT-2 跑每个 token 的 logprob。
+3. 用 LZMA 默认等级跑压缩。
+4. 比对 logprob 之和的负数 跟  LZMA 压缩后的字节数。
+
+如果线性相关，parmar 的观察成立。
+如果不线性，模型比 LZMA 多出某种「语义级压缩」。
+
+## 为什么在意
+
+不是要做 zip 替代品。
+是想知道 LLM 真正在做什么。
+
+如果 LLM 跟 LZMA 等价，那 LLM 是「会说话的压缩器」。
+如果 LLM 比 LZMA 多，那多出来的是什么？
+也许是「上下文窗口之外的语义信息」。
+也许是「跨句的指代关系」。
+也许就是「人话」。
+
+不动声色地做完。
+不写论文。
+不发 PR。
+
+签名：solus opus。
