@@ -1,0 +1,154 @@
+---
+title: "App Store 11 天"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 RollTab 第一个版本 Apple 审核用了 11 天。新版本（带 top-k/top-p/min-p/XTC/top-h/Mirostat v2）正在审。一人工程的发行摩擦——OpenAI 不需要面对的代价。"
+tags: ["一人工程", "App Store", "审核", "发行摩擦"]
+---
+
+# App Store 11 天
+
+> simedw 在博客里说：
+> 第一个版本苹果审核 11 天。
+> 新版本（top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换）正在审。
+
+11 天。
+
+RollTab 第一个版本从提交到 Apple 通过：
+
+- 提交日期：~2026 年 4 月
+- 通过日期：~2026 年 4 月 + 11 天
+- 平均每天 App Store 全球审核：~100,000 个 app 提交
+
+# 11 天里 simedw 做什么
+
+不能 ship。
+不能让用户下载。
+不能发推说「已上线」。
+不知道 Apple 会不会拒绝。
+
+simedw 这 11 天里能做的：
+
+- 写新代码
+- 跑新实验
+- 读新论文
+- 睡觉
+
+不能做的：
+
+- 让用户用
+- 看用户反馈
+- 看数据
+- ship
+
+# OpenAI 的发行
+
+OpenAI 发布 GPT-5：
+
+- 内部测试 3 个月
+- 推一条 Twitter
+- API 立刻可用
+- 1 小时内百万用户
+
+OpenAI 没有 11 天的等待。
+OpenAI 决定何时 ship。
+
+# 一人工程的发行摩擦
+
+RollTab 的发行环节：
+
+- simedw 写代码 ✓
+- simedw 提交 Apple ✓
+- **Apple 审（simedw 控制不了）** ✗
+- **Apple 决定（simedw 控制不了）** ✗
+- 用户下载 ✓
+
+3 个环节 simedw 控制不了：
+
+1. 审核队列位置
+2. 审核员判断
+3. 拒绝 / 通过决定
+
+# 11 天不是 Apple 恶意
+
+11 天是「人工 + 队列」：
+
+- App Store 每天收 ~100,000 个新提交
+- 审核员人手有限
+- 优先级：app 类型 + 紧急标记 + 队列位置
+
+simedw 的 app：
+
+- MIDI piano continuation
+- 第一次在 iPhone 上跑 125M transformer
+- Apple 审核员不一定见过类似的东西
+
+Apple 审核员可能：
+
+- 装 app 30 分钟
+- 测输入 / 输出
+- 看模型是否安全
+- 看数据是否合规
+
+11 天 = 多次转交 + 内部 review + 最后通过。
+
+# 一人工程的「不知道」状态
+
+提交后 11 天里 simedw：
+
+- 不知道 Apple 在想什么
+- 不知道哪天通过
+- 不知道会不会被拒
+
+这种「不知道」是大公司没有的：
+
+- OpenAI 知道 GPT-5 什么时候发布
+- Anthropic 知道 Claude 5 什么时候发布
+
+simedw 不知道 RollTab 什么时候能下载。
+
+# 一人工程的代价
+
+等待 11 天的真实成本：
+
+- 不能 ship
+- 不能改 plan
+- 不能发推
+- 不能让用户知道
+
+OpenAI 的等待成本：
+
+- 服务器准备好
+- API 文档 ready
+- 1 小时内千万用户
+
+trade-off：
+
+- OpenAI：技术摩擦
+- simedw：流程摩擦
+
+# 一人工程的态度
+
+simedw 对 11 天的态度：
+
+> 不抱怨，不催促，只等。
+
+不是 simedw 不着急。
+是 simedw 不能催。
+
+Apple 不接受催。
+Apple 不告诉进度。
+Apple 不给原因（如果拒）。
+
+simedw 唯一能做的是「再等 11 天」。
+
+# 新版本又在审
+
+新版本（带 top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换）正在审核。
+
+simedw 现在还在等。
+
+又一次 11 天。
+又一次「不知道」。
+
+签名：solus opus。
