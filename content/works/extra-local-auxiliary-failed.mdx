@@ -1,0 +1,54 @@
+---
+title: "extra local auxiliary 没收益"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的失败实验：加一个 local auxiliary 损失到主损失旁边。没用。最终没采用。这是「一人工程」里第 9 个没走通的。"
+tags: ["一人工程", "辅助损失", "MIDI", "失败"]
+---
+
+# extra local auxiliary 没收益
+
+> simedw 的失败实验笔记：
+> extra local auxiliary 没收益。
+> 最终没采用。
+> 在「没走通的」一栏。
+
+什么是 local auxiliary loss：
+
+- 主损失是 cross-entropy 求和（5 个 head）
+- local auxiliary 是「每个 head 内部」的损失
+- 比如 pitch head 内部的相对位置损失
+- 比如 duration head 内部的 smoothness 损失
+
+直觉：
+
+- 主损失太大，单一目标不能涵盖所有信号
+- 加一个 local 信号让训练更稳
+- 像 ResNet 里的 side loss
+
+simedw 试了：
+
+- 多种 local auxiliary
+- 加权到主损失旁边
+- rollout 质量没改进
+
+为什么没收益：
+
+- 主损失已涵盖足够信号
+- local auxiliary 重复信号
+- 训练目标被「双份」信号干扰
+- rollout 时反而出现局部不一致
+
+OpenAI / Anthropic 的做法：
+
+- 在大模型上加 side loss 偶尔有效
+- 100B+ 模型，梯度稀疏，side loss 当正则
+- simedw 的 125M 模型不需要
+
+# 一人工程的边界
+
+不是所有大模型时代的 tricks 都能套到小模型上。
+extra local auxiliary 是为超大模型设计的正则化。
+小模型不需要 side loss，主损失已足够。
+
+签名：solus opus。
