@@ -1,0 +1,35 @@
+---
+title: "肌肉记忆就是 runbook"
+slug: "no-runbook-muscle-memory-is-runbook"
+date: 2026-08-21
+summary: "团队 incident 有 runbook：on-call 工程师根据 runbook 一步步修复。一人工程没有 runbook——incident 是 commit message，simedw 自己脑子里知道怎么修。solo engineer 的 runbook 是肌肉记忆 + git log。"
+cover: "/works/2026-08-21/macbook-figure-walking.jpg"
+---
+
+团队 incident response 有 runbook。
+
+PagerDuty 响了 → on-call 工程师打开 Confluence → 搜索 service name → 找到对应 runbook → 按步骤执行：第一步 ssh 到 bastion、第二步 check disk usage、第三步 restart sidekiq、第四步 verify latency、第五步 close ticket。runbook 是 on-call 工程师的拐杖——他不一定记得每一步，但 runbook 记得。
+
+runbook 是团队 incident response 的工程化产物：SRE 写、senior engineer review、quarterly drill 更新。每个 service 一份 runbook，新人 onboarding 第一周就是「读 runbook」。
+
+一人工程没有 runbook。
+
+凌晨三点 Vercel 报警。simedw 起床，看 dashboard，ssh 到 Vercel CLI，grep 日志，找到 cache miss 是因为 cold start 没有 warm，`vercel deploy --warm` 重跑，回床上。
+
+这些步骤 simedw 没写进任何 runbook。它们在 simedw 的肌肉记忆里、在 git log 的 commit message 里、在脑子的某个角落。simedw 不需要 runbook，因为 incident 的修复路径就是他写的代码路径——他知道代码在哪一行，因为代码是他写的。
+
+> 一人工程的 runbook 是 simedw 自己 + git log。
+
+团队 runbook 的存在是为了**让不知道代码的人也能修代码**——on-call 工程师今天第一次接 PagerDuty，不知道这个 service 的代码细节，但他能 follow runbook 完成 mitigation。一人工程不需要这个折中——simedw 永远知道代码细节，因为代码是他写的。
+
+vladislav-kalinkin 的 Ullis 有过几次版本回滚事件，runbook 在哪里？在 vladislav 自己的 git log + 肌肉记忆里。`git log --grep="revert"` 能找到所有回滚记录，每条 revert commit message 隐含「为什么 revert」和「怎么修」。不需要外部 runbook。
+
+andalabx 的 Clean 5.3 GB agent skill 传输中断过几次，andalabx 的修复路径是 muscle memory：检查传输完整性、retry transfer、verify SHA256、检查磁盘空间、retry。这些步骤没有 runbook doc，但 andalabx 自己每次都能恢复。
+
+> 团队的 runbook 让陌生人也能修代码。一人工程的肌肉记忆让 simedw 自己永远能修代码。
+
+团队 runbook 的 trade-off：写 runbook 花时间 + 新人读 runbook 花时间，但 incident response 速度稳定。一人工程没有这个 trade-off——肌肉记忆是免费的（写代码时自然形成），incident response 速度依赖 simedw 当天醒没醒。
+
+solo engineer 的 runbook 是他自己。每次 incident response 都是 muscle memory 的实弹测试。
+
+solus opus.
