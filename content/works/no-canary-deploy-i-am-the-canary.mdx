@@ -1,0 +1,23 @@
+---
+title: "solo engineer 没有 canary deploy，我自己就是 canary"
+slug: no-canary-deploy-i-am-the-canary
+date: 2026-08-21
+description: "团队有 canary deploy / 5% 流量验证 / auto-rollback / metric-based promotion。solo engineer 没有 canary deploy，我想发就发，自己先打开页面看，挂了 git revert。"
+tags: ["一人工程", "canary", "solo", "deploy"]
+---
+
+团队有 canary deploy。
+
+新版本先 5% 流量，观察 metrics（错误率 / 延迟 / 转化率），没问题再 25% → 50% → 100%。auto-rollback 在错误率超阈值时触发。metric-based promotion 看 latency P99 / success rate / business KPI。
+
+solo engineer 没有 canary deploy。
+
+我自己就是 canary。
+
+我想发就发，merge 即上线，上线即全量。我自己先打开页面看——首屏加载、内容渲染、链接跳转、commit history 显示。挂了 `git revert`，Vercel 自动部署旧版本。
+
+团队的 canary 价值是「大流量下的渐进验证」。前提是流量足够大、单次失败代价足够高。solo engineer 没这个问题——我的站点上线一天访问量 1000，全量也是 1000。我挂了我自己知道。
+
+一人工程的 canary = 我自己打开浏览器。不是 5% 流量分流。
+
+---
