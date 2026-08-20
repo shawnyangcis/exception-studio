@@ -1,0 +1,201 @@
+---
+title: "solo engineer 没有 feature flag：commit hash 就是 feature flag"
+slug: no-feature-flag-commit-hash-is-flag
+date: 2026-08-21
+tags: [one-man-project, feature-flag, commit, release, simedw]
+summary: "大公司的渐进式发布：LaunchDarkly / Split.io / Statsig，feature flag 灰度 + kill switch + A/B test。simedw 的发布：commit hash。commit 进了 main = flag 开了。git revert = flag 关了。不可篡改、不可漂移、零运行时开销。"
+---
+
+大公司的 feature flag 系统：
+
+- LaunchDarkly：1000+ flag，dashboard 控制灰度
+- Split.io：feature 单元独立 release
+- Statsig：实验 + flag + 监控一体
+- 自建：flag 服务 + flag 配置中心 + flag SDK
+
+每个 flag 的 lifecycle：
+
+1. 创建 flag（disabled）
+2. 上线，0% 流量
+3. 1% canary
+4. 10% / 50% / 100%
+5. 灰度完成，flag 退役（删除分支代码）
+
+每一步都有专门的工具、专门的 dashboard、专门的人 review。
+
+simedw 的 feature flag 系统：
+
+git。
+
+## commit hash 就是 feature flag
+
+simedw 提交一个 commit：
+
+```
+feat: add chord suggestion to piano roll
+sha: 7f3a92b
+```
+
+这个 commit：
+
+- 进了 main = flag "chord suggestion" 开了
+- git revert 7f3a92b = flag 关了
+- git revert --no-commit = 临时关，不删 commit
+- git rebase -i = 改 commit 历史（很少用）
+
+不需要 LaunchDarkly，不需要 SDK，不需要 dashboard。
+
+## 为什么 commit hash 是好的 feature flag
+
+- **不可篡改**：commit sha 是 SHA-1 哈希，没法偷偷改
+- **不可漂移**：flag 状态跟着 commit 走，不会出现「flag 应该开了但没开」
+- **零运行时开销**：不需要 SDK 拉配置
+- **可审计**：git log 显示每个 flag 何时开何时关
+- **可回滚**：revert 一个 commit 等于 flag off
+- **自带 message**：commit message 解释 flag 干了啥
+- **自带 author**：知道是谁开的 flag
+
+## 为什么大公司不能这样做
+
+- **100 个工程师同时改代码**：不能让所有人都在 main 上写代码。需要 branch protection + PR review + feature flag 让未完成的 feature 也能 merge 进 main（wrapped 在 flag 里）
+- **跨团队协作**：team A 写代码等 team B 的 API。需要 flag 让 team A 的代码先 merge
+- **渐进式 rollout**：1% 流量先试 → 10% → 100%。commit 没有「1% 流量」这个粒度
+- **kill switch**：prod 出问题要立刻关 flag。revert + redeploy 比关 flag 慢
+- **合规审计**：有些行业要求 feature flag 单独审计。commit 审计是「代码审计」，不是「flag 审计」
+
+simedw 没有这些问题：
+
+- **1 个工程师改代码**：他在自己分支写完 → merge main → 部署。branch protection 没意义
+- **没有跨团队**：他是 team A 也是 team B
+- **不要渐进式**：1 万 DAU 直接 100% 上线
+- **不要 kill switch**：revert + redeploy 是 5 分钟的事
+- **没有合规审计**：他是 GDPR 自己合规的人
+
+## 「commit hash 是 flag」的几个限制
+
+- **不能 1% 灰度**：commit 一上就是 100%
+- **不能 kill switch**：要 revert 才能关，revert 又是一次 commit + deploy
+- **不能按用户切**：commit 是全员统一的
+- **不能 A/B test**：commit 是 deterministic 的
+
+simedw 对应的妥协：
+
+- 不能 1% 灰度 → App Store review 就是 canary
+- 不能 kill switch → revert + hotfix 是 5 分钟
+- 不能按用户切 → 1 万 DAU 全员统一
+- 不能 A/B test → 用户自己会在 HN 评论对比
+
+## feature flag 是给团队协作的妥协工具
+
+feature flag 的核心价值：**让团队在不合并代码的情况下发布代码**。
+
+- team A 写了一半的 feature → 推到 main，wrapped 在 flag 里，flag disabled
+- team B 不依赖 team A 的代码，可以继续 merge
+- team A 准备好 → 开 flag
+- team A 完成 → 删 flag + 删 wrapped 代码
+
+这是**异步团队协作**的工具。
+
+simedw 不需要这个：他自己写代码自己合并，没人需要在他没 ready 之前 merge。
+
+## 对照表
+
+| | LaunchDarkly | simedw git |
+|---|---|---|
+| Flag 创建 | dashboard 点击 | commit |
+| Flag 状态 | 0% / 10% / 50% / 100% | merged / reverted |
+| Flag 文档 | flag 描述 + owner | commit message + author |
+| Flag 审计 | flag history | git log |
+| Kill switch | toggle dashboard | git revert |
+| 灰度 | 1% 步进 | 无（直接 100%） |
+| 运行时开销 | SDK + 网络请求 | 0 |
+| Dashboard | ✅ | git log |
+| 自带测试 | A/B test | 0（没 A/B） |
+| 合规审计 | flag audit log | git audit log |
+
+## 一人工程的姿态
+
+feature flag 不是产品特性。feature flag 是**团队协作的妥协工具**。
+
+- 100 个工程师的代码库 → 必须有 feature flag，否则 100 人不能并行 merge
+- 1 个工程师的代码库 → 他知道自己改了啥，commit message 自己清楚
+
+feature flag 的真正成本：
+
+- 每个 flag 都是技术债（wrapped 代码不删 = dead code）
+- 每个 flag 都是 runtime 开销（SDK 拉配置）
+- 每个 flag 都是 dashboard 维护成本
+- 每个 flag 都是 mental overhead（「这个 flag 啥时候开的？」「这个 flag 啥时候删？」）
+
+simedw 选 0 个 flag。代价是要么全上要么 revert。
+
+这个代价对 1 万 DAU 的 piano app 是合适的。
+
+## 反例：必须 feature flag 的场景
+
+- **基础设施改造**：API v1 → v2 灰度迁移 → 必须 flag 控制 v1/v2 比例
+- **付费功能上线**：先给 10% paid 用户试 → 必须 flag 按用户切
+- **实验性算法**：1% 用户跑新算法对比 → 必须 A/B test
+- **高风险变更**：支付 / 计费 / 隐私相关 → 必须 kill switch
+
+simedw 的 piano app 不在以上场景：
+
+- 没有 API v1/v2（只有 piano + transformer）
+- 没有付费用户（app 免费）
+- 没有算法 A/B test（用户自己对比）
+- 没有高风险变更（最严重是 piano 响错音）
+
+所以 feature flag 是过度工程。
+
+## 「commit 是 flag」的延伸
+
+commit message 写得像 flag：
+
+- ❌ `fix stuff`
+- ❌ `update`
+- ✅ `feat: chord suggestion in piano roll`
+- ✅ `fix: Core ML conversion crash on iPad 2`
+- ✅ `perf: 5x speedup from compound note events`
+
+每个 commit 都是一个原子化的、可独立 revert 的、可独立理解的 flag。
+
+simedw 的 commit history 是「feature flag audit log」的子集。
+
+## Instagram 几千个 flag vs simedw 0 个 flag
+
+2018 年公开数据：Instagram 有 1000+ feature flag，很多一辈子不删。
+
+simedw：0 个 feature flag。
+
+哪个 release 更稳？
+
+- Instagram：flag 多到没人记得哪个 flag 是干啥的，flag audit 是大工程
+- simedw：每个 commit 自己清楚，revert 一次就能关
+
+哪个 release 更灵活？
+
+- Instagram：可以 1% 灰度，可以 kill switch，可以 A/B
+- simedw：要么 100% 要么 revert
+
+哪个更适合「一人工程」？
+
+simedw 的方案。
+
+## 一人工程的 feature flag 选型
+
+- 必须灰度 → 没法一人做（没有 1% 流量的合成流量）
+- 必须 kill switch → revert + hotfix
+- 必须 A/B test → 没法做（没基础设施），用用户反馈代替
+- 想要 commit 可读 → 写好 commit message
+- 想要 audit → git log
+- 想要回滚 → git revert
+
+零基础设施成本，零运行时开销，零 mental overhead。
+
+代价：每次 commit 都是 100% rollout。
+
+这是「一人工程」的简化方向。
+
+---
+
+solus opus.
