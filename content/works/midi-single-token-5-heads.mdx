@@ -1,0 +1,64 @@
+---
+title: "MIDI 单 token 5 个 head"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 MIDI 表征方案：NOTE(pitch, delta_onset, duration, velocity) 一个 token 5 个属性，5 个独立 embedding + 5 个输出 head。"
+tags: ["一人工程", "MIDI", "transformer", "simedw"]
+---
+
+# MIDI 单 token 5 个 head
+
+> simedw 的 MIDI 表示：
+> 一个 token 包含 pitch / delta_onset / duration / velocity 5 个属性。
+> 内部走 5 个独立 categorical field。
+> 每个 field 独立 embedding，output 也是 5 个 head。
+
+朴素表征：
+
+- NOTE_ON / NOTE_OFF / TIME_SHIFT 三类事件
+- 飘音、不释放、active 状态搞丢
+
+grammar-masked：
+
+- NOTE_ON / NOTE_OFF / TIME_SHIFT + 强制 schema
+- 4 个 autoregressive step 出一个音（太慢）
+
+落地表征：
+
+- NOTE(pitch, delta_onset, duration, velocity)
+- 一个 token 5 个属性
+- 5 个独立 categorical field
+- 5 个独立 embedding
+- 5 个独立 output head
+
+detail：
+
+- delta_onset = 0 表示同时按下的音（chord）
+- silence 由 delta_onset 表达，不引入 TIME_SHIFT
+- pitch 在 88 键钢琴内
+- duration 单位 = 音乐 tick
+- velocity = MIDI velocity
+
+小型 nested decoder 让后字段条件依赖于前字段，但 transformer 主干每个音只跑一次。
+
+## 一人工程的角度
+
+直觉上是 tokenization 决定一切。
+5 个 head 比单一 token 灵活，比 grammar-masked 快。
+
+具体设计：
+
+- field 间不是平等的「多 token」——是一个 token 里 5 段
+- 后字段条件依赖前字段（小 nested decoder）
+- 主干仍是标准的 autoregressive transformer
+
+需要的洞察：
+
+> 「怎么把多事件压成一个 token」是表征的核心。
+> 「让后字段条件依赖前字段」是表征的次要结构。
+> 「主干保持标准 transformer」是表征的安全护栏。
+
+OpenAI 训练 GPT-4 不会细抠每个 field 的表征。
+simedw 在 125M 模型上逼得抠每个 field 的表征。
+
+签名：solus opus。
