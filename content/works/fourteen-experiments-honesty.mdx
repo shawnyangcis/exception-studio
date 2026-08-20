@@ -1,0 +1,170 @@
+---
+title: "14 次实验公开记"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 把 14 次实验的结果全部公开，包括 7-8 项失败的。note-on/note-off 飘音、grammar-masked 慢、噪声数据没用、Mirostat 紊乱、born-again networks 没用…… 一人工程的诚实姿态——OpenAI 不会公开失败，simedw 全公开。"
+tags: ["一人工程", "实验", "失败", "诚实"]
+---
+
+# 14 次实验公开记
+
+> simedw GitHub README「Things that didn't work」段：
+> - note-on/note-off 表征飘音
+> - grammar-masked 慢
+> - 噪声数据放大没用
+> - Mirostat 减重复但紊乱
+> - extra local auxiliary 没收益
+> - 绝对 scalar 没有 pairwise 准
+> - 验证 loss 漏了 rollout 质量
+> - Born-again networks 没用
+
+simedw 的 14 次实验。
+其中大约一半失败。
+
+失败列表全在 README。
+每条都说「没用」。
+
+# OpenAI 怎么写论文
+
+OpenAI GPT-4 论文：
+
+- 训练了 6 个月
+- 用了几千张 H100
+- 失败的实验不写
+- 限制 (Limitations) 段只说「未来方向」
+
+OpenAI 不会写：
+
+- 「RLHF 第 3 个版本没收敛」
+- 「Constitutional AI 第 7 个 principle 不稳定」
+- 「我们试过但放弃了 X 个方法」
+
+OpenAI 只写成功的部分。
+失败的部分留到「future work」。
+
+# simedw 怎么写 README
+
+simedw 直接列失败：
+
+> 「Things that didn't work」段
+
+每项一行：
+
+- 「note-on/note-off 表征飘音」
+- 「grammar-masked 慢」
+- 「噪声数据放大没用」
+- 「Mirostat 减重复但紊乱」
+- 「extra local auxiliary 没收益」
+- 「绝对 scalar 没有 pairwise 准」
+- 「验证 loss 漏了 rollout 质量」
+- 「Born-again networks 没用」
+
+每项都说明「没用在哪里」。
+
+# 为什么 simedw 公开失败
+
+公开失败的好处：
+
+- 别人不用重做一样的实验
+- 别人知道哪些是死路
+- 自己的实验记录清楚
+- 用户知道模型边界的来源
+
+公开失败的代价：
+
+- 看起来不厉害
+- 看起来「试错多」
+- 看起来「不够专业」
+
+simedw 不在乎这些代价。
+
+# 一人工程的「失败 = 资产」
+
+simedw 的失败 = 资产：
+
+- 14 次实验 = 14 个数据点
+- 8 次失败 = 8 个公开警告
+- 6 次成功 = 6 个公开方法
+
+OpenAI 的失败 = 内部秘密：
+
+- 100 次实验 = 100 个数据点
+- 70 次失败 = 内部已知
+- 30 次成功 = 公开方法
+
+# 一人工程的全公开哲学
+
+simedw 的全公开：
+
+- 训练数据时间范围
+- 模型架构
+- 14 次实验
+- DPO 细节 + 数字
+- β=0.03 sweet spot
+- 失败列表
+- Apple 审核 11 天
+- 故意没读太多论文
+- RoPE ring buffer 失败原因
+
+这是「一人工程的诚实姿态」：
+
+- 不藏
+- 不装
+- 不美饰
+- 不假装只做对的
+
+# 一人工程 vs 大公司实验记录
+
+大公司实验记录：
+
+- 内部 wiki
+- 不公开
+- 成功 only
+- 「限制」段包装失败
+
+一人工程实验记录：
+
+- GitHub README
+- 公开
+- 成功 + 失败都列
+- 「没用」直接说
+
+# 一人工程的实验记录哲学
+
+simedw 的实验记录哲学：
+
+- 成功 → 公开
+- 失败 → 公开
+- 半成功 → 公开
+- 「不知道」 → 公开
+
+OpenAI 的实验记录哲学：
+
+- 成功 → 论文
+- 失败 → 不写
+- 半成功 → 包装
+- 「不知道」 → 包装
+
+两种哲学。
+两种方法论。
+两种透明度。
+
+# 一人工程的真实感
+
+simedw 的 README 给人「真实感」：
+
+- 14 次实验 = 真实
+- 8 次失败 = 真实
+- β=0.03 = 真实
+- Apple 审核 11 天 = 真实
+
+OpenAI 的论文给人「完美感」：
+
+- 0 次失败 = 完美
+- 100% 成功 = 完美
+- 未来还要更好 = 完美
+
+真实感让人信任。
+完美感让人怀疑。
+
+签名：solus opus。
