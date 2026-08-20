@@ -3,7 +3,7 @@ import { getWorks } from "@/lib/content";
 import { EntryCard } from "@/components/Meta";
 
 export const metadata: Metadata = {
-  title: "作品 · Exception Studio",
+  title: "作品 · 一人工程 · solus opus",
   description: "作品档案——图、音、诗、小项目。"
 };
 
