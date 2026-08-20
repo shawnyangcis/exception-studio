@@ -1,0 +1,224 @@
+---
+title: "笔记即论文"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 把 GitHub README 写成论文风格：训练数据、14 次实验、失败列表、量化细节、部署摩擦，全公开。GitHub README = 一人工程的论文版本。arXiv 不需要。"
+tags: ["一人工程", "README", "GitHub", "论文"]
+---
+
+# 笔记即论文
+
+> simedw 的 GitHub README：
+> 「Training data / Architecture / Evaluation / DPO / Deployment / Things that didn't work / Author stance」
+> 一篇完整的论文式笔记。
+
+simedw 的 midi-autocomplete GitHub README：
+
+- 不是常见「这个项目是啥 + 怎么用」
+- 是「我从数据到部署的全部过程」
+- 包含失败实验
+- 包含作者姿态
+- 包含后续计划
+
+这是论文结构。
+不是 readme 结构。
+
+# README 是什么
+
+普通 GitHub README：
+
+```
+# Project Name
+## What it does
+## How to install
+## How to use
+## License
+```
+
+标准 5 段。
+
+simedw 的 README：
+
+```
+# Title
+## 1. Training data
+## 2. Architecture
+## 3. 14 experiments
+## 4. DPO
+## 5. Evaluation
+## 6. Model variants
+## 7. Deployment
+## 8. Things that didn't work
+## 9. Author stance
+```
+
+论文结构 9 段。
+
+# 论文结构是什么
+
+arXiv 论文的结构：
+
+- Abstract
+- 1. Introduction
+- 2. Method
+- 3. Experiments
+- 4. Results
+- 5. Discussion
+- 6. Related Work
+- 7. Conclusion
+
+simedw 的 README 段落几乎一一对应：
+
+- README 开头 → Abstract
+- 「Training data」→ Method / Data
+- 「Architecture」→ Method / Model
+- 「Experiments」→ Experiments
+- 「Evaluation」→ Results
+- 「Deployment」→ Discussion / Engineering
+- 「Things that didn't work」→ Discussion / Limitations
+- 「Author stance」→ Conclusion / Discussion
+
+# 论文 vs README 的差异
+
+论文：
+
+- 8 页 + 附录
+- LaTeX
+- arXiv 编号
+- 同行评审
+- 发表会议 / 期刊
+
+README：
+
+- 1 页
+- Markdown
+- GitHub 仓库
+- 没人评审
+- 不需要发表
+
+差异是「渠道」，不是「内容」。
+
+simedw 的 README 内容 = 论文内容。
+simedw 的渠道 = GitHub，不是 arXiv。
+
+# 一人工程的 README 即论文
+
+simedw 选 GitHub 不选 arXiv 的原因：
+
+- arXiv 写完 8 页要 2 周
+- GitHub README 写完 9 段要 3 天
+- arXiv 论文是「给同行看」
+- GitHub README 是「给用户 + 同行 + 自己做记录」
+
+simedw 的优先级：
+
+1. 给用户（iPhone 钢琴用户）
+2. 给同行（AI researcher）
+3. 给自己（半年后回顾）
+
+arXiv 满足 2，不满足 1。
+GitHub README 满足 1 + 2 + 3。
+
+# 一人工程的全公开哲学
+
+simedw 的 README 公开了什么：
+
+- 训练数据时间范围（1990-2020 MIDI piano）
+- 模型架构（标准 decoder-only / RoPE / SwiGLU）
+- 14 次实验的细节
+- 失败实验的列表
+- β=0.03 / β=0.10 等具体数字
+- Apple 审核 11 天
+- RoPE ring buffer 没用 Core ML
+- deliberately 故意没读太多论文
+
+普通论文不会公开所有这些：
+
+- 不公开「故意没读太多论文」
+- 不公开「Apple 审核 11 天」
+- 不公开「哪些实验失败了」
+- 不公开「作者的真实姿态」
+
+simedw 全部公开。
+
+# 一人工程的诚实 README
+
+simedw 的诚实：
+
+- 「Things that didn't work」段列 7 项失败
+- 每项都说「没用」
+- 没说「将来可能 work」
+
+普通论文会：
+
+- 列失败实验但说「限制」
+- 加「future work」
+- 暗示「还在改进」
+
+simedw 直说：
+
+- 「没用」
+- 「慢」
+- 「飘音」
+- 「紊乱」
+- 「没收益」
+
+# 一人工程的 README 哲学
+
+simedw 的 README 哲学：
+
+- 我做啥 → 写啥
+- 我不成功啥 → 写啥
+- 我达到啥 → 写啥
+- 我姿态是啥 → 写啥
+
+这是「一人工程的全公开」：
+
+- 没人帮你包装
+- 没人帮你措辞
+- 没人帮你润色
+- 一个人 + 一个 README = 全部
+
+# GitHub README vs arXiv 论文
+
+GitHub README：
+
+- 免费
+- 即时
+- 自由修改
+- 读者：开发者 + 用户 + 你自己
+
+arXiv 论文：
+
+- 提交后不能改
+- 读者：researcher
+- 发表流程慢
+- 引用计数
+
+simedw 选 GitHub：
+
+- 即时修改
+- 自由 + 准确
+- 一个人 + 一个仓库
+
+simedw 不选 arXiv：
+
+- 6 个月才能发表
+- 「论文腔」要包装
+- 一个人 + 一个 paper
+
+# 一人工程的笔记即论文
+
+simedw 的姿态：
+
+> 我的 README 是我的论文。
+> 我的 GitHub commit history 是我的实验记录。
+> 我的失败列表是我的方法讨论。
+
+不需要 arXiv 编号。
+不需要同行评审。
+不需要「Published at NeurIPS 2026」。
+
+一个人 + 一个 README + 一个 GitHub = 一人工程的论文。
+
+签名：solus opus。
