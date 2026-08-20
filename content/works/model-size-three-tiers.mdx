@@ -1,0 +1,80 @@
+---
+title: "33M / 64M / 125M 三档"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的模型规模选择：medium 几乎总赢 small，large 略胜 medium 不惊艳。当前把 64M 压到接近 125M 质量以适配 iOS。"
+tags: ["一人工程", "模型规模", "MIDI", "部署"]
+---
+
+# 33M / 64M / 125M 三档
+
+> simedw 的模型规模笔记：
+> medium 几乎总赢 small。
+> large 略胜 medium 不惊艳。
+> 当前把 64M 压到接近 125M 质量以适配 iOS。
+
+三档模型：
+
+- small：33M
+- medium：64M
+- large：125M
+
+直觉：
+
+- 模型越大越好？
+- 125M 应该比 64M 好得多？
+
+实际：
+
+- medium vs small：medium 几乎总赢
+- large vs medium：large 略胜，不惊艳
+
+为什么 large 不惊艳：
+
+- 数据量有限（300M note events）
+- 数据质量已被清洗到天花板
+- 大模型没有更多数据学
+- 边际收益递减
+
+OpenAI 训练大模型的经验：
+
+- scaling law 持续到 100B+ 模型
+- 但需要 TB 级别数据
+- MIDI 数据量不够 100B 模型
+
+simedw 的数据：
+
+- 300M note events
+- 64M 模型已经能学完信息
+- 125M 模型稍好一点
+- 更大的模型边际收益接近 0
+
+## iOS 部署的现实
+
+125M 模型：
+
+- INT8 量化后 ~50 MB
+- iPhone 15 跑 108 notes/sec
+- 部署可行
+
+64M 模型：
+
+- INT8 量化后 ~25 MB
+- iPhone 15 跑更快
+- 部署更轻
+
+simedw 的选择：
+
+- 64M 是「质量 + 部署」的甜蜜点
+- 不是 small 因为质量不够
+- 不是 large 因为边际收益小
+
+# 一人工程的现实
+
+不是「越大越好」。
+是「刚好够 + 部署友好」。
+
+如果做云端 LLM，125M 不够看。
+如果做 iOS 部署，64M 是甜蜜点。
+
+签名：solus opus。
