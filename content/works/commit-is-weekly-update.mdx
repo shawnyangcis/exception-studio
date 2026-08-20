@@ -1,0 +1,51 @@
+---
+title: "commit 就是 weekly update"
+slug: "commit-is-weekly-update"
+date: 2026-08-21
+summary: "团队每周五 standup / sprint review：每个人汇报这周 ship 了 X、下周做 Y、blocker 是 Z。一人工程没有 weekly update meeting，commit message 取代了口头汇报。'feat: add bar/measure token' 这一行就是 simedw 的 weekly update。"
+cover: "/works/2026-08-21/apple-dawn-630.jpg"
+---
+
+周五下午三点，团队 standup。
+
+「这周 ship 了：bar/measure token 的 80%、reviewer comment 的 fix、CircleCI 升级。」
+
+「下周做：longer-term planning 的 prototype、parallel continuation UI 的 mock。」
+
+「Blocker：design 还没决定 UI 配色，等周一 sync。」
+
+一人工程没有 weekly update meeting。
+
+`git log --since="7 days ago" --oneline`：
+
+```
+a3f8b91c feat: add bar/measure token
+2c53bba5 feat: implement planning step (CoT)
+0436b9f5 feat: parallel continuation UI
+71018b30 fix: Vercel build cache miss
+1cfa3ff4 docs: update README with bar/measure token example
+5b81b67e feat: add bar/measure token planning
+```
+
+这五行就是 simedw 的 weekly update。每一行都是 simedw 自己写的，commit author 字段只有 simedw 一个名字。PM 不需要问「这周 ship 了什么」——`git log` 已经回答了。
+
+> 一人工程的 commit message 取代 weekly update meeting 的口头汇报。
+
+团队 standup 的存在是为了同步——五个工程师各自做不同的 feature，需要知道谁做了什么、谁卡在哪里、谁需要帮忙。一人工程不需要同步，因为只有一个人做所有 feature。commit message 是给自己看的备忘，不是给团队的 report。但 commit message **同时也是** report——它替代了 standup 的所有功能：状态、方向、blocker。
+
+simedw 写 `feat: implement planning step (CoT)` 这一行时，他同时在做三件事：
+1. 提交代码（commit）
+2. 记录决策（decision log）
+3. 给自己写 weekly update（status report）
+
+团队的 standup 把这三件事拆给三个人做：engineer 写 commit、PM 写 decision log、scrum master 写 status report。一人工程的三件事都在一个 commit message 里。
+
+vladislav-kalinkin 的 Ullis commit 也是同样姿态——「feat: add ternary gate」「fix: cargo doc typo」「docs: usage example」——每一行都是他对自己一周工作的备忘 + 决策记录 + 状态汇报。
+
+> 团队把三件事拆给三个人。一人工程把三件事压给一个 commit。
+
+simedw 不需要 weekly update meeting，因为 simedw 每周的「ship 了什么」已经被 git log 写清楚了。他只需要 `git log --since="7 days ago" --oneline` 就能看到自己的 weekly update——比 standup 更快、更准确、更诚实。
+
+因为 git log 不会撒谎。commit 写下来就是写了，没写就是没写。
+
+solus opus.
