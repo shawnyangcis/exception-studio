@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 test plan，我想测就测"
+slug: no-test-plan-i-just-test
+date: 2026-08-21
+description: "团队有 test plan / QA 团队 / test matrix / test case library / manual test cycle / regression test。solo engineer 没有 test plan，我自己测、边写边测、觉得够了就 commit。"
+tags: ["一人工程", "test-plan", "solo", "qa"]
+---
+
+团队有 test plan。
+
+QA 团队：专门测的人。test matrix：浏览器 / OS / 设备组合表。test case library：每个功能一组测试用例。manual test cycle：每版本人工跑一遍。regression test：每次 release 前跑全部测试。
+
+格式：Given / When / Then。覆盖率指标：80%、90%、95%。CI gate：覆盖率 < 80% 不能 merge。
+
+solo engineer 没有 test plan。
+
+我想测就测。
+
+我写完功能，自己开浏览器点一遍、看 commit message、跑一下 `npm test`、觉得够了就 `git commit`。commit 即 test plan、commit 即 coverage report、commit 即 QA sign-off。
+
+我没 QA 团队的必要——我自己就是 QA。我没 test matrix 的必要——只测我用的浏览器 + 我用的 OS。我没 coverage 指标的必要——覆盖率我自己心里有数。我没 CI gate 的必要——挂了立刻知道。
+
+团队的 test plan 价值是「确保质量可重复 + 多人协作」。前提是成员多、需要可重复流程、需要 regression safety net。solo engineer 没这个问题——我的代码我自己测、我自己 fix、挂了 `git revert`。
+
+一人工程的 test plan = 我开浏览器点一遍。不是 200 条 test case。
+
+---

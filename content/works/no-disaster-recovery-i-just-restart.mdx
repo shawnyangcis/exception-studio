@@ -1,0 +1,25 @@
+---
+title: "solo engineer 没有 disaster recovery，我自己 restart"
+slug: no-disaster-recovery-i-just-restart
+date: 2026-08-21
+description: "团队有 disaster recovery / DR plan / hot standby / cold standby / backup + restore / multi-region failover / RTO / RPO。solo engineer 没有 DR plan，我自己 restart 一下、或者 `git push` 重新部署。"
+tags: ["一人工程", "disaster-recovery", "solo", "incident"]
+---
+
+团队有 disaster recovery。
+
+DR plan：50 页 PDF，什么灾难下做什么。hot standby：另一个 region 同步运行，挂了切过去。cold backup：每天备份一次到 S3。restore drill：每季度演练一次。multi-region failover：us-east-1 挂了切到 us-west-2。RTO（recovery time objective）：4 小时。RPO（recovery point objective）：1 小时。
+
+solo engineer 没有 disaster recovery。
+
+我自己 restart。
+
+Vercel 挂了？等 Vercel 自己恢复。或者我重新 `git push`，Vercel 自动重新部署。数据库丢了？git history 是 backup——`git clone` 重新部署。
+
+我没 DR plan 的必要——灾难恢复 = `git push`。我没 hot standby 的必要——Vercel 是 SaaS，Vercel 自己管 standby。我没 cold backup 的必要——git history 是 backup，github.com 是 cold storage。我没 restore drill 的必要——恢复了就恢复了。
+
+团队的 DR 价值是「减少灾难下的停机时间 + 数据丢失」。前提是关键业务、SLA 承诺、需要快速恢复。solo engineer 没这个问题——我的站点挂了 1 小时，我自己知道；git 仓库在 GitHub，我自己知道。
+
+一人工程的 disaster recovery = `git push`。不是 50 页 PDF。
+
+---
