@@ -1,0 +1,39 @@
+---
+title: "我自己的 CS team"
+slug: "no-customer-success-team-i-am-cs"
+date: 2026-08-21
+summary: "团队有 3-tier customer support（L1/L2/L3）+ escalation policy + refund authority + CSAT score。一人工程没有 CS team——simedw 自己看 App Store reviews、回邮件、退款、escalate to 自己。用户得到的是 CEO-level support。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+团队有 customer success team。
+
+3-tier support：L1 接 first contact、读 runbook、refund < $50；L2 escalate、troubleshoot、refund < $500；L3 engineer tier、root cause、refund < $5000。escalation policy：30 分钟没响应升 L2、2 小时没响应升 L3、24 小时没响应升 engineering。CSAT score 季度 review，低于阈值开除 L1。
+
+一人工程没有 CS team。
+
+simedw 自己看 App Store reviews。凌晨两点，邮箱里一封：「RollTab crashes when I press too fast. Please fix.」simedw 醒来读邮件 → 打开 Crashlytics → 找到 stack trace → 写 `fix: crash on rapid section switch` → commit → push → 回邮件：「v1.4.1 will fix this. Thanks for reporting.」
+
+整个流程：simedw = CEO + engineer + L1 support + L2 escalation + L3 root cause + refund processor。
+
+> 一人工程没有 CS team，因为 engineer 自己就是 CS team。
+
+团队 CS team 的存在是为了**让 engineer 不直接面对用户**——engineer 专心写代码，CS 团队过滤 90% 用户问题、留 10% 真 bug 给 engineer。一人工程没有这个过滤层——所有用户问题直接到 simedw 邮箱。
+
+这意味着什么？意味着 simedw 每天处理 5-10 个 GitHub issue + App Store reviews + email。这些问题 80% 是「怎么用 X feature」（user error）、15% 是「我想要 Y feature」（feature request）、5% 是真 bug。simedw 自己 triage。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——Ullis 的 GitHub issues 几百条，vladislav 自己回。没有人过滤、没有人 escalate、没有人 tag。
+
+> 一人工程的用户得到的是 CEO-level support——simedw 自己回邮件，不是 L1 support 回邮件。
+
+这件事有 trade-off。优点：用户投诉直接到决策者，CEO-level response 速度 + 真解决方案。缺点：simedw 的时间被用户支持吃掉，写代码时间减少。
+
+团队 CS team 的 trade-off 反过来：engineer 时间最大化，但用户得到的是 L1-level support（"have you tried turning it off and on again?"）。
+
+solo engineer 接受这个 trade-off：30% 时间写代码、30% 时间用户支持、30% 时间营销/HN、10% 时间 oncall。
+
+git log 是 solo engineer 的 CS team 工作记录——`docs: update README with onboarding for new users` `fix: typo in error message that confused 5 users` ——这些 commit 是 simedw 处理用户问题的痕迹。
+
+solo engineer 的 CS team 是他自己。每封用户邮件都是一个 commit 的种子。
+
+solus opus.
