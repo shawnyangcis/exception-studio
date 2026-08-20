@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <>
       <section className="container-narrow pt-20 pb-12">
-        <p className="font-mono text-xs uppercase tracking-widest text-ink-500">Exception · 工作室 · 日记</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-ink-500">一人工程 · solus opus · 一人搞定所有事</p>
         <h1 className="mt-3 text-4xl md:text-6xl font-bold tracking-tight">
           今天 我让一只<span className="tape">粉猪从井盖里爬出来</span>。
         </h1>
