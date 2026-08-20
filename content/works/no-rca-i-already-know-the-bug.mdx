@@ -1,0 +1,304 @@
+---
+title: "RCA 不必要：我已经知道 bug"
+slug: "no-rca-i-already-know-the-bug"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "rca", "incident", "hn-show"]
+description: "大公司做 RCA：root cause analysis + 5 Whys + Fishbone diagram + incident postmortem + RCA document + 跨团队 review。一人工程：没有 RCA，自己知道 bug 怎么发生的。"
+summary: "solo engineer 没有 RCA。simedw 一个人 iPhone app——bug 发生时他自己知道怎么发生的，他知道 fix，他知道怎么避免下次。RCA 是大公司责任分配工具，一人工程的自己 = RCA。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 RCA。
+
+大公司做 RCA (root cause analysis)：
+
+- **incident 触发**：P0/P1 incident
+- **incident commander**：专门协调 incident 的人
+- **5 Whys**：问 5 次"为什么"找到 root cause
+- **Fishbone diagram**：鱼骨图列出所有可能 cause
+- **RCA document**：10 页 RCA doc（root cause / contributing factors / timeline / action items）
+- **跨团队 review**：5 个团队 review RCA
+- **action items**：每个 RCA 5-10 个 action items
+- **follow-up**：3 个月后检查 action items 完成度
+
+一人工程做 RCA：
+- 没有 incident commander
+- 没有 5 Whys
+- 没有 Fishbone diagram
+- 没有 RCA doc
+- 没有跨团队 review
+
+## simedw 的 RCA 哲学
+
+simedw 是 iPhone piano app。他没有 RCA：
+
+- **bug 发生时 simedw 自己知道怎么发生的**：simedw 写代码时知道每个 function
+- **simedw 知道 fix**：simedw 写代码时知道怎么改
+- **simedw 知道怎么避免下次**：simedw 写代码时知道 pattern
+- **simedw 不需要 5 Whys**：simedw 写完代码就知道 1 个 why
+- **simedw 不需要 Fishbone diagram**：simedw 写代码时只有 1 个 cause
+
+simedw 的"incident response"：
+
+- 用户 App Store 评论报 bug
+- simedw 看 Crashlytics + 复现
+- simedw 知道 bug 在哪里（自己的代码 = 自己的责任）
+- simedw 改 + 提交 + 加急审核 24 小时
+- simedw 写 commit message 说明 root cause + fix
+
+不需要 5 Whys，因为 simedw 写代码时已经知道 why。
+
+## 一人工程的 RCA 工具
+
+- **commit message**：root cause + fix（commit 时写清楚）
+- **git log**：bug fix 历史
+- **Crashlytics**：bug 复现数据
+- **App Store 评论**：用户报 bug
+- **HN 评论**：用户报 bug
+- **脑子**：simedw 写代码时知道为什么
+
+不需要 RCA doc，因为：
+- simedw 自己 = incident commander
+- simedw 自己 = root cause analyzer
+- simedw 自己 = RCA doc author
+
+## RCA 在大公司的政治
+
+RCA 不是工具——是**责任分配工具 + 政治工具**：
+
+- **incident commander**：要用 RCA 协调 incident response
+- **CTO**：要用 RCA 决定 budget（修 bug 的预算）
+- **VP**：要用 RCA 决定团队绩效（哪个团队出错）
+- **HR**：要用 RCA 决定晋升 / 解雇（哪个工程师出错）
+- **PM**：要用 RCA 知道 feature 何时 ready
+- **法务**：要用 RCA 决定 compliance / 诉讼
+- **销售**：要用 RCA 决定是否告诉客户
+
+每个 stakeholder 都要 RCA：
+
+- incident commander RCA = "我协调 incident"
+- CTO RCA = "我决定 budget"
+- VP RCA = "我决定团队绩效"
+- HR RCA = "我决定晋升"
+- PM RCA = "我知道 feature ready"
+- 法务 RCA = "我决定诉讼"
+- 销售 RCA = "我知道告诉客户"
+
+没有 RCA = 没有责任分配 = 没有 stakeholder 同意。
+
+一人工程没有 stakeholder：
+- 开发者 = incident commander = CTO = VP = HR = PM = 法务 = 销售
+- 一个人责任
+- 不需要 RCA
+
+## incident commander 在大公司的必要性
+
+大公司有 incident commander——专门协调 incident 的人：
+
+- **incident 时长**：P0 = 24/7 oncall，P1 = 工作时间
+- **incident commander 职责**：协调 5-10 个工程师修复 + 沟通 stakeholder + 写 incident timeline
+- **incident commander SLA**：P0 incident 5 分钟内 ACK，30 分钟内 mitigation
+- **incident commander 工具**：PagerDuty / Opsgenie / FireHydrant
+
+每个 incident commander：
+
+- 7×24 oncall（轮值）
+- 每次 incident 协调 1-3 小时
+- 每次 incident 写 timeline
+
+一人工程没有 incident commander。一人工程有：
+
+- **simedw 自己就是 incident commander**：simedw 看 Crashlytics + 自己响应
+- **simedw 不需要 7×24 oncall**：simedw 不需要 oncall（iPhone app 没有 oncall）
+- **simedw 不需要 SLA**：simedw 没有 SLA 承诺
+
+## 5 Whys 在大公司的细节
+
+大公司 5 Whys——问 5 次"为什么"找到 root cause：
+
+```
+Incident: 用户看到错误信息
+Why 1: 为什么用户看到错误信息？因为后端 API 返回 500
+Why 2: 为什么 API 返回 500？因为 database query 超时
+Why 3: 为什么 query 超时？因为 query 没有 index
+Why 4: 为什么没有 index？因为 schema migration 时漏加
+Why 5: 为什么 schema migration 漏加？因为 migration 脚本没 review
+Root cause: migration 脚本没 review
+Action item: 所有 migration 必须 PR review
+```
+
+每个 5 Whys：
+
+- 1 小时 meeting
+- 5-10 个工程师参与
+- 找 1 个 root cause
+
+一人工程没有 5 Whys。一人工程有：
+
+- **simedw 写代码时知道 why**：simedw 写代码时知道每个 why
+- **simedw 不需要 meeting**：simedw 自己 = meeting
+- **simedw 不需要 5 个 why**：simedw 写完代码就知道 1 个 why
+
+5 Whys 在一人工程里 = **simedw 写代码时知道 1 个 why**。
+
+## Fishbone diagram 在大公司的细节
+
+大公司 Fishbone diagram（鱼骨图）——列出所有可能 cause：
+
+- **主要骨头**：method / machine / material / measurement / man / mother nature
+- **次要骨头**：每个主要骨头下列出可能 cause
+
+每个 Fishbone diagram：
+
+- 1 小时画
+- 5-10 个工程师 brainstorm
+- 列 20-50 个可能 cause
+
+一人工程没有 Fishbone diagram。一人工程有：
+
+- **simedw 写代码时知道 cause**：simedw 写代码时知道所有可能 cause
+- **simedw 不需要 brainstorm**：simedw 自己 = brainstorm
+- **simedw 不需要 20-50 个 cause**：simedw 写完代码就知道 1 个 cause
+
+## RCA document 在大公司的细节
+
+大公司 RCA document——10 页 RCA doc：
+
+- **executive summary**：1 页总结（CEO / VP 看）
+- **timeline**：详细时间线（incident 发生 → 发现 → 修复 → 关闭）
+- **root cause**：1-2 个 root cause
+- **contributing factors**：3-5 个 contributing factors
+- **what went well**：1 页
+- **what went poorly**：1 页
+- **action items**：5-10 个 action items（每个 owner + deadline）
+- **follow-up**：3 个月后检查
+
+每个 RCA doc：
+
+- 10 页
+- 写 1 周
+- 跨团队 review
+
+一人工程没有 RCA doc。一人工程有：
+
+- **simedw 的 commit message**：root cause + fix（commit 时写清楚）
+- **simedw 的 git log**：bug fix 历史
+- **simedw 不需要 10 页 doc**：simedw 写 1 个 commit message 就够
+
+## action items 在大公司的细节
+
+大公司 action items——RCA 后 5-10 个 action items：
+
+- **action item 1**：所有 migration 必须 PR review（owner: VP Eng, deadline: 2 周）
+- **action item 2**：CI 加 coverage gate（owner: SRE, deadline: 1 个月）
+- **action item 3**：incident response training（owner: HR, deadline: 3 个月）
+- **action item 4**：database 监控（owner: DBA, deadline: 1 个月）
+- **action item 5**：客户通知 template（owner: PM, deadline: 2 周）
+
+每个 action item：
+
+- owner（具体人）
+- deadline（具体日期）
+- follow-up（3 个月后检查）
+
+一人工程没有 action items。一人工程有：
+
+- **simedw 自己决定 fix 后的下一步**：simedw 改完 bug 就知道下一步
+- **simedw 不需要 owner**：simedw 自己 = owner
+- **simedw 不需要 deadline**：simedw 自己决定何时
+
+## 跨团队 review 在大公司的细节
+
+大公司跨团队 review——5 个团队 review RCA：
+
+- **工程团队**：技术 review（root cause 对不对）
+- **SRE 团队**：流程 review（incident response 对不对）
+- **QA 团队**：test review（为什么 test 没抓到）
+- **PM 团队**：产品 review（feature 怎么这么脆弱）
+- **HR 团队**：人员 review（哪个工程师出错）
+
+每个跨团队 review：
+
+- 1-2 小时 meeting
+- 5 个团队
+- 每个团队 1-2 个 reviewer
+
+一人工程没有跨团队 review。一人工程有：
+
+- **simedw 自己 review**：simedw 写代码时自己 review
+- **simedw 自己 = 5 个团队**：simedw 自己 = 工程 + SRE + QA + PM + HR
+- **simedw 不需要 1-2 小时 meeting**：simedw 写代码时已经 review
+
+## 一人工程的 RCA 哲学
+
+大公司 RCA 是因为他们有：
+
+- 100 个工程师（需要协调 incident）
+- 10 个 incident commander（专门协调）
+- 5 个 SRE（专门 review 流程）
+- 1 个 CTO（需要决定 budget）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 incident commander（自己就是 incident commander）
+- 0 个 SRE（自己就是 SRE）
+- 0 个 CTO（自己就是 CTO）
+
+RCA 在一人工程里 = **simedw 写代码时知道 root cause**。
+
+## 我就是 RCA
+
+大公司 RCA 是**多角色协作的**：
+
+- incident commander 协调
+- 5 个 Whys analyzer 问 why
+- Fishbone team brainstorm
+- RCA doc author 写 doc
+- 5 个团队 review
+- 5-10 个 action item owner 执行
+
+一人工程 RCA 是**一个人做的**：
+
+- simedw 自己协调（看 Crashlytics）
+- simedw 自己问 why（写代码时知道）
+- simedw 自己 brainstorm（写代码时知道所有 cause）
+- simedw 自己写 RCA doc（commit message）
+- simedw 自己 review（写代码时 review）
+- simedw 自己执行 action item（下次 commit 改）
+
+没有 incident commander，没有 Whys analyzer，没有 Fishbone team。
+
+## 公开 vs 私有 RCA
+
+大公司 RCA 是**半公开**：
+
+- RCA doc 公开（公司内部）
+- timeline 公开（团队内部）
+- action items 公开（团队内部）
+
+一人工程 RCA 是**完全公开**：
+
+- commit message 公开（GitHub 公开）
+- git log 公开（GitHub 公开）
+- HN 评论公开（HN 公开）
+
+simedw 的 RCA 通过 commit message + git log 公开——所有 bug fix + root cause 都公开。
+
+## 一人工程 + 我已经知道 bug
+
+simedw 不做 5 Whys。
+simedw 不做 Fishbone diagram。
+simedw 不做 RCA doc。
+simedw 不做跨团队 review。
+simedw 写代码时知道 bug 怎么发生。
+
+RCA 在一人工程里不是流程，是**simedw 写代码时已经知道**。
+
+---
+
+solo engineer 没有 RCA。
+solo engineer 的 RCA = 写代码时知道 root cause。
+
+solus opus.
