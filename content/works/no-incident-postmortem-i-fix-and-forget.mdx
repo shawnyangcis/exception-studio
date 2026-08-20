@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 incident postmortem，我自己修然后忘"
+slug: no-incident-postmortem-i-fix-and-forget
+date: 2026-08-21
+description: "团队有 incident postmortem / RCA / blameless review / 5-whys / corrective action / prevention plan。solo engineer 没有 postmortem，我自己 fix 完就忘，反正不会再发生。"
+tags: ["一人工程", "postmortem", "solo", "incident"]
+---
+
+团队有 incident postmortem。
+
+事故结束后 48 小时内写一份 postmortem：时间线、根因（RCA）、5 whys、blameless review、corrective action、prevention plan、owner、deadline。每季度汇总进 risk register。
+
+格式：What happened / Why / How we fixed / How we'll prevent。发给所有 stakeholder、贴在团队 wiki、订阅者收到。
+
+solo engineer 没有 incident postmortem。
+
+我自己修然后忘。
+
+事故发生 → `git revert` 一个 commit → push → Vercel 部署修复版 → 关掉屏幕 → 忘。原因我知道：那次 commit 写错了。不会再发生，因为我下次写之前会想 5 秒。
+
+我没 RCA 的必要——根因就是「我写错了」。我没 blameless review 的必要——就我一个人，没人 blame。我没 corrective action 的必要——下次写之前想 5 秒就够了。我没 prevention plan 的必要——5 秒思考不需要 plan。
+
+团队的 postmortem 价值是「避免同类事故再发」。前提是事故可复现、原因复杂、需要系统性改进。solo engineer 没这个问题——我的事故都是简单的「我写错了」，下次不会写错。
+
+一人工程的 postmortem = `git revert`。不是 10 页 RCA 报告。
+
+---
