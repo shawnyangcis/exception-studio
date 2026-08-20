@@ -1,0 +1,33 @@
+---
+title: "git revert 就是 feature flag"
+slug: "no-feature-flag-git-revert-is-feature-flag"
+date: 2026-08-21
+summary: "团队有 LaunchDarkly / Split.io feature flag——10% 灰度、50% 灰度、100% 全量、kill switch、targeting rules。一人工程没有 feature flag——simedw ship 直接 100% 全量，rollback 是 git revert。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队发新 feature 用 feature flag 包起来。
+
+LaunchDarkly / Split.io / 自建 flag system——每个新 feature 包在 `if (flag.isEnabled("new-feature"))` 后面。发布流程：先 1% 内部 dogfooding → 10% 灰度 → 50% 灰度 → 100% 全量。每步灰度观察 Crashlytics、conversion、SLO 指标。发现 regression → kill switch 立即关闭 feature，不需要 app release。
+
+feature flag 的存在是为了**让 ship 速度与 safety 解耦**——ship 一次新 code，但通过 flag 控制实际激活比例。一人工程没有 feature flag。
+
+simedw ship 新 feature 直接 100% 全量——App Store 提交、review、release、所有用户立刻看到。如果发现 crash → git revert + 提交新版本（1-3 天 App Store review）。
+
+> 一人工程的 feature flag 是 git revert + App Store emergency release，不是 LaunchDarkly。
+
+团队 feature flag 的存在是因为**一次 release 风险太大**——5 个工程师、SLO 99.99%、用户群大、regression 成本高，需要灰度 + kill switch 兜底。一人工程 simedw 的 release 风险相对小：RollTab 用户群小、simedw 自己先 dogfooding、ship 后 simedw 自己 monitor Crashlytics。
+
+vladislav-kalinkin 的 Ullis 没有 feature flag——vladislav ship `cargo publish`，所有 crates.io 用户立刻收到。如果 vladislav 发现 bug → `cargo yank`（紧急撤回）+ `cargo publish --version 0.3.1` 修。
+
+andalabx 的 Clean skill 没有 feature flag——andalabx ship 一次性 5.3 GB release，所有 GitHub sponsors 立刻收到。
+
+> 团队的 feature flag 让 release 风险可分批承担。一人工程的 git revert 让 release 风险一次性承担，靠 simedw 自己 dogfooding + post-release monitor。
+
+trade-off：团队 feature flag 灰度降低 regression 风险但工程成本高（flag system + targeting rules + monitoring）。一人工程 git revert 让 simedw ship 更快但 regression 风险集中在 release 那一刻。
+
+solo engineer 接受这个 trade-off——simedw 自己 dogfooding + monitor Crashlytics 是 release 后唯一的 safety net。
+
+solo engineer 的 feature flag 是 git revert。flag off = `git revert <commit>`。flag on = `git revert <revert-commit>`。
+
+solus opus.
