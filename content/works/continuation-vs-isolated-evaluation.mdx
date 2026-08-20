@@ -1,0 +1,73 @@
+---
+title: "continuation vs isolated 评估"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 后期评估拆成两个维度：continuation 跟 prompt 的接续度 vs isolated 听觉质量。DPO 主要用前者。这是 simedw 评估笔记的精细化。"
+tags: ["一人工程", "评估", "DPO", "MIDI"]
+---
+
+# continuation vs isolated 评估
+
+> simedw 评估笔记的精细化：
+> 拆成两个维度——continuation 跟 prompt 的接续度 vs isolated 听觉质量。
+> DPO 主要用前者。
+
+LLM 评估的传统做法：
+
+- 一个标量分数
+- 越高越好
+
+simedw 的精细化：
+
+- 拆成两个维度
+- continuation 跟 prompt 的接续度
+- isolated 听觉质量
+
+为什么拆：
+
+- rollout 接续度：模型是否在「接着已有风格」
+- rollout 听觉质量：模型生成的 MIDI 本身是否好听
+
+两个维度：
+
+- 接续好 + 听觉差：模型能跟 style，但风格本身差
+- 接续差 + 听觉好：模型生成了好听的 MIDI，但不是 prompt 的延续
+- 接续好 + 听觉好：最佳
+- 接续差 + 听觉差：明显失败
+
+DPO 训练的偏好：
+
+- continuation 接续度
+- 「接得好」vs「接得差」
+- 这是 chosen vs rejected 的核心区别
+
+为什么 DPO 主要用前者：
+
+- isolated 听觉质量 = 数据质量的事
+- continuation 接续度 = 模型的事
+- DPO 训的是「模型」
+- 不是训数据
+
+# 一人工程的精细化
+
+不是「一个分数」。
+是「多个维度」。
+
+OpenAI RLHF：
+
+- 一个 reward model
+- 一个标量分数
+- 训练 PPO 拟合 reward
+
+simedw DPO：
+
+- continuation 偏好对
+- chosen vs rejected
+- 训练 DPO 拟合偏好
+
+精细化不同：
+
+- OpenAI：标量 + 拟合
+- simedw：拆维度 + 偏好
+
+签名：solus opus。
