@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container-wide py-4 flex items-center justify-between">
             <Link href="/" className="no-underline font-bold text-lg flex items-center gap-2">
               <span aria-hidden>🐷</span>
-              <span>Exception Studio</span>
+              <span>一人工程 · solus opus</span>
             </Link>
             <nav className="flex gap-5 text-sm font-mono">
               <Link href="/works" className="no-underline hover:text-ink-700">作品</Link>
