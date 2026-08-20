@@ -1,0 +1,165 @@
+---
+title: "solo engineer 没有 status page：推特就是 status page"
+slug: no-status-page-the-tweet-is-status-page
+date: 2026-08-21
+tags: [one-man-project, status-page, twitter, incident, simedw]
+summary: "大公司的 incident 流程：statuspage.io + oncall rotation + customer email + Slack war room。simedw 的 incident 流程：app 挂了 → 推特发一条 → 用户看到。中间没有专门的 status page，没有 oncall 排班，没有客户邮件模板。推特就是 status page——公开、即时、不可美化。"
+---
+
+大公司 app 出问题后的标准流程：
+
+1. oncall 收到 PagerDuty 报警
+2. 拉 Slack war room
+3. 更新 statuspage.io（"我们正在调查" → "已识别 → "已修复"）
+4. 发 customer email
+5. 写 incident postmortem
+6. 归档到内部 wiki
+
+每一步都有专门的工具、专门的团队、专门的措辞模板。
+
+simedw app 出问题后的标准流程：
+
+1. 看到用户 HN 评论里说 app 挂了
+2. 推特发一条：「just shipped a fix for X, was a bad Core ML conversion on iPad 2」
+3. 用户回推：「thanks, working now」
+4. 完
+
+## 推特就是 status page
+
+推特作为 status page 的几个特征：
+
+- **公开**：所有人看到，不分 paid/unpaid 用户
+- **即时**：发推只要 30 秒，写 statuspage.io 公告要 5 分钟
+- **不可美化**：140 字符塞不下「我们正在与第三方供应商协同调查」，只能写「app broken, working on it」
+- **可对话**：用户直接回复，不像 statuspage 是单向广播
+- **无 SLA**：没有「99.95% uptime」承诺，挂了就是挂了
+- **可追溯**：时间线就是 timeline，不用专门做 incident timeline
+
+## 为什么大公司不能这样做？
+
+因为：
+
+- 大公司有**付费用户**——他们期待专门的 status page、专门的客户邮件、专门的 SLA 赔付
+- 大公司有**公关压力**——推特上随意说话可能影响股价
+- 大公司有**多个 stakeholder**——需要 PM/CS/Sales 都同步
+- 大公司有**oncall 轮班**——凌晨 3 点出问题的不是你，是 oncall，他没义务用个人推特发声
+
+simedw 没有这些问题：
+
+- 用户免费用 simedw app，没有付费 SLA
+- simedw 不上市，公关压力 = 0
+- simedw 是 stakeholder 自己，PM/CS/Sales 都是他
+- simedw 没有 oncall，他自己接报警
+
+## 「公开喊话」作为 incident response
+
+simedw 的推特是**带 accountability 的 incident response**：
+
+- 公开 = 不能装没事
+- 时间戳 = 不能篡改时间线
+- 评论 = 用户反馈直接进入 incident loop
+- 推文存档 = 自动 postmortem 草稿
+
+这是大公司花大钱买不到的 incident response 透明度。
+
+## 对照表
+
+| | 大公司 status page | simedw 推特 |
+|---|---|---|
+| 工具 | statuspage.io | Twitter / X |
+| 撰稿人 | oncall + comms | simedw 本人 |
+| 受众 | 区分 paid/free | 所有人 |
+| 时延 | 5-15 分钟 | 30 秒 |
+| SLA 措辞 | "investigating" / "identified" / "fixed" | "broken" / "fixed" |
+| Postmortem | 内部 wiki，保密 90 天 | 推文永久公开 |
+| 客户对话 | 客服邮件 / portal | 推文回复 |
+| 凌晨 3 点 | oncall 处理 | simedw 处理 |
+| 道歉模板 | 标准化 | 真人手写 |
+
+## 「公开喊话」的隐藏 cost
+
+推特做 status page 不是没代价：
+
+- **声誉风险**：每次事故都公开，等于公开承认失败史
+- **没有 PR 过滤**：你不会在 status page 写「我们服务器挂了因为实习生 rm -rf」，但你可能在推特上开玩笑这么说
+- **被截图滥用**：竞争对手可以截图做负面营销
+- **无法撤回**：推文删了也已经被 archive 了
+
+simedw 的应对：
+
+- 公开失败 = 公开进步，每次事故 postmortem 都是技术博客素材
+- 没有 PR 过滤 = 真实，反而建立 trust
+- 截图滥用 = 反正 app 是免费的，不存在「企业形象」要维护
+- 无法撤回 = 不打算撤回，事故是工程的一部分
+
+## 一人工程的姿态
+
+status page 不是产品特性。status page 是**团队协作的妥协工具**。
+
+- 100 个工程师的产品 → 必须有 status page，否则用户不知道挂没挂
+- 1 个工程师的产品 → 他自己知道挂没挂，发条推特告诉用户就行
+- 「investigating / identified / fixed」三段式 → 给大公司 oncall 一个标准化的「我还在」信号
+- 「app broken, fixing now」两段式 → 给一人工程一个真实的「我在干活」信号
+
+gradual rollout / status page / oncall rotation / incident commander —— 全是**为团队协作发明的工具**。
+
+一人工程不需要这些。一人工程需要的是**让一个真人对一群真人说话**。
+
+推特就是这个「一对多真人通道」。
+
+## Cloudflare 2017 vs simedw 2026
+
+2017 年 Cloudflare 一个 Memcached bug 暴露了客户的敏感数据。Cloudflare 用 status page + blog post + 30 天调查 + 90 天 postmortem 处理。流程完美，措辞得体。
+
+但用户还是觉得 Cloudflare 隐瞒了什么——因为整个过程是「controlled disclosure」。
+
+simedw 如果出类似事故：
+
+- 推特：「bad Core ML conversion leaked piano input to server logs, fixed in 0.4.7」
+- 用户：「thanks for being direct」
+- HN 评论：「this is how all incident response should look」
+
+**直接 > 流程。透明 > 控制。**
+
+## 推特作为 status page 的局限
+
+- 推文**不会被用户主动订阅**——除非关注 simedw
+- 推文**没有 status 聚合视图**——要翻时间线
+- 推文**没有 RSS 喂给 status 监控**——statuspage.io 可以
+- 推文**没有 SLA 赔付机制**——这是付费产品的 feature，免费产品不需要
+
+所以推特 = 75% 的 status page 功能 + 100% 的真实感 + 0% 的形式。
+
+一人工程选 75% + 100% + 0%，不选 100% + 0% + 100%。
+
+## 反例：必须 status page 的场景
+
+推特**不是**万能的：
+
+- 银行 app 出问题 → 不能发推「转账挂了」，用户要打电话给客服
+- 医疗 app 出问题 → 不能发推「CT 扫描结果算错了」，有法律责任
+- 工业控制 app 出问题 → 不能发推「反应炉温度显示错了」，可能死人
+
+simedw 的 piano app：
+
+- 出问题 → 钢琴响错音
+- 不致命
+- 不违法
+- 不影响人身安全
+- 公开喊话 = 完全合适的 incident response
+
+**推特是 status page 的子集，但只适用于「出错不致命」的产品。**
+
+## 一人工程的 status page 选型
+
+- 致命 → 没法一人做
+- 违法 → 没法一人做
+- 公开喊话 OK → 推特
+- 公开喊话不够 → 加一个 GitHub issue 当 status 补充
+- 需要 SLA → 不做一人工程
+
+simedw 在「公开喊话 OK」这个象限，所以推特就够。
+
+---
+
+solus opus.
