@@ -1,0 +1,296 @@
+---
+title: "Multi-region 不必要：我就是 region"
+slug: "no-multi-region-i-am-the-region"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "multi-region", "failover", "hn-show"]
+description: "大公司做 multi-region：us-east-1 + us-west-2 + eu-west-1 + ap-southeast-1 + 跨 region replication + Route 53 latency-based routing + 跨 region failover。一人工程：没有 multi-region，iPhone app 本地运行。"
+summary: "solo engineer 没有 multi-region。simedw 一个人 iPhone app——100 个用户 = 100 个地区，每个 iPhone 自己处理请求。multi-region 是大公司容灾工具，一人工程的 iPhone = 全球分布。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 multi-region。
+
+大公司做 multi-region：
+
+- **us-east-1 + us-west-2 + eu-west-1 + ap-southeast-1**：4+ 个 region
+- **跨 region replication**：database / storage / config 跨 region 同步
+- **Route 53 latency-based routing**：根据用户位置路由到最近的 region
+- **跨 region failover**：us-east-1 down → 自动 failover 到 us-west-2
+- **active-active**：所有 region 同时服务
+- **active-passive**：us-east-1 主 + us-west-2 备份
+
+一人工程做 multi-region：
+- 没有跨 region replication
+- 没有 Route 53
+- 没有跨 region failover
+- 没有 active-active / active-passive
+
+## simedw 的 multi-region 哲学
+
+simedw 是 iPhone piano app。他没有 multi-region：
+
+- **simedw 没有 server**：iPhone app 本地运行，没有 region
+- **simedw 的 app 全球分布**：每个用户的 iPhone = 一个 "region"，100 用户 = 100 个 "region"
+- **simedw 没有跨 region 同步**：iPhone app 状态在用户 iPhone 本地，不需要跨 region 同步
+- **simedw 没有跨 region failover**：iPhone app 本地运行，不会"down"
+- **simedw 没有 latency routing**：iPhone app 没有网络延迟
+
+simedw 的"multi-region"在苹果 App Store + iPhone OS：
+
+- **App Store 全球分发**：苹果在 175+ 国家分发
+- **iPhone 本地运行**：每个 iPhone 独立处理请求
+- **iPhone OS 自动更新**：用户 iPhone 自动下载新版本
+- **iPhone 离线可用**：iPhone app 没有网络也可用
+
+不需要 AWS multi-region，因为：
+- simedw 没有 server
+- iPhone app 本地运行 = 0 网络依赖
+- 每个 iPhone = 全球分布的"region"
+
+## 一人工程的 multi-region 工具
+
+- **App Store**：全球分发（= global multi-region）
+- **iPhone OS**：本地运行（= region = 每个用户）
+- **Core ML**：本地推理（= 每个 iPhone 独立 model）
+- **TestFlight**：beta 测试（= canary region）
+
+不需要 AWS multi-region，因为 iPhone app 没有 server。
+
+## AWS multi-region 在大公司的细节
+
+大公司 AWS multi-region：
+
+- **us-east-1**：美国东部（N. Virginia）
+- **us-west-2**：美国西部（Oregon）
+- **eu-west-1**：欧洲（Ireland）
+- **ap-southeast-1**：亚太（Singapore）
+- **4+ region 同时服务**：每个 region 有独立 server + database
+
+每个 region：
+
+- 100 台 server
+- $10k / 月
+- 5 个 SRE 维护
+
+一人工程没有 AWS multi-region。一人工程有：
+
+- **simedw iPhone = 175+ region**：每个用户的 iPhone = 一个 region
+- **simedw 0 美元 / 月**：iPhone app 没有 region 成本
+- **simedw 0 个 SRE**：simedw 自己 = SRE
+
+## 跨 region replication 在大公司的细节
+
+大公司跨 region replication：
+
+- **database replication**：Aurora Global Database 跨 region async replication
+- **storage replication**：S3 Cross-Region Replication
+- **config replication**：Route 53 + ACM cert 跨 region
+- **async replication**：跨 region 同步有延迟（1-5 秒）
+
+每个跨 region replication：
+
+- 几 TB / 天数据同步
+- $XXX - $XXX,XXX / 月
+- 跨 region 延迟
+
+一人工程没有跨 region replication。一人工程有：
+
+- **simedw 没有 database**：iPhone app 没有 server database
+- **simedw iPhone 本地存储**：用户数据在用户 iPhone 本地
+- **simedw 不需要同步**：iPhone app 状态本地，不需要跨 region 同步
+
+## Route 53 latency-based routing 在大公司的细节
+
+大公司 Route 53 latency-based routing：
+
+- **DNS 智能路由**：根据用户位置路由到最近的 region
+- **us-east-1 → 50ms**：美国用户
+- **eu-west-1 → 50ms**：欧洲用户
+- **ap-southeast-1 → 50ms**：亚太用户
+- **failover**：us-east-1 down → 切到 us-west-2
+
+每个 Route 53：
+
+- $0.50 / 月 / hosted zone
+- $0.40 / 百万 query
+- 全球 anycast 网络
+
+一人工程没有 Route 53。一人工程有：
+
+- **simedw iPhone app 没有 DNS**：iPhone app 没有 domain
+- **simedw 没有网络延迟**：iPhone 本地运行 = 0 ms 延迟
+- **simedw 不需要 failover**：iPhone app 本地运行，不会"down"
+
+## 跨 region failover 在大公司的细节
+
+大公司跨 region failover：
+
+- **us-east-1 down → us-west-2**：primary down → 自动切到 backup
+- **RPO** (Recovery Point Objective)：最多丢失 X 分钟数据
+- **RTO** (Recovery Time Objective)：最多 X 分钟恢复
+- **RPO = 0**：zero data loss（同步复制）
+- **RTO = 0**：zero downtime（active-active）
+
+每个跨 region failover：
+
+- 几小时到几天配置
+- $XXX,XXX / 月成本（双 region 资源）
+- 5 个 SRE 维护
+
+一人工程没有跨 region failover。一人工程有：
+
+- **simedw iPhone app 不能 down**：iPhone app 本地运行，永远能打开
+- **simedw 不需要 RPO / RTO**：iPhone app 没有数据丢失
+- **simedw 不需要双 region**：iPhone app 没有 region 成本
+
+## active-active vs active-passive 在大公司的细节
+
+大公司 active-active vs active-passive：
+
+- **active-active**：所有 region 同时服务（每个 region 接收 1/N 流量）
+  - 优点：零 downtime（一个 region down，其他 region 继续服务）
+  - 缺点：成本 2x（双 region 资源）
+- **active-passive**：primary region 服务 + backup region 待机
+  - 优点：成本 1.x（backup 不接流量）
+  - 缺点：primary down → failover 时间（几秒到几分钟）
+
+一人工程没有 active-active vs active-passive。一人工程有：
+
+- **simedw 100 个 iPhone = active-active**：100 个 iPhone 同时服务（每个用户独立）
+- **simedw 没有 backup**：iPhone app 不需要 backup region（本地运行）
+- **simedw 0 成本**：iPhone app 没有 region 成本
+
+## 多 region 数据库复制在大公司的细节
+
+大公司多 region database：
+
+- **Aurora Global Database**：跨 region async replication（典型延迟 1 秒）
+- **DynamoDB Global Tables**：跨 region multi-active
+- **Spanner**：全球分布式 strong consistency
+- **CockroachDB**：跨 region distributed SQL
+
+每个 multi-region database：
+
+- $XXX - $XXX,XXX / 月
+- 跨 region 流量成本
+- 跨 region 延迟（1-5 秒）
+
+一人工程没有 multi-region database。一人工程有：
+
+- **simedw iPhone 本地存储**：用户数据在用户 iPhone 本地
+- **simedw 没有跨 region 同步**：iPhone app 状态本地
+- **simedw 0 数据库成本**：iPhone app 没有 server database
+
+## 多 region cost 在大公司的细节
+
+大公司 multi-region cost：
+
+- **4 region × 100 server = 400 server**：$40k / 月
+- **4 region × database = 4 database**：$2k / 月
+- **跨 region traffic**：$XXX / 月
+- **Route 53 + ACM**：$XXX / 月
+- **总成本**：~$50k / 月
+
+每个 multi-region cost：
+
+- $50k / 月（4 region）
+- 5 个 SRE 维护
+- 100 万用户服务
+
+一人工程没有 multi-region cost。一人工程有：
+
+- **simedw 0 美元 / 月**：iPhone app 没有 server
+- **simedw 0 个 SRE**：simedw 自己 = SRE
+- **simedw 100 用户**：simedw 服务 100 用户，0 cost
+
+## 跨 region 合规在大公司的细节
+
+大公司跨 region 合规：
+
+- **GDPR**：欧洲用户数据必须留在欧洲（eu-west-1）
+- **CCPA**：加州用户数据必须留在美国
+- **数据主权**：中国用户数据必须留在中国
+- **跨 region 数据传输**：必须加密 + 审计
+
+每个跨 region 合规：
+
+- 5 个法务
+- 5 个 compliance officer
+- $XXX,XXX / 年合规审计
+
+一人工程没有跨 region 合规。一人工程有：
+
+- **simedw iPhone 本地存储**：用户数据在用户 iPhone 本地，没有跨 region
+- **simedw 没有 GDPR 问题**：iPhone app 本地数据 = 数据不出 iPhone
+- **simedw 0 法务**：simedw 自己 = 法务
+
+## iPhone app vs server 的 multi-region 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：100 万用户 web 请求 → 4 region 分流
+- **iPhone app**：100 用户本地运行 → 100 iPhone = 100 region
+
+simedw 的 iPhone piano app：
+
+- 100 个用户 = 100 个 iPhone = 100 个 region
+- 每个 iPhone 独立处理请求（不需要跨 region 同步）
+- iPhone app 没有"down"（本地运行）
+- iPhone app 没有 latency（本地运行 = 0 ms）
+
+不需要 AWS multi-region，因为：
+- simedw 的 app 没有 server
+- iPhone 本地运行 = 全球 distributed
+- App Store 全球分发 = global multi-region
+
+## 一人工程的 multi-region 哲学
+
+大公司 multi-region 是因为他们有：
+
+- 100 万用户 web 请求（需要多 region 容灾）
+- 1000 RPS / region（需要分流）
+- $50k / 月 multi-region 成本
+- 5 个 SRE 维护 multi-region
+
+一人工程没有这些。一人工程有：
+
+- 100 用户 iPhone app（每个 iPhone = 一个 region）
+- 10 RPS / iPhone（本地处理，不需要分流）
+- $0 / 月 multi-region 成本（iPhone app 没有 server）
+- 0 个 SRE（simedw 自己 = SRE）
+
+multi-region 在一人工程里 = **每个 iPhone 自己 = 一个 region**。
+
+## 我就是 region
+
+大公司 region 是**专用基础设施**：
+
+- AWS / GCP / Azure region
+- 100 台 server / region
+- 5 个 SRE 维护 multi-region
+
+一人工程 region 是**每个 iPhone 自己**：
+
+- iPhone OS 自动处理 app
+- 100 个 iPhone = 100 个 region
+- simedw 自己 = 1 个 SRE
+
+没有 AWS region，没有 GCP region，没有 Azure region。
+
+## 一人工程 + 我就是 region
+
+simedw 不做 us-east-1。
+simedw 不做 us-west-2。
+simedw 不做 eu-west-1。
+simedw 不做 ap-southeast-1。
+simedw 100 个 iPhone = 100 个 region。
+
+multi-region 在一人工程里不是基础设施，是**每个 iPhone 自己 = 一个 region**。
+
+---
+
+solo engineer 没有 multi-region。
+solo engineer 的 multi-region = 每个 iPhone 自己 = 一个 region。
+
+solus opus.
