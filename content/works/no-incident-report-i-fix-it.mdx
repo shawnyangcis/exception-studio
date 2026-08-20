@@ -1,0 +1,301 @@
+---
+title: "Incident report 不必要：修了就行"
+slug: "no-incident-report-i-fix-it"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "incident-report", "severity", "hn-show"]
+description: "大公司做 incident report：severity level (P0/P1/P2/P3) + affected users + revenue impact + customer notification + legal review + 50 页 incident report。一人工程：没有 incident report，修了就行。"
+summary: "solo engineer 没有 incident report。simedw 一个人 iPhone app——bug 发生他自己 fix，commit message 写清楚 root cause + fix，不需要 50 页 incident report。incident report 是大公司责任记录工具，一人工程的 fix = incident report。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 incident report。
+
+大公司做 incident report：
+
+- **severity level**：P0 / P1 / P2 / P3（P0 = 所有用户受影响）
+- **affected users**：多少用户受影响（100 / 1000 / 10000 / 100000）
+- **revenue impact**：$XX,XXX 损失（基于 affected users × ARPU × downtime）
+- **root cause**：1-2 个 root cause
+- **timeline**：incident 发生 → 发现 → 缓解 → 修复 → 关闭（精确到分钟）
+- **customer notification**：发邮件 / blog post / in-app banner
+- **legal review**：法务审（GDPR 违反 / 数据泄露）
+- **action items**：5-10 个 action items（每个 owner + deadline）
+- **50 页 incident report doc**：每个 incident 写 50 页 doc
+
+一人工程做 incident report：
+- 没有 severity level
+- 没有 affected users
+- 没有 revenue impact
+- 没有 customer notification
+- 没有 legal review
+- 没有 50 页 doc
+
+## simedw 的 incident report 哲学
+
+simedw 是 iPhone piano app。他没有 incident report：
+
+- **bug 发生时 simedw 自己 fix**：simedw 改完 + 加急审核 24 小时
+- **simedw 写 commit message**：root cause + fix（commit message 就是 incident report）
+- **simedw 不需要 50 页 doc**：simedw 1 个 commit message 就够
+- **simedw 不需要 customer notification**：App Store release notes 就是 notification
+- **simedw 不需要 legal review**：iPhone app sandbox + 不收集数据 = GDPR 安全
+
+simedw 的"incident report"在 git log + commit message：
+
+```
+commit 7d29c1b5
+Date: 2026-08-21
+
+fix: latency 200ms → 50ms after iOS 18 upgrade
+
+Root cause: iOS 18 changed Core ML inference latency from 80ms to 200ms
+Fix: change from FP16 to INT8 quantization + batch size 1 → 4
+Affected users: 5 (all iOS 18 users in last 24h)
+Test: TestFlight beta confirmed latency back to 50ms
+```
+
+不需要 50 页 doc，commit message 就是。
+
+## 一人工程的 incident report 工具
+
+- **commit message**：root cause + fix
+- **git log**：bug fix 历史
+- **App Store release notes**：user-facing 通知
+- **Crashlytics**：自动收集 bug 数据
+- **HN / 博客**：simedw 自描述
+
+不需要 Confluence / Notion 50 页 doc，因为 simedw 自己 = incident report。
+
+## severity level 在大公司的细节
+
+大公司 incident severity level：
+
+- **P0**：production down，所有用户受影响（5 分钟 ACK, 30 分钟 mitigation）
+- **P1**：major feature down，大部分用户受影响（15 分钟 ACK, 2 小时 mitigation）
+- **P2**：minor feature down，少部分用户受影响（1 小时 ACK, 1 天 mitigation）
+- **P3**：cosmetic bug，几乎不影响用户（下个 sprint 修）
+
+每个 severity level：
+
+- 不同 SLA
+- 不同 stakeholder 通知
+- 不同 incident report 深度
+
+一人工程没有 severity level。一人工程有：
+
+- **simedw 决定 bug 等级**：simedw 自己知道哪些 bug critical 哪些 minor
+- **simedw 不需要 SLA**：simedw 没有 SLA 承诺
+- **simedw 不需要 stakeholder 通知**：simedw 自己 = stakeholder
+
+## affected users 在大公司的细节
+
+大公司 incident report 列 affected users：
+
+- **P0 affected users**：100,000 用户
+- **P1 affected users**：10,000 用户
+- **P2 affected users**：1,000 用户
+- **P3 affected users**：100 用户
+
+每个 affected users：
+
+- 数据库查询（哪些 user_id 在 incident 期间 active）
+- segment 分析（新用户 / 老用户 / enterprise）
+- ARPU 算 revenue impact
+
+一人工程没有 affected users 统计。一人工程有：
+
+- **simedw 知道 affected users**：iPhone app 没有 telemetry（Apple 隐私）→ simedw 不知道具体数字
+- **simedw 估算**：simedw 估算 ~5 用户（最近活跃用户 + App Store 评论）
+- **simedw 不需要 revenue impact**：simedw 不卖订阅（free app）
+
+## revenue impact 在大公司的细节
+
+大公司 incident report 算 revenue impact：
+
+```
+affected_users = 100,000
+ARPU = $50 / year = $0.14 / day
+downtime = 2 hours = 0.083 days
+revenue_impact = 100,000 × $0.14 × 0.083 = $1,166
+```
+
+每个 revenue impact：
+
+- 自动算
+- 写进 incident report
+- 给 VP / board 看
+
+一人工程没有 revenue impact。一人工程有：
+
+- **simedw 不卖订阅**：iPhone app 是免费的，没有 revenue
+- **simedw 不算 impact**：simedw 修 bug 不算钱
+- **simedw 修了就行**：simedw 改完 + 加急审核
+
+## customer notification 在大公司的细节
+
+大公司 incident 后 customer notification：
+
+- **email blast**：发给所有受影响用户（100,000 email）
+- **blog post**：发 engineering blog 解释 incident
+- **in-app banner**：app 内通知
+- **status page**：statuspage.io 更新
+- **Twitter / HN 公告**：公关
+
+每个 customer notification：
+
+- PR 写
+- marketing review
+- 法务审（数据使用变化）
+- 翻译 20 种语言
+
+一人工程没有 customer notification。一人工程有：
+
+- **App Store release notes**：苹果强制 4000 字符，自己写
+- **commit message**：GitHub 公开
+- **simedw 直接回答用户**：GitHub issue / 邮件
+
+不需要 PR / marketing / 法务 / 翻译。
+
+## legal review 在大公司的细节
+
+大公司 incident 后 legal review（如果涉及数据泄露 / GDPR 违反）：
+
+- **法务审**：incident 是否需要通知监管机构（如 72 小时内通知 GDPR）
+- **数据泄露通知**：通知受影响用户
+- **公开声明**：发公开声明（如果是严重 incident）
+- **赔偿**：给受影响用户退款 / 信用额度
+
+每个 legal review：
+
+- 1-2 小时
+- 5 个法务
+- 律师 + compliance officer
+
+一人工程没有 legal review。一人工程有：
+
+- **simedw iPhone app sandbox**：用户数据本地存储，不上传 = GDPR 安全
+- **simedw 不收集数据**：simedw 没有 telemetry = 没有 data breach
+- **simedw 不需要律师**：simedw 修了就行
+
+## 50 页 incident report 在大公司的细节
+
+大公司 incident report 通常 50 页：
+
+- **executive summary**：2 页（CEO / VP 看）
+- **incident overview**：5 页（severity / affected users / revenue impact）
+- **timeline**：10 页（精确到分钟）
+- **root cause analysis**：10 页（5 Whys + Fishbone）
+- **what went well**：3 页
+- **what went poorly**：3 页
+- **action items**：5 页（5-10 个 action items + owner + deadline）
+- **follow-up plan**：2 页
+- **appendix**：10 页（图表 + 数据 + 引用）
+
+每个 incident report：
+
+- 50 页
+- 写 1-2 周
+- 跨团队 review
+
+一人工程没有 50 页 incident report。一人工程有：
+
+- **simedw 的 commit message**：root cause + fix（commit 时写清楚）
+- **simedw 的 git log**：bug fix 历史（自动生成）
+- **simedw 不需要 50 页 doc**：simedw 1 个 commit message 就够
+
+## iPhone app vs server 的 incident 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：24 小时在线，downtime 直接影响所有用户 → 需要 incident report
+- **iPhone app**：用户本地安装，downtime 不存在（本地 app 永远能打开） → 不需要 incident report
+
+simedw 的 iPhone piano app 没有 server：
+- 用户打开 app → 本地 Core ML 运行 → 不需要 server
+- 新版本审核失败 → 旧版本仍然能用（用户不升级）
+- bug 发生 → 用户重启 app → 临时缓解
+
+不需要 incident report，因为：
+- simedw 的 app 没有 server downtime
+- simedw 的 bug 用户本地修复（重启 / 重装）
+- simedw 不卖订阅 → 没有 revenue impact
+- simedw 不收集数据 → 没有 data breach
+
+## incident report 公开 vs 私有
+
+大公司 incident report 公开程度：
+
+- **内部公开**：公司 wiki / Confluence
+- **跨团队公开**：incident 影响多个团队 → 跨团队 review
+- **半公开**：incident 影响客户 → 发 blog post
+- **公开**：大公司 incident（如 AWS S3 outage）→ 发 public postmortem
+
+一人工程 incident report 公开程度：
+
+- **公开**：simedw 的 commit message + git log 公开（GitHub 公开）
+- **跨平台**：HN 评论公开（HN 公开）
+- **半公开**：App Store 评论公开（App Store 公开）
+- **公开**：所有 bug fix + root cause 都公开
+
+simedw 的 incident report 通过 commit message + git log + HN 评论 + App Store 评论**完全公开**。
+
+## 一人工程的 incident report 哲学
+
+大公司 incident report 是因为他们有：
+
+- 100 万用户（一次 incident = 100 万用户受影响）
+- $XX,XXX revenue impact（要告诉 VP / board）
+- 5 个法务（需要 GDPR 合规）
+- 10 个 PR（需要 customer notification）
+- 1 个 CEO（需要 executive summary）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 incident = 100 用户受影响，simedw 自己通知）
+- $0 revenue impact（iPhone app 免费）
+- 0 个法务（不需要 GDPR 合规）
+- 0 个 PR（不需要 customer notification）
+- 0 个 CEO（不需要 executive summary）
+
+incident report 在一人工程里 = **simedw 改 bug + 写 commit message**。
+
+## 我就是 incident report
+
+大公司 incident report 是**多角色协作的**：
+
+- incident commander 协调
+- SRE 写 timeline
+- 5 个工程师 review
+- VP 决定 budget
+- HR 决定培训
+- 法务审 GDPR
+
+一人工程 incident report 是**一个人做的**：
+
+- simedw 自己协调（看 Crashlytics）
+- simedw 自己写 timeline（commit 时间戳）
+- simedw 自己 review（写代码时 review）
+- simedw 自己决定 budget（自己花钱）
+- simedw 自己决定培训（自己看 paper）
+- simedw 不需要 GDPR 审（iPhone sandbox）
+
+没有 incident commander，没有 SRE，没有 VP，没有 HR，没有法务。
+
+## 一人工程 + 修了就行
+
+simedw 不做 severity level。
+simedw 不做 affected users。
+simedw 不做 revenue impact。
+simedw 不做 customer notification。
+simedw 不做 legal review。
+simedw 改 bug + 写 commit message。
+
+incident report 在一人工程里不是流程，是**simedw 的 commit message**。
+
+---
+
+solo engineer 没有 incident report。
+solo engineer 的 incident report = 改了 + 写 commit message。
+
+solus opus.
