@@ -1,0 +1,76 @@
+---
+title: "绝对 scalar 没有 pairwise 准"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的评估笔记：给 Gemini 3.5 Flash 一个 0-100 分，rollout 一致性差。换成 A/B 偏好对比，每对翻转后 70% 一致。这跟 RLHF 圈子的共识一致。"
+tags: ["一人工程", "评估", "pairwise", "MIDI"]
+---
+
+# 绝对 scalar 没有 pairwise 准
+
+> simedw 的评估笔记：
+> 给 Gemini 3.5 Flash 一个 0-100 分，rollout 一致性差。
+> 换成 A/B 偏好对比，每对翻转后 70% 一致。
+
+LLM 评估的两种范式：
+
+- 绝对评分：让 LLM 给一个 0-100 分
+- 偏好对比：让 LLM 在 A/B 中选一个
+
+直觉：
+
+- 绝对评分信息更多
+- 应该更准
+
+实际：
+
+- LLM 给绝对分不稳定
+- 「76 vs 73」vs「75 vs 74」很难稳定
+- LLM 偏好对比稳定得多
+- 「A 比 B 好」比「A 是 75 分」更可靠
+
+simedw 的数据：
+
+- 绝对评分翻转：失败多
+- 偏好对比翻转：70% 一致
+
+为什么 pairwise 稳定：
+
+- 只要求「相对」判断
+- 不要求「绝对」锚点
+- LLM 的训练数据里「相对判断」比「绝对评分」多
+
+OpenAI / Anthropic 的选择：
+
+- RLHF 训练用偏好对（chosen / rejected）
+- 评估也用偏好对
+- 极少用绝对评分
+- 这是 RLHF 圈子的常识
+
+simedw 一个人也得出了同样的结论：
+
+- 14 次实验中后期
+- 评估拆成两个维度：continuation 接续度、isolated 听觉质量
+- DPO 主要用前者
+
+## 一人工程的角度
+
+OpenAI 训练 RLHF 用 100+ 研究员设计偏好标注系统。
+simedw 用 Gemini 3.5 Flash 买现成的 pairwise。
+
+一样的工作：
+
+- 让 LLM 判断「A 比 B 好」
+- 翻转后看一致性
+- 选一致性高的 rollout
+
+唯一的区别是规模：
+
+- OpenAI 标几万对
+- simedw 标几千对
+- OpenAI 训练 reward model + PPO
+- simedw 训练 DPO
+
+规模不同，方法相同。
+
+签名：solus opus。
