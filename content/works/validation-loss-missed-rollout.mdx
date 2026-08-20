@@ -1,0 +1,84 @@
+---
+title: "验证 loss 漏了 rollout 质量"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的评估笔记：验证 loss 不是目标，rollout 才是目标。验证 loss 优化方向可能跟 rollout 优化方向不同。这是 simedw 第 11 个没走通的。"
+tags: ["一人工程", "loss", "rollout", "MIDI"]
+---
+
+# 验证 loss 漏了 rollout 质量
+
+> simedw 的评估笔记：
+> 验证 loss 漏了 rollout 质量。
+> 验证 loss 优化方向可能跟 rollout 优化方向不同。
+> 在「没走通的」一栏。
+
+LLM 训练的传统范式：
+
+- 训练 → 降低验证 loss
+- 验证 loss 越低 = 模型越好
+
+直觉：
+
+- 验证 loss 是 surrogate 指标
+- 替代真正的「生成质量」
+- 优化 surrogate 应该改进目标
+
+实际：
+
+- 验证 loss 跟 rollout 质量不严格对齐
+- 有时 loss ↓ rollout ↑
+- 有时 loss ↑ rollout ↑（scheduled sampling 的情况）
+- 有时 loss ↓ rollout ↓（数据清洗的方向）
+
+simedw 的实验：
+
+- 验证 loss 是「次要指标」
+- rollout 才是「主要指标」
+- 一个人听 rollout 14 次实验
+
+OpenAI / Anthropic 的做法：
+
+- 用 RLHF / DPO 把 loss 跟 rollout 解耦
+- reward model 拟合「人类偏好」
+- PPO 让模型拟合 reward model
+- rollout 更好，loss 无关紧要
+
+simedw 的做法：
+
+- scheduled sampling（loss↑但 rollout↑）
+- DPO（loss↑但 rollout↑）
+- 一个人听 rollout
+- 验证 loss 仅供参考
+
+# 一人工程的角度
+
+不是「让 loss 越低越好」。
+是「让 rollout 越来越好」。
+
+LLM 训练圈：
+
+- 90% 时间盯 loss
+- 10% 时间听 rollout
+- 主要靠 reward model 闭环
+
+一人工程：
+
+- 50% 时间盯 loss
+- 50% 时间听 rollout
+- 主要靠人耳闭环
+
+人耳闭环的优势：
+
+- 不用训 reward model
+- 不用标几万对偏好
+- 不用 PPO
+- 直接听，简化掉整个 RLHF 链
+
+人耳闭环的局限：
+
+- 容易疲劳
+- 容易有偏好偏差
+- 14 次实验 vs OpenAI 几千次
+
+签名：solus opus。
