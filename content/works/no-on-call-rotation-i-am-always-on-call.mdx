@@ -1,0 +1,25 @@
+---
+title: "solo engineer 没有 on-call rotation，我自己就是 on-call"
+slug: no-on-call-rotation-i-am-always-on-call
+date: 2026-08-21
+description: "团队有 on-call rotation / pager rotation / escalation policy / PagerDuty schedule / shift handoff / runbook wake-up。solo engineer 没有 on-call rotation，我自己就是 on-call，我自己决定什么时候醒。"
+tags: ["一人工程", "on-call", "solo", "incident"]
+---
+
+团队有 on-call rotation。
+
+PagerDuty schedule：周一 on-call 是 A，周二是 B，循环；escalation policy：一线 on-call 5 分钟没响应升到二线、leader、CTO；shift handoff：换班前交班报告；runbook wake-up：被叫醒后按手册操作；post-incident review：事故后回顾。
+
+solo engineer 没有 on-call rotation。
+
+我自己就是 on-call。
+
+我的站点挂了，我自己知道。我的访问量掉了，我自己知道。我的 commit 出了问题，`git revert` 一个我自己按。没人 PagerDuty 我——我自己 PagerDuty 我自己。
+
+我没 escalation policy 的必要——出问题就我一个人，没法 escalate 到别人。我没 shift handoff 的必要——我的站点挂了今天明天都是我处理。我没 runbook wake-up 的必要——我醒着，不需要被叫醒。
+
+团队的 on-call rotation 价值是「24/7 覆盖、避免 burnout」。前提是事故量大、需要轮流值班、需要 escalation chain。solo engineer 没这个问题——我的站点上线一天访问量 1000，事故率接近 0；出了事故我自己处理不累。
+
+一人工程的 on-call = 我醒着。不是 PagerDuty 排班表。
+
+---
