@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 feature flag，我自己就是 feature flag"
+slug: no-feature-flag-i-am-the-feature-flag
+date: 2026-08-21
+description: "团队有 LaunchDarkly / Split / Optimizely / feature flag service / percentage rollout / kill switch / targeting。solo engineer 没有 feature flag，我想开就开、想关就关，git revert 是我的 kill switch。"
+tags: ["一人工程", "feature-flag", "solo", "release"]
+---
+
+团队有 feature flag。
+
+LaunchDarkly、Split、Optimizely、自家 flag service。Percentage rollout（1% → 10% → 50% → 100%）、kill switch、targeting rules、A/B test、gradual rollout、dark launch。
+
+每个改动包一层 flag，先 1% 上线，没问题再 50%，最后 100%。出问题立刻 kill switch。
+
+solo engineer 没有 feature flag。
+
+我自己就是 feature flag。
+
+我想开就开、想关就关。代码合并即上线、上线即全量。没 1% 灰度——我的站点上线一天访问量 1000，全量也是 1000。git revert 是我的 kill switch——出问题 `git revert` 一个 commit，Vercel 自动部署新版本。
+
+代价是「不能灰度发现问题」。优势是「决策延迟 = 0、代码无 flag 噪声」。
+
+团队的 flag 价值是「大流量下的渐进验证」。前提是流量足够大、单次失败代价足够高。solo engineer 没这个问题——我的 flag = 我的 commit。
+
+一人工程的发布 = 「写完就发」。不是 percentage rollout。
+
+---
