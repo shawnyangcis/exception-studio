@@ -1,0 +1,25 @@
+---
+title: "solo engineer 没有 rollback procedure，git revert 就是我的 rollback"
+slug: no-rollback-procedure-i-just-revert
+date: 2026-08-21
+description: "团队有 rollback procedure / runbook / rollback drill / staging reproduction / staged rollout。solo engineer 没有 rollback procedure，git revert 一个 commit，Vercel 自动部署旧版本。"
+tags: ["一人工程", "rollback", "solo", "incident"]
+---
+
+团队有 rollback procedure。
+
+Runbook：失败时按步骤执行 rollback；rollback drill：每季度演练；staging reproduction：先在 staging 复现；staged rollout：先 1% → 5% → 25% → 100%，出问题立即回滚。
+
+solo engineer 没有 rollback procedure。
+
+git revert 就是我的 rollback。
+
+我想发就发，merge 即上线，上线即全量。挂了 `git revert` 一个 commit，push，Vercel 自动部署上一个版本。整个过程 30 秒——`git revert HEAD`、`git push`、等 Vercel 完成部署。
+
+我不需要 runbook，因为流程只有一步。我不需要 drill，因为我的站点上线一天访问量 1000，挂了影响小到不值得演练。我不需要 staging reproduction，因为我没 staging——main 就是 staging、production、everything。
+
+团队的 rollback 价值是「大流量下的快速止损」。前提是 rollback 流程复杂、影响面广、单次失败代价高。solo engineer 没这个问题——我的 revert 是一个 git 命令。
+
+一人工程的 rollback = `git revert HEAD && git push`。不是 18 页 runbook。
+
+---
