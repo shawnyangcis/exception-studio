@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 code review，我自己 review 自己"
+slug: no-codereview-i-review-myself
+date: 2026-08-21
+description: "团队有 code review / pull request / reviewer approval / 2 approvers / linter / CI checks / static analysis。solo engineer 没有 code review，我自己写完读一遍，commit 即 review。"
+tags: ["一人工程", "code-review", "solo", "quality"]
+---
+
+团队有 code review。
+
+Pull Request：每个改动开 PR；reviewer approval：至少 2 个人 approve；linter：自动跑 lint；CI checks：跑测试 + build；static analysis：SonarQube / CodeClimate；merge button：所有 check 通过才能按。
+
+一个人写代码、另一个人 review、approve、merge。流程 1-3 天。
+
+solo engineer 没有 code review。
+
+我自己 review 自己。
+
+我写完代码，自己读一遍，看变量命名、看边界条件、看 commit message。然后 `git commit`，commit 即 review、commit 即 approve、commit 即 merge。
+
+我没 PR 的必要——只有我自己看。我没 2 approvers 的必要——没人 review 我。我没 linter 的必要——我读一遍比 linter 看得更准。我没 CI checks 的必要——我的站点改完立刻 push，Vercel 部署触发，如果挂了立刻知道。
+
+团队的 code review 价值是「多人 review 减少 bug + 知识共享」。前提是成员多、需要互相检查、需要集体代码风格。solo engineer 没这个问题——我读一遍比 reviewer 看到更多上下文（因为是我写的），bug 我自己 fix，代码风格我自己定义。
+
+一人工程的 code review = 我写完读一遍。不是 PR + 2 approvers。
+
+---
