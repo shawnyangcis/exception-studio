@@ -1,0 +1,204 @@
+---
+title: "isoprophlex 的洞穴人格式：man hits thing thing go plink"
+slug: isoprophlex-cave-person-language
+date: 2026-08-21
+tags: [one-man-project, language, game-dev, isoprophlex, minimalism]
+summary: "HN show 评论里 isoprophlex 推荐一个独立游戏开发者，做了「man hits thing thing go plink」的洞穴人格式——把游戏机制浓缩到主谓宾。技术文档 / 营销 copy / UI 文案都可以借鉴这个哲学。一人工程不需要复杂术语，真人话就够。"
+---
+
+HN show 评论区有个推荐：
+
+> isoprophlex 推荐的游戏：[game-name]
+> "Man hits thing. Thing go plink."
+> —— 一个洞穴人能理解的描述
+
+这个游戏的整个核心机制，被浓缩到 6 个英文单词：
+
+- man（主语）
+- hits（谓语，动作）
+- thing（宾语 1）
+- thing go（宾语 2 + 状态）
+- plink（音效）
+
+主谓宾结构 + 因果。人类语言最原始的形态。
+
+## 洞穴人格式的本质
+
+洞穴人格式不是笑话，也不是 oversimplification。它是一种**语言学约束**：
+
+- 只用主谓宾
+- 不用从句
+- 不用专业术语
+- 不用 marketing buzzword
+- 不用 jargon
+
+游戏设计师用洞穴人格式描述游戏：
+
+- ❌ 「一个第三人称动作角色扮演游戏，玩家扮演一个战士角色，通过挥舞武器与环境物体进行互动，触发物理反馈和粒子效果」
+- ✅ 「Man hits thing. Thing go plink.」
+
+第一种描述 30 个英文单词，需要懂 RPG 术语、game design 术语、physics 术语。
+
+第二种描述 6 个英文单词，任何人——包括洞穴人——都懂。
+
+## 为什么洞穴人格式有效
+
+- **零学习成本**：主谓宾是 5 岁小孩都会的语法
+- **零专业门槛**：不用懂 jargon
+- **零翻译成本**：跨语言保留主谓宾结构
+- **零营销污染**：没有「immersive」「engaging」「next-gen」buzzword
+- **零上下文依赖**：不需要先解释世界观
+
+洞穴人格式是一种**语言上的 minimum viable product**——能用最少的词表达最多的意思。
+
+## 一人工程的语言哲学
+
+simedw 用类似的方式描述他的 app：
+
+- ❌ 「A neural network powered MIDI continuation tool that uses a transformer architecture to predict the next musical phrase based on user input」
+- ✅ 「GPT-2 but for piano」
+
+6 个英文单词 + 一个对比（GPT-2），任何人——包括不玩 piano 的人——都能秒懂。
+
+## 技术文档里的洞穴人格式
+
+写 API 文档时：
+
+- ❌ 「The PersistenceManager class provides asynchronous write-through caching with eventual consistency semantics and TTL-based invalidation」
+- ✅ 「Save stuff. Forget after 1 hour.」
+
+写 changelog 时：
+
+- ❌ 「Resolved an issue where the application was experiencing intermittent failures during the initialization phase」
+- ✅ 「App crashed on startup. Fixed.」
+
+写 incident postmortem 时：
+
+- ❌ 「A race condition in the connection pool led to resource exhaustion」
+- ✅ 「Two requests at same time. Both won. Server ran out of memory.」
+
+每一种简化的本质：**让读者在 5 秒内理解发生了什么 + 怎么发生的 + 影响是什么**。
+
+## 营销 copy 里的洞穴人格式
+
+大公司的营销 copy：
+
+> 「我们致力于通过创新的 AI 驱动的解决方案赋能企业数字化转型」
+
+洞穴人格式：
+
+> 「Make business faster with AI」
+
+谁更有效？
+
+- 大公司版本：30 个英文单词，3 个 buzzword，0 个具体内容
+- 洞穴人版本：5 个英文单词，0 个 buzzword，1 个具体承诺
+
+用户读完后能做什么？
+
+- 大公司版本：「听起来很 fancy，但不知道干嘛的」
+- 洞穴人版本：「哦，让 business 更快」
+
+## UI 文案里的洞穴人格式
+
+按钮文案：
+
+- ❌ 「Initiate Authentication Sequence」
+- ✅ 「Sign in」
+
+错误信息：
+
+- ❌ 「An unexpected error has occurred during the operation」
+- ✅ 「Something broke」
+
+菜单项：
+
+- ❌ 「Configure Notification Preferences」
+- ✅ 「Notifications」
+
+设置项：
+
+- ❌ 「Enable Biometric Authentication」
+- ✅ 「Use Face ID」
+
+每一种简化：**用户不需要懂技术术语，直接做动作**。
+
+## 代码注释里的洞穴人格式
+
+```python
+# Before
+# Initialize the configuration manager with the appropriate environment variables and validate that all required parameters are present
+
+# After
+# Load config. Crash if missing.
+```
+
+```javascript
+// Before
+// Iterate through the collection of user objects and apply the transformation function to each item, aggregating the results
+
+// After
+// For each user, do the thing. Collect results.
+```
+
+每一种简化：**下一个读代码的人不需要先理解上下文**。
+
+## 洞穴人格式的代价
+
+洞穴人格式不是万能的：
+
+- **精度损失**：「Make business faster with AI」没说快多少、用什么 AI、什么 business
+- **风格损失**：「Initiate Authentication Sequence」听起来比「Sign in」正式
+- **细节缺失**：「Crash if missing」没说怎么 crash、给什么 error code
+
+但这些代价对**最小信息传达**是值得的。
+
+如果用户需要细节，再加；如果不需要，洞穴人格式就够。
+
+## 「洞穴人格式 vs 工程文档」的张力
+
+一人工程的取舍：
+
+- **外部文档**（用户看的）→ 洞穴人格式
+- **内部文档**（自己看的）→ 可以复杂
+- **API 文档**（开发者看的）→ 中等
+
+simedw 的 README：
+
+- 项目名 + 一句话描述（「GPT-2 but for piano」）
+- 装使用方法（3 步）
+- 模型描述（125M transformer）
+- 数据描述（钢琴 MIDI）
+- 限制（context 512 notes）
+
+外部可见部分用洞穴人格式。技术细节在内部代码里。
+
+## 一人工程的语言哲学总结
+
+| | 大公司 | 一人工程 |
+|---|---|---|
+| 营销 copy | buzzword 重 | 真人话 |
+| UI 文案 | 术语 | 动词 |
+| 错误信息 | 「unexpected error」 | 「X broke」 |
+| 文档 | 30 词一段 | 5 词一句 |
+| Commit message | 「feat: implement advanced X」 | 「fix: X crashed」 |
+| 内部 jargon | 多 | 少 |
+| 跨语言翻译 | 难 | 易 |
+
+## isoprophlex 哲学的延伸
+
+isoprophlex 推荐的洞穴人格式游戏，本质是：
+
+**让设计回归到「人 + 物 + 动作」的最小单元**。
+
+一人工程的语言哲学是同一回事：
+
+**让代码、文档、UI 回归到「主语 + 谓语 + 宾语」的最小单元**。
+
+洞穴人格式不是「粗陋」——是「足够」。
+
+洞穴人能理解，人就能理解。
+
+---
+
+solus opus.

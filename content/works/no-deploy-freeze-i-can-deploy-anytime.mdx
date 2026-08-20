@@ -1,0 +1,209 @@
+---
+title: "solo engineer 没有 deploy freeze：随时 deploy"
+slug: no-deploy-freeze-i-can-deploy-anytime
+date: 2026-08-21
+tags: [one-man-project, deploy-freeze, release, oncall, simedw]
+summary: "大公司：黑色星期五 / 双十一 / 春节 / Q4 财年 deploy freeze，1-2 个月不能 deploy。simedw：随时 deploy，没有 business calendar 约束。deploy freeze 是给业务团队的工具，不是给工程团队的工具。一人工程没有 freeze，因为他没有 business team。"
+---
+
+大公司一年里几次 deploy freeze：
+
+- 11 月底 - 1 月初：Q4 财年 + 圣诞季 freeze
+- 1 月底 - 2 月中：春节 freeze（中文公司）
+- 4 月：复活节 freeze（欧洲公司）
+- 11 月第四个星期五：黑色星期五 freeze
+- 双十一：11 月 11 日 freeze
+- 产品发布前 2 周：发布 freeze
+
+每次 freeze 期间：
+
+- 不能 deploy 新代码
+- 不能改数据库 schema
+- 不能改 config
+- 只能修 P0 incident
+
+每次 freeze 是 1-2 周。一年累计 freeze 时间 = 2-3 个月。
+
+simedw 的 deploy freeze：
+
+无。
+
+## 随时 deploy 的具体含义
+
+simedw 一年 365 天都可以 deploy：
+
+- 12 月 24 日晚上 deploy → OK
+- 1 月 1 日凌晨 deploy → OK
+- 复活节 deploy → OK
+- App Store review 等了 11 天 → deploy 那天就是发布日
+- 出问题 → hotfix deploy，5 分钟内
+
+没有「业务日历」约束。没有「财年 Q4 不能动 production」约束。
+
+## 为什么大公司要 deploy freeze
+
+- **业务关键期**：黑色星期五 / 双十一，1 小时 downtime = 几百万收入损失
+- **稳定性 SLA**：99.99% SLA，freeze 期间不动代码 = 稳定
+- **oncall 假期**：圣诞 / 春节 oncall 不想处理 deploy 事故
+- **团队压力**：freeze = 给工程师一个「可以不工作」的窗口
+- **回滚困难**：金融 / 电商系统 schema migration 不能回滚，必须 freeze 期间准备
+
+simedw 没有这些问题：
+
+- **业务关键期**：1 万 DAU piano app，down 一周 = 0 美元损失
+- **稳定性 SLA**：没有 SLA
+- **oncall 假期**：他自己 oncall，没有「团队假期」概念
+- **团队压力**：1 个工程师不需要 freeze 来放假
+- **回滚困难**：Core ML model 不对就 revert commit + 新 build
+
+## deploy freeze 的真正本质
+
+deploy freeze 不是技术约束。deploy freeze 是**业务约束伪装成的技术约束**。
+
+- 财年 Q4 不能 deploy → 因为 CFO 要稳的财报
+- 圣诞季不能 deploy → 因为 marketing 团队有 campaign 不能被打断
+- 双十一不能 deploy → 因为 GMV 是 KPI
+
+技术理由：
+
+- 「回滚困难」 → 不是技术限制，是回滚流程没自动化
+- 「SLA 99.99%」 → 不是 SLA 限制，是「business team 想要一个数字」
+- 「oncall 不想处理事故」 → 不是 oncall 限制，是 oncall 体验问题
+
+**deploy freeze 是用「冻结代码」的方式给业务团队安全感。**
+
+simedw 没有 business team，所以没有 freeze。
+
+## 一人工程的 deploy 哲学
+
+随时 deploy 的几个前提：
+
+- **回滚简单**：revert commit + 重新 build = 5 分钟
+- **监控足够**：deploy 后看 crash rate / latency，发现问题立刻回滚
+- **用户能容忍**：1 万 DAU，down 1 小时 = 100 个用户报错
+- **没有业务日历**：没有 Q4 / 双十一 / 圣诞
+
+随时 deploy 的几个后果：
+
+- **不被 freeze 阻塞**：想 deploy 就 deploy
+- **不被 release train 限制**：不需要等「下一个 release window」
+- **不被 PR 队列阻塞**：commit → main → deploy = 5 分钟
+- **不被部署流程拖慢**：没有 change advisory board / CAB review
+
+## 对照表
+
+| | 大公司 deploy freeze | simedw 随时 deploy |
+|---|---|---|
+| 一年 freeze 时间 | 2-3 个月 | 0 |
+| 圣诞 deploy | ❌ | ✅ |
+| 春节 deploy | ❌（中文公司） | ✅ |
+| 黑色星期五 deploy | ❌ | ✅ |
+| Q4 财年 deploy | ❌ | ✅ |
+| 业务日历约束 | 强 | 无 |
+| 回滚时间 | 30 分钟 - 2 小时 | 5 分钟 |
+| Deploy SLA | 24 小时窗口 | 24x7 |
+| 紧急 hotfix | 走例外审批 | 直接 push |
+
+## 反例：必须 deploy freeze 的场景
+
+deploy freeze 不是纯粹恶习。在某些场景下合理：
+
+- **金融交易系统**：圣诞交易时段不能 deploy
+- **医疗信息系统**：手术时段不能 deploy
+- **航空订票系统**：订票高峰不能 deploy
+- **支付清算系统**：清算窗口不能 deploy
+- **高 SLA 产品**（99.999%）：任何 deploy 都可能影响 SLA
+
+simedw 的 piano app：
+
+- 不是金融 / 医疗 / 航空 / 支付
+- 没有 SLA
+- 1 万 DAU，不存在「订票高峰」
+- deploy 失败 = piano 响错音，不是金融损失
+
+所以 deploy freeze 是过度防御。
+
+## deploy freeze 是为「业务不知情」买的保险
+
+deploy freeze 隐藏的真正目的：
+
+- **业务方不知道 deploy 是什么** → freeze = 给业务方一个「稳定」的承诺
+- **业务方无法评估 deploy 风险** → freeze = 用时间窗口替代风险评估
+- **业务方与工程团队脱钩** → freeze = 给业务方一个「控制」幻觉
+
+一人工程：
+
+- simedw 知道 deploy 是什么（他自己做）
+- simedw 能评估 deploy 风险（他自己评估）
+- simedw 没有「业务方」要安抚（用户不会说「请 freeze deploy」）
+
+所以 freeze 是给「多人协作」买的保险，1 人不需要这种保险。
+
+## 「随时 deploy」的成本
+
+随时 deploy 不是说永远没代价：
+
+- **圣诞 deploy 出问题** = 你圣诞节当晚要醒过来修
+- **凌晨 3 点 hotfix** = 睡眠被打断
+- **家人 / 朋友假期** = 你在 deploy 而不是陪伴
+
+这些是「随时 deploy」的 hidden cost。
+
+simedw 对应：
+
+- 圣诞 deploy 出问题 → 当晚就修，反正他一个人住没家庭
+- 凌晨 3 点 hotfix → iOS developer 习惯凌晨工作（App Store review 在半夜批）
+- 家人 → 单身 / 远程 / 不在节日家庭聚会
+
+不是 simedw 不付出代价，是他的代价对单人工程合适。
+
+## deploy freeze 哲学的反向：deploy cadence
+
+大公司 deploy cadence：
+
+- 季度 release（如 Windows、macOS）
+- 月度 release（如 iOS app）
+- 双周 sprint release（如 web app）
+- 每日 release（如 Netflix / Facebook 早期）
+
+一人工程 deploy cadence：
+
+- commit → main → deploy
+
+每次 commit = 一次 release。没有 release train，没有 sprint，没有版本号。
+
+## 「commit hash = version」的对偶
+
+solo engineer 没有 deploy freeze，也没有「版本号」：
+
+- 没有 v1.0 / v2.0 / v3.0
+- 只有 commit hash 区分
+- 用户升级 = 装新 build，build 内部就是 commit hash + build number
+
+大公司必须有版本号，因为：
+
+- 用户不更新 app，没法强制升级
+- 客服需要知道「用户装的是 v2.3.1 还是 v2.4.0」来排查问题
+- marketing 需要「v3.0 发布」来造势
+
+simedw：
+
+- 用户在 App Store 自动升级，不需要「版本号」教育
+- 客服 = simedw 自己，他知道用户装的是哪个 build
+- 没有 marketing 团队，「v3.0 发布」 = 推特发一条
+
+## 一人工程的 deploy 选型
+
+- 业务关键期 → 不做这种业务
+- 高 SLA → 不做这种产品
+- 大用户量 → 不做这种规模
+- 回滚困难 → 必须做的话别一人做
+- 随时 deploy → 适合一人工程
+
+simedw 在「随时 deploy」这个象限：piano app / 1 万 DAU / 没有 SLA / 回滚 = git revert。
+
+deploy freeze = 0。
+
+---
+
+solus opus.
