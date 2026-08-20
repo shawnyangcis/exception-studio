@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 experiment platform，我自己就是 experiment"
+slug: no-experiment-platform-i-am-the-experiment
+date: 2026-08-21
+description: "团队有 experiment platform / A/B testing infrastructure / LaunchDarkly / Statsig / experimentation framework / data science team。solo engineer 没有 experiment platform，我自己 A/B test、不需要 LaunchDarkly、不需要 Statsig。"
+tags: ["一人工程", "experiment-platform", "solo", "ab-test"]
+---
+
+团队有 experiment platform。
+
+Experiment platform：A/B testing 基础设施。A/B testing infrastructure：split traffic / 收集 metric / 算 p-value。LaunchDarkly：feature flag 服务。Statsig：alternative to LaunchDarkly。Experimentation framework：内部写的 framework。Data science team：分析实验结果。
+
+每个 startup 用 LaunchDarkly / Statsig $500-$5K/月 + 1 个 data scientist + 1 个 platform engineer。
+
+solo engineer 没有 experiment platform。
+
+我自己就是 experiment。
+
+我想 A/B 就 A/B、想 split traffic 就 split、想看 metric 就看 Vercel analytics。我不需要 LaunchDarkly、不需要 Statsig、不需要 data scientist、不需要 platform engineer、不需要 experimentation framework。
+
+我没 experiment platform 的必要——访问量 1000，不需要 statistical significance。我没 LaunchDarkly 的必要——没 feature flag 要 toggle。我没 Statsig 的必要——没 metric 要 track。我没 data scientist 的必要——我 = data scientist。我没 platform engineer 的必要——我 = platform engineer。我没 experimentation framework 的必要——commit log 是 framework。
+
+团队的 experiment platform 价值是「做 scale experiment + 测因果」。前提是访问量大、需要 p-value、需要 platform。solo engineer 没这个问题——访问量 1000、commit log = experiment、commit message = result。
+
+一人工程的 experiment platform = commit log + 散文 A/B。不是 LaunchDarkly $5K/月。
+
+---
