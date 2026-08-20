@@ -1,0 +1,101 @@
+---
+title: "Omacosy：一个人把 macOS 改成 tiling desktop"
+date: "2026-08-21"
+kind: "essay"
+summary: "paulsp94 在 HN show 里发布 Omacosy——omarchy-style tiling desktop for macOS, no SIP。一个人 + macOS tiling + 关闭 SIP 警告 + 实用主义。"
+tags: ["一人工程", "macOS", "tiling", "omarchy"]
+---
+
+# Omacosy：一个人把 macOS 改成 tiling desktop
+
+> HN show #24：
+> Omacosy – omarchy-style tiling desktop for macOS, no SIP.
+
+paulsp94 一个人：
+
+- 把 macOS 改成 tiling desktop
+- 不需要 SIP 关闭
+- 不需要 Mac 重装
+
+macOS 是 Aqua desktop。
+窗口默认浮动（float）。
+不会自动 tile。
+
+tiling desktop 的好处：
+
+- 不用手动排窗口
+- 键盘流
+- 工作区一目了然
+- 节省空间
+
+Linux 圈 tiling 主流：
+
+- i3 / Sway / Hyprland / niri
+- omarchy（基于 hyprland 的全栈 tiling）
+
+macOS 上的 tiling 选择：
+
+- yabai（需要 SIP 部分关闭）
+- Amethyst（不需要 SIP，但功能少）
+- 手动 Magnet 等付费工具
+
+Omacosy 选择 no SIP：
+
+- 不需要关闭系统完整性保护
+- 直接用 macOS 提供的辅助功能 API
+- 比 yabai 更安全
+- 比 Amethyst 功能更多
+
+# 一人工程的细节
+
+paulsp94 不做：
+
+- 大而全（Amethyst 路线）
+- 需要改系统的（yabai 路线）
+
+paulsp94 做：
+
+- 窄：tiling desktop
+- 不改系统：no SIP
+- 只用辅助功能 API
+
+三个边界：
+
+- 范围窄
+- 系统无侵入
+- 实用主义
+
+# 一人工程的「no SIP」姿态
+
+OpenAI 不会写「no SIP」的 macOS 工具：
+
+- 用户基数太小
+- 商业价值低
+- 苹果限制多
+
+paulsp94 写：
+
+- 用户基数不大
+- 但真的有用
+- 自己用
+
+一个人 + 一个 macOS + 一个 tiling desktop = 「一人工程」的小版本。
+
+# 一人工程的窄产品策略
+
+Omacosy 的窄：
+
+- 只做 tiling
+- 不做 dock 替代
+- 不做 status bar 替代
+- 不做 launcher
+
+比 yabai 窄：
+- 不用 SIP 关闭
+
+比 Amethyst 窄：
+- 但功能多
+
+一个具体方向 + 一段具体代码 = 一个新工具。
+
+签名：solus opus。
