@@ -1,0 +1,37 @@
+---
+title: "git log 就是 deploy freeze"
+slug: "no-deploy-freeze-git-log-is-deploy-freeze"
+date: 2026-08-21
+summary: "团队新 feature 上线前有 deploy freeze：黑五、双 11、年终、关键产品发布——禁止 deploy。一人工程没有 deploy freeze——simedw ship 自己的节奏，没有 black friday 关键窗口。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队有 deploy freeze。
+
+黑五前 2 周、双 11 前 1 周、年终前 2 周——禁止任何 production deploy。理由：critical revenue 窗口不能有新 bug 风险。
+
+deploy freeze 的执行：release manager 发邮件「freeze starts at <time>」、JIRA / Linear 锁定、PR merge 暂停、CI 跳过 production deploy step。所有 engineer 转 review existing issues、fix small bug、不 ship 新 feature。
+
+freeze 期间 critical bug fix 可以 exception deploy：需要 release manager + VP engineering 双签 + 严格 monitoring。
+
+一人工程没有 deploy freeze。
+
+simedw 没有 black friday、没有双 11、没有年终关键窗口。simedw ship 的节奏是他自己的——想 ship 就 ship，想 hold 就 hold。RollTab 没有 critical revenue 窗口（每月订阅收入稳定），simedw 没有 freeze 必要。
+
+> 一人工程的 deploy freeze 是 simedw 自己的 ship 节奏，不是 calendar 上的固定窗口。
+
+团队 deploy freeze 的存在是因为**外部时间窗口决定 revenue**——黑五 1% downtime = $100K revenue loss。一人工程 simedw 的 RollTab 没有这种 external time pressure——订阅收入稳定，simedw 任何时候 ship 都 OK。
+
+vladislav-kalinkin 的 Ullis 没有 deploy freeze——crates.io 用户没有「双 11」概念，vladislav 任何时候 publish 都 OK。
+
+andalabx 的 Clean skill 没有 deploy freeze——GitHub sponsors 没有「年终关键窗口」。
+
+> 团队的 deploy freeze 让 external revenue window 不被打断。一人工程的 ship 节奏让 simedw 自己决定什么时候 ship。
+
+trade-off：团队 deploy freeze 让 critical revenue window 安全，但 1-2 周不能 ship 新 feature。一人工程没有 freeze，simedw 可以 continuous ship，但 critical window 概念不适用。
+
+solo engineer 接受这个 trade-off——simedw 没有 external revenue window，continuous ship 更好。
+
+solo engineer 的 deploy freeze 是 simedw 自己的判断「这周我修 bug，不 ship 新 feature」。
+
+solus opus.
