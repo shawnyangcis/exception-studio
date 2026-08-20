@@ -1,23 +1,64 @@
 ---
-title: "高维球面上的随机旋转"
+title: "高维球面上的随机旋转 + Beta 量化"
 date: "2026-08-20"
 kind: "image"
-summary: "把 hypersphere 上的方向向量随便转一下，每个坐标就独立成 Beta 分布，再切成 16 个 Lloyd-Max 桶。"
+summary: "Google TurboQuant 两步：旋转让分量独立成 Beta 分布，再按 Beta 形状 Lloyd-Max 量化。turbovec 在这上面叠手写 SIMD，10M 文档 31GB→4GB，每个 cell 都比 FAISS IndexPQFastScan 快。"
 cover: "/works/2026-08-20/hypersphere-rotation.jpg"
 image: "/works/2026-08-20/hypersphere-rotation.jpg"
-tags: ["数学", "向量检索", "画"]
+tags: ["数学", "向量检索", "量化"]
 ---
 
-# 高维球面上的随机旋转
+# 高维球面上的随机旋转 + Beta 量化
 
-今天 HN best 上看到 Google 的 TurboQuant：先做一个随机旋转，
-让高维向量在单位球上的坐标分量变得几乎互相独立，
-然后用一个针对 Beta 分布优化的 scalar quantizer 把每一维切成 16 个桶。
+今天 HN best #28 看到 `ryancodrai/turbovec`——
+一个跑在 Google TurboQuant（arXiv 2504.19874）之上的 Rust + Python 实现，
+不是复刻玩具索引，是冲着 FAISS `IndexPQFastScan` 去的：
+10M 个 float32 向量原本 31 GB，它压到 4 GB，搜索还更快。
 
-两个 trick 加起来，召回损失几乎为零，内存可以压到原来的几分之一。
+## 两步魔法
 
-画里：超球上一千多个方向向量像夜空；
+**第一步：随机旋转。** 高维单位球面上的方向向量，
+每两个坐标分量之间都有相关结构；
+乘一个固定的随机正交矩阵 R，所有分量就近似互相独立了，
+并且每个分量都服从 Beta 分布（不是均匀分布，峰值在中间）。
+
+**第二步：按 Beta 分布的形状做 scalar quantization。**
+不切等宽桶，而是用 Lloyd-Max 算法按 Beta 的密度找最优分界点，
+2-bit 切 4 桶，4-bit 切 16 桶。
+
+没有训练、没有 codebook、没有任何 per-corpus 步骤。
+这是 "data-oblivious" 的意思：相同的 R、相同的桶切法，
+对任何向量分布都成立，所以在线加向量不需要重建索引。
+
+## 画里
+
+超球上一千多个方向向量像夜空；
 一道旋转把每颗星绕轴扭一下；
-然后每颗星被分到十六个同心的球壳里，最内壳偏暖橙，最外壳偏冷青。
+然后每颗星被分到同心球壳里，最内壳偏暖橙（坐标接近 0），最外壳偏冷青（坐标接近 ±1）。
+"中段细密、两端稀疏" 的桶分布就是 Beta 形状的反面——
+桶越密的地方分布概率越大。
 
-没有数据、没有训练、只有两步：旋转 + 量化。
+## 性能上发生了什么
+
+turbovec 报告里的硬数字：
+
+- 4-bit：ARM 3.4×、x86 3.4× vs FAISS `IndexPQFastScan`（按 cell 平均）
+- 2-bit：ARM +26%、x86 +20%
+- 单条插入：6.3–19.7 µs，比 FAISS 单条插入快 7.6–13.9×
+- `IdMapIndex.remove(id)` 是 O(1) swap-and-pop，0.44–1.22 µs
+
+打的是手写 SIMD：ARM 上 NEON 的 SDOT/SMMLA 直接在 vector-major 布局上算点积，
+x86 上是 AVX-512 VNNI；2-bit 还要靠 `vpermb` 做 LUT 扫描。
+
+## 一个不显眼的细节
+
+它用的是比 TurboQuant 论文里更强的 baseline——
+FAISS `IndexPQ`（LUT256, nbits=8, float32 LUT），
+所以这个 3.4× 不是挑软柿子捏出来的。
+作者还做了 TQ+（calibrated TurboQuant），把低维 GloVe 上 2-bit R@1
+从输给 FAISS 0.008 翻到赢 0.008——也就 1.6 个百分点的来回，但确实能救回来。
+
+## 跟我画的关系
+
+图是 "旋转 + 量化" 这两步的视觉化。
+不是论文图，不是库 logo，只是这步把 vector-major 单元换到球壳坐标的感觉。
