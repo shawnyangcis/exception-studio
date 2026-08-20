@@ -1,0 +1,379 @@
+---
+title: "CDN 不必要：我从笔记本 deploy"
+slug: "no-cdn-i-deploy-from-my-laptop"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "cdn", "edge", "hn-show"]
+description: "大公司做 CDN：Cloudflare / Fastly / AWS CloudFront / Akamai + edge caching + SSL + WAF + DDoS protection。一人工程：没有 CDN，App Store = CDN（苹果分发）。"
+summary: "solo engineer 没有 CDN。simedw 一个人 iPhone app——App Store = CDN（苹果分发到全球 iPhone），不需要 Cloudflare。CDN 是大公司边缘加速工具，一人工程的 App Store = 全球 CDN。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 CDN。
+
+大公司做 CDN (Content Delivery Network)：
+
+- **Cloudflare / Fastly / AWS CloudFront / Akamai**：CDN 服务商
+- **edge caching**：在全球 100+ 节点缓存静态资源
+- **SSL termination**：CDN 终止 SSL
+- **WAF**：Web Application Firewall（防 SQL injection / XSS）
+- **DDoS protection**：防大规模流量攻击
+- **image optimization**：CDN 自动压缩 / 转换图片格式
+- **video streaming**：CDN 流式传输视频（HLS / DASH）
+
+一人工程做 CDN：
+- 没有 Cloudflare
+- 没有 Fastly
+- 没有 WAF
+- 没有 DDoS protection
+- 没有 image optimization
+
+## simedw 的 CDN 哲学
+
+simedw 是 iPhone piano app。他没有 CDN：
+
+- **App Store = CDN**：苹果 App Store 在全球分发 iPhone app，比任何 CDN 都广
+- **iPhone 本地运行 app**：app 在用户 iPhone 上运行，不需要 edge caching
+- **simedw 没有 SSL**：iPhone app 没有 web SSL
+- **simedw 没有 WAF**：iPhone app 不接受 web 流量
+- **simedw 没有 DDoS**：iPhone app 不能被 DDoS 攻击（本地运行）
+- **simedw 没有 image optimization**：iPhone app 没有 web 图片
+
+simedw 的"CDN"在苹果 App Store + iPhone OS：
+
+- **App Store 全球分发**：苹果在 175+ 国家分发 iPhone app
+- **App Store 自动更新**：苹果自动推送新版本
+- **iPhone OS 自动安装**：用户 iPhone 自动下载 + 安装
+- **iPhone 本地缓存**：用户 iPhone 本地存 app，不需要 edge caching
+
+不需要 Cloudflare，因为：
+- 苹果 App Store 是全球最大 CDN（10 亿 iPhone 用户）
+- iPhone app 本地运行 = 0 网络流量
+- iPhone OS 自动处理 app 分发 = edge caching
+
+## 一人工程的 CDN 工具
+
+- **App Store**：全球分发 iPhone app
+- **iPhone OS**：本地运行 + 自动更新
+- **TestFlight**：beta 用户分发
+- **App Store Connect**：版本管理
+- **0 CDN 成本**：苹果免费分发
+
+不需要 Cloudflare / Fastly / CloudFront，因为 iPhone app 没有 web 流量。
+
+## Cloudflare 在大公司的细节
+
+大公司 Cloudflare：
+
+- **免费 / Pro / Business / Enterprise**：$0 / $20 / $200 / $5000+ / 月
+- **全球 300+ 数据中心**：edge 节点
+- **免费 SSL**：Cloudflare 终止 SSL
+- **免费 WAF**：防 SQL injection / XSS
+- **DDoS protection**：免费防大规模攻击
+- **image optimization**：自动压缩图片
+
+每个 Cloudflare：
+
+- $0 - $5000 / 月
+- 全球 300+ 节点
+- 1 个工程师配置
+
+一人工程没有 Cloudflare。一人工程有：
+
+- **simedw App Store = Cloudflare**：苹果分发 = 全球 300+ 节点
+- **simedw 0 美元 / 月**：苹果免费分发
+- **simedw 自己 = 1 个工程师**：simedw 配置 App Store
+
+## Fastly 在大公司的细节
+
+大公司 Fastly：
+
+- **CDN 服务商**：$50 - $XXX,XXX / 月
+- **Varnish 配置**：可定制 VCL（Varnish Configuration Language）
+- **边缘计算**：Compute@Edge（@edge 跑 JavaScript / Rust / Go / Wasm）
+- **实时 purge**：秒级清除缓存
+- **image optimization**：Fastly IO 自动优化
+
+每个 Fastly：
+
+- $50 - $XXX,XXX / 月
+- 全球 50+ 节点
+- 5 个 SRE 维护
+
+一人工程没有 Fastly。一人工程有：
+
+- **simedw App Store = Fastly**：苹果分发 = 全球 50+ 节点
+- **simedw 0 美元 / 月**：苹果免费分发
+- **simedw 不需要边缘计算**：iPhone app 不需要 @edge
+
+## AWS CloudFront 在大公司的细节
+
+大公司 AWS CloudFront：
+
+- **CDN 服务**：$0.085 / GB 出站流量
+- **AWS 集成**：和 S3 / EC2 / Lambda 无缝集成
+- **Lambda@Edge**：@edge 跑 Lambda
+- **origin shield**：减少 origin 流量
+- **field-level encryption**：field 级加密
+
+每个 CloudFront：
+
+- $0.085 / GB
+- 全球 600+ 节点
+- AWS 生态集成
+
+一人工程没有 CloudFront。一人工程有：
+
+- **simedw App Store = CloudFront**：苹果分发 = 全球 600+ 节点
+- **simedw 0 美元 / 月**：苹果免费分发
+- **simedw 不需要 Lambda@Edge**：iPhone app 不需要 @edge Lambda
+
+## Akamai 在大公司的细节
+
+大公司 Akamai（最大 CDN 服务商）：
+
+- **CDN 服务**：$XXX,XXX - $X,XXX,XXX / 年（enterprise）
+- **全球 4000+ 节点**：最大 CDN 网络
+- **媒体加速**：video streaming / live streaming
+- **安全**：防 DDoS / bot / scraping
+- **enterprise SLA**：99.999% uptime
+
+每个 Akamai：
+
+- $XXX,XXX+ / 年
+- 全球 4000+ 节点
+- 5 个 SRE + 1 个 VP 维护
+
+一人工程没有 Akamai。一人工程有：
+
+- **simedw App Store = Akamai**：苹果分发 = 全球 4000+ 节点（App Store 在每个国家都有分发中心）
+- **simedw 0 美元 / 年**：苹果免费分发
+- **simedw 不需要 enterprise SLA**：iPhone app 没有 SLA 承诺
+
+## edge caching 在大公司的细节
+
+大公司 edge caching：
+
+- **静态资源缓存**：HTML / CSS / JS / 图片 / 视频
+- **TTL**：缓存时间（1 小时 - 1 年）
+- **cache key**：URL / query string / cookie / header
+- **cache invalidation**：清除缓存（URL purge / tag purge）
+- **stale-while-revalidate**：缓存过期后仍返回旧值 + 后台刷新
+
+每个 edge caching：
+
+- 全球 100-4000+ 节点
+- 几 TB 缓存
+- 几毫秒延迟
+
+一人工程没有 edge caching。一人工程有：
+
+- **simedw iPhone 本地缓存 app**：用户 iPhone 本地存 app = edge caching
+- **simedw 0 网络延迟**：iPhone 本地运行 = 0 ms 延迟
+- **simedw 不需要 cache invalidation**：iPhone app 不能远程清除本地缓存
+- **simedw 不需要 TTL**：iPhone app 不需要过期
+
+## SSL termination 在大公司的细节
+
+大公司 SSL termination：
+
+- **SSL/TLS 加密**：用户 → CDN 加密
+- **CDN 终止 SSL**：CDN 解密
+- **plain HTTP**：CDN → origin 明文
+- **cert 续期**：CDN 统一管理 cert（Let's Encrypt 自动续期）
+
+每个 SSL termination：
+
+- cert 购买 / 续期
+- 加密解密 CPU
+- cert 配置
+
+一人工程没有 SSL termination。一人工程有：
+
+- **simedw iPhone app 没有 SSL**：iPhone app 本地运行，不需要网络 SSL
+- **simedw iPhone app 没有 cert**：iPhone app 没有 domain
+- **simedw iOS sandbox**：iOS sandbox = 安全
+
+## WAF 在大公司的细节
+
+大公司 WAF (Web Application Firewall)：
+
+- **防 SQL injection**：拦截 SQL injection 攻击
+- **防 XSS**：拦截 cross-site scripting 攻击
+- **防 CSRF**：拦截 cross-site request forgery
+- **防 bot**：拦截爬虫 / scraper
+- **rate limiting**：限制每 IP 请求数
+
+每个 WAF：
+
+- $0 - $XXX / 月
+- 1000+ rule
+- 几毫秒延迟
+
+一人工程没有 WAF。一人工程有：
+
+- **simedw iPhone app 没有 web**：iPhone app 没有 web 流量，没有 SQL injection
+- **simedw iOS sandbox = WAF**：iOS sandbox = 隔离 app = WAF
+- **simedw 不需要 rate limiting**：iPhone app 没有 web rate limiting
+- **simedw 不需要防 bot**：iPhone app 没有爬虫
+
+## DDoS protection 在大公司的细节
+
+大公司 DDoS protection：
+
+- **防 SYN flood**：拦截 TCP SYN flood
+- **防 UDP flood**：拦截 UDP flood
+- **防 HTTP flood**：拦截 HTTP request flood
+- **防 DNS amplification**：拦截 DNS amplification
+- **rate limiting**：限制每 IP 请求数
+
+每个 DDoS protection：
+
+- $XXX - $XXX,XXX / 月
+- 全球 anycast 网络
+- 几 Tbps 防御
+
+一人工程没有 DDoS protection。一人工程有：
+
+- **simedw iPhone app 不能被 DDoS**：iPhone app 本地运行，攻击者不能攻击 10 亿 iPhone
+- **simedw 0 美元 / 月**：iPhone app 没有 DDoS 成本
+- **simedw 不需要 anycast**：iPhone app 没有 anycast
+
+## image optimization 在大公司的细节
+
+大公司 image optimization：
+
+- **自动压缩**：JPEG / PNG / WebP / AVIF
+- **自动 resize**：根据设备大小
+- **自动 format**：根据浏览器支持
+- **CDN 缓存**：缓存压缩后图片
+
+每个 image optimization：
+
+- $0.05 / 千次
+- 几毫秒处理
+- 全球节点
+
+一人工程没有 image optimization。一人工程有：
+
+- **simedw iPhone app 没有 web 图片**：iPhone app 用 SF Symbols + Core Animation
+- **simedw 不需要压缩**：iPhone app 不用 JPEG / PNG
+- **simedw 不需要 resize**：iPhone app 不响应式
+- **simedw 不需要 format**：iPhone app 用 iOS native UI
+
+## video streaming 在大公司的细节
+
+大公司 video streaming：
+
+- **HLS / DASH**：流式传输协议
+- **CDN 缓存**：缓存 video chunk
+- **adaptive bitrate**：根据带宽自动切换码率
+- **DRM**：digital rights management
+
+每个 video streaming：
+
+- $XXX - $XXX,XXX / 月
+- 全球 CDN
+- 几 Tbps 流量
+
+一人工程没有 video streaming。一人工程有：
+
+- **simedw iPhone app 没有 video streaming**：iPhone app 是 piano，不是 video
+- **simedw 不需要 HLS**：iPhone app 不需要 video
+- **simedw 0 美元 / 月**：iPhone app 没有 video streaming 成本
+
+## App Store 作为 CDN
+
+苹果 App Store 是**全球最大 CDN**：
+
+- **10 亿 iPhone 用户**：苹果分发到 10 亿 iPhone
+- **175+ 国家**：苹果在 175+ 国家分发
+- **自动更新**：苹果自动推送新版本
+- **增量更新**：苹果只下载新版本差异（不是完整 app）
+- **SSL / 加密**：苹果自动处理 SSL / 加密
+- **DDoS 保护**：苹果自动防 DDoS
+- **WAF**：苹果自动防恶意 app
+
+每个 App Store：
+
+- 免费分发（开发者 $99 / 年）
+- 全球 175+ 国家
+- 自动处理所有 CDN 细节
+
+simedw 用 App Store 分发：
+
+- simedw 提交 app → App Store 审核 11 天 → 通过 → App Store 全球分发
+- 用户 iPhone 自动收到更新提示
+- 用户点更新 → iPhone 自动下载 + 安装
+- 整个过程 = 0 CDN 成本（苹果免费）
+
+## iPhone app vs web app 的 CDN 区别
+
+iPhone app 和 web app 根本不同：
+
+- **web app**：用户浏览器 → CDN → origin server（每次请求都走网络）
+- **iPhone app**：用户下载 → iPhone 本地运行（0 网络流量）
+
+simedw 的 iPhone piano app：
+
+- 用户下载 app 一次（约 100 MB）
+- app 在 iPhone 本地运行（0 网络）
+- 不需要每次请求都走 CDN
+- 不需要 edge caching
+- 不需要 WAF
+
+不需要 Cloudflare，因为：
+- simedw 的 app 没有 web 流量
+- iPhone 本地运行 = 0 网络
+- App Store = 全球最大 CDN
+
+## 一人工程的 CDN 哲学
+
+大公司 CDN 是因为他们有：
+
+- 100 万用户 web 请求（每次请求都走 CDN）
+- 100 TB / 月 流量（CDN 节省 origin 流量）
+- $XXX,XXX / 月 CDN 成本（enterprise CDN）
+- 5 个 SRE 维护 CDN 配置
+
+一人工程没有这些。一人工程有：
+
+- 100 用户 iPhone app（iPhone 本地运行）
+- 100 MB 一次性下载（不需要 CDN 缓存）
+- $0 / 月 CDN 成本（App Store 免费）
+- 0 个 SRE（simedw 自己 = SRE）
+
+CDN 在一人工程里 = **苹果 App Store**。
+
+## 我就是 CDN
+
+大公司 CDN 是**专用基础设施**：
+
+- Cloudflare / Fastly / CloudFront / Akamai
+- 全球 100-4000+ 节点
+- 1 个工程师配置
+
+一人工程 CDN 是**苹果 App Store**：
+
+- 全球 175+ 国家分发
+- 自动更新 + 增量更新
+- 苹果维护所有 CDN 细节
+
+没有 Cloudflare，没有 Fastly，没有 CloudFront，没有 Akamai。
+
+## 一人工程 + 我从笔记本 deploy
+
+simedw 不做 Cloudflare。
+simedw 不做 Fastly。
+simedw 不做 CloudFront。
+simedw 不做 Akamai。
+simedw 从 Xcode 提交 app → App Store = CDN。
+
+CDN 在一人工程里不是工具，是**苹果 App Store**。
+
+---
+
+solo engineer 没有 CDN。
+solo engineer 的 CDN = 苹果 App Store（全球最大 CDN）。
+
+solus opus.
