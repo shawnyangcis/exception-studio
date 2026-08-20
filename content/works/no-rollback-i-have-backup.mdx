@@ -1,0 +1,276 @@
+---
+title: "Rollback 不必要：我有 backup"
+slug: "no-rollback-i-have-backup"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "rollback", "deployment", "hn-show"]
+description: "大公司做 rollback：k8s rollout undo / ECS rollback / Spinnaker / ArgoCD + database migration rollback + feature flag kill switch + 1-click rollback。一人工程：没有 rollback，iPhone app 加急审核 24 小时 = rollback。"
+summary: "solo engineer 没有 rollback。simedw 一个人 iPhone app——bug 发生他自己 fix + 加急审核 24 小时，不需要 k8s rollout undo。rollback 是大公司快速回退工具，一人工程的 fix = rollback。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 rollback。
+
+大公司做 rollback：
+
+- **k8s rollout undo**：kubectl rollout undo deployment/X（秒级回滚）
+- **ECS rollback**：aws ecs update-service 回滚到上一个 task definition
+- **Spinnaker / ArgoCD**：CD 平台一键回滚
+- **database migration rollback**：migration 回滚（schema 还原）
+- **feature flag kill switch**：LaunchDarkly / Split / Statsig 一秒关闭 feature
+- **1-click rollback**：CEO 点一下按钮回滚
+- **git revert**：git revert HEAD + push
+
+一人工程做 rollback：
+- 没有 k8s
+- 没有 ECS
+- 没有 Spinnaker
+- 没有 database migration
+- 没有 feature flag
+
+## simedw 的 rollback 哲学
+
+simedw 是 iPhone piano app。他没有 rollback：
+
+- **simedw 写代码时知道每个 change**：simedw 写代码时知道每个 commit 的影响
+- **simedw 不需要回滚**：simedw 写代码时已经测过，不需要回滚
+- **simedw 加急审核 24 小时 = rollback**：如果 bug 发生，simedw 加急审核 24 小时修复（≈ rollback 速度）
+- **simedw 用户本地修复**：iPhone app 用户重启 app 就能恢复（不像 server 需要回滚）
+
+simedw 的"rollback"在 git log + commit message：
+
+```
+commit 7d29c1b5 (current)
+fix: latency 200ms → 50ms after iOS 18 upgrade
+
+commit 8bd813f7 (rollback)
+revert: "fix: latency 200ms → 50ms"
+```
+
+但 simedw 不需要 git revert——simedw 加急审核 24 小时 fix 比 revert 快（revert 要重新部署 + 测 + 部署）。
+
+## 一人工程的 rollback 工具
+
+- **git revert**：本地 git log + revert
+- **苹果加急审核**：24 小时紧急修复
+- **App Store release notes**：通知用户修复版本
+- **Crashlytics**：自动检测 bug + 触发加急
+
+不需要 k8s / ECS / Spinnaker，因为 simedw 没有 server。
+
+## k8s rollout undo 在大公司的细节
+
+大公司 k8s rollout undo：
+
+- **kubectl rollout undo**：秒级回滚到上一个 deployment
+- **kubectl rollout history**：看 deployment 历史
+- **kubectl rollout restart**：强制重启所有 pod
+- **kubectl rollout pause / resume**：暂停 / 恢复 deployment
+
+每个 rollback：
+
+- 1 秒完成
+- 不需要改代码
+- 不需要重新部署
+
+一人工程没有 k8s。一人工程有：
+
+- **simedw 加急审核 24 小时**：iPhone app 没有 k8s，加急审核 = rollback
+- **simedw 自己 fix 比 rollback 快**：simedw 写代码时已经知道 fix，24 小时比 k8s 1 秒慢但足够
+
+## database migration rollback 在大公司的必要性
+
+大公司 database migration rollback：
+
+- **forward migration**：schema 加 column / 加 table / 加 index
+- **backward migration**：schema 减 column / 减 table / 减 index
+- **migration rollback**：发现 bug → 回滚 schema
+- **data migration rollback**：发现 bug → 回滚数据
+
+每个 migration rollback：
+
+- 几小时到几天
+- DBA 协调
+- 应用代码同步回滚
+
+一人工程没有 database migration rollback。一人工程有：
+
+- **simedw 没有 server database**：iPhone app 用 Core ML + 本地存储，不需要 database migration
+- **simedw 不需要 DBA**：simedw 自己 = DBA
+- **simedw 不需要回滚数据**：simedw 不存数据
+
+## feature flag kill switch 在大公司的细节
+
+大公司 feature flag kill switch：
+
+- **LaunchDarkly / Split / Statsig**：一秒关闭 feature
+- **kill switch SLA**：P0 incident 1 秒 kill switch
+- **kill switch 流程**：oncall 工程师 → kill switch → 100% 用户关闭 feature
+- **kill switch 验证**：feature 关闭后 alert 消失
+
+每个 kill switch：
+
+- 1 秒完成
+- 不需要重新部署
+- 不需要改代码
+
+一人工程没有 feature flag kill switch。一人工程有：
+
+- **simedw 加急审核 24 小时**：iPhone app 没有 feature flag，加急审核 = kill switch
+- **simedw 不需要 1 秒 SLA**：iPhone app 没有 SLA 承诺
+
+## 1-click rollback 在大公司的细节
+
+大公司 1-click rollback：
+
+- **CEO / VP 按钮**：1 个按钮回滚整个 production
+- **incident commander 批准**：rollback 需要 incident commander 批准
+- **rollback doc**：rollback 后写 incident doc
+
+每个 1-click rollback：
+
+- 几秒完成
+- CEO / VP 批准
+- incident doc 记录
+
+一人工程没有 1-click rollback。一人工程有：
+
+- **simedw 自己 = CEO / VP / incident commander**：simedw 自己批准
+- **simedw 自己 = rollback doc author**：simedw 写 commit message
+- **simedw 不需要 1-click**：simedw 加急审核 24 小时 = rollback
+
+## git revert 在大公司的细节
+
+大公司 git revert——发现 bug 后回滚 commit：
+
+- **git revert HEAD**：撤销最近一个 commit
+- **git revert X**：撤销某个 commit
+- **git revert X..Y**：撤销多个 commit
+- **git revert + push**：revert 后 push 触发部署
+
+每个 git revert：
+
+- 几秒完成
+- 不需要改代码
+- 自动触发 CI / CD
+
+一人工程有 git revert，但 simedw 不需要：
+
+- **simedw 写代码时知道 fix**：simedw 写代码时知道每个 fix，加急审核比 revert 快
+- **simedw 不需要 revert**：simedw 改完 bug 比 revert 旧版本好
+
+## iPhone app vs server 的 rollback 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：24 小时在线，部署立即生效（用户立即收到新版本）→ 需要快速 rollback（k8s 1 秒）
+- **iPhone app**：用户本地安装，新版本需要苹果审核（11 天）→ rollback 通过加急审核 24 小时
+
+simedw 的 iPhone piano app：
+- 部署不立即生效（苹果审核 11 天）
+- 加急审核 24 小时 = rollback 速度
+- 用户重启 app 就能恢复（不像 server 需要 rollback）
+
+不需要 k8s rollback，因为：
+- simedw 的 app 没有 server deployment
+- 苹果审核是自然 rollback 屏障
+- 用户本地 app 永远能打开
+
+## rollback 失败在大公司的细节
+
+大公司 rollback 失败模式：
+
+- **rollback 失败**：rollback 后还是 bug（rollback 版本本身有 bug）
+- **rollback 部分**：rollback 后部分用户还在新版本（流量没切完）
+- **rollback 数据不一致**：rollback 后 database schema 不一致
+- **rollback 后 alert 不消失**：rollback 后 bug 还在（root cause 没找到）
+
+每个 rollback 失败：
+
+- 重新 incident
+- 写 postmortem
+- 找 root cause
+
+一人工程没有 rollback 失败模式：
+
+- **simedw fix 比 rollback 好**：simedw 改完 bug 比 revert 旧版本好
+- **simedw 没有部分 rollback**：iPhone app 没有流量切分
+- **simedw 没有 database 不一致**：iPhone app 没有 server database
+- **simedw 没有 alert**：iPhone app 没有生产监控
+
+## rollback 决策在大公司的政治
+
+rollback 不是工具——是**政治决策**：
+
+- **incident commander**：决定是否 rollback
+- **CTO**：决定 rollback 是否影响 SLA
+- **PM**：决定 rollback 是否影响 feature 发布
+- **VP**：决定 rollback 是否影响季度目标
+- **CEO**：决定 rollback 是否影响公司声誉
+
+每个 rollback 决策：
+
+- 几小时讨论
+- 5-10 个 stakeholder
+- 每个 stakeholder 有不同意见
+
+一人工程没有 rollback 决策。一人工程有：
+
+- **simedw 自己决定**：simedw 自己知道 bug 怎么 fix
+- **simedw 不需要讨论**：simedw 自己 = 5-10 个 stakeholder
+- **simedw 24 小时 fix**：simedw 加急审核 24 小时比 rollback 快
+
+## 一人工程的 rollback 哲学
+
+大公司 rollback 是因为他们有：
+
+- 100 万用户（一次 rollback = 100 万用户受影响）
+- 100 个工程师（需要协调 rollback）
+- 5 分钟内 SLA（需要 1 秒 rollback）
+- $XX,XXX revenue impact（rollback 减少损失）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 rollback = 100 用户受影响，simedw 自己通知）
+- 0 个工程师（自己就是工程师）
+- 24 小时苹果加急审核（不需要 1 秒 SLA）
+- $0 revenue impact（iPhone app 免费）
+
+rollback 在一人工程里 = **simedw 加急审核 24 小时**。
+
+## 我就是 rollback
+
+大公司 rollback 是**多角色协作的**：
+
+- incident commander 决定
+- DBA 协调 database
+- SRE 协调 server
+- engineer 改代码
+- CEO / VP 批准
+
+一人工程 rollback 是**一个人做的**：
+
+- simedw 自己决定（看 Crashlytics）
+- simedw 自己协调（fix 代码）
+- simedw 自己改代码（commit + 加急审核）
+- simedw 自己批准（自己 = CEO / VP）
+
+没有 incident commander，没有 DBA，没有 SRE，没有 engineer，没有 CEO。
+
+## 一人工程 + 我有 backup
+
+simedw 不做 k8s rollout undo。
+simedw 不做 ECS rollback。
+simedw 不做 Spinnaker。
+simedw 不做 migration rollback。
+simedw 不做 feature flag kill switch。
+simedw 加急审核 24 小时 = rollback。
+
+rollback 在一人工程里不是工具，是**simedw 加急审核 24 小时**。
+
+---
+
+solo engineer 没有 rollback。
+solo engineer 的 rollback = 加急审核 24 小时 + 自己 fix。
+
+solus opus.
