@@ -1,0 +1,40 @@
+---
+title: "commit 就是 ticket"
+slug: "no-ticket-system-commit-is-ticket"
+date: 2026-08-21
+summary: "团队有 JIRA/Linear/Asana ticket system：swimlane、status machine、assignee、priority、label。一人工程没有 ticket——commit 就是 ticket，commit message 是 ticket title，commit sha 是 ticket ID，commit diff 是 ticket resolution。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队的 ticket system 是 JIRA。
+
+JIRA board 上：5 个 column（Backlog / Todo / In Progress / Review / Done）、20 个 swimlane（按 epic 分）、每个 ticket 配 assignee + due date + priority（P0/P1/P2/P3）+ label（bug/feature/refactor/docs）。每个 sprint 100+ ticket 在 board 上流动，daily standup 报告 ticket 状态。
+
+Linear 更轻量：cycle + project + issue，cycle planning 每周一次，auto-close 通过 PR merge。
+
+一人工程没有 ticket。
+
+`feat: bar/measure token` 这一行就是 ticket：
+- **ticket title** = commit message（"feat: add bar/measure token for rhythm anchors"）
+- **ticket ID** = commit sha（a3f8b91c）
+- **ticket status** = before commit (Todo) / after commit (Done)
+- **ticket assignee** = simedw（commit author 字段）
+- **ticket priority** = `feat:` / `fix:` / `docs:` / `chore:` 前缀
+- **ticket label** = commit message 里的 emoji 或 keyword
+- **ticket resolution** = commit diff
+
+> 一人工程的 ticket system 是 git log。
+
+团队 ticket system 的存在是为了**让 5 个工程师同时工作不冲突**——assignee 决定谁做、status machine 决定做到哪、PR review 决定能不能 close。一人工程没有这个协调问题——simedw 自己 work on everything，不需要 JIRA board 来 visualize 工作流。
+
+simedw 不会打开 JIRA 看自己今天做什么——他打开 `git status` 看 working tree 有没有未 commit 的改动。如果有，改动就是「In Progress ticket」；如果没有，就是「Inbox empty」。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——`git log --oneline` 是 vladislav 的 ticket board。`feat: ternary gate optimization`、`fix: cargo doc typo`、`docs: usage example` —— 每一个 commit 是一个 ticket、auto-close by commit。
+
+> 团队的 ticket 由 PR merge close。一人工程的 ticket 由 `git commit` close。
+
+PR merge 是 ticket close 的 ceremony：open PR → review → approve → merge → ticket auto-close。commit 是 solo engineer 的 ceremony：`git commit` → ticket done。ceremony 缩短到 1 个动作。
+
+solo engineer 的 ticket system 是他自己。git log 是他的 JIRA board，commit 是他的 ticket close 仪式。
+
+solus opus.
