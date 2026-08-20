@@ -1,0 +1,209 @@
+---
+title: "Kakehashi + Ullis：vladislav-kalinkin 的两个产品线"
+date: "2026-08-21"
+kind: "essay"
+summary: "vladislav-kalinkin 的 GitHub bio：「Developer of Kakehashi and WIE」。两个产品线：Kakehashi = Userspace macOS translation layer（macOS 系统层），Ullis = Rust ternary Mixture-of-Bumps KAN engine（ML 引擎）。一人 + 两个产品 = 一人工程的多产品策略——同时服务 macOS 圈与 ML 圈。"
+tags: ["一人工程", "vladislav-kalinkin", "Kakehashi", "Ullis"]
+---
+
+# Kakehashi + Ullis：vladislav-kalinkin 的两个产品线
+
+> vladislav-kalinkin 的 GitHub bio：
+> 「Developer of Kakehashi and WIE」
+> 5 followers · 1 following
+> 1 public repo: ullis
+
+vladislav-kalinkin 的两个产品：
+
+- **Kakehashi**：Userspace macOS translation layer（在 wie-project 仓库下）
+- **Ullis**：Standalone ternary Mixture-of-Bumps Kolmogorov–Arnold engine（Rust）
+
+两个完全不同方向。
+一个人做的。
+
+# Ullis 是什么
+
+Ullis 的 GitHub README：
+
+> Standalone ternary Mixture-of-Bumps Kolmogorov–Arnold engine.
+> Zero Python at runtime. One binary: train, chat, smoke.
+> topics: ai-engine, kan, rust
+
+技术栈：
+
+- tokens → embed → L × (causal mixer + TernaryKanLinear) → RMSNorm → tied logits
+- TWN 2-bit quantization
+- Metal GPU 加速
+- packed-i8 embedding
+- ReLU-bump basis + MoB router
+- WordPiece tokenizer (vocab 8192)
+- SovereignFlashBuffer token ring
+
+基准（M1 8GB Mac）：
+
+- 预训练吞吐：~7500 tok/s
+- 推理 RSS：<15 MB
+
+这是「ML 引擎」。
+不是给人用的产品。
+是给 ML researcher 用的 infra。
+
+# Kakehashi 是什么
+
+Kakehashi 仓库（wie-project 组织下）：
+
+> Userspace macOS translation layer for Apple Silicon
+> github.com/wie-project/kakehashi
+
+Kakehashi 是日文「橋」(bridge) 的意思。
+
+桥 = 翻译层 = macOS 翻译层。
+
+macOS 是 Apple Silicon 上的操作系统。
+「Userspace translation layer」是在用户态做翻译，不动内核。
+
+Kakehashi 的用途（猜）：
+
+- 让 x86_64 macOS 软件在 Apple Silicon 跑
+- 不依赖 Rosetta 2
+- 不需要 SIP 关闭
+- 用户态翻译
+
+这是「macOS 系统层」。
+不是给 ML researcher 用的。
+是给所有 macOS 用户用的。
+
+# 两个完全不同的产品
+
+| 维度 | Ullis | Kakehashi |
+| --- | --- | --- |
+| 领域 | ML 引擎 | macOS 系统层 |
+| 用户 | ML researcher | macOS 用户 |
+| 技术 | Rust + KAN + ternary | 用户态翻译 + ARM64 |
+| 跑在哪 | Apple Silicon | Apple Silicon |
+| 目的 | 训练 + 推理 ML 模型 | 让旧软件跑在新硬件 |
+| 抽象层 | 应用层 | 系统层 |
+
+# 一人工程的多产品策略
+
+simedw 做了一个产品：
+
+- RollTab iPhone app
+
+vladislav-kalinkin 做了两个产品：
+
+- Ullis（ML 引擎）
+- Kakehashi（macOS 系统层）
+
+两个产品都「Apple Silicon」相关。
+但服务完全不同的市场：
+
+- Ullis → ML researcher
+- Kakehashi → 普通 macOS 用户
+
+一人工程的多产品策略：
+
+- 不同市场 + 不同抽象层 + 不同用户
+- 一个人维护两个 codebase
+- 两个 codebase 共享 Apple Silicon 平台知识
+
+# OpenAI 的多产品策略
+
+OpenAI 的多产品：
+
+- GPT-4 / GPT-5 / GPT-6
+- DALL-E / Sora / ChatGPT / Codex
+
+OpenAI 的多产品策略：
+
+- 同市场 + 同抽象层
+- 不同模型 + 不同模态
+- 一个组织维护多个产品
+- 几十个工程师 × 每个产品
+
+vladislav-kalinkin 的多产品策略：
+
+- 不同市场 + 不同抽象层
+- 一个人维护两个 codebase
+- 一个人 = 两个产品线
+
+# 一人工程的两个产品线
+
+vladislav-kalinkin 的两个产品线在 HN show 上同台：
+
+- 一条线 → ML 圈（Ullis）
+- 一条线 → 系统圈（Kakehashi）
+
+两个产品线之间没业务关联。
+两个产品线之间没代码复用。
+
+但都出自一个人。
+都跟 Apple Silicon 有关。
+
+# 一人工程的两个产品线优势
+
+一个人做两个产品线的优势：
+
+- 跨领域思维
+- Apple Silicon 深度理解
+- 不同市场的用户反馈
+- HN show 上两个产品叠加曝光
+
+一个人做两个产品线的代价：
+
+- 时间分散
+- 维护两个 codebase
+- 文档两份
+- 测试两份
+
+vladislav-kalinkin 选择「做两个」。
+
+# 一人工程的两个产品线哲学
+
+simedw 选「一个深」：
+
+- 一个 iPhone app
+- 半年
+- 一类用户
+
+vladislav-kalinkin 选「两个广」：
+
+- 两个产品线
+- 一个 ML 一个 macOS
+- 两类用户
+
+两种策略。
+两种一人工程。
+
+# 一人工程 vs 多产品
+
+OpenAI 想多产品：
+
+- 一个团队做一个产品
+- 多个团队 = 多个产品
+
+一人工程想多产品：
+
+- 一个人 = 一个产品
+- 一个人能不能做两个？
+
+vladislav-kalinkin 的答案是「能」。
+他的两个产品都 ship 了。
+
+# 一人工程的取舍
+
+vladislav-kalinkin 的取舍：
+
+- Ullis：窄但深（一个 ML 引擎）
+- Kakehashi：窄但深（一个翻译层）
+- 都不广
+
+两人 = 两人：
+
+- simedw：iPhone 钢琴续写（一个市场）
+- vladislav-kalinkin：ML + macOS（两个市场）
+
+两种路线。
+两种可能性。
+
+签名：solus opus。
