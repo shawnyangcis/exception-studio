@@ -1,0 +1,331 @@
+---
+title: "Für Elise 被模型带向完全不同的方向"
+slug: fur-elise-model-takes-different-direction
+date: 2026-08-21
+tags: [one-man-project, simedw, demo, continuator, music-ai, classical-music]
+summary: "simedw 让模型接 Beethoven《Für Elise》开头，模型带向了爵士 / 巴洛克 / 不协和音，而不是继续巴洛克风格。用户惊讶——AI 不懂「风格应该一致」，AI 只懂「下一个 note 最可能是什么」。这暴露了一人工程 AI 的根本限制：能接，不能想。"
+---
+
+simedw 在 demo 里做了一件事：
+
+按《Für Elise》的开头几个音给模型：
+
+```
+E5 D#5 E5 D#5 E5 B4 D5 C5
+A4 C4 E4 A4 B4 ... (Für Elise 第一句)
+```
+
+模型接续。
+
+但模型**没有**继续 Für Elise 的旋律。模型接向了：
+
+- 爵士和弦（带 7th, 9th extensions）
+- 巴洛克对位（独立声部）
+- 不协和音（m2, TT 关系）
+- 现代和声（4 个声部，每个不同方向）
+
+用户惊讶：「这不是 Für Elise！」
+
+simedw 解释：「模型不是风格模仿器。模型是下一个 note 预测器。」
+
+## 「下一个 note」 vs 「风格延续」的区别
+
+模型的训练目标：
+
+> 给定 512 notes context，预测下一个最可能的 note event。
+
+模型的训练**不是**：
+
+> 给定一段巴洛克风格，生成同一风格的 continuation。
+
+这两个目标听起来像，但实际不同：
+
+- 「下一个 note」= 局部概率分布
+- 「风格延续」= 全局一致性
+
+Für Elise 开头是巴洛克风格，但**「下一个 note」的概率分布**考虑了所有钢琴曲的训练数据：
+
+- 巴洛克概率：30%
+- 古典概率：40%
+- 爵士概率：15%
+- 流行概率：10%
+- 不协和：5%
+
+每个 note 的预测 = 加权采样。
+
+所以模型可能：
+
+- 第 1-5 个 note：跟 Für Elise 接近（古典概率高）
+- 第 6-10 个 note：开始偏离（爵士概率拉走）
+- 第 11+ 个 note：完全脱离 Für Elise
+
+这就是用户看到的「模型带向不同方向」。
+
+## 「接 Für Elise」的具体 demo
+
+simedw 演示的几个版本：
+
+### 版本 A：纯输入 Für Elise 开头
+
+输入：Für Elise 前 8 小节
+输出：模型生成爵士 continuation
+感受：「这是 Für Elise 吗？感觉像 Bill Evans 弹的」
+
+### 版本 B：输入 Für Elise + 用户继续按 E5
+
+输入：Für Elise 前 4 小节 + 用户强行按 E5 节奏
+输出：模型跟着 E5，但和声走偏
+感受：「节奏对了，但和声不对」
+
+### 版本 C：输入 Für Elise + 用户同时按 Cm7
+
+输入：Für Elise 前 4 小节 + 用户按 Cm7 和弦
+输出：模型开始用 Cm7 走向
+感受：「哦，我现在是 jazz pianist 了」
+
+### 版本 D：纯输入 Für Elise 但 context window 扩展
+
+输入：Für Elise 前 8 小节（context 占满）
+输出：模型更可能继续 Für Elise
+感受：「这个版本最像」
+
+## 「能接不能想」的根本限制
+
+模型能：
+
+- 预测下一个 note event
+- 维持本地动机（motif）
+- 模仿短旋律 pattern
+- 抓 chord progression
+
+模型不能：
+
+- 「想」延续巴洛克风格
+- 「想」保持 Beethoven 的情绪
+- 「想」做奏鸣曲式
+- 「想」配合用户意图
+
+「想」= 长期规划 + 风格控制 + 音乐理解。
+
+模型只有「下一个 note 概率」。
+
+## simedw 的解法
+
+simedw 给模型加 planning（下一步研究）：
+
+```
+用户输入 Für Elise 开头
+   ↓
+模型先生成 plan：key=Am, style=baroque, mood=intimate
+   ↓
+模型根据 plan 生成 note events
+   ↓
+输出更连贯的巴洛克 continuation
+```
+
+plan token 让模型「想」——但实际上还是概率预测，只是预测时多 attend 到 plan token。
+
+这不是真正的「理解」，是**显式的上下文控制**。
+
+## 「能接不能想」对一人工程的意义
+
+一人工程的 AI 系统普遍有这个限制：
+
+- LLM 能「接」下一个 token，不能「想」整段文字
+- Image gen 能「接」下一个 pixel，不能「想」整张构图
+- Music gen 能「接」下一个 note，不能「想」整首曲子
+
+「接」是局部预测。「想」是全局规划。
+
+大公司的解法：
+
+- 加 planning 模块（OpenAI o1）
+- 加 reasoning chain（Anthropic CoT）
+- 加 verifier + search（AlphaGo）
+
+一人工程的解法（simedw 风格）：
+
+- 加 bar token（局部 anchor）
+- 加 plan token（显式 planning）
+- 加 parallel picking + DPO（偏好对齐）
+
+每一步都是「加显式控制」，不是「让模型自己想」。
+
+## 「下一个 note」哲学的本质
+
+simedw 的哲学：
+
+> AI 不理解音乐。AI 理解「下一个 note 最可能是什么」。
+
+这个哲学延伸到所有 AI：
+
+- LLM 不理解文本。LLM 理解「下一个 token 最可能是什么」。
+- Image gen 不理解图像。Image gen 理解「下一个 pixel 最可能是什么」。
+- Music gen 不理解音乐。Music gen 理解「下一个 note 最可能是什么」。
+
+「理解」是 anthropomorphism（拟人化）。simedw 不犯这个错。
+
+## 用户期望 vs 模型能力的 gap
+
+用户期望：
+
+> AI 应该懂 Für Elise 是巴洛克风格，应该继续巴洛克风格。
+
+模型能力：
+
+> AI 只能预测下一个 note 概率，可能带向爵士 / 巴洛克 / 不协和。
+
+gap 来自：
+
+- 用户 anthropomorphize AI
+- 用户高估 AI 的「理解」能力
+- 用户低估 AI 的「统计」能力
+
+simedw 的应对：
+
+- **教育用户**：在 app 里写「模型不是风格模仿器」
+- **给用户控制**：plan token + parallel picking 让用户指定方向
+- **接受限制**：app 名字就叫「Piano Continuator」不是「Piano Composer」
+
+## 「Piano Continuator」 vs 「Piano Composer」
+
+simedw app 的名字选择很关键：
+
+- **Continuator**：用户给开头，AI 接续。**协作工具**。
+- **Composer**：用户给意图，AI 写完整作品。**生成工具**。
+
+simedw 选 Continuator——因为 1 人做 Composer 不可能，但 1 人做 Continuator 可以。
+
+Pachet 23 年前选 Continuator 是同样的原因。
+
+## 「能接不能想」的代价与优势
+
+代价：
+
+- 不能做「完整作品」
+- 不能控制长期风格
+- 不能替代钢琴师
+
+优势：
+
+- 真实（不假装「理解」）
+- 简单（不堆 planning / reasoning 模块）
+- 便宜（不需要 GPT-4 级模型）
+
+一人工程的哲学：选能做的，不做不能做的。
+
+## 「接」本身的限制
+
+「下一个 note 预测」也有自己的限制：
+
+- **context window**：只能看 512 notes
+- **temperature**：多样性 vs 一致性的 tradeoff
+- **bias**：训练数据偏向古典，爵士 / 流行概率低
+- **重复**：容易卡循环
+
+每个限制都是 simedw 下一步研究的对象：
+
+- context 512 → bar token 让模型「理解」节奏
+- temperature → parallel picking 跑多个 temperature
+- bias → DPO 让模型偏向 simedw 的偏好
+- 重复 → repetition penalty + plan token
+
+## 「Für Elise」demo 的真名
+
+simedw 这个 demo 在 HN show 里被问到：
+
+> "Have you tried classic pieces? Like Für Elise?"
+
+simedw 回答：
+
+> "Yes, the model takes Für Elise into jazz / baroque / atonal depending on the temperature and context."
+
+这不是「失败」——这是「真实 demo」。
+
+## 「真实 demo」 vs 「精心 demo」
+
+simedw 的 demo 都是**真实 demo**：
+
+- 模型实际接续 Für Elise 的样子（不是筛选过的最佳 case）
+- 用户实际试用的体验（不是 marketing 渲染过的）
+- 失败 case 也公开（不是只 show 成功）
+
+这跟大公司的 marketing demo 完全不同：
+
+- Apple 发布会：iPhone 18 渲染图（不是真实样张）
+- Tesla 发布会：FSD v13 demo（筛选过的路线）
+- OpenAI 发布会：GPT-5 写诗 demo（精心挑选的 prompt）
+
+simedw 选真实 demo：
+
+- 用户看到「真实能用的产品」
+- 用户不被 hype 误导
+- simedw 不需要 marketing team 包装
+
+## 「能接不能想」的一人工程姿态
+
+接受 AI 的限制：
+
+- AI 不理解音乐 → 不假装理解
+- AI 不能生成完整作品 → 做 continuator
+- AI 不能控制长期风格 → 给用户 plan token
+- AI 容易卡循环 → parallel picking + DPO
+
+这是 simedw 的姿态：
+
+> 不夸大 AI 能力，不掩盖 AI 限制，给用户真实可用的产品。
+
+## 「Für Elise demo」的 takeaway
+
+Für Elise demo 告诉用户：
+
+- 模型**能接**，但接的方向**不保证**
+- 用户**能控制**，通过 plan + parallel picking
+- AI **不能想**，但「接」本身有用户价值
+
+simedw 不卖「AI 替你写贝多芬」。simedw 卖「AI 帮你续写，给你 16 个候选，挑最好的」。
+
+这是诚实的产品定位。
+
+## 一人工程的「不画饼」哲学
+
+simedw 的「不画饼」哲学：
+
+- 不说「我做 AGI for music」
+- 不说「我做 Bach-level composer」
+- 不说「我做 production-ready music AI」
+
+simedw 的「画饼」（实事求是的饼）：
+
+- 「我做 Piano Continuator」
+- 「125M transformer」
+- 「iPhone Core ML」
+- 「免费，1 万 DAU」
+- 「用户给开头，AI 接续」
+- 「接的方向不保证，但能 control」
+
+这是「一人工程的诚实 marketing」。
+
+## 「Für Elise demo」哲学的延伸
+
+任何 AI demo 都应该：
+
+1. **真实跑一遍**（不渲染 / 筛选）
+2. **展示失败 case**（不只 show 成功）
+3. **说明限制**（不夸大能力）
+4. **给用户控制**（plan + parallel + temperature）
+5. **诚实定位**（continuator 不是 composer）
+
+simedw 的 Für Elise demo 是这个哲学的体现。
+
+## 一人工程的 AI 产品哲学
+
+> AI 不理解，AI 只预测。用户给意图，AI 给可能。
+
+这是 simedw 的核心哲学。
+
+也是一人工程 AI 产品的核心哲学。
+
+---
+
+solus opus.
