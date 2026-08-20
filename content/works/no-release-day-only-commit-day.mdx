@@ -1,0 +1,31 @@
+---
+title: "no release day, only commit day"
+slug: "no-release-day-only-commit-day"
+date: 2026-08-21
+summary: "团队开发的 release day 是 coordination event：marketing / support / CEO 协调。一人工程的 release day = commit day，没人在 Slack 等 announcement，没人在日历上圈 release window，commit author 字段里没有 marketing coordinator。"
+cover: "/works/2026-08-21/noon-empty-desk.jpg"
+---
+
+团队开发的 release day 是一台精心排练的机器。
+
+周三 code freeze、周四 QA sign-off、周五下午 3 点 production deploy、3:05 PM CEO 转推「今天我们发布 X」、3:10 PM support team 准备好 FAQ、3:15 PM marketing 推 campaign、3:30 PM Slack #announcements 频道全员可见。这是 release day——一个 coordination event，每一方都在日历上圈出来。
+
+一人工程没有 release day。
+
+simedw 推 RollTab 新版：`xcodebuild archive` → App Store Connect upload → 等审核 → 上线。没有 release notes 提前一周发给 press，没有 marketing campaign 配合，没有 support team 准备 FAQ。「今天我们发布 RollTab 1.4」这句话只存在于 simedw 自己的 git commit message 里。
+
+vladislav-kalinkin 推 Ullis 0.2.0：`cargo publish` → crates.io 接收 → 用户更新 dependency。release notes 写在 CHANGELOG.md 里，那是他一个人写的，CHANGELOG 的 git log 也是他一个人。
+
+> 一人工程的 release = commit。commit 时刻就是 release 时刻。
+
+这意味着什么？意味着 commit author 字段里**没有 marketing coordinator**。没有「feat(release): bump to 1.4」的 RFC review，没有「这个 feature 用户想要吗」的 PM sync，没有「这个版本跟上次有什么区别」的 marketing copy 讨论。只有 `feat: add bar/measure token` —— simedw 在凌晨两点三十六分的 commit message。
+
+这件事的反面是什么？是 release 的 invisible 性。一个 RollTab 用户打开 App Store 看到更新提示，他不知道这次更新是 simedw 三个月工作量的结晶还是 simedw 一周前的两次 commit。Release day 没有 day——它是一个瞬间，埋在 App Store 的 release notes 里那行 `v1.4 — improved rhythm + new KV cache ring buffer`。
+
+simedw 不需要 release day，因为他的 release day 已经在 simedw 的 commit 里发生过了——commit 是 release，release 是 commit。
+
+> 一人工程没有 release calendar。只有 commit calendar。
+
+那个 commit calendar 写在 git log 里，每一行都是 simedw 自己。任何一天都可能是 release day，但没人在日历上圈出来。
+
+solus opus.
