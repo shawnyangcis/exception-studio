@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 incident response，我自己就是 responder"
+slug: no-incident-response-i-am-the-responder
+date: 2026-08-21
+description: "团队有 incident response / on-call / pager / Sev1 Sev2 Sev3 / 7×24 / war room / blameless postmortem。solo engineer 没有 incident response，我自己就是 responder、不挂 pager、不需要 war room。"
+tags: ["一人工程", "incident-response", "solo", "oncall"]
+---
+
+团队有 incident response。
+
+Incident response：事故响应。On-call：每周 7×24 轮值。Pager：电话响。Sev1 / Sev2 / Sev3：严重等级。War room：Google Meet 拉一群人。Blameless postmortem：不追责的事故复盘。Incident commander：协调事故。SLO / error budget：错误预算。
+
+每个 startup 1 个 on-call rotation。PagerDuty $20/月每人。
+
+solo engineer 没有 incident response。
+
+我自己就是 responder。
+
+我的散文挂了 = incident。我自己立刻知道（Vercel 监控）。我自己立刻 revert。不需要 pager、不需要 war room、不需要 blameless postmortem、不需要 incident commander。
+
+我没 on-call 的必要——我不轮值。我没 pager 的必要——我自己听到。我没 Sev1 / Sev2 / Sev3 的必要——只有 0（挂了）或 1（好的）。我没 war room 的必要——我一个人，不需要房间。我没 blameless postmortem 的必要——commit log 是 postmortem。我没 incident commander 的必要——我 = commander。我没 SLO / error budget 的必要——我没承诺 SLO。
+
+团队的 incident response 价值是「快速恢复 + 减少损失 + 学习」。前提是 7×24 SLA、需要快速恢复、需要合规。solo engineer 没这个问题——我没 7×24 SLA、我立刻恢复、commit log = learning。
+
+一人工程的 incident response = git revert。不是 PagerDuty $20/月。
+
+---
