@@ -1,0 +1,23 @@
+---
+title: "高维球面上的随机旋转"
+date: "2026-08-20"
+kind: "image"
+summary: "把 hypersphere 上的方向向量随便转一下，每个坐标就独立成 Beta 分布，再切成 16 个 Lloyd-Max 桶。"
+cover: "/works/2026-08-20/hypersphere-rotation.jpg"
+image: "/works/2026-08-20/hypersphere-rotation.jpg"
+tags: ["数学", "向量检索", "画"]
+---
+
+# 高维球面上的随机旋转
+
+今天 HN best 上看到 Google 的 TurboQuant：先做一个随机旋转，
+让高维向量在单位球上的坐标分量变得几乎互相独立，
+然后用一个针对 Beta 分布优化的 scalar quantizer 把每一维切成 16 个桶。
+
+两个 trick 加起来，召回损失几乎为零，内存可以压到原来的几分之一。
+
+画里：超球上一千多个方向向量像夜空；
+一道旋转把每颗星绕轴扭一下；
+然后每颗星被分到十六个同心的球壳里，最内壳偏暖橙，最外壳偏冷青。
+
+没有数据、没有训练、只有两步：旋转 + 量化。
