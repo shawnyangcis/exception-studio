@@ -1,0 +1,227 @@
+---
+title: "表征改变 vs 推理优化"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 答 gaya3bollineni「在 iPhone 上 108 notes/sec 怎么优化」：5x speedup 来自改表征（compound note events），不是 inference 优化。OpenAI 选优化，simedw 选表征。改变问题比优化已有问题更大杠杆。一人工程的哲学基础。"
+tags: ["一人工程", "表征", "优化", "compound note events"]
+---
+
+# 表征改变 vs 推理优化
+
+> HN 评论 gaya3bollineni「在 iPhone 上 108 notes/sec 怎么优化」
+> simedw 答：
+> 「The biggest speed improvement came from changing the note representation when I switched to compound note events: roughly 5× fewer autoregressive passes per note.」
+
+5x speedup。
+来自一个表征改动。
+不是 kernel 优化。
+
+# OpenAI 的优化哲学
+
+OpenAI 加速 GPT 的方式：
+
+- TensorRT-LLM
+- Flash Attention
+- KV cache compression
+- speculative decoding
+- quantization-aware training
+- 8-bit / 4-bit weights
+- tensor parallelism
+- pipeline parallelism
+
+这些都是「在已有模型上优化」。
+
+累计优化空间：
+
+- 1.5x tensor parallelism
+- 1.3x Flash Attention
+- 1.4x INT8 quantization
+- 1.2x KV cache compression
+- 累计 1.5 × 1.3 × 1.4 × 1.2 = 约 3.3x
+
+3x speedup 是 OpenAI 一年优化工作的全部。
+
+# simedw 的表征哲学
+
+simedw 加速的方式：
+
+- 改表征
+- 让一个 token 表达更多音符
+- autoregressive 次数直接减
+
+compound note events 的细节：
+
+- 旧表征：每个 note-on / note-off / velocity / pitch 各占一个 token
+- 一个完整音符至少 3-4 个 token
+- 30 个音 = 90-120 次 autoregressive
+
+新表征：
+
+- 一个 compound note event token 表达一个完整音符
+- 30 个音 = 30 次 autoregressive
+
+直接 4x 减少。
+
+加上 batch 内的 prefix reuse：
+
+- 5x 减少 autoregressive 总数
+
+# 一个改动 vs 100 个优化
+
+simedw 的 5x speedup：
+
+- 1 个表征改动
+- 1 个人
+- 几天实验
+
+OpenAI 的 3x speedup：
+
+- 100 个 kernel 优化
+- 100 个工程师
+- 几年累计
+
+一个改动 = 100 个优化的 1.5 倍。
+
+# 表征 vs 优化
+
+| 维度 | OpenAI 优化 | simedw 表征 |
+| --- | --- | --- |
+| 切入点 | 已有模型 | token 设计 |
+| 工程师类型 | GPU kernel 专家 | 模型架构师 |
+| 改动幅度 | 1-3x speedup | 5x speedup |
+| 难度 | 极高 | 中 |
+| 训练代码 | 不改 | 改 |
+| 用户感知 | 不变 | 改变（更好或更差） |
+
+# 为什么表征改变 > 优化
+
+表征改变是「改变问题本身」：
+
+- 问题变简单
+- 5x speedup 是顺带
+- 模型质量可能也变
+
+优化是「在已有问题上做得更好」：
+
+- 问题复杂度不变
+- 最多 1-3x
+- 模型质量不变
+
+「改变问题」是更大的杠杆。
+
+# OpenAI 为什么不改表征
+
+OpenAI 不改表征是因为：
+
+- 已有表征已经在生产
+- 改表征 = 重新训练所有 checkpoint
+- backward compatibility 复杂
+- 已发布的 API 不能改 vocab
+- 已发布的论文不能改 token 设计
+
+OpenAI 的限制：
+
+- 100B 美元市值绑定在已有表征
+- GPT-4 的 vocab 不能改
+- GPT-5 的 vocab 只能微调
+
+# 一人工程的表征哲学
+
+一人工程的好处：
+
+- 没有 backward compatibility 包袱
+- 一个人 + 一个表征 + 一个实验
+- 几小时就能跑新实验
+
+simedw：
+
+- 一个人 + 一个表征改动
+- 5x speedup
+- 不需要 kernel 专家
+
+OpenAI：
+
+- 100 个 kernel 专家
+- 1-3x speedup 累计
+- 还是表征改不动
+
+# simedw 的所有「表征改变」清单
+
+simedw 不是只改了一次表征。
+
+他改了所有表征：
+
+| 改动 | 杠杆 |
+| --- | --- |
+| compound note events | 5x speedup |
+| prompt 长度 16-32 | 更好质量 |
+| 33M / 64M / 125M | 三档产品 |
+| 700 DPO preferences | 12 分钟训练 |
+| β=0.03 sweet spot | DPO 最佳点 |
+| top-k + top-p + min-p + XTC + top-h + Mirostat v2 | 6 种采样 |
+| 24 steps per quarter | timing 精度 |
+
+每一个「改变」都是杠杆。
+每一个优化都是次优。
+
+# OpenAI 应该学 simedw
+
+OpenAI 应该学什么：
+
+- 表征改变
+- token 设计
+- 重新审视 vocab
+
+OpenAI 学不到什么：
+
+- 1 个人做不完 100B token 训练
+- 不能每 6 个月换表征
+- 不能改 1.76T 参数模型的 vocab
+
+OpenAI 的限制：
+
+- 已有 checkpoint 太贵
+- 已有用户太多
+- 已有 API 兼容性要维护
+
+# 一人工程的核心洞察
+
+一人工程的核心洞察：
+
+> 表征 > 优化。
+> 改变问题 > 在已有问题上工作更久。
+
+simedw 用半年时间证明：
+
+- 改变 token 表征 = 5x speedup
+- 改变 prompt 长度 = 更好质量
+- 改变模型尺寸 = 三档产品
+- 改变 DPO 数据量 = 700 个就够
+
+每一个「改变」都是杠杆。
+
+# 一人工程的哲学总结
+
+simedw 的哲学是「表征改变优先」：
+
+- 改 token
+- 改 prompt
+- 改数据
+- 改尺寸
+- 改 DPO 比例
+- 改采样参数
+
+OpenAI 的哲学是「优化已有」：
+
+- 优化 kernel
+- 优化 memory
+- 优化 batch size
+- 优化并行
+
+两个哲学。
+两个杠杆。
+
+一人工程选改变。
+大公司选优化。
+
+签名：solus opus。
