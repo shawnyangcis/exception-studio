@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 regression test，挂了才知道"
+slug: no-regression-test-i-test-when-changes-break
+date: 2026-08-21
+description: "团队有 regression test / regression suite / smoke test / nightly test / coverage gate / visual regression。solo engineer 没有 regression test，我自己改、挂了 git revert，不预防只应对。"
+tags: ["一人工程", "regression-test", "solo", "qa"]
+---
+
+团队有 regression test。
+
+Regression suite：每次 release 跑全部测试。smoke test：每次 deploy 后跑关键路径。nightly test：每晚跑一遍。coverage gate：覆盖率 < 80% 不能 merge。visual regression：截图比对（Percy / Chromatic）。integration test：跨服务测试。
+
+每次 PR 自动跑 regression suite、跑 30 分钟、出报告。
+
+solo engineer 没有 regression test。
+
+我改了别的东西挂了我自己知道。
+
+我改完 push，Vercel 部署，如果挂了 `git revert`。我没预防测试——我没时间写 200 条 regression test，我也没必要。
+
+我没 regression suite 的必要——挂了 `git revert` 比跑 suite 快。我没 smoke test 的必要——我自己打开浏览器看。我没 coverage gate 的必要——覆盖率我自己心里有数。我没 visual regression 的必要——我的 UI 我自己看。
+
+团队的 regression test 价值是「提前发现改动影响」。前提是改动频繁、影响面广、需要 automated safety net。solo engineer 没这个问题——我的改动我自己 review，挂了立刻知道，`git revert` 30 秒。
+
+一人工程的 regression = `git revert`。不是 200 条 test case。
+
+---
