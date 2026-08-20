@@ -1,0 +1,94 @@
+---
+title: "GitHub README 第一版"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 在 GitHub 上发布了 simedw/midi-autocomplete 项目。README 第一版是什么？模型、训练、部署、采样切换、引用。这是「一人工程」的入口。"
+tags: ["一人工程", "GitHub", "README", "MIDI"]
+---
+
+# GitHub README 第一版
+
+> simedw 在 GitHub 上发布了 simedw/midi-autocomplete 项目。
+> README 第一版是什么？
+
+GitHub 项目结构：
+
+- README.md
+- LICENSE（MIT）
+- src/
+- scripts/
+- requirements.txt
+- configs/
+
+README 第一版结构：
+
+- 项目名
+- 一句话描述
+- 安装步骤
+- 使用方法
+- 训练步骤
+- 评估步骤
+- 部署步骤
+- 采样切换
+- 引用
+
+一句话描述：
+
+> 「A 125M transformer that autocompletes piano MIDI. Trained in PyTorch, deployed via Core ML to iOS.」
+
+安装步骤：
+
+- pip install -r requirements.txt
+- python -m midi_autocomplete.generate --model path/to/64m.pt
+
+训练步骤：
+
+- python -m midi_autocomplete.train --config configs/64m.yaml
+
+部署步骤：
+
+- coremltools convert --model 64m.pt
+- output.mlmodel → Xcode project
+
+采样切换：
+
+- top-k / top-p / min-p / XTC / top-h / Mirostat v2
+- 在 iOS app 里切换
+
+引用：
+
+- LLaMA 架构
+- DPO paper
+- scheduled sampling paper
+
+# 一人工程的入口
+
+GitHub README 是「一人工程」的入口。
+
+不是博客、不是 Twitter、不是 YouTube。
+是 GitHub README。
+
+理由：
+
+- 直接到代码
+- 直接到数据
+- 直接到部署
+- 可复现
+- 可审阅
+
+simedw 把所有东西写进 GitHub：
+
+- 模型代码
+- 训练代码
+- 部署代码
+- 评估代码
+- README
+
+任何人打开 GitHub 都能跑通：
+
+- pip install
+- python -m midi_autocomplete.train
+- 等 12-24 小时
+- rollout 听
+
+签名：solus opus。
