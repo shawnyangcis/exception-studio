@@ -1,0 +1,240 @@
+---
+title: "Deploy freeze 不必要：准备好就 deploy"
+slug: "no-deploy-freeze-i-deploy-when-ready"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "deploy-freeze", "release", "hn-show"]
+description: "大公司做 deploy freeze：holiday / weekend / launch week / end of quarter + change advisory board (CAB) + change manager 批准。一人工程：没有 freeze，准备好就 deploy。"
+summary: "solo engineer 没有 deploy freeze。simedw 一个人 iPhone app——他决定何时 deploy，他决定 deploy 几次，他决定何时 freeze（如果有）。deploy freeze 是大公司风险控制工具，一人工程的准备好 = freeze 检查通过。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 deploy freeze。
+
+大公司做 deploy freeze：
+
+- **holiday freeze**：感恩节 / 圣诞节 / 春节前 2 周冻结 deploy
+- **weekend freeze**：周五下午 5 点后到周一早上 9 点前冻结
+- **launch week freeze**：产品发布周冻结所有非紧急 deploy
+- **end of quarter freeze**：财季最后 2 周冻结
+- **CAB approval**：change advisory board 批准每次 deploy
+- **change manager**：专门协调 deploy 的人员
+- **emergency only**：freeze 期间只能 deploy 紧急修复
+
+一人工程做 deploy freeze：
+- 没有 freeze
+- 没有 CAB
+- 没有 change manager
+- 没有 emergency only
+
+## simedw 的 deploy 哲学
+
+simedw 是 iPhone piano app。他没有 deploy freeze：
+
+- **commit 频率**：simedw 想 commit 就 commit
+- **App Store 提交**：simedw 准备好就提交（11 天苹果审核期 = 自然 freeze）
+- **新版本发布**：simedw 准备好就发布
+- **紧急修复**：simedw 加急审核 24 小时
+- **weekend deploy**：simedw 周六晚上 deploy 没事（iPhone app 不需要 oncall）
+
+simedw 的 deploy 节奏：
+
+- 工作日 9-18 点：写代码 + commit + 测
+- 任意时候：准备提交 App Store
+- 苹果审核期：11 天（自然 freeze）
+- 审核通过：所有用户立即收到
+
+不需要 CAB，因为：
+- simedw 自己批自己
+- simedw 自己测
+- simedw 自己 deploy
+
+## deploy freeze 在大公司的政治
+
+deploy freeze 不是工具——是**风险控制工具**：
+
+- **CTO**：要 freeze 防止生产事故
+- **SRE**：要 freeze 防止 oncall 被叫醒
+- **PM**：要 freeze 防止新 feature 影响销售
+- **销售**：要 freeze 防止 enterprise 客户遇到 bug
+- **客户支持**：要 freeze 防止 ticket 暴增
+- **法务**：要 freeze 防止 compliance violation
+
+每个 stakeholder 都要 freeze：
+
+- CTO freeze = "我们减少生产事故"
+- SRE freeze = "我们能睡个好觉"
+- PM freeze = "我们不在 launch week 改坏"
+- 销售 freeze = "enterprise 客户遇到 bug 我们能立刻 fix"
+- 客户支持 freeze = "ticket 不暴增"
+- 法务 freeze = "compliance 没问题"
+
+没有 freeze = 没有 stakeholder 同意 = deploy 风险大。
+
+一人工程没有 stakeholder：
+- 开发者 = CTO = SRE = PM = 销售 = 客户支持 = 法务
+- 一个人 deploy
+- 不需要 freeze
+
+## CAB 在大公司的必要性
+
+大公司有 change advisory board (CAB)——批准每次 deploy：
+
+- **CAB 成员**：CTO + SRE lead + PM lead + 安全 lead
+- **CAB 频率**：每周一次 review meeting（部署变更）
+- **CAB 流程**：提交 deploy request → CAB review → 批准 / 拒绝 / 要求修改
+- **CAB 文档**：每次 deploy 写 change doc（what / why / risk / rollback plan）
+
+每个 CAB review：
+
+- 1 小时 meeting
+- 5 个 stakeholder 讨论
+- 3 个 deploy request 平均
+
+一人工程没有 CAB。一人工程有：
+
+- **自己 review 自己**：simedw 写代码 → 自己 review → 自己批准
+- **commit message**：what / why 自己写清楚
+- **rollback plan**：simedw 自己知道怎么 rollback
+
+不需要 CAB meeting，因为 simedw 自己就是 CAB。
+
+## change manager 在大公司的必要性
+
+大公司有 change manager——专门协调 deploy 的人员：
+
+- **职责**：收集 deploy request / 排 deploy schedule / 通知 stakeholder
+- **人数**：1 个 / 5 个工程团队
+- **工具**：ServiceNow / Jira Change Management
+
+每个 change manager：
+
+- 每周排 deploy schedule
+- 通知 50 个 stakeholder
+- 跟踪 deploy 状态
+- 处理 emergency deploy
+
+一人工程没有 change manager。一人工程有：
+
+- **自己排 schedule**：simedw 准备好就 deploy
+- **通知 stakeholder**：simedw 自己就是 stakeholder
+- **跟踪状态**：simedw 看 App Store Connect / Crashlytics
+- **emergency deploy**：simedw 加急审核
+
+不需要 ServiceNow。
+
+## freeze 类型在大公司的细节
+
+大公司的 freeze 多种多样：
+
+- **Code freeze**：代码冻结，不接受新 PR
+- **Deploy freeze**：部署冻结，但可以写代码
+- **Release freeze**：发布冻结，但可以 deploy 到 staging
+- **Database freeze**：schema 冻结，不接受 migration
+- **Feature freeze**：feature 冻结，但可以修 bug
+- **Hard freeze**：完全冻结，只能 emergency fix
+
+每种 freeze 都有不同 stakeholder 协调。
+
+一人工程没有 freeze 类型。一人工程只有：
+
+- **自己想 deploy 就 deploy**：simedw 准备好
+- **iPhone app 审核期 = 自然 freeze**：苹果审核 11 天
+- **紧急修复 = 加急**：simedw 加急 24 小时
+
+freeze 在一人工程里 = **苹果审核期**（自然 freeze）。
+
+## oncall 在 deploy freeze 的关系
+
+大公司 deploy freeze + oncall 是绑定的：
+
+- **freeze 期间 oncall**：高 severity（p0/p1）才响应
+- **非 freeze 期间 oncall**：所有 severity 都响应
+- **freeze 部署 = 紧急 deploy**：需要 oncall lead 批准
+
+每个 deploy freeze 期间：
+
+- oncall 工程师待命
+- p0 报警直接响应
+- p1 报警 30 分钟响应
+- p2 报警 freeze 后再处理
+
+一人工程没有 oncall（之前 no-oncall 写过）。一人工程的 freeze = 没有（simedw deploy 不需要 oncall）。
+
+## 一人工程的 deploy 哲学
+
+大公司 deploy freeze 是因为他们有：
+
+- 100 万用户（一次 deploy 出问题 = 100 万用户受影响）
+- 1000 个工程师（一次 deploy 出问题 = 10 个团队 oncall）
+- 100 个 stakeholder（一次 deploy 出问题 = 100 个 stakeholder 投诉）
+- 1 个 CTO（要 freeze 防止 P0 事故影响 KPI）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 deploy 出问题 = 100 用户受影响，simedw 自己通知）
+- 0 个工程师（自己就是工程师）
+- 0 个 stakeholder（自己就是 stakeholder）
+- 0 个 CTO（自己就是 CTO）
+
+deploy freeze 在一人工程里 = **自己想清楚再 deploy**。
+
+## 我就是 change manager
+
+大公司 deploy 是**多角色协作的**：
+
+- 工程师写代码 + 提 PR
+- CAB review PR
+- change manager 排 schedule
+- SRE deploy
+- oncall 待命
+- PM 通知 stakeholder
+
+一人工程 deploy 是**一个人做的**：
+
+- simedw 写代码 + 自己 review
+- simedw 自己批准
+- simedw 自己 deploy（App Store 提交）
+- simedw 自己待命（看 Crashlytics）
+- simedw 自己通知（App Store release notes）
+
+没有 CAB，没有 change manager，没有 SRE，没有 oncall，没有 PM。
+
+## 苹果审核 = 大公司的 freeze
+
+讽刺的是：**苹果 App Store 审核**就是大公司 deploy freeze 的**最强模拟**：
+
+- 11 天审核期 = hard freeze（不能改）
+- 审核通过 = deploy 完成
+- 审核拒绝 = rollback（修复后重新提交）
+
+但这是**苹果的 freeze**，不是 simedw 的 freeze。simedw 不能跳过（除了加急 24 小时）。
+
+simedw 的 deploy 流程：
+
+- 准备好代码
+- 写 commit message
+- 写 App Store release notes
+- 提交 App Store
+- 等苹果审核（11 天）
+- 审核通过 → deploy 完成
+- 审核拒绝 → 修复 + 重新提交
+
+不需要 1 周 CAB review。
+
+## 一人工程 + 准备好就 deploy
+
+simedw 不做 deploy freeze。
+simedw 不做 CAB review。
+simedw 不做 change manager。
+simedw 自己 deploy。
+simedw 准备好就 deploy。
+
+deploy freeze 在一人工程里不是流程，是**苹果审核期**。
+
+---
+
+solo engineer 没有 deploy freeze。
+solo engineer 的 deploy freeze = 苹果审核期（自然 freeze）。
+
+solus opus.
