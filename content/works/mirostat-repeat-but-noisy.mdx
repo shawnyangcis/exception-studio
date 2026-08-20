@@ -1,0 +1,81 @@
+---
+title: "Mirostat 减重复但紊乱"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的失败实验：Mirostat v2 减重复但紊乱。最终没采用。这是「一人工程」里「没走通的」一栏。失败也写，公开也写。"
+tags: ["一人工程", "Mirostat", "采样", "MIDI"]
+---
+
+# Mirostat 减重复但紊乱
+
+> simedw 的失败实验笔记：
+> Mirostat v2 减重复但紊乱。
+> 最终没采用。
+> 在「没走通的」一栏。
+
+Mirostat v2 是什么：
+
+- 采样算法
+- 不直接减 top-k/top-p
+- 而是用 surprisal 作为控制信号
+- 维持 surprise 期望稳定
+
+直觉：
+
+> 感觉重复了 → 调高 surprise 阈值
+> 感觉跑偏了 → 调低 surprise 阈值
+
+simedw 试了：
+
+- 减重复效果：可以
+- 但 MIDI 听起来「杂乱」
+
+为什么紊乱：
+
+- 钢琴需要稳定的节拍与和声
+- Mirostat 的 surprisal 调控会让钢琴走「不稳」的路线
+- 重复减了，但风格破坏
+
+对比 top-p：
+
+- top-p 直接砍概率分布的低尾
+- 保持 MIDI 的和声走向
+- 重复还是会，但风格不破坏
+
+simedw 的选择：
+
+- top-p / top-k / min-p / XTC / top-h 都进了产品
+- Mirostat v2 留在「没走通的」一栏
+
+## 一人工程的角度
+
+OpenAI / Anthropic 不会写一篇「Mirostat v2 失败报告」博客。
+simedw 会。
+
+他的博客：
+
+- 走通的：MIDI 单 token 5 个 head
+- 走通的：踏板纳入 duration
+- 走通的：数据清洗胜过堆量
+- 走通的：DPO β=0.03 + consensus
+- 没走通的：note-on/note-off 表征飘音
+- 没走通的：grammar-masked 慢
+- 没走通的：噪声数据放大没用
+- 没走通的：Mirostat 减重复但紊乱
+- 没走通的：extra local auxiliary 没收益
+- 没走通的：绝对 scalar 没有 pairwise 准
+- 没走通的：验证 loss 漏了 rollout 质量
+- 没走通的：Born-again networks 没用
+
+12 个「没走通的」vs 4 个「走通的」。
+
+OpenAI 不会公开这些「没走通的」。
+simedw 会。
+
+这就是「一人工程」的力量：
+
+> 失败也写。
+> 公开也写。
+> 一人 GitHub 主页 + 一篇博客 = 全部可复现知识。
+
+签名：solus opus。
