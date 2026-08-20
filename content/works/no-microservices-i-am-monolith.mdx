@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 microservices，我自己就是 monolith"
+slug: no-microservices-i-am-monolith
+date: 2026-08-21
+description: "团队有 microservices / distributed system / service mesh / K8s / sidecar / 12-factor app / API gateway。solo engineer 没有 microservices，我自己就是 monolith、单一 repo、单一进程。"
+tags: ["一人工程", "microservices", "solo", "monolith"]
+---
+
+团队有 microservices。
+
+Microservices：把一个应用拆成 100 个小服务。Distributed system：跨机器协调。Service mesh：Istio / Linkerd。K8s：管理 microservice。Sidecar：每个 pod 1 个 envoy。12-factor app：12 个原则。API gateway：所有请求入口。Service discovery：找服务。Load balancer：分发流量。Tracing：追踪 100 个服务的调用。
+
+每 startup 5-10 个 microservice + K8s cluster + service mesh + platform team。$500K-$5M / 年。
+
+solo engineer 没有 microservices。
+
+我自己就是 monolith。
+
+一个进程 = 一个应用。一个 repo = 一个应用。一个 commit = 一个 deploy。我不需要 100 个服务、不需要 distributed system、不需要 K8s、不需要 sidecar、不需要 12-factor。
+
+我没 microservices 的必要——我没 scale 需求。我没 distributed system 的必要——没跨机器。我没 service mesh 的必要——没 traffic 要 manage。我没 K8s 的必要——我 = K8s。我没 sidecar 的必要——没 envoy。我没 12-factor 的必要——没 12 个 process。我没 API gateway 的必要——一个 Next.js route。我没 service discovery 的必要——我知道服务在哪。我没 load balancer 的必要——没流量。
+
+团队的 microservices 价值是「独立 scale + 独立 deploy + 故障隔离」。前提是大流量、需要 scale、需要隔离。solo engineer 没这个问题——Vercel 自动 scale、commit log = deploy、commit log = isolation。
+
+一人工程的 microservices = 单一 Next.js app + Vercel。不是 K8s cluster + service mesh。
+
+---
