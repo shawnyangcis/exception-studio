@@ -1,0 +1,62 @@
+---
+title: "RoPE 理论可做 ring buffer 算了挺快乐"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 部署笔记里的工程师幽默：RoPE 理论可做 KV cache ring buffer，Core ML 不暴露 Q/K/V tensor，想做也做不了，算了，挺快乐。"
+tags: ["一人工程", "RoPE", "Core ML", "工程师幽默"]
+---
+
+# RoPE 理论可做 ring buffer 算了挺快乐
+
+> simedw 部署笔记的一段：
+> 「RoPE 理论可做 ring buffer 算了挺快乐。」
+
+RoPE = Rotary Position Embedding。
+让 attention 矩阵自然带相对位置信息。
+
+理论上：
+
+- KV cache 不需要真存整个序列
+- 让过去 token 的位置编码从远端回环
+- ring buffer 实现
+- 节省内存
+
+但 Core ML 不暴露 Q/K/V tensor：
+
+- 想做也做不了
+- 算了
+- 挺快乐
+
+这个「算了挺快乐」是 simedw 工程师幽默的精华：
+
+- 不抱怨
+- 不硬磕
+- 不引入 hack
+- 接受限制，做能做的部分
+
+如果换成 OpenAI 团队：
+
+- 大概率改 Core ML
+- 或者换部署栈
+- 或者 fork 一个 Core ML
+- 「算了挺快乐」不太会出现
+
+## 一人工程的姿态
+
+一人工程不是「什么都能搞定」。
+一人工程是「知道搞不定的部分，算了挺快乐」。
+
+具体动作：
+
+- 不抱怨 Core ML 不暴露 Q/K/V
+- 用 INT8 量化代替 KV cache 优化
+- 接受 512 notes 上下文上限
+- 长会话截到 384 重建
+
+simedw 的妥协：
+
+> 不追求 LLM 那种「无限上下文」。
+> 接受 iPhone 上 108 notes/sec 的限制。
+> 把能优化的部分优化完。
+
+签名：solus opus。
