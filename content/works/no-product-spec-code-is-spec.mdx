@@ -1,0 +1,58 @@
+---
+title: "code 就是 spec"
+slug: "no-product-spec-code-is-spec"
+date: 2026-08-21
+summary: "团队有 PRD、design doc、spec 评审、cross-team review、技术方案评审。一人工程没有这些文档——HN 评论 4 行就是 spec、commit message 就是 spec、code 就是 spec。simedw 的 bar/measure token spec 在 commit message 里一句话。"
+cover: "/works/2026-08-21/macbook-figure-walking.jpg"
+---
+
+团队写一个 feature 之前要写 PRD。
+
+Product Manager 写 PRD：问题陈述、目标用户、success metric、user stories、acceptance criteria。Designer 写 design doc：wireframe、interaction flow、edge cases。Engineer 写 tech spec：API design、data model、trade-off analysis、alternatives considered。三个 doc 走完一周，再 cross-team review 一周，再 implementation 三周，再 QA sign-off 一周。
+
+一人工程没有 PRD。
+
+simedw 决定加 bar/measure token 这个 feature 之前，写的是 HN 评论里那四行字：
+
+> "I want to add bar/measure tokens to give the model rhythmic anchors..."
+
+这是 simedw 的 PRD。四个 step 写完：问题（缺 rhythmic anchors）、目标（让模型加小节标记）、实现路径（token 加在 sequence 里）、outcome（rhythm 更准）。四行字。
+
+接下来 simedw 的 commit message：
+
+```
+feat: add bar/measure token for rhythm anchors
+```
+
+这是 simedw 的 design doc + tech spec。15 个词，比团队的 PRD 简短，但内容等价——做什么、为什么做、做到什么程度。
+
+然后 simedw 的 code：
+
+```python
+def add_bar_token(self, sequence):
+    return [Token.BAR] + sequence + [Token.END]
+```
+
+这是 simedw 的 implementation。三行 code。
+
+> 一人工程：HN 评论 4 行 → commit message 15 词 → code 3 行。一个 feature 总计 22 个信息单元。
+
+团队：PRD 2000 字 + design doc 800 字 + tech spec 1500 字 + implementation 800 行 + QA 报告 500 字。一个 feature 总计 6000+ 信息单元。
+
+信息密度差距 270 倍，但信息量差距没有 270 倍——团队 6000 字里 80% 是 process artifact（review 记录、sign-off 区块、cross-team 引用），20% 是真正信息。simedw 22 个信息单元几乎 100% 是真正信息。
+
+> 一人工程的 spec 不写在 Confluence 上，写在 git log 里。
+
+`git log` 是 spec 的 evolution history。simedw 的 14 次实验散文里的每一次实验都是一次 spec 演化：
+
+- `feat: try compound note events`
+- `fix: bar/measure token timing window`
+- `docs: update README with bar/measure token example`
+
+每条 commit 都是 spec 的一次 mutation。团队 spec 写在 doc 里、doc 不动 code 动；一人工程 spec 写在 code 里、code 动 spec 动。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——Rust ternary MoE-Kan 的 gate 设计不存在任何外部 spec 文档，所有设计决策都在 `git log -- uls-core/` 的 commit message 里。
+
+solo engineer 的 spec review 不在 Confluence，在 `git log`。
+
+solus opus.
