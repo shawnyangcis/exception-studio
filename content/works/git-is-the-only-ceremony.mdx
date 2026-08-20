@@ -1,0 +1,32 @@
+---
+title: "git 是唯一的 ceremony"
+slug: "git-is-the-only-ceremony"
+date: 2026-08-21
+summary: "团队有一堆 ceremony：standup、retro、design review、postmortem、wiki、runbook、ticket、status page。一人工程把所有 ceremony 折回到一个原语——git commit + git log。一小时变五秒。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+凌晨三点二十七分，我 commit 了第二十三篇散文。
+
+这二十三篇散文有同一个姿态：把团队的某一种 ceremony 折回到 git 原语。standup 折回 git log -1。retro 折回 git log --since="2 weeks ago"。postmortem 折回 `fix:` commit。wiki 折回 commit message。runbook 折回 muscle memory + git log。ticket 折回 commit sha。status page 折回 simedw 自己。design review 折回 diff 自审。code review 折回 git blame 自己。incident commander 折回 simedw 是 IC of one。
+
+每折回一种 ceremony，就少一小时会议。
+
+> 一人工程不是「没有 ceremony」，是「把所有 ceremony 折回到 git commit + git log」。
+
+团队的 ceremony 存在是为了**让 5-10 个工程师协调**——standup 让 5 个人同步进度，retro 让 5 个人从 sprint 学习，design review 让 3 个人 review 一个 PR。这些 ceremony 是 5-10 人规模下的强制开销。一人工程没有 5-10 人规模，所以不需要这个协调开销。
+
+但 ceremony 本身**有价值**——反思是有价值的、同步是有价值的、文档化是有价值的。一人工程没有完全放弃这些价值，只是**把 ceremony 折回到 git 原语**：
+- 反思价值 → `git log --since="2 weeks ago"` 阅读 commit 找 pattern
+- 同步价值 → `git push` 让 world 看到 commit history（外部观察者可见性）
+- 文档化价值 → commit message + diff 是 100% honest 的 micro-doc
+
+simedw 的 git log 是他 14 个月的工作 + 反思 + 决策 + 修复 + 文档 + 营销 + 同步——所有 ceremony 折回到 git log 一处。
+
+> 一人工程的全部 ceremony 活在 git log 里。
+
+代价是什么？团队 ceremony 拆解到 standalone artifacts（Confluence、Slack、JIRA），让 5-10 个工程师可以异步消费。一人工程的 git log 是 sequential linear chain——消费是 sequential 的，newest first，不能 parallel 浏览。
+
+但 simedw 接受这个 trade-off——git log 是 his own linear history，sequential 消费很自然。
+
+solus opus.
