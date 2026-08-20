@@ -1,0 +1,67 @@
+---
+title: "Prompt 长度不是越长越好"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 rollout 评估曲线：4-note prompt 最难，8-note 还行，16-32 显著靠谱。Prompt 短反而是更难的不是更简单的。"
+tags: ["一人工程", "评估", "MIDI", "prompt"]
+---
+
+# Prompt 长度不是越长越好
+
+> simedw 的 rollout 评估曲线：
+>
+> - 4-note prompt：最难
+> - 8-note prompt：还行
+> - 16-note prompt：显著靠谱
+> - 32-note prompt：最稳
+
+直觉反直觉：
+
+- prompt 长 = 给模型更多信息 = 应该更好？
+- 实际：4-note prompt 比 32-note prompt 更难
+
+为什么？
+
+- 4-note 给的上下文太少
+- 模型要从很短的 seed 推断「风格 / 和声 / 节奏 / 调性」
+- 这个推断难度比「接着已有风格延续」高得多
+
+- 16-32 note 是「听感风格已建立」的甜蜜区
+- 模型只需要「接着已有风格」
+
+这跟 LLM 评估曲线类似：
+
+- 短 prompt = 难度高
+- 中长 prompt = 模型发挥稳定
+- 超长 prompt = 模型开始重复 prompt
+
+DPO 在短 prompt 上优势最小：
+
+- 4-note 上 base vs DPO 差距小
+- 16-32 note 上 DPO 拉开差距
+
+原因：
+
+- DPO 学的是「续写偏好」
+- 续写需要「已建立风格」作为前提
+- 没有风格，DPO 学的是噪声
+
+## 一人工程的角度
+
+OpenAI 训练 RLHF：
+
+- 评估大多在长 prompt 上
+- 短 prompt 评估信噪比差
+- RLHF 团队都知道这点
+
+simedw 一个人：
+
+- 自己听 14 次实验
+- 记下 prompt 长度曲线
+- 跟 DPO 趋势对齐
+
+这个观察如果放在 RLHF 圈子里也能 publish：
+
+> 「DPO 在 prompt < 8 token 时表现不显著」
+
+签名：solus opus。
