@@ -1,0 +1,356 @@
+---
+title: "Auto scaling 不必要：我手动 scale"
+slug: "no-auto-scaling-i-scale-manually"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "auto-scaling", "aws", "hn-show"]
+description: "大公司做 auto scaling：AWS Auto Scaling / GCP Instance Group + CPU threshold + min/max/desired + scale up/down + cool down。一人工程：没有 auto-scaling，iPhone app 没有 server。"
+summary: "solo engineer 没有 auto scaling。simedw 一个人 iPhone app——没有 AWS Auto Scaling Group，没有 CPU threshold，没有 scale up/down。iPhone 用户自己升级 = 手动 scale。auto scaling 是大公司弹性伸缩工具，一人工程的我 = auto scaling。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 auto scaling。
+
+大公司做 auto scaling：
+
+- **AWS Auto Scaling Group (ASG)**：根据 CPU / memory / network 自动加 server
+- **GCP Instance Group**：GCP 自动 instance group
+- **Azure VMSS**：Azure virtual machine scale set
+- **k8s HPA**：Horizontal Pod Autoscaler
+- **k8s VPA**：Vertical Pod Autoscaler
+- **k8s KEDA**：Kubernetes Event-Driven Autoscaling
+- **CPU threshold**：CPU > 70% → 加 server
+- **memory threshold**：memory > 80% → 加 server
+- **min / desired / max**：最小 2 台 / 期望 5 台 / 最大 20 台
+- **scale up / scale down**：加 / 减 server
+- **cool down**：scale 完等 5 分钟再 scale
+
+一人工程做 auto scaling：
+- 没有 ASG
+- 没有 CPU threshold
+- 没有 scale up / scale down
+- 没有 cool down
+
+## simedw 的 auto scaling 哲学
+
+simedw 是 iPhone piano app。他没有 auto scaling：
+
+- **simedw 没有 server**：iPhone app 没有 server，没有 auto scaling
+- **simedw 的 iPhone = 一个 server**：每个用户的 iPhone = 一个 server
+- **simedw 的"scale up" = 用户买新 iPhone**：用户 iPhone 旧了 / 满了 → 用户买新 iPhone
+- **simedw 的"scale down" = 用户卸载 app**：用户不用 app → 卸载 = scale down
+- **simedw 不需要自动**：simedw 不能控制用户买 iPhone 的速度
+
+simedw 的"auto scaling"在 App Store + 用户决策：
+
+- **App Store 下载量**：用户主动下载 = scale up
+- **App Store 卸载量**：用户主动卸载 = scale down
+- **App Store 自动更新**：苹果自动推送 = 升级 model
+- **iPhone 升级**：用户买新 iPhone = scale up 硬件
+
+不需要 AWS Auto Scaling，因为：
+- iPhone app 没有 server
+- 用户自己买 iPhone = 手动 scale
+- 用户自己卸载 app = 手动 scale down
+- simedw 不能控制 scale 速度
+
+## 一人工程的 auto scaling 工具
+
+- **App Store 下载量**：用户主动下载
+- **App Store 卸载量**：用户主动卸载
+- **App Store 自动更新**：苹果自动推送
+- **iPhone 升级**：用户买新 iPhone
+- **TestFlight**：beta 用户
+
+不需要 AWS Auto Scaling，因为 iPhone app 没有 server。
+
+## AWS Auto Scaling Group 在大公司的细节
+
+大公司 AWS Auto Scaling Group：
+
+- **launch template**：AMI + instance type + security group + IAM role
+- **min / desired / max**：min 2 / desired 5 / max 20
+- **CPU threshold**：CPU > 70% → scale up
+- **memory threshold**：memory > 80% → scale up
+- **network threshold**：network > 50% → scale up
+- **custom metric**：queue length / request latency / business metric
+- **scale up cooldown**：scale up 后等 5 分钟
+- **scale down cooldown**：scale down 后等 10 分钟
+
+每个 ASG：
+
+- 2-20 台 server
+- $200-2000 / 月
+- 1 个 SRE 配置
+
+一人工程没有 ASG。一人工程有：
+
+- **simedw 0 台 server**：iPhone app 没有 server
+- **simedw 0 美元 / 月**：iPhone app 没有 ASG 成本
+- **simedw 自己 = SRE**：simedw 自己配置
+
+## k8s HPA 在大公司的细节
+
+大公司 k8s Horizontal Pod Autoscaler (HPA)：
+
+- **CPU threshold**：CPU > 70% → 加 pod
+- **memory threshold**：memory > 80% → 加 pod
+- **custom metric**：queue length / request latency
+- **min / max replicas**：min 2 / max 50
+- **scale up**：加 pod 副本
+- **scale down**：减 pod 副本
+- **scaleUp behavior**：30 秒内 +50% pod
+- **scaleDown behavior**：5 分钟内 -10% pod
+
+每个 HPA：
+
+- 2-50 个 pod
+- k8s controller
+- 5 个 SRE 维护
+
+一人工程没有 HPA。一人工程有：
+
+- **simedw 没有 pod**：iPhone app 没有 server pod
+- **simedw 0 个 SRE**：simedw 自己 = SRE
+- **simedw 没有 k8s**：iPhone app 没有 k8s
+
+## k8s VPA 在大公司的细节
+
+大公司 k8s Vertical Pod Autoscaler (VPA)：
+
+- **CPU request / limit**：动态调整 pod CPU
+- **memory request / limit**：动态调整 pod memory
+- **recommendation**：根据历史使用推荐
+- **auto apply**：自动应用推荐
+- **min / max allowed**：CPU 100m-2000m, memory 128Mi-4Gi
+
+每个 VPA：
+
+- k8s controller
+- 自动调整 pod resource
+- 5 个 SRE 维护
+
+一人工程没有 VPA。一人工程有：
+
+- **simedw 没有 pod**：iPhone app 没有 server pod
+- **simedw 固定 CPU / memory**：iPhone 固定 CPU / memory，没有 VPA
+- **simedw 0 美元 / 月**：iPhone app 没有 VPA 成本
+
+## k8s KEDA 在大公司的细节
+
+大公司 k8s KEDA (Kubernetes Event-Driven Autoscaling)：
+
+- **event-driven**：根据外部事件 scale
+- **Kafka lag**：Kafka consumer lag > 100 → 加 consumer pod
+- **RabbitMQ queue**：queue depth > 1000 → 加 consumer pod
+- **SQS queue**：SQS message count > 100 → 加 consumer pod
+- **Cron schedule**：每天 9 点加 pod 处理报表
+- **Prometheus metric**：基于 Prometheus 指标
+
+每个 KEDA：
+
+- k8s controller
+- event-driven scale
+- 5 个 SRE 维护
+
+一人工程没有 KEDA。一人工程有：
+
+- **simedw 没有 event**：iPhone app 没有 Kafka / RabbitMQ / SQS
+- **simedw 没有 server pod**：iPhone app 没有 pod
+- **simedw 0 美元 / 月**：iPhone app 没有 KEDA 成本
+
+## CPU threshold 在大公司的细节
+
+大公司 CPU threshold：
+
+- **target 70%**：CPU 70% 是 target
+- **scale up**：CPU > 70% 持续 5 分钟 → 加 server
+- **scale down**：CPU < 30% 持续 10 分钟 → 减 server
+- **scale fast / slow**：scale up 快（30 秒）+ scale down 慢（5 分钟）
+
+每个 CPU threshold：
+
+- 70% target
+- 5-10 分钟观察期
+- 几秒 scale 时间
+
+一人工程没有 CPU threshold。一人工程有：
+
+- **simedw 没有 server CPU**：iPhone app 没有 server CPU
+- **simedw iPhone CPU**：iPhone 有 CPU，但 simedw 不能 scale iPhone CPU
+- **simedw iPhone 散热**：iPhone 过热 → 降低性能（不是 simedw 控制）
+
+## memory threshold 在大公司的细节
+
+大公司 memory threshold：
+
+- **target 80%**：memory 80% 是 target
+- **scale up**：memory > 80% 持续 5 分钟 → 加 server
+- **scale down**：memory < 30% 持续 10 分钟 → 减 server
+
+每个 memory threshold：
+
+- 80% target
+- 5-10 分钟观察期
+- 几秒 scale 时间
+
+一人工程没有 memory threshold。一人工程有：
+
+- **simedw 没有 server memory**：iPhone app 没有 server memory
+- **simedw iPhone memory**：iPhone 有 memory（4-8 GB），但 simedw 不能 scale iPhone memory
+- **simedw OOM**：iPhone app OOM = app crash（重启 = 内存清空）
+
+## scale up / scale down 在大公司的细节
+
+大公司 scale up / scale down：
+
+- **scale up**：CPU 上升 → 加 server（30 秒内）
+- **scale down**：CPU 下降 → 减 server（5 分钟内，避免抖动）
+- **scale up cooldown**：30 秒（避免频繁 scale up）
+- **scale down cooldown**：5 分钟（避免频繁 scale down）
+
+每个 scale up / scale down：
+
+- 几秒时间
+- 几美元成本
+- 1 个 SRE 配置
+
+一人工程没有 scale up / scale down。一人工程有：
+
+- **simedw 没有 server**：iPhone app 没有 server，没有 scale
+- **simedw 用户升级 iPhone**：用户自己买新 iPhone = scale up
+- **simedw 用户卸载 app**：用户自己卸载 = scale down
+
+## min / desired / max 在大公司的细节
+
+大公司 ASG min / desired / max：
+
+- **min 2**：最少 2 台 server（保证高可用）
+- **desired 5**：期望 5 台 server（基于平均负载）
+- **max 20**：最多 20 台 server（防止成本失控）
+
+每个 ASG：
+
+- 2-20 台 server
+- 弹性伸缩
+- 5 个 SRE 配置
+
+一人工程没有 min / desired / max。一人工程有：
+
+- **simedw 0 台 server**：iPhone app 没有 server
+- **simedw iPhone 用户数**：用户数 = server 数（1 个用户 = 1 个 iPhone = 1 个"server"）
+- **simedw 没有最大**：iPhone app 用户数没有 max（苹果 App Store 全球分发）
+
+## auto scaling 失败在大公司的细节
+
+大公司 auto scaling 失败模式：
+
+- **scale up 太慢**：流量激增 → scale up 5 分钟 → 用户已经离开
+- **scale up 太多**：scale up 一次 +10 台 → 成本爆炸
+- **scale down 太快**：scale down 5 分钟 → 流量回升 → 再次 scale up（抖动）
+- **scale down 误判**：scale down 时 server 正在处理 → 用户失败
+- **metric 错误**：用错 metric scale → 浪费钱
+
+每个 auto scaling 失败：
+
+- 重新配置 threshold
+- 调整 cooldown
+- 5 个 SRE 调试
+
+一人工程没有 auto scaling 失败模式：
+
+- **simedw 没有 server**：iPhone app 没有 auto scaling
+- **simedw 没有 scale 失败**：iPhone app 不需要 scale
+- **simedw 不需要 threshold**：iPhone app 没有 threshold
+
+## auto scaling 成本在大公司的细节
+
+大公司 auto scaling 成本：
+
+- **min 2 × $100 / 月 = $200 / 月**：最小 server
+- **avg 5 × $100 / 月 = $500 / 月**：平均 server
+- **peak 20 × $100 / 月 = $2000 / 月**：peak server
+- **总成本**：~$500 - $2000 / 月
+
+每个 auto scaling 成本：
+
+- $500 - $2000 / 月
+- 5 个 SRE 维护
+- 100 万用户服务
+
+一人工程没有 auto scaling 成本。一人工程有：
+
+- **simedw 0 美元 / 月**：iPhone app 没有 server
+- **simedw 0 个 SRE**：simedw 自己 = SRE
+- **simedw 100 用户**：simedw 服务 100 用户，0 cost
+
+## iPhone app vs server 的 auto scaling 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：100 万用户 → 5-20 台 server + auto scaling
+- **iPhone app**：100 用户 → 100 个 iPhone（每个 iPhone = 一个 server）
+
+simedw 的 iPhone piano app：
+
+- 100 个用户 = 100 个 iPhone = 100 个 "server"
+- 每个 iPhone 独立运行 app
+- iPhone app 不需要 scale up（用户自己买新 iPhone）
+- iPhone app 不需要 scale down（用户自己卸载）
+- App Store 自动分发新版本
+
+不需要 AWS Auto Scaling，因为：
+- simedw 的 app 没有 server
+- iPhone 本地运行 = 0 网络依赖
+- App Store 全球分发 = 无限 scale
+
+## 一人工程的 auto scaling 哲学
+
+大公司 auto scaling 是因为他们有：
+
+- 100 万用户 web 请求（流量波动）
+- 1000 RPS 峰值（需要弹性伸缩）
+- $500 - $2000 / 月 server 成本
+- 5 个 SRE 维护 auto scaling
+
+一人工程没有这些。一人工程有：
+
+- 100 用户 iPhone app（每个 iPhone = 一个 server）
+- 10 RPS 峰值（iPhone 本地处理，不需要弹性伸缩）
+- $0 / 月 server 成本（iPhone app 没有 server）
+- 0 个 SRE（simedw 自己 = SRE）
+
+auto scaling 在一人工程里 = **用户自己买新 iPhone / 卸载 app**。
+
+## 我就是 auto scaling
+
+大公司 auto scaling 是**专用基础设施**：
+
+- AWS Auto Scaling Group
+- k8s HPA / VPA / KEDA
+- 5 个 SRE 维护
+
+一人工程 auto scaling 是**用户自己**：
+
+- 用户买新 iPhone = scale up
+- 用户卸载 app = scale down
+- 用户升级 iOS = model upgrade
+
+没有 AWS Auto Scaling，没有 k8s HPA，没有 VPA，没有 KEDA。
+
+## 一人工程 + 我手动 scale
+
+simedw 不做 ASG。
+simedw 不做 HPA。
+simedw 不做 VPA。
+simedw 不做 KEDA。
+simedw 用户自己买新 iPhone = scale up。
+
+auto scaling 在一人工程里不是工具，是**用户自己**。
+
+---
+
+solo engineer 没有 auto scaling。
+solo engineer 的 auto scaling = 用户自己买新 iPhone / 卸载 app。
+
+solus opus.
