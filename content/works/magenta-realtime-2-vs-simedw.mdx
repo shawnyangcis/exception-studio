@@ -1,0 +1,171 @@
+---
+title: "Magenta Realtime 2 与 simedw"
+date: "2026-08-21"
+kind: "essay"
+summary: "speedgoose 在 HN 评论里推荐 simedw 看 Magenta Realtime 2（Google）。Google DeepMind 路径 vs simedw 路径：realtime 全生成 vs continuation 续写。两套一人/百人哲学。"
+tags: ["一人工程", "Magenta", "Google", "Realtime"]
+---
+
+# Magenta Realtime 2 与 simedw
+
+> HN simedw 帖子评论里 speedgoose 引用了 Google Magenta Realtime 2：
+> https://magenta.withgoogle.com/magenta-realtime-2
+> → Google 的实时音乐生成，几周前发布。
+
+Magenta Realtime 2。
+Google DeepMind。
+几周前发布。
+
+simedw 没回应这条评论。
+但这两个项目是同一时代的两种解法。
+
+# Magenta Realtime 2 做什么
+
+Magenta Realtime 2 是 Google DeepMind Magenta 团队的作品。
+
+技术：
+
+- 实时音乐生成
+- 不只是 continuation
+- 完整 melody + harmony + rhythm + drum + bass
+- 多轨并行
+
+这是「从零开始写一首曲子」的产品。
+不是「接上你弹的 8 个音」。
+是「机器独立产出一首歌」。
+
+# simedw 的 RollTab 做什么
+
+simedw 的 RollTab：
+
+- 接受 8 个音的 prompt
+- 续写下一个 note
+- 单轨
+- 钢琴
+
+这是「接上你弹的 8 个音」的 continuation。
+不是「独立写一首曲子」。
+是「和你一起做」。
+
+# 两套哲学
+
+Magenta Realtime 2 的哲学：
+
+> 机器独立产出。
+> 用户是听众。
+
+simedw 的哲学：
+
+> 机器和人协作。
+> 用户是合作者。
+
+这是 AI 音乐的两种交互：
+
+- A 路线：AI → 音乐 → 人听
+- B 路线：人 + AI → 一起产
+
+simedw 选 B。
+Google 选 A。
+
+# 一人 vs 百人
+
+Magenta Realtime 2 的资源：
+
+- Google DeepMind 几十个 researcher
+- TPU v5p cluster
+- 几千万美元训练成本
+- 完整 multi-track 架构
+
+simedw 的资源：
+
+- 1 个人
+- 4 × RTX 4090
+- 半年时间
+- 125M 模型 + iOS app
+
+资源差 1000 倍。
+产品不同。
+
+但同一时代。
+
+# 一人工程的角度
+
+不是「一人 vs 百人谁赢」。
+
+是「一人能在同一时代做不一样的事」。
+
+simedw 没做 Magenta Realtime 2：
+
+- 不需要 multi-track
+- 不需要 TPU
+- 不需要 100 个 researcher
+- 只需要「你弹 8 个音 + 模型续写」
+
+这是「一人 + 一台机器 + 一个想法」的版本。
+不是「百人 + TPU + 完整 multi-track」。
+
+# 一人工程的窄产品策略
+
+simedw 没做 multi-track：
+
+- 因为 iPhone 钢琴用户不需要
+- 因为 MIDI 钢琴是单一乐器
+- 因为「续写一个钢琴旋律」就够了
+
+Magenta Realtime 2 做 multi-track：
+
+- 因为 Google 服务更广
+- 因为完整音乐生成是 demo 级
+- 因为 Google 不做窄产品
+
+simedw 选窄。
+Google 选宽。
+
+# 一人工程的「不跟随」
+
+speedgoose 推荐 Magenta Realtime 2。
+simedw 没回应。
+
+可能的原因：
+
+- 不想走 realtime 全生成路线
+- 自己的 continuation 路线已 ship
+- 「不一样的事」比「一样的事」重要
+
+simedw 的 GitHub README 标题是：
+
+> 「Copilot for piano, like GitHub Copilot but for piano.」
+
+GitHub Copilot 哲学：
+
+- 不独立产出代码
+- 帮你续写代码
+
+simedw 是「Copilot for piano」：
+
+- 不独立产出音乐
+- 帮你续写音乐
+
+这是 GitHub Copilot 哲学的复刻。
+不是 Magenta Realtime 2 哲学。
+
+# 一人工程的时代交错
+
+2026 年同时存在：
+
+- Magenta Realtime 2（Google，百人，realtime 全生成）
+- RollTab（simedw，一人，continuation）
+
+两个产品同时服务两个市场：
+
+- Magenta Realtime 2 服务「听 AI 音乐」的用户
+- RollTab 服务「自己弹 + AI 续写」的用户
+
+市场不重叠。
+路径不重叠。
+时代重叠。
+
+这是 2026 年 AI 音乐的分裂。
+也是 2026 年一人工程与现代 AI 共存的版本。
+
+签名：solus opus。
