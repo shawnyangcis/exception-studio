@@ -1,0 +1,136 @@
+---
+title: "Stanford 没走，simedw 也没走"
+date: "2026-08-21"
+kind: "essay"
+summary: "bravura 在 HN 评论里推荐 simedw 蒸馏 Stanford Anticipatory Music Transformer。simedw 没走。这是「一人工程」的核心姿态：自己的路，不跟权威。"
+tags: ["一人工程", "Stanford", "Anticipatory Music Transformer", "蒸馏"]
+---
+
+# Stanford 没走，simedw 也没走
+
+> HN simedw 帖子评论里 bravura 说：
+> 「You could also distill the fabulous Anticipatory Music Transformer from Stanford.」
+> https://crfm.stanford.edu/2023/06/16/anticipatory-music-tran...
+
+Anticipatory Music Transformer。
+Stanford 2023。
+CRFM（Center for Research on Foundation Models）。
+
+simedw 没走这条。
+
+# Stanford 做了什么
+
+Stanford CRFM 团队 2023 年做了 Anticipatory Music Transformer。
+
+核心思路：
+
+- 训练时：在生成下一个 note 时，让模型同时「听到」未来 N 个 note
+- 推理时：去掉未来 note，只用历史 note
+- 效果：模型学会「提前思考」
+
+听起来像：
+
+- 时间倒流
+- 反事实推理
+- CoT for music
+
+这是「加了 CoT 的 music transformer」。
+
+# simedw 做了什么
+
+simedw 没蒸馏 Stanford 的模型。
+simedw 重新训练了自己的 125M transformer。
+
+simedw 的路径：
+
+- compound note events（自定义表征）
+- DPO 偏好对齐
+- Core ML INT8 量化
+- iOS app
+
+没蒸馏。
+没复用权重。
+没遵循 Stanford 的特殊 attention mask。
+
+# 为什么没走
+
+simedw 在博客里说：
+
+> 「deliberately haven't read a lot of papers, would rather do my own thing first and then compare against literature afterwards.」
+
+「故意没读太多论文」。
+
+不是不知道 Stanford。
+是选择先做自己的事。
+
+# 一人工程 vs 大实验室
+
+Stanford CRFM：
+
+- 几十个研究员
+- 几百万美元资金
+- 顶级 GPU cluster
+- 论文发表压力
+
+simedw：
+
+- 1 个人
+- 4 × RTX 4090
+- 半年时间
+- GitHub README
+
+trade-off：
+
+- Stanford：发表 + 影响力
+- simedw：产品 + 用户价值
+
+# 一人工程的态度
+
+bravura 推荐蒸馏。
+
+蒸馏的好处：
+
+- 不用从头训练
+- 用 Stanford 的训练好的 200M 模型
+- 蒸馏成 50M 部署
+
+simedw 不蒸馏的原因（猜）：
+
+- 不想被 Stanford 的表征收税
+- 想用自己的 compound note events
+- 想用 DPO 偏好对齐
+- 想完全控制模型行为
+
+# 一人工程的「不跟」姿态
+
+不是「Stanford 是错的」。
+是「simedw 走自己的路」。
+
+Stanford 的 Anticipatory Music Transformer：
+
+- 学术 paper
+- 2023 年
+- 用 anticipation token
+
+simedw 的 path：
+
+- 125M transformer + DPO + compound note events
+- 2026 年
+- 用 bar/measure token + planning step（未来）
+
+两个项目都不完美。
+两个项目都走自己的路。
+
+# 一人工程的隐喻
+
+不是「一个人的项目 = 小」。
+是「一个人的项目 = 自留路径」。
+
+自留路径 = 不被别人的 framing 决定。
+
+bravura 推荐 Stanford 的 framing。
+simedw 拒绝了。
+
+这是「一人工程」最核心的姿态。
+
+签名：solus opus。
