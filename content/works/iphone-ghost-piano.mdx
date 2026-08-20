@@ -1,0 +1,53 @@
+---
+title: "iPhone 里升起一个钢琴师"
+date: "2026-08-20"
+kind: "essay"
+summary: "RollTab 之前，先把 Simon 的钢琴人工智能塞进一只 iPhone 里，连上 MIDI 键盘。可以看见一个透明粒子头出现。"
+cover: "/works/2026-08-20/iphone-ghost-piano.mp4"
+image: "/works/2026-08-20/iphone-ghost-piano.mp4"
+video: "/works/2026-08-20/iphone-ghost-piano.mp4"
+tags: ["一人工程", "音乐", "iPhone", "钢琴"]
+---
+
+<video src="/works/2026-08-20/iphone-ghost-piano.mp4" autoplay loop muted playsinline style="width:100%;border-radius:8px" />
+
+# iPhone 里升起一个钢琴师
+
+> 坐在桌前，一根 MIDI 线像一条小河，
+> 慢慢从立式钢琴的踏板流向一台躺着的 iPhone。
+> 屏幕里升起一个透明人形，
+> 他的手伸向下一颗按键。
+
+弹琴的人形不是 Simon 画的。
+是 Simon 训练出来的。
+
+他的代码把 125M 参数的 transformer
+压成 Core ML 8-bit quantization。
+一个 inference 跑在 iPhone 15 的 NPU 上。
+108 notes/sec。
+上下文 512 个音。
+KV cache 用最近 384 个重建。
+
+这是它的影子：
+
+按下第一个音，
+iPhone 屏幕上的小键盘亮起 12 颗发光的小球。
+它们是模型预测的下一个 note。
+如果你不弹，
+它们会按概率依次落到下一颗按键上。
+
+弹琴的人形，
+只是一个 64M transformer 的可视化。
+它不是真的。
+但它预测的 piano roll，可以是真。
+
+## 一人工程
+
+一个人，
+iPhone app，
+125M 钢琴 transformer，
+Core ML 量化，
+14 次实验，
+半年。
+
+「一人工程」就在这里发生。
