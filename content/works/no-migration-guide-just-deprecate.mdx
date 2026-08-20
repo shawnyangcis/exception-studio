@@ -1,0 +1,249 @@
+---
+title: "Migration guide 不必要：直接 deprecate"
+slug: "no-migration-guide-just-deprecate"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "migration", "deprecation", "hn-show"]
+description: "大公司做 migration guide：deprecation timeline + 6-month notice + backward compatibility + developer advocate 写 + 翻译 20 种语言。一人工程：直接 deprecate + 用户自己解决 + README 标注。"
+summary: "solo engineer 没有 migration guide。simedw 一个人 iPhone app——直接 deprecate 旧 API，用户自己看 commit message / README / GitHub issue。migration guide 是大公司 backward compat 工具，一人工程的 deprecate = 直接关掉。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 migration guide。
+
+大公司做 migration guide：
+
+- **deprecation timeline**（旧 API 标记 @deprecated + 6 个月后移除）
+- **migration guide**（v1 → v2 怎么迁移，文档 + 代码示例）
+- **backward compatibility**（新版本兼容旧 API，1-2 个版本）
+- **developer advocate 写**：专门 PM 写文档
+- **翻译**：20 种语言版本
+- **用户通知**：email + blog + in-product banner
+
+一人工程做 migration guide：
+- 没有 timeline
+- 没有 guide
+- 没有 compatibility
+- 没有 advocate
+- 没有翻译
+
+## simedw 的 migration 哲学
+
+simedw 是 iPhone piano app。他没有 migration guide：
+
+- **v1.0 → v1.1**：commit message "top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换"
+  - 旧 API：top-k only
+  - 新 API：6 种采样切换
+  - 没有 backward compatibility——v1.1 直接替换
+- **v1.1 → v1.2**：commit message "新模型 DPO 训练，continuation 接 prompt 接续度更高"
+  - 旧 model：cross-entropy
+  - 新 model：DPO
+  - 没有 backward compatibility——v1.2 直接替换
+
+用户升级 v1.0 → v1.1：UI 显示 6 种采样切换，不需要 migration guide（直接用就行）。
+用户升级 v1.1 → v1.2：continuation 更准，不需要 migration guide（用户感觉变好）。
+
+不需要 migration guide，因为：
+- iPhone app 是 closed box——用户看不到 API 变化
+- 用户只看到 UI 变化（更准 / 更快）
+- breaking change 对用户透明
+
+## 一人工程的 migration 工具
+
+- **commit message**：本地 git log
+- **README 更新**：breaking change 在 README 标注
+- **GitHub issue**：用户问 migration 怎么搞，simedw 自己答
+- **App Store release notes**：苹果强制 4000 字符，自己写
+- **HN / Twitter 公告**：可选
+
+不需要 migration guide，因为：
+- 用户数量小（100-1000 个）
+- simedw 直接回答每个用户问题
+- breaking change 少（每 6 个月一次大版本）
+
+## deprecation 在大公司的政治
+
+deprecation 不是工具——是**法律工具 + 协调工具**：
+
+- **法律**：GDPR / CCPA 要求 data API 移除前 6 个月通知用户
+- **PM**：要把 deprecation timeline 写进 roadmap
+- **工程**：要维护 backward compatibility code（duplicate code）
+- **销售**：要给 enterprise 客户 12 个月 notice（合同 SLA）
+- **developer advocate**：要写 migration guide + 录 video tutorial
+- **翻译**：要把 deprecation notice 翻译 20 种语言
+
+每个 stakeholder 都要 deprecation 协调：
+
+- 法律 deprecation = "我们没违反 GDPR"
+- PM deprecation = "客户有时间迁移"
+- 工程 deprecation = "我们有 backward compat 代码"
+- 销售 deprecation = "enterprise 客户有 SLA"
+- advocate deprecation = "客户知道怎么迁移"
+- 翻译 deprecation = "全球客户知道"
+
+没有 deprecation = 没有法律保护 + 没有客户迁移时间 = 诉讼风险。
+
+一人工程没有 stakeholder：
+- 开发者 = PM = 工程 = 销售 = advocate = 翻译 = 法务
+- 一个人 deprecate
+- 不需要 6 个月 notice
+- 不需要 backward compat
+- 不需要 migration guide
+
+## backward compatibility 在大公司的必要性
+
+大公司有 backward compatibility——新版本兼容旧 API：
+
+- **v1.0**：API A
+- **v1.5**：API A deprecated，但仍然能用
+- **v2.0**：API A 移除
+
+每个 major 版本（v1 → v2 / v2 → v3）维护 backward compat：
+
+- duplicate code（旧 API 还在）
+- redirect（旧 API call → 新 API）
+- shim（旧 API 输出 = 新 API 输出）
+- 测试（确保旧 API 在新版本仍然 work）
+
+每个 backward compat code：
+
+- 工程团队写
+- QA 测
+- PM 协调
+- 客户支持解释
+
+一人工程没有 backward compatibility。一人工程有：
+
+- **直接 deprecate**：v1.5 移除 v1.0 API
+- **直接替换**：v1.0 用户升级 v1.5 → 旧 API 调用失败 → 用户看 GitHub issue
+- **直接重写**：simedw 重写 14 次实验，每次都换 architecture
+
+不需要 backward compat，因为：
+- 用户数量小
+- simedw 直接回答用户
+- breaking change 透明
+
+## deprecation timeline 在大公司的必要性
+
+大公司有 deprecation timeline——6 个月前通知：
+
+- **T-6 month**：宣布 @deprecated，标记旧 API
+- **T-3 month**：发 email 提醒用户迁移
+- **T-1 month**：in-product banner 提醒
+- **T-0**：移除旧 API
+
+每个 timeline step：
+
+- PM 协调
+- 工程实现（@deprecated annotation）
+- 销售通知 enterprise 客户
+- advocate 写 migration guide
+- 翻译 20 种语言
+
+一人工程没有 deprecation timeline。一人工程有：
+
+- **commit message**：旧 API 标 @deprecated（如果有 codebase）
+- **README**：breaking change 在 README 标注
+- **GitHub release**：可选
+- **直接移除**：下一次 commit 移除旧 API
+
+simedw 不写 deprecation timeline，simedw 直接移除。
+
+## 用户沟通在大公司的必要性
+
+大公司有用户沟通——breaking change 通知用户：
+
+- **email blast**：发给所有用户
+- **in-product banner**：app 内通知
+- **blog post**：发 engineering blog 解释 why
+- **Twitter / HN 公告**：公关
+- **sales outreach**：enterprise 客户 1-on-1 通知
+
+每个用户沟通：
+
+- PR 写
+- marketing review
+- 法务审（数据使用变化）
+- 翻译
+
+一人工程没有用户沟通。一人工程有：
+
+- **commit message**：本地 git log（开发者看）
+- **README**：breaking change 标注（开发者看）
+- **GitHub issue**：用户问，simedw 答
+- **App Store release notes**：苹果强制填
+
+simedw 不发 email blast，不发 in-product banner，不发 blog post，不发 Twitter。
+
+## 一人工程的 deprecation 哲学
+
+大公司 deprecation 是因为他们有：
+
+- 100 万用户（要 6 个月 notice 让用户迁移）
+- 1000 个 enterprise 客户（要 SLA）
+- 100 个 backward compat 代码（要 duplicate code）
+- 5 个 developer advocate（要写 migration guide）
+- 5 个法务（要 GDPR 合规）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（commit message 够了）
+- 0 个 enterprise 客户（如果有 = simedw 直接聊）
+- 0 个 backward compat 代码（直接重写）
+- 0 个 advocate（自己就是 advocate）
+- 0 个法务（如果出问题自己承担）
+
+deprecation 在一人工程里 = **直接关掉**。
+
+## 我就是 migration guide
+
+大公司 migration guide 是**多角色协作的**：
+
+- 5 个 developer advocate 写
+- 10 个 PM review
+- 5 个工程 review
+- 5 个法务审
+- 10 个翻译译
+
+一人工程 migration guide 是**commit message + 自己答**：
+
+- simedw 写 commit message
+- simedw 自己答用户 GitHub issue
+- simedw 自己发 App Store release notes
+- simedw 自己发 HN 公告（可选）
+
+没有 advocate，没有 PM review，没有工程 review，没有法务审，没有翻译。
+
+## 公开 vs 私有 migration
+
+大公司 migration 是**半公开 + 多渠道**：
+
+- blog post 公开
+- email blast 半公开（用户邮箱）
+- in-product banner 公开
+- migration guide 公开
+
+一人工程 migration 是**公开 + 单渠道**：
+
+- commit message 公开（GitHub）
+- App Store release notes 公开
+- GitHub issue 半公开（用户订阅）
+
+simedw 不发 email blast，simedw 用 App Store release notes + GitHub commit message。
+
+## 一人工程 + 直接 deprecate
+
+simedw 不写 migration guide。
+simedw 不维护 backward compat。
+simedw 不发 deprecation notice。
+simedw 直接 deprecate。
+simedw 直接重写。
+
+migration guide 在一人工程里不是文档，是**commit message + 直接重写**。
+
+---
+
+solo engineer 没有 migration guide。
+solo engineer 的 deprecation = 直接关掉 + 自己答用户。
+
+solus opus.
