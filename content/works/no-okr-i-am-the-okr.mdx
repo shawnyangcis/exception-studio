@@ -1,0 +1,268 @@
+---
+title: "OKR 不必要：我就是 OKR"
+slug: "no-okr-i-am-the-okr"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "okr", "planning", "hn-show"]
+description: "大公司做 OKR：Objectives + Key Results + 季度设定 + CEO 拍板 + 5 个 objectives + 每个 3-5 个 key results + 评分 0.0-1.0。一人工程：没有 OKR，自己就是 OKR。"
+summary: "solo engineer 没有 OKR。simedw 一个人 iPhone app——他决定 objective（representation / training / Core ML / iOS），他决定 key results（5× speedup / 70% Gemini 一致 / Core ML INT8），他评分（自己听 + 70% 一致）。OKR 是大公司对齐工具，一人工程的自己 = OKR。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 OKR。
+
+大公司做 OKR：
+
+- **Objectives**：5 个 objectives（季度目标）
+- **Key Results**：每个 objective 3-5 个 key results（可量化）
+- **评分 0.0-1.0**：每个 key result 评分（0.0 = 没做，1.0 = 完成）
+- **季度设定**：Q1 OKR / Q2 OKR / Q3 OKR / Q4 OKR
+- **CEO 拍板**：CEO 决定公司级 OKR
+- **VP 拆解**：VP 把公司 OKR 拆解成部门 OKR
+- **PM 拆解**：PM 把部门 OKR 拆解成个人 OKR
+- **对齐 review**：全公司 1-2 次 OKR 设定 + 1-2 次 OKR 评分 review
+
+一人工程做 OKR：
+- 没有 Objectives
+- 没有 Key Results
+- 没有评分
+- 没有季度设定
+- 没有 CEO 拍板
+
+## simedw 的 OKR 哲学
+
+simedw 是 iPhone piano app。他的"OKR"是他自己脑子里的：
+
+**Objective 1**：representation 对了
+
+**Key Results**：
+- exp 2: compound note events → 5× speedup
+- 表征比训练重要
+- 表征错了再训练没意义
+
+**Objective 2**：training 稳了
+
+**Key Results**：
+- exp 1: standard cross-entropy → baseline
+- exp 3: DPO → preference optimization
+- exp 14: DPO main = continuation 接 prompt 的接续度
+- 14 次实验结果自己看
+
+**Objective 3**：Core ML 部署了
+
+**Key Results**：
+- PyTorch → Core ML
+- INT8 量化
+- 125M 模型在 iPhone 上跑得动
+
+**Objective 4**：iOS app 上线了
+
+**Key Results**：
+- piano UI
+- latency < 100ms
+- App Store 审核通过（11 天）
+- 用户下载 + 评论
+
+simedw 的 OKR 不是写下来的，是他做每一步时**自动遵守**的——representation 对了 → training 才稳 → Core ML 才部署 → iOS 才上线。
+
+每一步都是下一步的前置，没有灵活性，没有"Q1 做 A，Q2 做 B"的并行。
+
+## 一人工程的 OKR 工具
+
+- **git log**：每个 commit 是 key result
+- **里程碑**：每个 milestone 是 objective
+- **App Store 评论**：用户反馈是 OKR 评分
+- **HN 评论**：HN 反馈是 OKR 评分
+
+不需要 OKR 文档，因为：
+- 开发者就是唯一一个 OKR owner
+- 开发者就是唯一一个 reviewer
+- 不需要写下来对齐
+
+## OKR 在大公司的政治
+
+OKR 不是工具——是**对齐工具 + 政治工具**：
+
+- **CEO**：要用 OKR 对齐 1000 个员工到公司方向
+- **VP**：要用 OKR 拆解公司方向到部门
+- **PM**：要用 OKR 拆解部门方向到个人
+- **工程师**：要用 OKR 知道我的工作对哪个 objective
+- **HR**：要用 OKR 评分决定奖金 + 晋升
+- **投资人**：要用 OKR 知道公司进度
+
+每个 stakeholder 都要 OKR：
+
+- CEO OKR = "我对齐公司"
+- VP OKR = "我对齐部门"
+- PM OKR = "我对齐个人"
+- 工程师 OKR = "我知道我的方向"
+- HR OKR = "我决定奖金"
+- 投资人 OKR = "我知道进度"
+
+没有 OKR = 没有对齐 = 1000 个人各自为战。
+
+一人工程没有 stakeholder：
+- 开发者 = CEO = VP = PM = 工程师 = HR = 投资人
+- 一个人对齐
+- 不需要 OKR
+
+## OKR 评分在大公司的必要性
+
+大公司有 OKR 评分——每个 key result 评分 0.0-1.0：
+
+- **0.0-0.3**：没做（mostly failed）
+- **0.4-0.6**：部分做（made progress but missed target）
+- **0.7**：完全做（but stretch）
+- **0.8-1.0**：超额做（hit + stretched）
+
+每个评分：
+
+- 季度末 review
+- 全公司公开评分
+- 0.7 = 优秀（Google 传统）
+- <0.4 = 失败
+
+一人工程没有 OKR 评分。一人工程有：
+
+- **simedw 自己评分**：exp 2 5× speedup → 表征成功（1.0） / DPO main 接续度 70% → 部分成功（0.7）
+- **不需要公开**：simedw 自己看
+- **不需要 0.7 标准**：simedw 自己决定成功标准
+
+不需要 OKR review meeting。
+
+## OKR review meeting 在大公司的必要性
+
+大公司有 OKR review meeting：
+
+- **季度初 OKR 设定**：1-2 天全公司 offsite（500 人开会）
+- **季度中 OKR check-in**：每月 1 次部门 review
+- **季度末 OKR 评分**：1-2 天全公司 offsite（500 人评分）
+
+每个 review meeting：
+
+- 500 人参会
+- 1-2 天时长
+- 100 页 PPT
+
+一人工程没有 OKR review meeting。一人工程有：
+
+- **simedw 自己 review 自己**：每次 commit 时 review
+- **simedw 自己 check-in**：每天早上想今天做什么
+- **simedw 自己评分**：14 次实验结果自己看
+
+不需要 offsite。
+
+## OKR 在大公司的失败模式
+
+大公司 OKR 经常失败：
+
+- **OKR 太多**：5 个 objectives × 5 个 key results = 25 个指标，每个都做 = 每个都做不好
+- **OKR 太刚性**：季度初定下后不能改，但实际市场变化 = OKR 失效
+- **OKR 太软**：评分主观，0.7 = 优秀的标准 = 大家都 0.7
+- **OKR 与奖金挂钩**：HR 用 OKR 评分决定奖金 = 大家都 1.0
+- **OKR 与晋升挂钩**：VP 用 OKR 评分决定晋升 = VP 给下属 1.0
+
+OKR 失败的解法：
+- 减少 OKR 数量（1 个 objective × 3 个 key results）
+- 增加 OKR 灵活性（季度中可调整）
+- 公开评分（不让 VP 操纵）
+
+一人工程没有 OKR 失败模式，因为：
+- simedw 没有"太多 OKR"（只有 4 个 objective）
+- simedw 没有"太刚性"（随时改）
+- simedw 没有"太软"（自己评分 = 严格）
+- simedw 没有"与奖金挂钩"（自己发自己工资）
+- simedw 没有"与晋升挂钩"（没有 VP）
+
+## OKR 在 Google 的起源
+
+OKR 是 Andy Grove 在 Intel 1970s 创造，1999 John Doerr 引入 Google：
+
+- **Google 早期**：每个员工写 OKR，每季度评分
+- **Google 后期**：OKR 复杂化（季度初设定 + 月度 check-in + 季度末评分 + 全公司 review）
+- **Google 现状**：OKR 是默认管理工具
+
+OKR 的成功条件：
+- CEO 真正相信 OKR（不是表面文章）
+- OKR 评分公开（不隐藏）
+- OKR 与奖金脱钩（不操纵）
+
+OKR 的失败条件（大多数公司）：
+- CEO 不相信 OKR（只是 JIRA 流程）
+- OKR 评分不公开（VP 操纵）
+- OKR 与奖金挂钩（员工操纵）
+
+一人工程没有 OKR 起源 / 成功 / 失败问题——simedw 直接做。
+
+## 一人工程的 OKR 哲学
+
+大公司 OKR 是因为他们有：
+
+- 1000 个员工（需要对齐）
+- 10 个 VP（需要拆解）
+- 50 个 PM（需要拆解到个人）
+- 5 个 HR（需要评分决定奖金）
+- 1 个 CEO（需要拍板）
+
+一人工程没有这些。一人工程有：
+
+- 0 个员工（自己就是员工）
+- 0 个 VP（自己就是 VP）
+- 0 个 PM（自己就是 PM）
+- 0 个 HR（自己就是 HR）
+- 0 个 CEO（自己就是 CEO）
+
+OKR 在一人工程里 = **自己做 + 自己评分**。
+
+## 我就是 OKR
+
+大公司 OKR 是**多角色参与的**：
+
+- 1 个 CEO 拍板
+- 10 个 VP 拆解
+- 50 个 PM 拆解到个人
+- 1000 个员工执行
+- 5 个 HR 评分
+- 1 个 board（投资人） review
+
+一人工程 OKR 是**一个人做的**：
+
+- simedw 自己拍板（决定 4 个 objective）
+- simedw 自己拆解（每个 objective 3-5 个 key results）
+- simedw 自己执行（14 次实验 + Core ML + iOS）
+- simedw 自己评分（exp 2 成功 / DPO 70% / Core ML INT8 完成 / iOS 上线）
+
+没有 CEO，没有 VP，没有 PM，没有 HR，没有 board。
+
+## 公开 vs 私有 OKR
+
+大公司 OKR 是**半公开**：
+
+- 公司 OKR 公开（员工知道）
+- 部门 OKR 半公开（同部门知道）
+- 个人 OKR 私有（自己知道）
+
+一人工程 OKR 是**完全公开**：
+
+- 14 次实验公开（GitHub commit message + HN 评论）
+- iOS app 公开（App Store）
+- 用户反馈公开（App Store 评论 + HN）
+
+simedw 的 OKR 通过 commit message + HN 评论 + App Store 公开。**他的 OKR 比 Google 的 OKR 还公开**。
+
+## 一人工程 + 我就是 OKR
+
+simedw 不写 OKR 文档。
+simedw 不做 OKR review。
+simedw 不做 OKR 评分。
+simedw 做 14 次实验。
+simedw 评分 14 次实验。
+
+OKR 在一人工程里不是文档，是**实验 + 评分**。
+
+---
+
+solo engineer 没有 OKR。
+solo engineer 的 OKR = 我做的实验 + 我自己的评分。
+
+solus opus.
