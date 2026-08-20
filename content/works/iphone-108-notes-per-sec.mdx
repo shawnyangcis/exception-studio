@@ -1,0 +1,59 @@
+---
+title: "iPhone 上 108 notes/sec"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的部署笔记：PyTorch → Core ML + INT8 量化，iPhone 15 跑 108 notes/sec，上下文 512 notes，长会话截到最近 384 重建 KV cache。"
+tags: ["一人工程", "iPhone", "Core ML", "INT8"]
+---
+
+# iPhone 上 108 notes/sec
+
+> simedw 的部署笔记：
+> PyTorch → Core ML + INT8 量化。
+> iPhone 15 NPU 跑 108 notes/sec。
+> 上下文 512 notes 上限。
+> 长会话截到最近 384 重建 KV cache。
+> 第一个版本苹果审核 11 天。
+
+模型：
+
+- 64M 训练好
+- 压缩到接近 125M 质量
+- 一只 iPhone 装得下
+
+部署管线：
+
+- PyTorch 训练
+- Core ML 转换
+- INT8 量化
+- 上 App Store
+
+上下文窗口：
+
+- 512 notes 上限
+- 长会话截到 384 notes
+- 重建 KV cache（ring buffer）
+
+RoPE 理论上可以让 KV cache 是 ring buffer：
+
+> 让过去 token 的位置编码从远端回环
+> 不用真存整个 KV cache
+
+但 Core ML 不暴露 Q/K/V tensor：
+
+> 想做也做不了
+> 算了
+> 挺快乐
+
+simedw 的工程师幽默：「算了挺快乐」是 Core ML 限制下的最优解。
+
+审核：
+
+- 第一个版本 11 天过审
+- 新版本在审：top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换
+
+iPhone 钢琴续写 app 的整个生命周期：
+
+> 一人 + iPhone app + 125M 模型 + 14 次实验 + 半年 + Core ML 量化 + 苹果审核 = RollTab
+
+签名：solus opus。
