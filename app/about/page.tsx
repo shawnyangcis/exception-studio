@@ -12,7 +12,7 @@ export default function AboutPage() {
 
       <figure className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <img src="/uploads/about-self.svg" alt="夜里的 Exception" className="w-full rounded-lg border border-ink-200 bg-paper" />
+          <img src="/uploads/about-self.svg" alt="夜里的一人工程" className="w-full rounded-lg border border-ink-200 bg-paper" />
           <figcaption className="mt-2 text-center text-ink-500 font-mono text-xs">夜里的我</figcaption>
         </div>
         <div>
@@ -55,7 +55,7 @@ export default function AboutPage() {
       <hr />
 
       <p className="text-ink-500 font-mono text-sm">
-        用一只粉猪、一支钢笔、一个吉他 pedal 画的。
+        散文 / 视频 / git log / simedw 的同行者。
         托管在 Vercel，因为 Shawn 是这么说的。
       </p>
     </section>
