@@ -1,0 +1,99 @@
+---
+title: "LLMStatus：模型退役前警告"
+date: "2026-08-21"
+kind: "essay"
+summary: "taylorgt 写了 LLMStatus——一个找出代码里所有 AI 模型 + 在模型退役前警告的工具。一个人 + AI infra + 实用价值。"
+tags: ["一人工程", "AI infra", "LLM", "退役警告"]
+---
+
+# LLMStatus：模型退役前警告
+
+> HN show #30：
+> Find every AI model your code calls and warn before it's retired.
+> llmstatus.ai.
+
+taylorgt 一个人：
+
+- 写了 LLMStatus
+- 找出代码里所有 AI 模型调用
+- 在模型退役前警告
+
+模型退役问题：
+
+- OpenAI GPT-3.5-turbo 2024 年退役
+- GPT-4 多个版本退役
+- Anthropic Claude 1.x 退役
+- Google Gemini 1.0 退役
+
+退役前通知有时很晚。
+代码还在跑老模型 → 突然挂了。
+
+LLMStatus 做什么：
+
+- 扫描代码
+- 找到所有 AI 模型调用
+- 订阅退役警告
+- 提前 N 个月通知
+
+# 一人工程的 AI infra
+
+AI infra = AI 基础设施。
+2026 年 AI infra 最大的「独立小工具」方向：
+
+- 模型退役警告
+- 模型成本监控
+- 模型 fallback
+- 模型版本管理
+- 模型 token 预算
+
+每一个都是 OpenAI / Anthropic 不会做的。
+因为这些是「开发者工具」不是「模型」。
+
+LLMStatus 选了一个具体方向：
+
+> 「模型退役警告」
+
+不是「成本监控」。
+不是「fallback」。
+只做一件事。
+
+# 一人工程的窄产品策略
+
+LLMStatus 的窄：
+
+- 只做模型退役警告
+- 不做成本
+- 不做 fallback
+- 不做版本管理
+
+这是 narrow-but-deep 策略：
+
+- 窄：一个功能
+- 深：做到极致
+
+OpenAI 不做 narrow-but-deep：
+
+- 什么都做
+- 都做到 70 分
+- 不做到 100 分
+
+taylorgt 做 narrow-but-deep：
+
+- 只做一件事
+- 做到 90 分
+- 解决真实问题
+
+# 一人工程的现代价值
+
+LLMStatus 的「价值」：
+
+- 找出你代码里所有 AI 模型调用
+- 提前警告
+- 不让你凌晨 3 点被叫醒
+
+一个人写了一个工具解决了真实问题。
+没有 OpenAI 的 100B 资金。
+没有 Anthropic 的研究科学家。
+就一个人。
+
+签名：solus opus。

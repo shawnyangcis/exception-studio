@@ -1,0 +1,104 @@
+---
+title: "Clean：一个人写的 agent skill"
+date: "2026-08-21"
+kind: "essay"
+summary: "andalabx 写了 Clean——一个 agent skill，第一次运行释放了 5.3 GB。一个人 + agent skill + 实用工具。又一个一人工程版本。"
+tags: ["一人工程", "agent skill", "dev junk", "实用工具"]
+---
+
+# Clean：一个人写的 agent skill
+
+> HN show #19：
+> Clean, an agent skill that clears dev junk (freed 5.3 GB on first run).
+> github.com/andalabx.
+
+andalabx 一个人：
+
+- 写了一个 agent skill
+- 第一次运行释放 5.3 GB
+- 在 HN 收获 2 points + discuss
+
+agent skill = 给 LLM agent 用的脚本。
+可以自动清理 dev junk：
+
+- node_modules
+- __pycache__
+- .DS_Store
+- target/
+- dist/
+- build/
+- .pytest_cache
+- .mypy_cache
+
+很多项目的「杂物」占几十 GB。
+Clean 自动识别 + 删除。
+
+# 5.3 GB 的细节
+
+第一运行释放 5.3 GB 是 HN 描述的数据。
+单个项目：
+
+- node_modules：~500 MB
+- target/ (Rust)：~5 GB（debug build）
+- __pycache__ + .pytest_cache：~50 MB
+- build/：~500 MB
+
+5.3 GB 不是 Clean 释放的全部。
+只是单个项目。
+
+如果一个开发者有 10 个项目：
+- 每个平均 1 GB junk
+- 10 GB 潜在释放
+
+Clean 的实际价值是：
+
+> 让 agent skill 自动清理，不用开发者手动清理。
+
+# 一人工程 vs 大公司
+
+OpenAI 不会写 Clean 这种工具：
+
+- 太简单
+- 太实用
+- 太小
+
+但 5.3 GB 的释放对单个开发者是真实价值。
+
+# agent skill 的现代版本
+
+2026 的 agent skill 不是 plugin。
+是 Markdown + Bash + Python。
+
+agent skill 目录：
+
+```
+clean/
+├── SKILL.md       # LLM 读这个文件
+├── clean.sh       # 实际执行清理
+└── README.md      # 人读这个文件
+```
+
+LLM agent 读 SKILL.md 决定要不要用 Clean。
+要的话跑 clean.sh。
+
+人读 README 决定要不要 star。
+要的话加 watch。
+
+# 一人工程的小巧版本
+
+simedw：
+
+- 一个人 + 125M transformer + iOS + 半年
+- 大
+
+andalabx：
+
+- 一个人 + 一个 agent skill + 几 MB 代码 + 几小时
+- 小
+
+两种都是一人工程。
+
+不是所有一人工程都需要半年。
+有些一人工程只需要几小时 + 几 MB。
+
+签名：solus opus。

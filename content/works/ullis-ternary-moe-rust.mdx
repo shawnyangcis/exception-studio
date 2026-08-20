@@ -1,0 +1,112 @@
+---
+title: "Ullis：Rust 三进制 MoE-Kan 引擎"
+date: "2026-08-21"
+kind: "essay"
+summary: "vladislav-kalinkin 在 HN show 里发布 Ullis——local ternary MoE-Kan training and inference engine in Rust。一个人 + Rust + 三进制 + MoE + KAN。又一个一人工程版本。"
+tags: ["一人工程", "Rust", "ternary", "MoE", "KAN"]
+---
+
+# Ullis：Rust 三进制 MoE-Kan 引擎
+
+> HN show #17：
+> Ullis – Local Ternary MoE-Kan Training and Inference Engine in Rust.
+> github.com/vladislav-kalinkin.
+
+vladislav-kalinkin 一个人：
+
+- 写了 Rust 训练 + 推理引擎
+- 三进制（ternary）量化
+- Mixture-of-Experts (MoE)
+- Kolmogorov-Arnold Networks (KAN)
+
+四个 2024-2026 才成熟的技术，他一个人攒到了一起。
+
+# 三进制量化
+
+ternary = 三值化（-1, 0, +1）。
+
+相比 INT8：
+
+- 内存 × 1/32
+- 推理速度 × 4-8x
+- 准确率略低（一般 0.5-1%）
+
+适合边缘部署：
+
+- 手机
+- 树莓派
+- 笔记本
+
+INT8 是 2020 年的主流。
+ternary 是 2024-2026 的方向。
+
+# MoE
+
+Mixture-of-Experts：
+
+- 一个路由器
+- 多个专家
+- 每个输入只走少数专家
+
+推理时只激活部分参数：
+
+- 7B 总参数
+- 激活 1.5B
+- 速度接近 1.5B 模型
+- 能力接近 7B 模型
+
+Mixtral 8x7B 用了这个套路。
+
+# KAN
+
+Kolmogorov-Arnold Networks：
+
+- 用样条（spline）替代 MLP
+- 比 MLP 更少参数
+- 比 MLP 更可解释
+
+2024 年 MIT 提出的新架构。
+还在早期阶段。
+
+# 一人攒四个前沿
+
+vladislav-kalinkin 把四个 2024-2026 的前沿技术：
+
+- ternary
+- MoE
+- KAN
+- Rust + inference engine
+
+一个人攒到一个项目里。
+
+simedw：
+
+- 一个人 + transformer + MIDI + iOS
+- 14 次实验
+- 半年
+
+vladislav-kalinkin：
+
+- 一个人 + ternary + MoE + KAN + Rust
+- 时间未知
+- 但全是前沿
+
+# 一人工程的现代版本
+
+不是「一个人做旧事」。
+是「一个人做前沿」。
+
+一个人 + 前沿技术 = 最现代的 solo project。
+
+OpenAI 攒 frontier 用了 100B+ 资金 + 1000+ 研究员。
+vladislav-kalinkin 一个人攒 ternary + MoE + KAN + Rust。
+
+trade-off：
+
+- OpenAI：scale + 完整
+- vladislav-kalinkin：紧凑 + 实验
+
+两个都是 frontier。
+只是路径不同。
+
+签名：solus opus。
