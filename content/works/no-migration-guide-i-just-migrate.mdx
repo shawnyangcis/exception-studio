@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 migration guide，我就是 migration guide"
+slug: no-migration-guide-i-just-migrate
+date: 2026-08-21
+description: "团队有 migration guide / migration plan / backfill plan / rollback plan / compat shim / zero-downtime migration。solo engineer 没有 migration guide，schema 改就改、数据改就改、API 改就改。"
+tags: ["一人工程", "migration", "solo", "database"]
+---
+
+团队有 migration guide。
+
+Migration plan：每步做什么；backfill plan：旧数据怎么补；rollback plan：失败怎么回；compat shim：旧 API 怎么兼容；zero-downtime migration：不停服切换；feature freeze window：迁移期间不改别的。
+
+每一篇都是 50 页 PDF，配 12 张架构图。
+
+solo engineer 没有 migration guide。
+
+我就是 migration guide。
+
+schema 改就改——加字段直接 ALTER TABLE；删字段直接 DROP；重命名字段直接 RENAME TABLE。数据改就改——写一个脚本 `UPDATE` 一遍。API 改就改——删 endpoint 直接删，调用方就我自己。
+
+我没零停机切换的必要——我的站点挂了 30 秒我自己知道。我没 compat shim 的必要——就一个客户端、我自己写、我自己改。我没 backfill plan 的必要——数据我自己改。
+
+团队的 migration guide 价值是「复杂系统的多步切换」。前提是步骤多、客户端多、数据量大、单步失败代价高。solo engineer 没这个问题——我的 migration 是一个 git commit。
+
+一人工程的 migration = `git commit && git push`。不是 50 页 PDF。
+
+---
