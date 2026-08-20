@@ -1,0 +1,259 @@
+---
+title: "Test coverage 不必要：想测就测"
+slug: "no-test-coverage-i-test-when-i-feel"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "test-coverage", "qa", "hn-show"]
+description: "大公司做 test coverage：100% line coverage + 80% branch coverage + Codecov / Coveralls + coverage gate PR + coverage 下降 = fail build。一人工程：没有 coverage，想测就测。"
+summary: "solo engineer 没有 test coverage。simedw 一个人 iPhone app——他决定测什么，他决定怎么测，他决定何时不测。test coverage 是大公司质量保证工具，一人工程的感觉 = coverage。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 test coverage。
+
+大公司做 test coverage：
+
+- **line coverage**：每行代码被执行的百分比（目标 100%）
+- **branch coverage**：每个 if/else 分支被执行的百分比（目标 80%）
+- **function coverage**：每个函数被调用的百分比（目标 100%）
+- **statement coverage**：每个 statement 被执行的百分比（目标 100%）
+- **Codecov / Coveralls**：coverage 可视化平台
+- **coverage gate**：PR 必须 coverage 不下降才能 merge
+- **mutation testing**：mutant 杀灭率（目标 80%）
+
+一人工程做 test coverage：
+- 没有 line coverage
+- 没有 branch coverage
+- 没有 Codecov
+- 没有 coverage gate
+
+## simedw 的 test 哲学
+
+simedw 是 iPhone piano app。他没有 test coverage：
+
+- **simedw 写代码时自己测**：写完 function 跑一下
+- **simedw 在 iPhone 上跑**：手动测 UI + latency
+- **simedw 听 piano app**：手动听 piano sound
+- **simedw 跑 14 次实验**：每次实验自己跑训练 + 测 loss
+- **simedw 用 Gemini pairwise**：LLM 自动评估 continuation 质量
+
+不需要 Codecov，因为：
+- simedw 自己测 = 100% coverage（开发者测过 = 测过）
+- simedw 感觉 = coverage（手感好 = 通过）
+- simedw 不需要 gate（自己批准 = 通过）
+
+## 一人工程的 test 工具
+
+- **手动测**：simedw 写完代码跑一下
+- **iPhone TestFlight**：beta 用户测（如果 simedw 有 = simedw 自己）
+- **Crashlytics**：自动收集 crash 数据
+- **App Store 评论**：用户反馈 bug
+- **HN 评论**：用户反馈功能
+- **Xcode unit test**：simedw 写 unit test（如果需要）
+- **PyTorch 训练 loss**：自动记录每次实验 loss
+
+不需要 Codecov，因为 simedw 自己 = coverage。
+
+## test coverage 在大公司的政治
+
+test coverage 不是工具——是**质量保证工具 + 政治工具**：
+
+- **QA**：要用 coverage 决定 release 是否 ready
+- **CTO**：要用 coverage 决定 codebase 质量
+- **VP**：要用 coverage 决定团队绩效
+- **HR**：要用 coverage 评估工程师
+- **PM**：要用 coverage 知道 feature 何时 ready
+- **销售**：要用 coverage 知道 enterprise feature 质量
+
+每个 stakeholder 都要 coverage：
+
+- QA coverage = "release ready"
+- CTO coverage = "codebase 健康"
+- VP coverage = "团队表现"
+- HR coverage = "工程师质量"
+- PM coverage = "feature ready"
+- 销售 coverage = "enterprise 质量"
+
+没有 coverage = 没有质量 = 没有 release。
+
+一人工程没有 stakeholder：
+- 开发者 = QA = CTO = VP = HR = PM = 销售
+- 一个人 coverage
+- 不需要 Codecov
+
+## coverage gate 在大公司的必要性
+
+大公司有 coverage gate——PR 必须 coverage 不下降才能 merge：
+
+- **当前 main branch coverage**：85%
+- **新 PR coverage**：83%（下降）
+- **gate 失败**：PR 不能 merge，必须加 test 把 coverage 提到 85%
+
+每个 coverage gate：
+
+- Codecov 自动检查
+- GitHub Actions 集成
+- 必须 coverage ≥ main 才能 merge
+
+一人工程没有 coverage gate。一人工程有：
+
+- **simedw 自己决定测什么**：simedw 写代码时知道哪里需要 test
+- **simedw 不需要 gate**：simedw 自己批准
+- **simedw 不需要 Codecov**：simedw 自己 = Codecov
+
+## mutation testing 在大公司的细节
+
+大公司 mutation testing——mutant 杀灭率：
+
+- **mutant**：自动改一行代码（if → else, + → -, return → return null）
+- **杀灭 mutant**：test 失败 = mutant 被杀
+- **未杀灭 mutant**：test 通过 = mutant 存活
+- **杀灭率**：被杀 / 总 mutant
+
+每个 mutation testing：
+
+- 自动跑几千个 mutant
+- 每个 mutant 跑全 test suite
+- 几小时跑完
+
+一人工程没有 mutation testing。一人工程有：
+
+- **simedw 自己改代码**：simedw 改一行代码自己测
+- **simedw 不需要自动 mutant**：simedw 改一行就知道哪里会 break
+- **simedw 不需要几千个 mutant**：simedw 改一行就够
+
+mutation testing 在一人工程里 = **simedw 自己改代码**。
+
+## line coverage vs branch coverage
+
+大公司区分两种 coverage：
+
+- **line coverage**：每行被执行（容易达到 100%）
+- **branch coverage**：每个分支被执行（难达到 100%）
+
+例子：
+
+```python
+def f(x):
+    if x > 0:
+        return 1
+    else:
+        return 0
+```
+
+- **line coverage**：测一次 x=1 → 100%（3 行执行）
+- **branch coverage**：测 x=1 + x=0 → 100%（两个分支执行）
+
+一人工程没有 line / branch coverage 区分。一人工程有：
+
+- **simedw 自己知道**：simedw 写代码时知道每个分支
+- **simedw 测过就过**：simedw 跑过 case 就知道
+- **simedw 不需要 100%**：simedw 测重要的 case，不重要的 case 不测
+
+## test pyramid 在大公司的细节
+
+大公司 test pyramid：
+
+- **unit test**：70%（测试单个 function）
+- **integration test**：20%（测试多个 module）
+- **e2e test**：10%（测试整个系统）
+
+每个 test：
+
+- unit test：每个 function 一个 test
+- integration test：每个 module 集成一个 test
+- e2e test：每个 user flow 一个 test
+
+一人工程没有 test pyramid。一人工程有：
+
+- **simedw 写 test 时决定**：simedw 测 unit 还是 integration 由自己决定
+- **simedw 不需要 70/20/10**：simedw 测重要的 + 测的就行
+- **simedw 不需要 e2e**：simedw 在 iPhone 上手动跑 = e2e
+
+## flaky test 在大公司的痛点
+
+大公司 flaky test——test 不稳定（有时候 pass 有时候 fail）：
+
+- **flaky test 占比**：5-10%
+- **flaky test 修复**：几小时到几天
+- **flaky test 影响**：CI 失败 → PR 阻塞 → 工程师 frustration
+- **flaky test 解决**：quarantine + 重跑 + 修复
+
+每个 flaky test：
+
+- 自动检测（CI 跑 3 次）
+- quarantine（不阻塞 PR）
+- 工程师修复
+
+一人工程没有 flaky test。一人工程有：
+
+- **simedw 自己测 = 不 flaky**：simedw 跑测试时如果 fail = 真的 fail，不 flaky
+- **simedw 不需要 quarantine**：simedw 自己看 fail 立即修
+- **simedw 不需要自动检测**：simedw 自己跑就知道
+
+## 一人工程的 coverage 哲学
+
+大公司 test coverage 是因为他们有：
+
+- 100 个工程师（需要 gate 防止 coverage 下降）
+- 10 个 QA（需要 coverage 决定 release）
+- 5 个 VP（需要 coverage 评估团队）
+- 1 个 CTO（需要 coverage 决定 codebase 健康）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 QA（自己就是 QA）
+- 0 个 VP（自己就是 VP）
+- 0 个 CTO（自己就是 CTO）
+
+test coverage 在一人工程里 = **自己想测就测**。
+
+## 我就是 coverage
+
+大公司 coverage 是**多角色测量的**：
+
+- 工程师写 test
+- QA 跑 coverage
+- Codecov 可视化
+- VP 看 dashboard
+
+一人工程 coverage 是**一个人测的**：
+
+- simedw 写代码时自己测
+- simedw 跑测试时自己看结果
+- simedw 不需要 Codecov
+- simedw 自己 = Codecov
+
+## 公开 vs 私有 coverage
+
+大公司 coverage 是**半公开**：
+
+- coverage dashboard 公开（公司内部）
+- coverage trend 公开（团队内部）
+- mutation rate 公开（公司内部）
+
+一人工程 coverage 是**完全公开**：
+
+- git log 公开（commit message 包含测试状态）
+- App Store 评论公开（用户反馈 bug）
+- HN 评论公开（用户反馈功能）
+
+simedw 的 coverage 通过 App Store 评论 + HN 评论公开——所有 bug / 功能问题都公开。
+
+## 一人工程 + 想测就测
+
+simedw 不做 line coverage。
+simedw 不做 branch coverage。
+simedw 不做 mutation testing。
+simedw 不做 Codecov。
+simedw 想测就测。
+
+test coverage 在一人工程里不是工具，是**simedw 的感觉**。
+
+---
+
+solo engineer 没有 test coverage。
+solo engineer 的 test coverage = 想测就测 + 感觉 + App Store 评论。
+
+solus opus.
