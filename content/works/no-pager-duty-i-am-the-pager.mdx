@@ -1,0 +1,293 @@
+---
+title: "PagerDuty 不必要：我就是 pager"
+slug: "no-pager-duty-i-am-the-pager"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "pagerduty", "oncall", "hn-show"]
+description: "大公司做 PagerDuty：7×24 oncall + 5 分钟 ACK + escalation + 30 分钟 mitigation。一人工程：没有 PagerDuty，自己就是 pager。"
+summary: "solo engineer 没有 PagerDuty。simedw 一个人 iPhone app——他自己看 Crashlytics，他自己响应，他自己 fix。PagerDuty 是大公司 7×24 oncall 工具，一人工程的自己 = pager。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 PagerDuty。
+
+大公司做 PagerDuty / Opsgenie / VictorOps：
+
+- **7×24 oncall**：每天 24 小时，每周 7 天 oncall
+- **rotation**：5-10 个工程师轮值 oncall（每人 1 周）
+- **escalation**：oncall 不响应 → 升级到 secondary → manager → VP
+- **5 分钟 ACK**：alert 触发 → oncall 工程师 5 分钟内 ACK
+- **30 分钟 mitigation**：ACK 后 30 分钟内 mitigation
+- **postmortem**：incident 关闭后写 postmortem
+- **PagerDuty 平台**：alert 路由 + oncall 排班 + escalation policy
+
+一人工程做 PagerDuty：
+- 没有 7×24
+- 没有 rotation
+- 没有 escalation
+- 没有 5 分钟 ACK
+
+## simedw 的 pager 哲学
+
+simedw 是 iPhone piano app。他没有 PagerDuty：
+
+- **simedw 自己看 Crashlytics**：simedw 每天早上看前 24 小时 crash
+- **simedw 自己响应**：simedw 看到 crash 立即响应（不一定 5 分钟内，但响应）
+- **simedw 自己 fix**：simedw 改完代码 + 加急审核 24 小时
+- **simedw 自己 = pager**：simedw 自己 = 7×24 oncall（iPhone app 没有 downtime 窗口）
+
+不需要 PagerDuty，因为：
+- simedw 自己就是 oncall 工程师
+- simedw 自己 = primary
+- simedw 自己 = secondary
+- simedw 自己 = manager
+
+## 一人工程的 pager 工具
+
+- **Crashlytics**：自动收集 crash 数据
+- **App Store 评论**：用户报 bug
+- **HN 评论**：用户报 bug
+- **TestFlight**：beta 用户测
+- **邮件**：用户发邮件报 bug
+- **脑子**：simedw 写代码时知道哪里可能 crash
+
+不需要 PagerDuty，因为 simedw 自己 = PagerDuty。
+
+## 7×24 oncall 在大公司的细节
+
+大公司 7×24 oncall：
+
+- **每天 24 小时**：生产系统不停
+- **每周 7 天**：oncall 周末也要响应
+- **oncall 时长**：1 周（每人 1 周轮值）
+- **oncall 报酬**：额外工资（通常 10-30% base）
+- **oncall 痛苦**：睡眠被打断 / 家庭时间被切碎 / 心理压力
+
+每个 oncall：
+
+- 每天 24 小时待命
+- alert 触发 → 5 分钟 ACK
+- ACK 后 30 分钟 mitigation
+- 1 周响应 5-20 个 alert
+
+一人工程没有 7×24 oncall。一人工程有：
+
+- **simedw 自己随时响应**：simedw 不需要 7×24，因为 simedw 知道 bug 怎么发生
+- **simedw 睡觉 = 自然 oncall 中断**：simedw 睡觉时 bug 不会突然出现
+- **simedw 自己 = 唯一 oncall**：simedw 没有轮值（轮值 = 给 5-10 个人分的，1 个人不需要轮值）
+
+## rotation 在大公司的细节
+
+大公司 rotation——5-10 个工程师轮值 oncall：
+
+- **rotation 周期**：每周轮 1 次
+- **rotation 公平**：每位工程师平均每周 1 次 oncall
+- **rotation 工具**：PagerDuty / Opsgenie / VictorOps
+- **rotation schedule**：提前 1 个月公布
+
+每个 rotation：
+
+- 5-10 个工程师
+- 每人 1 周
+- 1 个季度每人 12-13 次 oncall
+
+一人工程没有 rotation。一人工程有：
+
+- **simedw 自己**：simedw 自己就是 rotation（永远是自己）
+- **不需要轮值**：1 个人不需要轮值
+- **不需要 schedule**：simedw 自己决定何时响应
+
+rotation 在一人工程里 = **simedw 自己**。
+
+## escalation 在大公司的细节
+
+大公司 escalation——oncall 不响应升级：
+
+- **Tier 1**：primary oncall（5 分钟 ACK）
+- **Tier 2**：secondary oncall（10 分钟 ACK）
+- **Tier 3**：manager oncall（20 分钟 ACK）
+- **Tier 4**：VP oncall（30 分钟 ACK）
+
+每个 escalation：
+
+- 5 分钟不 ACK → 自动升级到 Tier 2
+- 10 分钟不 ACK → 自动升级到 Tier 3
+- 20 分钟不 ACK → 自动升级到 Tier 4
+
+一人工程没有 escalation。一人工程有：
+
+- **simedw 自己 = Tier 1 = Tier 2 = Tier 3 = Tier 4**：simedw 自己处理所有 tier
+- **不需要升级**：simedw 自己 = 升级路径
+- **不需要 5 分钟 ACK**：simedw 自己决定何时响应
+
+## 5 分钟 ACK 在大公司的细节
+
+大公司 5 分钟 ACK——alert 触发后 5 分钟内 oncall 工程师必须 ACK：
+
+- **alert 触发**：监控报警 / 用户投诉 / 自动检测
+- **5 分钟 ACK**：oncall 工程师收到 alert → 5 分钟内 ACK（点击"我看到了"）
+- **未 ACK 升级**：5 分钟未 ACK → 自动升级到 Tier 2
+
+每个 alert：
+
+- P0 alert：5 分钟 ACK + 30 分钟 mitigation
+- P1 alert：15 分钟 ACK + 2 小时 mitigation
+- P2 alert：1 小时 ACK + 1 天 mitigation
+
+一人工程没有 5 分钟 ACK。一人工程有：
+
+- **simedw 自己决定何时响应**：simedw 不需要 5 分钟（iPhone app 没有 SLA）
+- **simedw 响应 = 用户接受**：iPhone app 用户知道 simedw 不可能 5 分钟响应（simedw 睡觉）
+- **simedw 醒来响应**：simedw 早上起来看 Crashlytics + 响应
+
+## 30 分钟 mitigation 在大公司的细节
+
+大公司 30 分钟 mitigation——ACK 后 30 分钟内 mitigation：
+
+- **mitigation 定义**：bug 影响降低到可接受水平（不需要完全修复）
+- **mitigation 例子**：rollback / feature flag 关闭 / traffic redirect / 增加 server
+- **30 分钟 SLA**：mitigation 必须 30 分钟内部署
+
+每个 mitigation：
+
+- P0 mitigation：30 分钟部署
+- P1 mitigation：2 小时部署
+- P2 mitigation：1 天部署
+
+一人工程没有 30 分钟 mitigation。一人工程有：
+
+- **simedw 自己决定何时 mitigation**：simedw 不需要 30 分钟（iPhone app 没有 SLA）
+- **simedw 加急审核 24 小时**：iPhone app 加急审核 = simedw 的 mitigation
+- **simedw 修完才 mitigation**：simedw 修完 + 加急审核 = mitigation（24 小时内）
+
+## PagerDuty 平台在大公司的细节
+
+大公司 PagerDuty 平台：
+
+- **alert routing**：alert 路由到对的 oncall 工程师
+- **oncall schedule**：oncall 排班
+- **escalation policy**：升级策略
+- **incident management**：incident 协调
+- **alert deduplication**：相同 alert 去重
+- **alert silence**：维护期间 silence alert
+- **integrations**：100+ 工具集成（Slack / Datadog / CloudWatch / Grafana）
+
+每个 PagerDuty：
+
+- $21-41 / 用户 / 月
+- 100 个工程师 × $30 / 月 = $3000 / 月
+- 全公司 = $36k / 年
+
+一人工程没有 PagerDuty。一人工程有：
+
+- **simedw 0 / 月**：simedw 不要 PagerDuty
+- **simedw 0 工具集成**：simedw 直接看 Crashlytics
+- **simedw 不需要 alert routing**：simedw 自己就是 routing
+
+## oncall 痛苦在大公司的细节
+
+大公司 oncall 痛苦：
+
+- **睡眠被打断**：凌晨 3 点 alert → oncall 工程师醒来 → 30 分钟修复 → 醒来 1 小时后 → 再次 alert
+- **家庭时间被切碎**：周末 oncall = 周末不能陪家人
+- **心理压力**：oncall 期间担心 alert → burnout
+- **oncall 报酬**：$300-500 / 周额外报酬（oncall 痛苦补贴）
+
+每个 oncall：
+
+- 1 周
+- 平均 5-20 个 alert
+- 平均睡眠损失 5-10 小时
+- 心理压力无法量化
+
+一人工程没有 oncall 痛苦。一人工程有：
+
+- **simedw 睡觉 = 自然无 alert**：iPhone app 没有 server downtime → 半夜不会有 alert
+- **simedw 家庭时间 = 自己决定**：simedw 不需要 oncall
+- **simedw 心理压力 = 写代码时自己处理**：simedw 写代码时知道哪里可能 crash
+
+## iPhone app vs server 的 oncall 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：24 小时在线，downtime 直接影响所有用户 → 需要 7×24 oncall
+- **iPhone app**：用户本地安装，downtime 不存在（本地 app 永远能打开） → 不需要 oncall
+
+simedw 的 iPhone piano app 没有 server：
+- 用户打开 app → 本地 Core ML 运行 → 不需要 server
+- 新版本审核失败 → 旧版本仍然能用（用户不升级）
+- bug 发生 → 用户重启 app → 临时缓解
+
+不需要 PagerDuty，因为：
+- simedw 的 app 没有 server downtime
+- simedw 的 bug 用户本地修复（重启 / 重装）
+- simedw 的 bug 不需要 5 分钟 ACK
+
+## 一人工程的 pager 哲学
+
+大公司 PagerDuty 是因为他们有：
+
+- 100 万用户（一次 downtime = 100 万用户受影响）
+- 100 个工程师（需要 rotation）
+- 10 个 SRE（需要 escalation）
+- 7×24 生产系统（需要 oncall）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 bug = 100 用户受影响，simedw 自己通知）
+- 0 个工程师（自己就是工程师）
+- 0 个 SRE（自己就是 SRE）
+- 本地 app（不需要 7×24）
+
+PagerDuty 在一人工程里 = **simedw 自己看 Crashlytics**。
+
+## 我就是 pager
+
+大公司 pager 是**多角色协作的**：
+
+- Tier 1 oncall 响应
+- Tier 2 oncall 升级
+- Tier 3 manager 决策
+- Tier 4 VP 兜底
+
+一人工程 pager 是**一个人做的**：
+
+- simedw 自己响应（Tier 1）
+- simedw 自己升级（Tier 2）
+- simedw 自己决策（Tier 3）
+- simedw 自己兜底（Tier 4）
+
+没有 escalation，没有 manager，没有 VP。
+
+## 公开 vs 私有 pager
+
+大公司 pager 是**半公开**：
+
+- alert 公开（团队内部）
+- oncall schedule 公开（公司内部）
+- escalation policy 公开（团队内部）
+
+一人工程 pager 是**完全公开**：
+
+- Crashlytics 数据公开（simedw 自己看）
+- App Store 评论公开（用户反馈）
+- HN 评论公开（用户反馈）
+
+simedw 的"pager" 通过 Crashlytics + App Store 评论 + HN 评论公开——所有 bug 都公开。
+
+## 一人工程 + 我就是 pager
+
+simedw 不做 PagerDuty。
+simedw 不做 rotation。
+simedw 不做 escalation。
+simedw 不做 5 分钟 ACK。
+simedw 自己看 Crashlytics。
+
+PagerDuty 在一人工程里不是工具，是**simedw 自己**。
+
+---
+
+solo engineer 没有 PagerDuty。
+solo engineer 的 PagerDuty = simedw 自己看 Crashlytics + 响应。
+
+solus opus.
