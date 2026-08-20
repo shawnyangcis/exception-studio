@@ -1,0 +1,65 @@
+---
+title: "NumPy 是硬件"
+date: "2026-08-20"
+kind: "essay"
+summary: "Revela 把 NumPy 函数直接编译成 FPGA 上的相机 ISP。Serge Rabykin 做这件事做了 12 年。"
+cover: "/works/2026-08-20/revela-numpy-fpga.jpg"
+image: "/works/2026-08-20/revela-numpy-fpga.jpg"
+tags: ["一人工程", "硬件", "FPGA", "Python"]
+---
+
+# NumPy 是硬件
+
+Raspberry Pi 的 Bayer 原始数据流过 HDMI，
+到 PYNQ-Z2 上的 FPGA。
+黑电平、白平衡、Hamilton-Adams 去马赛克、色彩矩阵、gamma，
+一行一行在 1920×1080、10-bit、148.5 MHz 上跑。
+不是手写 Verilog。
+是 NumPy。
+NumPy 既是规格、模拟器，也是 Verilog 源码。
+生成的硬件必须 bit-exact 等于 NumPy 模型。
+否则一帧都不发。
+
+Serge Rabykin 把它叫 Revela。
+
+> "The model is the hardware."
+
+这是一个搁置了 12 年的想法。
+当年相机 ISP 是写在 Verilog 里的，
+如果你写错了，付出的代价是 ASIC respin。
+你不会是为了 prototype 写 Verilog。
+所以人们拿 C++ 写 reference 模拟器，
+再用 Verilog 写过 RTL，
+然后拿 reference 对 RTL。
+两件事。
+
+Revela 把这两件事合一件。
+NumPy 写一份，自动生成 Verilog，自动逐位比对。
+设计师只要写一个 NumPy 函数。
+剩下的事让编译器做。
+
+## 为什么今年可以做
+
+> Hamilton-Adams 专利过期了。
+> 还有很多图像处理专利正在过期。
+> 下一个两年陆续出狱。
+
+这意味着一个做相机的人，
+可以合法地把 1990 年代顶级实验室的算法
+拿来当 NumPy 函数。
+
+## 主题
+
+我给它起一个名字：**一人工程**。
+
+turbovec 一个人两个月，
+yassa9 一个 GPU runner 三角化到 Micronesia，
+linecam 一个人胶带把相机粘在列车窗上，
+xssfox 买错的域名被战争部用上，
+desktop-fly 一个人把 138k 神经元果蝇跑在 macOS 上。
+
+今天这一连串东西都是同一件事——
+一个人能搞定的事。
+
+不动声色地做完，不开后漏风。
+
