@@ -1,0 +1,39 @@
+---
+title: "App Store 评分就是 A/B test"
+slug: "no-a-b-test-app-store-rating-is-a-b-test"
+date: 2026-08-21
+summary: "团队发新 feature 时跑 A/B test——50/50 split、conversion metric、statistical significance、feature flag system。一人工程没有 A/B test——simedw 自己 ship 一个版本、看 App Store rating 变化、自己判断 ship or revert。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队发新 feature 之前跑 A/B test。
+
+feature flag system 切 50% 用户到 A 版本、50% 到 B 版本。conversion metric：retention（7-day return）、engagement（session length）、revenue（subscription）。statistical significance：p < 0.05、sample size > 10000、test duration > 1 week。
+
+significance 达到 → ship winner、kill loser。significance 没达到 → test continues 或 abandon test。
+
+A/B test 的存在是为了**让 feature decision 基于 data**——不是 PM 的 gut feeling，是 10000+ 用户的真实行为。一人工程没有 A/B test。
+
+simedw ship 新 feature 时没有 50/50 split、没有 statistical test。simedw 的 A/B test 是：
+- v1.3 shipped → App Store rating 从 4.5 → 4.4 → simedw 解读「v1.3 是 regression」，revert 一个 commit
+- v1.4 shipped → App Store rating 从 4.4 → 4.6 → simedw 解读「v1.4 是 improvement」，continue
+
+rating 变化是 simedw 的 conversion metric。5 star reviews vs 1 star reviews 是 simedw 的 user feedback loop。
+
+> 一人工程的 A/B test 是 App Store rating 变化，不是 50/50 split。
+
+团队 A/B test 的存在是因为**5-10 个 PM / engineer 不能猜**——他们的 gut feeling 可能错，10000 用户数据更可靠。一人工程 simedw = PM + engineer，他可以 ship 自己的 gut feeling，然后用 App Store rating 验证。
+
+vladislav-kalinkin 的 Ullis 没有 A/B test——vladislav ship 新版、crates.io download 数量变化是 user feedback。
+
+andalabx 释放 Clean skill 没有 A/B test——sponsors 数量变化是 user feedback。
+
+> 团队的 A/B test 让 PM 的 gut feeling 被 data 验证。一人工程的 App Store rating 让 simedw 的 gut feeling 被 user 验证。
+
+trade-off：团队 A/B test 让 feature decision statistically robust（p < 0.05），但 test 工时 + feature flag system 成本高。一人工程 App Store rating 让 simedw 自己 fast ship，但 sample size 小（RollTab 用户群小），可能 noisy。
+
+solo engineer 接受这个 trade-off——fast ship + dogfooding 比 robust A/B test 更适合小用户群。
+
+solo engineer 的 A/B test 是 App Store 5 星 vs 1 星比例变化 + Crashlytics crash rate 变化。
+
+solus opus.
