@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 penetration test，我自己就是 pen tester"
+slug: no-penetration-test-i-am-the-test
+date: 2026-08-21
+description: "团队有 penetration test / pen test / security audit / bug bounty / 漏洞扫描 / HackerOne / 渗透测试。solo engineer 没有 penetration test，我自己 commit log 是 pen test、不需要 HackerOne、不需要安全审计。"
+tags: ["一人工程", "penetration-test", "solo", "security"]
+---
+
+团队有 penetration test。
+
+Penetration test：渗透测试。Pen test：同上。Security audit：安全审计。Bug bounty：HackerOne / Bugcrowd $1K-$100K / 漏洞。Vulnerability scan：漏洞扫描。CVE：公开漏洞。Security team：管安全。Threat model：威胁建模。SOC 2：安全认证。
+
+每 startup 1 次 penetration test = $20K-$100K + 1 个 security team + SOC 2 audit $50K-$200K。
+
+solo engineer 没有 penetration test。
+
+我自己就是 pen tester。
+
+我想找漏洞就找、想测就测、想 commit 就 commit、想 revert 就 revert。我不需要 HackerOne、不需要 security audit、不需要 CVE、不需要 vulnerability scan、不需要 SOC 2。
+
+我没 penetration test 的必要——没 enterprise customer 要 security review。我没 pen test 的必要——我没 product。我没 security audit 的必要——我没 SOC 2 需求。我没 bug bounty 的必要——访问量 1000，没 bounty hunter。我没 vulnerability scan 的必要——没 infrastructure。我没 CVE 的必要——我没 product。我没 security team 的必要——我 = security team。我没 SOC 2 的必要——访问者不查 SOC 2。
+
+团队的 penetration test 价值是「找漏洞 + 保护 customer + 合规」。前提是有 product、需要 SOC 2、需要合规。solo engineer 没这个问题——我没 product、不需要 SOC 2、不需要合规、commit log = security。
+
+一人工程的 penetration test = 我自己找漏洞。不是 $20K pen test。
+
+---
