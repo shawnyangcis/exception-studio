@@ -1,0 +1,25 @@
+---
+title: "solo engineer 没有 deploy freeze，我部署时就是 freeze"
+slug: no-deploy-freeze-i-deploy-when-i-want
+date: 2026-08-21
+description: "团队有 freeze window、CAB approval、production freeze、code freeze、release freeze、change advisory board。solo engineer 没有 freeze，所有改动随时可上线。"
+tags: ["一人工程", "deploy-freeze", "solo", "devops"]
+---
+
+团队有 deploy freeze。
+
+黑色星期五前的 production freeze、大促前的 code freeze、发版前的 release freeze、圣诞节前的 change freeze。CAB approval、change advisory board、pre-prod review、rollback drill。
+
+所有改动必须排队等窗口。freeze 期间不让 deploy。
+
+solo engineer 没有 deploy freeze。
+
+我想改就改，想 deploy 就 deploy。周三凌晨 3 点也行，黑色星期五当天也行。没人需要 CAB approval——我不是 CAB。我就是 CAB、就是 release manager、就是 on-call engineer，三合一。
+
+代价是「没有 rollback drill 兜底」。优势是「决策延迟 = 0」。
+
+团队的 freeze 价值是「避免大流量时刻的失败」。前提是流量足够大、单次失败代价足够高。solo engineer 没这个问题——我的站点上线一天，访问量可能 1000；黑色星期五再多 100。挂 10 分钟，Vercel 自动 rollback 或我手动 revert。
+
+一人工程的节奏是「随时」。不是 change advisory。
+
+---
