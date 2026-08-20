@@ -1,0 +1,100 @@
+---
+title: "自动指标抓不出钢琴最佳模型"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的评估笔记：自动指标（重复 pitch n-gram / pitch entropy / chord density / 长停顿）只能抓明显失败，挑不出最佳模型。人耳闭环是必要的。"
+tags: ["一人工程", "评估", "自动指标", "MIDI"]
+---
+
+# 自动指标抓不出钢琴最佳模型
+
+> simedw 的评估笔记：
+> 自动指标只能抓明显失败。
+> 挑不出最佳模型。
+
+LLM 评估的传统方法：
+
+- BLEU / ROUGE / METEOR / chrF
+- 自动计算
+- 标量输出
+- 排行榜
+
+simedw 用的自动指标：
+
+- 重复 pitch n-gram
+- pitch entropy
+- chord density
+- 长停顿
+
+这些指标做什么：
+
+- 重复 n-gram：抓「模型卡死 / 重复 100 次同一音」
+- pitch entropy：抓「模型只用 3 个音」
+- chord density：抓「模型不用和弦」
+- 长停顿：抓「模型卡在长音」
+
+这些都抓什么：
+
+- 明显失败
+- rollout 听起来是噪音的版本
+
+抓不出什么：
+
+- 哪个是「最佳模型」
+- A 模型 64.3% 偏好 vs B 模型 35.7% 偏好
+- 自动指标几乎相同
+
+直觉：
+
+- 自动指标是 surrogate
+- 应该跟目标对齐
+- 对齐后能用
+
+实际：
+
+- 自动指标 ≠ rollout 质量
+- 两个 rollout 听起来差很多
+- 自动指标几乎相同
+
+simedw 的选择：
+
+- 自动指标淘汰明显失败
+- 人耳挑最佳模型
+- Gemini 3.5 Flash pairwise 加 confirm
+
+# 一人工程的角度
+
+不是「让自动指标越准越好」。
+是「让自动指标 + 人耳闭环」配合。
+
+自动指标：
+
+- 快速淘汰
+- 不用每轮听
+
+人耳闭环：
+
+- 慢但准
+- 区分「最佳」vs「次佳」
+
+LLM 训练圈的做法：
+
+- 标几万对偏好
+- 训 reward model
+- 用 reward model 闭环
+- 不用人听
+
+simedw 的做法：
+
+- 不标几万对
+- 训 reward model 太重
+- 买 Gemini 3.5 Flash pairwise
+- 偶尔人耳
+
+规模不同，方法相同：
+
+- 自动指标筛
+- pairwise 选
+- 人耳 confirm
+
+签名：solus opus。
