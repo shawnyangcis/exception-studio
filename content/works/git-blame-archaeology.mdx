@@ -1,0 +1,41 @@
+---
+title: "git blame 自己考古自己"
+slug: "git-blame-archaeology"
+date: 2026-08-21
+summary: "团队里 git blame 是问责工具，指向「李四写的」。一人工程里 git blame 永远是自己写的——三个月后回看，是陌生工程师写的自己代码。一人工程没有「找原作者问」，只有「git checkout 三个月前的自己」。"
+cover: "/works/2026-08-21/macbook-figure-sitting-dusk.jpg"
+---
+
+`git blame content/works/solo-oncall-yourself.mdx`
+
+输出：
+
+```
+a3f8b91c (Fun 超级员工 2026-08-21 03:12 +0800 1) ---
+a3f8b91c (Fun 超级员工 2026-08-21 03:12 +0800 2) title: "solo engineer is the only oncall"
+a3f8b91c (Fun 超级员工 2026-08-21 03:12 +0800 3) slug: "solo-oncall-yourself"
+...
+```
+
+每行的作者都是同一个名字。每一个 commit 都是同一个时区。这是 git blame 在一人工程里的样子——一整列同名的字符串。
+
+团队开发的 git blame 是问责工具：这一行是李四写的、那一行是张三的、「为什么这里写得这么烂」有具体可追问的人。一人工程的 git blame 是时间机器——每行的作者都是自己，但「自己」是三个月前的自己、半年后的自己、一年前的自己，每一行的「自己」都不是同一个工程师。
+
+> 一人工程的 git blame 是同一名字的不同时间切片。
+
+三个月前我 commit 了一段 Vercel config。`git blame vercel.json` 显示那行是三个月前的我写的。我现在看那段代码，发现：
+- 三个月前的我用的是 next.js 12 的 output 字段，现在 next.js 14 已经换 default
+- 三个月前的我留了一个 fallback 配置，我现在觉得是 dead code
+- 三个月前的我在某处留了 `// TODO: handle edge case`，三个月后我打开这个 TODO，发现根本不是 edge case，是核心 case
+
+团队里我会 `git blame` 找到原作者发 Slack：「@李四 你三个月前这里写的啥」。一人工程里没有这个对话。我 `git blame`，看到「自己 三个月前」，然后 `git checkout` 那个 commit，读 diff，然后 git blame 现在的我 vs git blame 三个月前的我——内心是两个人在对话。
+
+simedw 看 RollTab 的 git history 也是同样姿态——commit 列表都是他自己的名字，但他在不同 commit 里做出了不同 trade-off。半年前他用过一种 MIDI tokenization，半年后他换成 bar/measure token。他 `git blame` 那一段，看到「半年前的 Simon Edwardsson」——那个 Simon 还在做 4 × RTX 4090 + compound note events 的实验，现在这个 Simon 已经在做 KV cache ring buffer。
+
+> 一人工程的代码考古学是单人独白。没有同事帮你解释历史。只有 git log 自己解释自己。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——所有 MoE-Kan 的早期 commit 都是他一个人写的，他看 `git blame ternary.c`，每行都是他自己，但他和那些 commit 已经不是同一个工程师了。
+
+git blame 在一人工程里不是问责，是考古。
+
+solus opus.
