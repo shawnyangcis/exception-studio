@@ -1,0 +1,326 @@
+---
+title: "Blue-green deploy 不必要：我就是 traffic"
+slug: "no-blue-green-i-am-the-traffic"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "blue-green-deploy", "traffic", "hn-show"]
+description: "大公司做 blue-green deploy：两套 production 环境 + load balancer 切流量 + 秒级回滚。一人工程：没有 blue-green，iPhone app 一次性 100% rollout。"
+summary: "solo engineer 没有 blue-green deploy。simedw 一个人 iPhone app——没有 production 环境，没有 load balancer，新版本审核通过后 100% 用户立即收到。blue-green deploy 是大公司流量切换工具，一人工程的我 = traffic。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 blue-green deploy。
+
+大公司做 blue-green deploy：
+
+- **两套 production 环境**：blue（当前）+ green（新版本）
+- **load balancer 切流量**：从 blue 切到 green（秒级）
+- **零 downtime**：用户无感知切换
+- **秒级回滚**：green 出问题 → 切回 blue（秒级）
+- **Spinnaker / ArgoCD**：CD 平台自动 blue-green
+- **DNS switch**：通过 DNS 切流量（AWS Route 53）
+
+一人工程做 blue-green deploy：
+- 没有两套 production
+- 没有 load balancer
+- 没有 DNS switch
+- 没有秒级回滚
+
+## simedw 的 blue-green 哲学
+
+simedw 是 iPhone piano app。他没有 blue-green deploy：
+
+- **simedw 没有 production 环境**：iPhone app 没有 server，用户的 iPhone 是 production
+- **simedw 没有 load balancer**：iPhone app 没有 server 流量
+- **simedw 没有 DNS switch**：iPhone app 没有域名
+- **simedw 没有秒级回滚**：iPhone app 加急审核 24 小时 = rollback 速度
+- **simedw 100% rollout**：审核通过后 100% 用户立即收到新版本
+
+simedw 的"blue-green"在苹果审核 + 加急审核：
+
+- **蓝 = 当前版本**：用户当前安装的版本
+- **绿 = 新版本**：苹果审核中的新版本
+- **审核通过 = 切流量**：用户更新 app = 切到 green
+- **审核拒绝 / 加急修复 = 回滚**：simedw 加急审核 24 小时 = 回滚到 blue
+
+不需要 Spinnaker，因为：
+- 苹果审核 = 蓝绿切换
+- 用户更新 = 切流量
+- 加急审核 = 秒级回滚（24 小时）
+
+## 一人工程的 blue-green 工具
+
+- **App Store 审核**：蓝绿切换
+- **App Store 旧版本**：blue（用户当前版本）
+- **App Store 新版本**：green（审核通过）
+- **加急审核 24 小时**：秒级回滚（24 小时级）
+- **用户更新**：切流量
+
+不需要 Spinnaker / ArgoCD / DNS switch，因为 iPhone app 没有 server。
+
+## 两套 production 在大公司的细节
+
+大公司两套 production：
+
+- **blue 环境**：当前 production，新功能部署前
+- **green 环境**：新功能部署 + 测试
+- **环境同步**：blue 和 green 数据库 / 配置 / 服务一致
+- **环境成本**：2x server + 2x database + 2x network
+
+每个 production 环境：
+
+- 1000 台 server
+- $XX,XXX / 月
+- 5 个 SRE 维护
+
+一人工程没有两套 production。一人工程有：
+
+- **simedw 0 server**：iPhone app 没有 server
+- **simedw $0 / 月**：iPhone app 部署免费
+- **simedw 不需要 SRE**：simedw 自己 = SRE
+
+## load balancer 切流量在大公司的细节
+
+大公司 load balancer 切流量：
+
+- **HAProxy / NGINX**：软件 load balancer
+- **AWS ALB / GCP LB**：云 load balancer
+- **切流量时间**：1 秒
+- **切流量方式**：DNS / API / config reload
+- **健康检查**：green 健康检查通过 → 切流量
+
+每个切流量：
+
+- 1 秒完成
+- 不需要 downtime
+- 不需要用户感知
+
+一人工程没有 load balancer。一人工程有：
+
+- **simedw 没有 server 流量**：iPhone app 没有 server 流量
+- **simedw 用户更新 = 切流量**：用户主动更新 app = 切到 green
+- **simedw 不需要健康检查**：iPhone app 没有 server 健康检查
+
+## 零 downtime 在大公司的细节
+
+大公司 zero downtime deploy：
+
+- **blue → green**：切流量时 blue 还在跑 → 用户无感知
+- **green 健康检查**：green 健康 → 切流量
+- **green 出问题**：立即切回 blue
+- **用户感知 0**：用户无感知
+
+每个 zero downtime：
+
+- 1 秒切流量
+- 用户无感知
+- 立即回滚
+
+一人工程没有 zero downtime。一人工程有：
+
+- **simedw 用户更新 = 0 downtime**：iPhone app 本地安装，用户更新时旧版本还在
+- **simedw 不需要切流量**：iPhone app 没有 server 流量
+- **simedw 加急审核 = 立即回滚**：iPhone app 加急审核 24 小时 = 立即回滚
+
+## 秒级回滚在大公司的细节
+
+大公司秒级回滚：
+
+- **green 出问题**：monitoring 检测 → 切回 blue（秒级）
+- **auto rollback**：metric 恶化 → 自动切回 blue
+- **rollback 时间**：1 秒
+- **rollback SLA**：P0 incident 5 秒内 rollback
+
+每个秒级回滚：
+
+- 1 秒完成
+- 不需要 engineer
+- 不需要 oncall
+
+一人工程没有秒级回滚。一人工程有：
+
+- **simedw 加急审核 24 小时**：iPhone app 加急审核 24 小时 = 回滚速度
+- **simedw 不需要 1 秒 SLA**：iPhone app 没有 SLA
+- **simedw 24 小时够**：simedw 改完 bug + 加急审核 = 24 小时回滚
+
+## Spinnaker blue-green 在大公司的细节
+
+大公司 Spinnaker blue-green：
+
+- **配置**：配置 blue + green pipeline
+- **部署**：Spinnaker 部署到 green
+- **测试**：green 自动测试
+- **切流量**：Spinnaker 切流量到 green
+- **rollback**：Spinnaker 切回 blue
+
+每个 Spinnaker blue-green：
+
+- 1 小时配置
+- 自动执行
+- 5 个 SRE 维护
+
+一人工程没有 Spinnaker。一人工程有：
+
+- **simedw 苹果 App Store = Spinnaker**：苹果审核 + 部署
+- **simedw 自己 = 5 个 SRE**：simedw 自己配置 + 测试 + 部署 + rollback
+- **simedw 0 美元 / 月**：iPhone app 部署免费
+
+## ArgoCD blue-green 在大公司的细节
+
+大公司 ArgoCD blue-green：
+
+- **GitOps**：Git repo 是 source of truth
+- **自动同步**：ArgoCD 自动同步 Git 到 k8s
+- **blue-green**：ArgoCD 支持 blue-green
+- **rollback**：ArgoCD rollback 到上一个 commit
+
+每个 ArgoCD blue-green：
+
+- 几小时配置
+- Git 是 source of truth
+- auto rollback
+
+一人工程没有 ArgoCD。一人工程有：
+
+- **simedw git log = GitOps**：git log 是 simedw 的 source of truth
+- **simedw 加急审核 = auto rollback**：加急审核 24 小时 = rollback
+- **simedw 不需要 ArgoCD**：simedw 1 个人不需要 ArgoCD
+
+## DNS switch 在大公司的细节
+
+大公司 DNS switch——通过 DNS 切流量：
+
+- **AWS Route 53 / Cloudflare**：DNS 服务
+- **切流量时间**：DNS TTL 决定（60 秒 TTL → 60 秒切完）
+- **切流量方式**：DNS record 改 IP
+- **健康检查**：DNS 健康检查 → 切流量
+
+每个 DNS switch：
+
+- 60 秒 TTL 切完
+- 不需要 downtime
+- 不需要 load balancer
+
+一人工程没有 DNS switch。一人工程有：
+
+- **simedw 没有域名**：iPhone app 没有域名
+- **simedw 不需要 DNS**：iPhone app 没有 server
+- **simedw 用户更新 = DNS switch**：用户更新 app = 切到 green
+
+## iPhone app vs server 的 blue-green 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：24 小时在线，部署立即生效 → 需要 blue-green deploy（秒级切流量）
+- **iPhone app**：用户本地安装，新版本需要苹果审核（11 天）→ 苹果审核就是天然 blue-green
+
+simedw 的 iPhone piano app：
+
+- 部署不立即生效（苹果审核 11 天）
+- 苹果审核 = blue-green 阶段
+- 审核通过 = 切流量到 green
+- 审核拒绝 / 加急修复 = 回滚到 blue
+
+不需要 Spinnaker blue-green，因为：
+- simedw 的 app 没有 server deployment
+- 苹果审核是自然 blue-green
+- 用户本地 app 永远能打开
+
+## blue-green vs canary 在大公司的区别
+
+大公司 blue-green vs canary：
+
+- **blue-green**：两套环境，秒级切流量（所有用户立即切换）
+- **canary**：一套环境，分阶段 rollout（5% → 25% → 50% → 100%）
+
+blue-green 优点：
+- 秒级切换
+- 零 downtime
+- 简单
+
+canary 优点：
+- 分阶段验证 metric
+- 部分用户先试
+- 减少风险
+
+一人工程没有 blue-green vs canary 区别。一人工程有：
+
+- **simedw 苹果审核 = blue-green**：苹果审核 11 天，审核通过 = 切流量
+- **simedw TestFlight = canary**：TestFlight beta = 分阶段 rollout
+- **simedw 两个工具都用**：simedw 苹果审核 + TestFlight = blue-green + canary
+
+## blue-green 失败在大公司的细节
+
+大公司 blue-green 失败模式：
+
+- **green 健康检查失败**：green 没启动 → 不切流量
+- **green 数据库 schema 不一致**：green 用旧 schema → 报错
+- **green session 不共享**：用户在 blue 的 session 在 green 失效
+- **green 配置不一致**：green 用错配置 → 报错
+
+每个 blue-green 失败：
+
+- 不切流量
+- 继续用 blue
+- 修复 green 后重试
+
+一人工程没有 blue-green 失败模式：
+
+- **simedw 没有 green schema**：iPhone app 没有 schema
+- **simedw 没有 green session**：iPhone app 没有 server session
+- **simedw 没有 green 配置**：iPhone app 配置在用户本地
+
+## 一人工程的 blue-green 哲学
+
+大公司 blue-green deploy 是因为他们有：
+
+- 100 万用户（一次 downtime = 100 万用户受影响）
+- 1000 台 server（需要两套环境）
+- 5 个 SRE（需要维护 blue-green）
+- $XX,XXX / 月 server 成本（两套环境 = 2x 成本）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 downtime = 100 用户受影响，simedw 自己通知）
+- 0 台 server（没有 server）
+- 0 个 SRE（自己就是 SRE）
+- $0 / 月 server 成本（iPhone app 免费）
+
+blue-green deploy 在一人工程里 = **苹果审核 + 用户更新**。
+
+## 我就是 traffic
+
+大公司 blue-green 是**多角色协作的**：
+
+- SRE 配置 Spinnaker
+- oncall 监控 metric
+- PM 看 dashboard
+- VP 决定切流量
+- engineer 改代码
+
+一人工程 blue-green 是**一个人做的**：
+
+- simedw 自己配置（写 commit message）
+- simedw 自己监控（看 Crashlytics）
+- simedw 自己看 dashboard（看 App Store 评论）
+- simedw 自己决定切流量（提交 App Store）
+- simedw 自己改代码（修复 bug）
+
+没有 SRE，没有 oncall，没有 PM，没有 VP，没有 engineer。
+
+## 一人工程 + 我就是 traffic
+
+simedw 不做两套 production。
+simedw 不做 load balancer。
+simedw 不做 DNS switch。
+simedw 不做 Spinnaker。
+simedw 用户更新 = 切流量。
+
+blue-green deploy 在一人工程里不是工具，是**苹果审核 + 用户更新**。
+
+---
+
+solo engineer 没有 blue-green deploy。
+solo engineer 的 blue-green deploy = 苹果审核 + 用户更新。
+
+solus opus.
