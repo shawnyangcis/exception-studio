@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getNotes } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "随笔 · Exception Studio",
+  title: "随笔 · 一人工程 · solus opus",
   description: "短文、随记、不是论文的东西。"
 };
 
