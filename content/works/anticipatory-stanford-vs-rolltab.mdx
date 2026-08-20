@@ -1,0 +1,104 @@
+---
+title: '不蒸馏 Stanford：simedw 走自己的路'
+description: 'Stanford CRFM 2023 的 Anticipatory Music Transformer 和 simedw 2026 的 RollTab，同一主题，三年后两种 framing。一人工程绕开研究范式的两种姿势。'
+slug: anticipatory-stanford-vs-rolltab
+date: '2026-08-21'
+cover: ''
+tags: ['一人工程', 'simedw', 'AI 音乐', 'RollTab', 'Anticipatory Music Transformer', 'Stanford CRFM', 'Thickstun', 'iPhone', 'MIDI']
+---
+
+二零零三年 François Pachet 在 Sony CSL Paris 写了 Continuator——用 hidden Markov 给钢琴续写。
+二零二三年六月 Stanford CRFM 的 John Thickstun、David Hall、Chris Donahue、Percy Liang 发了《Anticipatory Music Transformer》。
+二零二六年八月 simedw 在 HN 放了 RollTab 的帖子——一个 iPhone MIDI 钢琴续写 app。
+
+三件事都在做「让机器续写钢琴」，每个十年换一套语言。
+
+## 一、Anticipation：让模型「预知未来」
+
+Stanford 的核心思想叫 *anticipation*。
+不是从左到右生成，而是训练模型同时预测「下一个音」和「未来某个已经写好的音」。把 input 和 output 交错放在一个序列里，让模型既能从过去外推，也能从未来内推。
+
+这就让模型可以做普通 autoregressive 模型做不了的事：infilling——你写一段旋律，让模型把中间填上；你写前奏加结尾，让模型生成中段。
+
+Stanford 把它定位成 *co-composition tool*：作曲家、AI、交互式反馈循环。
+
+硬件：Cloud TPU。
+模型：360M parameters（Medium）。
+训练：800k steps。
+数据：Lakh MIDI（CC-BY 4.0，但 Stanford 自己警告「很多 MIDI 是流行歌的派生作品，版权状态比协议字面意思更严」）。
+许可：Apache 2.0（Stanford 提醒商业部署有版权风险）。
+作者承认模型会记忆训练数据——「第三个生成的伴奏几乎和原曲一样」。
+
+## 二、RollTab：让 iPhone 给钢琴续写
+
+simedw 的 RollTab 不做 infilling。
+它做的是：你在 iPhone MIDI 键盘上按几个音，模型接着往下弹。
+
+模型尺寸：125M parameters。
+硬件：4 × RTX 4090。
+时间：半年。
+平台：iPhone 15 + Core ML + INT8 量化。
+速度：108 notes/sec。
+许可：app 上免费 + 闭源权重。
+数据：自己清洗的 ~300M note events，去重加按密度音域筛加同曲不同版本归到同一 split。
+
+bravura 在 HN 评论里推荐 simedw 蒸馏 Anticipatory Music Transformer。
+simedw 没走那条路。
+
+## 三、为什么 simedw 不蒸馏 Stanford
+
+不是不知道 Stanford。HN 评论里就提到了，simedw 看了 Stanford 那篇博客。
+不是做不了 anticipation。
+是问题不一样。
+
+| | Stanford 2023 | simedw 2026 |
+|---|---|---|
+| 场景 | 作曲家的 *co-composition tool* | 钢琴手的 *Copilot for piano* |
+| 用户交互 | 在 DAW 里写片段 → AI 填中间 | 在 iPhone 上按几个音 → AI 接下去 |
+| 输入 | 5 秒旋律加 15 秒全编曲 | 4–32 note prompt |
+| 输出 | 15 秒 infill | 续写到停 |
+| 模型尺寸 | 360M | 125M |
+| 硬件 | Cloud TPU | 4 × RTX 4090 + iPhone Core ML INT8 |
+| 数据 | Lakh MIDI（CC-BY，版权警告） | 自己清洗 300M piano-only notes |
+| 部署 | 论文 + Apache 2.0 权重 + Colab | 闭源 iOS app |
+| framing | *co-composition* | *Copilot for piano* |
+
+Stanford 的 stopping time 数学性质要求 input 出现在 output 之后——这是 infill 的根。
+simedw 的 prompt-then-continue 不需要这层结构。
+
+把 Anticipatory Music Transformer 蒸馏进 iPhone，意味着：360M → Core ML INT8、Lakh MIDI → 自己清洗的 300M piano notes、infilling UI → DAW integration、Cloud TPU → iPhone NPU。
+每一步都是工程开销，每一步都没有用户价值——iPhone 用户不需要 infill，他们按下去、AI 接着弹。
+
+## 四、一人工程绕开研究范式的两种姿势
+
+simedw 不是不读论文。
+他读了，也回 HN 评论了。
+他选择不走 Stanford 的路，因为他要解决的问题不在 Stanford 的问题集里。
+
+一人工程对 research lab 范式有两种绕开姿势：
+
+**第一种：找到自己的问题。**
+Stanford 的用户是「有 Logic 或 Ableton workflow 的作曲家」。
+simedw 的用户是「在 iPhone 上弹琴的人」。
+同一个主题，不同的 user，不同的产品。
+Naitik88 在 HN 说 simedw 像是「另一个音乐家实时响应」，不是 autocomplete——这是 *Duet* framing 而不是 *Copilot* framing。两个 framing 都成立，都属于 simedw；simedw 自己选的是更工程化的那个。
+
+**第二种：接受约束，把它变成具体的事。**
+Stanford 用了 Cloud TPU。
+simedw 用了 4 × RTX 4090。
+simedw 训完之后还得在 iPhone 上跑——这意味着 125M 是上限，不是选择。
+模型尺寸小 → 数据必须精（清洗胜过堆量，simedw 自己说 5× 数据更差）。
+模型尺寸小 → 表征必须对（5 个 field 一次性出 token，grammar-masked 慢不行）。
+模型尺寸小 → 训练目标必须调（scheduled sampling 验证 loss 上升但 rollout 质量变好；DPO β=0.03 consensus 69.05%）。
+
+每一道约束都被 simedw 变成了一件具体的事做出来。
+
+## 五、口袋里的钢琴续写
+
+如果 Pachet 2026 年重做 Continuator，他大概在 iPhone 上——因为音乐创作工具的下一个十年不在 DAW 里，在口袋里。
+simedw 已经在口袋里了。
+
+不是把 Stanford 的 360M 蒸馏进 iPhone。
+是在 iPhone 上重新发明钢琴续写。
+
+solus opus

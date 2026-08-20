@@ -1,0 +1,233 @@
+---
+title: "DDSP vs Transformer：两条 AI 音乐生成路线"
+date: "2026-08-21"
+kind: "essay"
+summary: "HN 评论 throw_m239339 提到 Google DDSP 生成 trumpet / saxophone。DDSP = 神经网络控制传统 DSP 合成音频；simedw = 纯 transformer 预测下一个 MIDI note。两条 AI 音乐路线：audio 层（DDSP）vs symbolic 层（simedw）。不同抽象层、不同 trade-off、不同一人工程适配度。"
+tags: ["一人工程", "DDSP", "Transformer", "两条路线"]
+---
+
+# DDSP vs Transformer：两条 AI 音乐生成路线
+
+> HN simedw 帖子评论里 throw_m239339：
+> 「Google DDSP 生成 trumpet / saxophone。」
+> → 不是 LLM 路线，是 DDSP 路线。
+
+两条 AI 音乐生成路线：
+
+- DDSP（Google）：神经网络 + 传统 DSP → 音频
+- Transformer（simedw）：纯神经网络 → MIDI
+
+两条完全不同。
+两个完全不同抽象层。
+
+# DDSP 是什么
+
+DDSP = Differentiable Digital Signal Processing。
+
+Engel et al. (Google) 2020 年发布。
+ICML 2020 paper。
+
+DDSP 的核心思想：
+
+- 音频合成 = 神经网络 + 传统 DSP
+- 神经网络：预测 pitch、loudness、timbre 等控制参数
+- 传统 DSP：用控制参数生成音频
+- 神经网络 + 传统 DSP = 全部可微分
+
+DDSP 的工作流：
+
+1. 输入：pitch（音高）、loudness（响度）
+2. 神经网络：用 timbre embedding 调制
+3. 传统 DSP：oscillator + filter 合成音频
+4. 输出：waveform
+
+DDSP 适合：
+
+- 单个乐器（trumpet / saxophone / violin）
+- 高质量音频合成
+- 训练快（几小时）
+- 数据少（几分钟录音）
+
+DDSP 不适合：
+
+- 多乐器
+- 作曲
+- 长时间序列
+
+# Transformer 路线（simedw）
+
+simedw 走 Transformer 路线：
+
+- 输入：MIDI notes（前面 8 个音）
+- Transformer：预测下一个 note
+- 输出：MIDI（symolic，不是音频）
+- 用户在 iPhone app 里听到
+
+Transformer 适合：
+
+- 作曲（continuation）
+- 多乐器（理论上）
+- 长时间序列
+- 风格迁移
+
+Transformer 不适合：
+
+- 直接合成音频
+- 单乐器音色控制
+- 短时间高保真
+
+# 抽象层对比
+
+| 维度 | DDSP | simedw Transformer |
+| --- | --- | --- |
+| 抽象层 | 音频 | 符号 |
+| 输入 | pitch + loudness | MIDI notes |
+| 输出 | waveform | MIDI notes |
+| 训练时间 | 几小时 | 半天（125M） |
+| 数据量 | 几分钟录音 | 1990-2020 MIDI |
+| 适合 | 单乐器合成 | 作曲续写 |
+| 局限 | 多乐器 + 作曲 | 直接合成音频 |
+
+# 两条路线的 trade-off
+
+DDSP 路线：
+
+- 优点：高质量音频 + 训练快 + 数据少
+- 缺点：单乐器 + 不能作曲
+
+Transformer 路线：
+
+- 优点：能作曲 + 风格迁移 + 长时间
+- 缺点：训练慢 + 数据多 + 不能直接合成音频
+
+DDSP 不能作曲。
+Transformer 不能直接合成音频。
+
+两个都是 AI 音乐。
+两个都不完整。
+
+# 一人工程的路线选择
+
+DDSP 路线：
+
+- 一个人可以做（Engel 等人团队做的）
+- 几小时训练
+- 适合做「单乐器音色合成」产品
+
+Transformer 路线：
+
+- 一个人可以做（simedw 做的）
+- 半天训练
+- 适合做「作曲 / 续写」产品
+
+一人工程的路线选择：
+
+- 想做合成 → DDSP
+- 想做作曲 → Transformer
+- 想做完整音乐 → DDSP + Transformer + 音频解码器
+
+# OpenAI 的多路线战略
+
+OpenAI 不只做一种：
+
+- Jukebox（raw audio generation，类似 DDSP 思路）
+- MuseNet（symbolic，类似 simedw）
+- MusicGen（audio codec + LLM）
+
+OpenAI 想 cover 全部路线：
+
+- 音频 + 符号 + 多模态
+- 每个方向都做
+- 100+ 研究员
+
+一人工程只能做一条：
+
+- simedw：Transformer / symbolic
+- 一年时间只能做一条
+
+# 一人工程的「单路线」哲学
+
+simedw 选 Transformer / symbolic：
+
+- iPhone 钢琴用户
+- MIDI 续写
+- symbolic 层
+- 不做音频合成
+
+一人工程的「单路线」哲学：
+
+- 一条路线
+- 一个抽象层
+- 一个用户场景
+- 一个产品
+
+OpenAI 的「多路线」哲学：
+
+- 多条路线
+- 多抽象层
+- 多用户场景
+- 多产品
+
+trade-off：
+
+- 一人工程：深 + 局限
+- 大公司：广 + 平庸
+
+# 两条路线的合并
+
+未来 AI 音乐的合并：
+
+- DDSP（音频合成）+ Transformer（作曲）
+- 神经网络作曲 + 神经网络合成音频
+
+两步走：
+
+1. Transformer 生成 MIDI（作曲）
+2. DDSP 把 MIDI 转音频（合成）
+
+完整 AI 音乐 = Transformer + DDSP + 编解码。
+
+一个人能不能做完？
+
+- Transformer 部分：simedw 6 个月
+- DDSP 部分：需要再 6 个月
+- 合并：再 6 个月
+
+一年半做完整 AI 音乐。
+
+OpenAI 一年半做 3 个团队。
+
+# 一人工程的未来
+
+一人工程的未来可能是：
+
+- Transformer 部分（simedw）+ DDSP 部分（另一个一人）+ 编解码（第三个一人）
+- 三人协作
+- 完整 AI 音乐
+
+不是「一人做全部」。
+是「三人各做一段 + 组合」。
+
+但当前还没到那个阶段。
+当前还是 simedw 一人 + Transformer / symbolic。
+
+# 一人工程的态度
+
+simedw 的态度：
+
+- 我做 symbolic 层
+- 音频层让别人做
+- 一人工程专注一段
+
+throw_m239339 提 DDSP：
+
+- 提醒 simedw 还有另一条路
+- simedw 没回应（他的路已经选好了）
+
+一人工程的态度：
+
+- 不管别人做什么
+- 我做我能做的
+- 我的路 = Transformer / symbolic
+
+签名：solus opus。

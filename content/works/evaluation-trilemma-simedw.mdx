@@ -1,0 +1,220 @@
+---
+title: "评测困境：自动指标 vs 人工听 vs Gemini"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 一个人面对评测三难：自动指标只抓明显失败，挑不出最佳模型；自己听 30 分钟只能分噪音/不噪音；Gemini 3.5 Flash pairwise 70% 一致；绝对 scalar 不一致。一人工程没 evals team，靠 Gemini pairwise + 自己听 + 一致率检查。"
+tags: ["一人工程", "评测", "Gemini", "A/B 偏好"]
+---
+
+# 评测困境：自动指标 vs 人工听 vs Gemini
+
+> simedw README「Evaluation」段：
+> - 一开始自己听 → 「什么都像噪音」
+> - 4-note prompt 最难，8 note 还好，16-32 note 显著靠谱
+> - 自动指标（重复 pitch n-gram / pitch entropy / chord density / 长停顿等）只能抓明显失败，挑不出最佳模型
+> - Gemini 3.5 Flash pairwise：要给绝对分不一致；A/B 偏好对比成功率更高，每对翻转后 70% 一致
+> - 后期拆成「continuation 跟 prompt 的接续度」和「isolated 听觉质量」两个维度，DPO 主要用前者
+
+三种评测方法：
+
+- 自动指标
+- 人工听
+- Gemini pairwise
+
+三种各有局限。
+三种组合用。
+
+# OpenAI 的 evals team
+
+OpenAI 的评测：
+
+- 50+ 人的 evals team
+- 100+ 个 SOTA 基准
+- 几万小时人工标注
+- 每年花 100M+ 美元
+
+OpenAI 的评测哲学：
+
+- 数据驱动
+- 基准对齐
+- 「必须跑完所有基准才能 ship」
+
+simedw 的评测哲学：
+
+- 一个人
+- 30 分钟人工听
+- Gemini pairwise 70% 一致
+- 不跑 SOTA 基准
+
+# 第一种：自动指标失效
+
+simedw 试过的自动指标：
+
+- 重复 pitch n-gram（model 不重复音）
+- pitch entropy（音高多样性）
+- chord density（和弦密度）
+- 长停顿（连续空白）
+
+这些指标能做：
+
+- 抓「明显失败」（重复同一音 100 次）
+
+这些指标不能做：
+
+- 区分「好模型 vs 更好模型」
+- 区分「能 ship vs 不能 ship」
+
+simedw 的发现：
+
+> 「自动指标只能抓明显失败，挑不出最佳模型。」
+
+这是自动指标的根本限制：
+
+- 它能识别「坏」
+- 它不能识别「最好」
+- 它对「中等」无能为力
+
+# 第二种：自己听失效
+
+simedw 自己听 30 分钟：
+
+- 一开始 → 「什么都像噪音」
+- 4-note prompt → 最难（提示太短）
+- 8 note prompt → 还好
+- 16-32 note prompt → 显著靠谱
+
+自己听能做：
+
+- 判断「prompt 长短影响」
+- 判断「明显失败」
+
+自己听不能做：
+
+- 区分「好 vs 更好」
+- 区分「能 ship vs 不能 ship」
+- 跨时间一致（昨天觉得好 vs 今天觉得好）
+
+自己听的根本限制：
+
+- 主观
+- 一致性低
+- 时间不稳定
+
+# 第三种：Gemini pairwise
+
+simedw 用 Gemini 3.5 Flash：
+
+- 给两个候选续写（A 和 B）
+- 让 Gemini 评 A/B 偏好
+- 翻转后再评（看一致率）
+- 一致率 70%
+
+Gemini pairwise 能做：
+
+- 区分「A 好 vs B 好」
+- 一致率 70% 算稳定
+- 自动化（不需要人）
+
+Gemini pairwise 不能做：
+
+- 绝对评分（给 A 7 分 vs 给 B 8 分不稳）
+- 一致率 100%（30% 不一致）
+
+绝对评分失效：
+
+> 「要给绝对分不一致」
+
+A/B 偏好相对稳定：
+
+> 「A/B 偏好对比成功率更高，每对翻转后 70% 一致」
+
+# 一人工程的评测组合
+
+simedw 的评测组合：
+
+- 自动指标 → 抓「明显失败」
+- 自己听 → 找「明显边界」（prompt 长度影响）
+- Gemini pairwise → 区分「A vs B」
+
+三种方法各管一段：
+
+- 自动指标：边界外
+- 自己听：边界内
+- Gemini：边界中
+
+三个人做的事合起来是一个 evals team 的功能。
+一个人做。
+
+# OpenAI vs simedw 评测
+
+| 维度 | OpenAI evals team | simedw 一个人 |
+| --- | --- | --- |
+| 自动指标 | 100+ SOTA 基准 | 4 个粗糙指标 |
+| 人工听 | 几万小时 | 30 分钟 |
+| LLM 评 | 内部 model evals | Gemini 3.5 Flash |
+| 哲学 | 跑完所有基准才 ship | 三种方法组合 ship |
+
+OpenAI 的哲学是「广度优先」：
+
+- 跑 100+ 基准
+- 每个都列在 paper
+- 「该跑的都跑了」
+
+simedw 的哲学是「深度优先」：
+
+- 跑 4 个核心指标
+- 听 30 分钟
+- Gemini pairwise 100 对
+- 「够 ship」
+
+# 一人工程的评测哲学
+
+simedw 的评测哲学：
+
+- 跑能跑的全部
+- 用三种方法互相校准
+- 一致率 70% 算 OK
+- 不追求 SOTA 基准
+
+这是「一人工程的评测智慧」：
+
+> OpenAI 用 100+ 基准证明「超越 GPT-4」。
+> simedw 用 4 指标 + Gemini pairwise 证明「能 ship」。
+
+不同目标：
+- OpenAI：超越
+- simedw：ship
+
+# 一人工程的诚实评测
+
+simedw 的评测数字：
+
+- 「自动指标只能抓明显失败」 ← 公开承认
+- 「自己听一开始什么都像噪音」 ← 公开承认
+- 「Gemini pairwise 70% 一致」 ← 公开数字
+- 「绝对 scalar 不一致」 ← 公开承认
+
+每个评测方法都有局限性。
+每个局限性都公开说。
+
+OpenAI 的评测论文：
+
+- 跑 100+ 基准
+- 列在 Results 表
+- Limitations 段写「future work」
+
+# 评测哲学的对比
+
+simedw 的评测哲学：
+
+- 用三个不完美的工具
+- 承认每个不完美
+- 组合出「足够 ship」
+
+OpenAI 的评测哲学：
+
+- 用一个完美的团队
+- 承认集体不完美
+- 包装成「科学评估」
+
+签名：solus opus。

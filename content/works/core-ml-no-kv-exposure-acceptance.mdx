@@ -1,0 +1,203 @@
+---
+title: "Core ML 不暴露 Q/K/V：simedw 的「算了，挺快乐」"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 想做 RoPE KV cache ring buffer 节省内存。Core ML 不暴露 Q/K/V。simedw「算了，挺快乐」。一人工程的平台约束哲学——接受限制 + 享受开发 vs 大公司「永不放弃」重写 kernel。"
+tags: ["一人工程", "Core ML", "RoPE", "接受哲学"]
+---
+
+# Core ML 不暴露 Q/K/V：simedw 的「算了，挺快乐」
+
+> simedw 博客：
+> 「RoPE 理论可做 ring buffer，Core ML 不暴露 Q/K/V，算了，挺快乐。」
+
+simedw 想做 RoPE KV cache ring buffer。
+Core ML 不让做。
+simedw「算了」。
+
+「算了」不是放弃。
+是接受 + 快乐。
+
+# KV cache ring buffer 是什么
+
+KV cache 是 transformer inference 的核心数据结构：
+
+- K (Key) tensor：每个 head、每个 position 的 key
+- V (Value) tensor：每个 head、每个 position 的 value
+- 大小随 sequence length 线性增长
+
+sequence 越长，KV cache 越大。
+iPhone 内存有限。
+
+ring buffer 的解法：
+
+- 不用存所有历史的 K/V
+- 只保留最近 N 个 position 的 K/V
+- 老的 K/V 被覆盖
+- 内存减少
+
+RoPE (Rotary Position Embedding)：
+
+- 用旋转矩阵编码位置
+- 比绝对位置 embedding 更高效
+- Llama / Qwen / simedw 都用 RoPE
+
+ring buffer + RoPE：
+
+- 把 N 个 position 的 K/V 放在 ring buffer
+- RoPE 在 attention 里实时算 position
+- 内存：O(N) 而不是 O(sequence length)
+
+# Core ML 为什么不暴露 Q/K/V
+
+Apple Core ML 是闭源 inference engine：
+
+- 输入：token id
+- 输出：logits
+- 中间：用户看不到
+
+Core ML 把 transformer 当成一个「黑盒」：
+
+- 用户不能改 attention
+- 用户不能读 KV cache
+- 用户不能优化 ring buffer
+
+这是 Apple 的设计选择：
+
+- 简化用户 API
+- 让 ANE 高效跑（ANE 不喜欢 user intervention）
+- 标准化部署
+
+# simedw 的「算了，挺快乐」
+
+simedw 想做 ring buffer。
+Core ML 不让做。
+simedw 「算了」。
+
+「算了」不是放弃。
+
+是接受：
+
+- 平台有限制
+- 我必须按平台约束做
+- 我选择快乐
+
+「挺快乐」是 simedw 的态度：
+
+- 不抱怨
+- 不重写 Core ML
+- 不换平台（PyTorch Mobile 也不能用 ANE）
+- 接受限制 + 享受开发
+
+# OpenAI 的「永不放弃」哲学
+
+OpenAI 面对 CUDA 限制：
+
+- 不接受
+- 写自己的 CUDA kernel
+- 写 TensorRT-LLM
+- 「我要超越限制」
+
+OpenAI 写 TensorRT-LLM 的原因：
+
+- CUDA 默认 kernel 不够快
+- OpenAI 要更快
+- OpenAI 自己实现 attention kernel
+- 不接受默认
+
+两种哲学：
+
+- simedw：接受 + 快乐
+- OpenAI：不接受 + 重写
+
+# simedw 的「算了」清单
+
+simedw 「算了」过几次：
+
+- Core ML 不暴露 Q/K/V → 算了，ring buffer 不做
+- 700 DPO examples → 算了，少数据也能 ship
+- iPhone 8GB RAM → 算了，125M INT8
+- Apple 审核 11 天 → 算了，等
+- deliberate 没读太多论文 → 算了，先做自己的事
+
+每次「算了」都是接受。
+
+不是「我做不到」。
+是「我能做但代价不值」。
+
+# 「算了」的成本计算
+
+「算了」的成本计算：
+
+| 决定 | 不算了的成本 | 算了的成本 |
+| --- | --- | --- |
+| Core ML ring buffer | 写自定义 ANE kernel（6 个月） | 长 sequence 时多吃点 RAM |
+| 700 DPO examples | 标注 70000 个（1 年） | 模型性能略低 |
+| iPhone 8GB | 训练 7B 模型（100x 算力） | iPhone 上跑 125M 而非 7B |
+| Apple 审核 11 天 | 找 Apple 关系催审 | 不能立刻 ship |
+
+每个「算了」都是 trade-off。
+
+# 「算了，挺快乐」 vs 「永不放弃」
+
+「算了，挺快乐」：
+
+- 接受 + 快乐
+- 不是放弃
+- 是「我能做的就做，不能做的不做」
+
+「永不放弃」：
+
+- 不接受 + 努力
+- 不是错
+- 是「我要超越」
+
+一人工程选前者。
+大公司选后者。
+
+trade-off：
+
+- 一人工程：快 + 局限
+- 大公司：慢 + 完整
+
+# 一人工程的接受哲学
+
+一人工程的接受哲学：
+
+- 平台有限制 → 接受
+- 不够完美 → 「算了」
+- 享受开发 → 「挺快乐」
+
+不是「不追求完美」。
+
+是「在限制里做到我能做的最好」。
+
+simedw 的限制：
+
+- Core ML 黑盒
+- iPhone 内存
+- Apple 审核
+- 700 DPO 数据
+
+simedw 的最好：
+
+- 125M INT8 模型
+- iPhone app
+- 半年 ship
+
+# 一人工程的态度
+
+simedw 的态度：
+
+- 平台有限制 → 接受
+- 我能做啥 → 做
+- 我不能做啥 → 不做
+- 「算了，挺快乐」
+
+这是「一人工程的快乐哲学」：
+
+> 接受我能控制的。
+> 放弃我不能控制的。
+> 享受我做的。
+
+签名：solus opus。
