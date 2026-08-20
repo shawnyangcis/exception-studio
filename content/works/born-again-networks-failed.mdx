@@ -1,0 +1,76 @@
+---
+title: "Born-again networks 没用"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的失败实验：Born-again networks（teacher 蒸馏 student 的 KL 散度对齐）没用。最终没采用。「一人工程」里第 8 个没走通的。"
+tags: ["一人工程", "蒸馏", "Born-again", "MIDI"]
+---
+
+# Born-again networks 没用
+
+> simedw 的失败实验笔记：
+> Born-again networks（teacher 蒸馏 student 的 KL 散度对齐）没用。
+> 最终没采用。
+> 在「没走通的」一栏。
+
+Born-again networks 是什么：
+
+- 一个大模型 teacher
+- 一个小模型 student
+- student 学 teacher 的 logits（KL 散度）
+- 比「学真实标签」更好
+
+直觉：
+
+> teacher 知道「次要 token 的相对概率」
+> 这比硬标签（one-hot）信息更密
+> student 借此学得更好
+
+为什么 simedw 没走通：
+
+- MIDI 表征已是「单 token 5 个 head」
+- 每个 head 是独立的 categorical field
+- KL 散度对齐 5 个 head 的 logits
+- 训练目标跟「交叉熵求和」叠加
+- rollout 质量没改进
+
+可能原因：
+
+- teacher 模型只有 125M
+- 比 GPT-2 还小（125M vs 124M）
+- 「次要 token 信息」的优势体现不出来
+- 真实标签已经能学 95% 的模式
+- KL 对齐带来的 5% 增益在 rollout 里听不出来
+
+## 一人工程的角度
+
+OpenAI 训练 GPT-3.5/4 时：
+
+- teacher 模型巨大（100B+）
+- student 模型较小（7B/13B）
+- Born-again / 蒸馏在巨大 teacher 下显著有用
+
+simedw 的 125M teacher：
+
+- student 是 64M
+- 比例 2:1
+- 不够悬殊
+- 蒸馏优势体现不出
+
+# 一人工程的边界
+
+不是所有大模型时代的工具都能直接套到小模型上。
+蒸馏需要 teacher 足够大。
+当 teacher 只比 student 大 2 倍时：
+
+- 蒸馏优势没体现
+- 反而增加训练复杂度
+
+simedw 的选择：
+
+- 直接训练 64M
+- 不走蒸馏
+- 不走 Born-again
+- 用 scheduled sampling + DPO
+
+签名：solus opus。
