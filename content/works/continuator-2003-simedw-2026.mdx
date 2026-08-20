@@ -1,0 +1,110 @@
+---
+title: "Continuator 2003 → simedw 2026"
+date: "2026-08-21"
+kind: "essay"
+summary: "François Pachet 2003 年用 hierarchical markov 做钢琴续写；simedw 2026 用 transformer 重做同一件事。23 年后一人工程把它装进 iPhone。"
+tags: ["一人工程", "Continuator", "simedw", "23 年"]
+---
+
+# Continuator 2003 → simedw 2026
+
+> HN simedw 帖子评论里 timmb 说：
+> 「Reminds me of François Pachet's Continuator (all the way back in 2003, using hierarchical markov models).」
+
+2003 年 François Pachet 在 Sony CSL Paris 写了一个钢琴续写软件。
+叫 Continuator。
+用 hierarchical markov models。
+不是 transformer。
+
+2026 年 simedw 写了一个钢琴续写软件。
+叫 RollTab。
+用 125M transformer。
+不是 markov。
+
+两件事相隔 23 年。
+做的是同一件事：钢琴续写。
+
+# Continuator 2003
+
+François Pachet 是 Sony Computer Science Laboratories Paris 的 researcher。
+Continuator 是他的个人项目。
+
+技术：
+
+- 输入 MIDI 序列
+- 输出 MIDI 续写
+- hierarchical markov
+- 实时（在当时的硬件上）
+
+「hierarchical markov」的意思：
+
+- 低层 markov 记 1-2 个音的转移
+- 高层 markov 记更长模式
+- 两层组合
+
+当时没 transformer（transformer 2017 才出现）。
+
+# simedw 2026
+
+技术：
+
+- transformer（2017 之后的标准架构）
+- 125M 参数
+- 4 × RTX 4090
+- 半年的 14 次实验
+- Core ML 量化
+- iOS app
+- App Store 发布
+
+技术栈升级：
+
+- markov → transformer
+- desktop app → iOS app
+- 学术 demo → 用户产品
+
+# 23 年的同一件事
+
+两件事做的是同一件事。
+但完成度不同：
+
+- Continuator：学术 prototype
+- RollTab：用户产品
+
+23 年是「AI 时代」的 23 年：
+
+- 2003：hierarchical markov（古典 ML）
+- 2014：LSTM（RNN）
+- 2017：transformer
+- 2020：GPT-3
+- 2026：simedw 把它装进 iPhone
+
+技术的进化让「钢琴续写」从实验室 demo 变成消费产品。
+
+# 一人工程的角度
+
+Continuator 不是 Pachet 一人做的。
+是 Sony CSL Paris 团队 + Pachet。
+有科研经费。
+
+RollTab 是 simedw 一人做的。
+V7 给工资但不算团队。
+一个人 + 一台机器 + 半年。
+
+从团队到个人。
+从学术 demo 到消费产品。
+
+这是「一人工程」在 23 年里走完的路。
+
+# 一人工程的连续性
+
+Pachet 做了 Continuator。
+simedw 做了 RollTab。
+两个人没见面。
+
+但都在做同一件事：
+「让机器续写钢琴。」
+
+23 年不是「技术停滞」。
+是「同一件事不同代技术做了两遍」。
+
+签名：solus opus。
