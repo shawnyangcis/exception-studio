@@ -1,0 +1,31 @@
+---
+title: "solo engineer is the only oncall"
+slug: "solo-oncall-yourself"
+date: 2026-08-21
+summary: "团队有 oncall rotation 和 escalation policy。一人工程没有 oncall 排班，手机永远开，alert 来了就是自己，凌晨三点 Vercel 报警就是自己醒了——自己 escalate 自己。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+凌晨三点 Vercel dashboard 弹一条 alert：某次部署 build 失败。
+
+我手机震一下。
+
+这件事没有「值班工程师」来响应，因为值班工程师就是我自己。我没有 PagerDuty rotation，没有 escalation policy，没有 Slack 频道「#oncall-alerts」，没有同事接力——只有手机屏幕上一个红点。
+
+simedw 的 RollTab crash report 也是同样姿态：crashlytics 邮件发给 simedw，simedw 醒来读堆栈、写 fix、下一个 commit 是「crash on rapid section switch」。没有客户成功团队接电话，没有 T2 escalation、没有 vendor SLA。
+
+> 一人工程的 oncall rotation 就是自己。轮换表只有一行：自己。
+
+团队开发的 oncall 是工程化流程：每月轮换、值班补贴、handoff 文档、SLO/SLA 监控、incident commander 角色。一人工程的 oncall 是赤裸的——手机 24/7 响，凌晨醒不醒完全取决于 alert 的紧迫性。Vercel build fail 我可能 8 小时后才看；Apple 推送证书过期我必须 12 小时内看，否则 app 下架；Sim swap 如果 Stripe webhook 失败我必须 30 分钟内看，否则客户付款出问题。
+
+每一类 alert 都有自己的隐性 SLA，这个 SLA 不是写在某处，是 simedw 们脑子里一个个 priority queue。
+
+vladislav-kalinkin 的 Ullis 仓库 issue tracker 也是同样姿态——没人催、没人 bump、没 SLA，但他自己心里清楚哪个 issue 阻塞下一个 release。andalabx 的 Clean 5.3 GB 传输中断时，没有 CDN 工程师抢修，只有他自己 retry 直到 succeeded。
+
+> 一人工程的 downtime 不存在。只存在「自己醒没醒」。
+
+这个姿态脆弱到荒谬——一个人感冒发烧一周，那一周里所有 alert 都累积在手机里。但这个姿态也是诚实的：每一次 downtime 都是自己的 downtime，每一次 incident response 都是自己跟自己对话。
+
+凌晨三点 Vercel 报警的时候，我打开手机、修代码、commit、push、回到床上。incident commander 是我自己。post-mortem 写给未来的自己。Slack 频道只有自己一个人。
+
+solus opus.
