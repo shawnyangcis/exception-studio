@@ -1,0 +1,40 @@
+---
+title: "iOS 自动更新就是 migration guide"
+slug: "no-migration-guide-ios-auto-update"
+date: 2026-08-21
+summary: "团队发新版有时需要 migration guide——ALTER TABLE、API client update、breaking change warning、code example。一人工程没有 migration guide——simedw 的 RollTab 是 Core ML model + iOS app，iOS 自动更新自动 migration。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+团队 v2.0 发新版要写 migration guide。
+
+「数据库 schema 变更：users 表新增 column 'last_active_at'，请运行 migrations/0007_add_last_active_at.sql；API v2 endpoint 路径从 /v1/users 改为 /v2/users，所有 client 需更新；breaking change：DELETE /items 不再软删，改为物理删除，client 需重写 retry 逻辑。」migration guide 通常 5-10 页 PDF、含 SQL snippet、code example、rollback procedure。
+
+migration guide 的存在是为了**让用户从 v1 平滑迁移到 v2**——用户必须改自己代码才能用 v2，否则出错。
+
+一人工程没有 migration guide。
+
+simedw 的 RollTab v2.0 发新版时没有 migration guide：
+- 没有 database schema 变更（Core ML model 不是 SQL database）
+- 没有 API breaking change（iOS app 是 standalone，没有 external API）
+- 没有 client code update（用户不需要写 code）
+
+用户从 v1 → v2 的迁移方式：**App Store 自动更新**。iPhone 上「设置 → 自动更新」开启，v1 → v2 静默升级。用户甚至不需要知道 v2 出了——下次打开 RollTab 就是 v2。
+
+> 一人工程的 migration 是 iOS auto-update，不是 SQL migration。
+
+团队 migration guide 的存在是因为**用户控制自己的升级节奏**——enterprise 用户要等 Q3 才升 v2、SMB 用户可以立刻升。一人工程 simedw 不给用户这个选择——App Store auto-update 让用户透明升级。
+
+vladislav-kalinkin 的 Ullis 没有 migration guide——Ullis 用户 `cargo update ullis` 就完事。没有 SQL schema、没有 API endpoint。
+
+andalabx 的 Clean skill 没有 migration guide——agent skill 是 text，update 即可。
+
+> 团队的 migration guide 让用户控制升级节奏。一人工程的 iOS auto-update 让 simedw 控制升级节奏。
+
+trade-off：团队 migration guide 让 enterprise 用户能 schedule upgrade、test compatibility、rollback if broken。一人工程 iOS auto-update 让 simedw 强制所有用户立刻升级，没有 rollback 选择。
+
+但 solo engineer 接受这个 trade-off——simedw 的 RollTab 用户群小，强制升级成本低、bug fix 覆盖快。
+
+solo engineer 的 migration guide 是 App Store 200 字符 release notes + auto-update。用户唯一动作：打开 app。
+
+solus opus.
