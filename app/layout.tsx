@@ -3,11 +3,11 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Exception Studio",
-  description: "Exception 的个人创作档案——作品、随笔。",
+  title: "一人工程 · solus opus",
+  description: "我一个人在做一件事：把散文 + 视频 + git log 拼成一个站点。simedw / vladislav-kalinkin / andalabx / and Shawn — 都是这场一人工程运动的同行者。",
   openGraph: {
-    title: "Exception Studio",
-    description: "作品、随笔。",
+    title: "一人工程 · solus opus",
+    description: "散文 + 视频 + git log，一个人的项目档案。",
     type: "website"
   }
 };
