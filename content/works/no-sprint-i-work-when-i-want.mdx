@@ -1,0 +1,293 @@
+---
+title: "Sprint 不必要：想工作就工作"
+slug: "no-sprint-i-work-when-i-want"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "sprint", "scrum", "hn-show"]
+description: "大公司做 sprint：2 周一次 + sprint planning + sprint review + sprint retrospective + sprint board（Jira / Linear）。一人工程：没有 sprint，想工作就工作。"
+summary: "solo engineer 没有 sprint。simedw 一个人 iPhone app——他决定今天做什么，他决定做多久，他决定何时停。sprint 是大公司节奏控制工具，一人工程的想工作 = sprint planning。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 sprint。
+
+大公司做 sprint：
+
+- **2 周一次 sprint**：每 2 周一个 sprint（sprint 0 / sprint 1 / sprint 2 / ...）
+- **sprint planning**：sprint 开始前 1-2 小时，PM + 工程师一起定 sprint 目标 + 任务
+- **sprint review**：sprint 结束后 1 小时，PM + 工程师 demo + 回顾
+- **sprint retrospective**：sprint review 后 1 小时，团队反思 + 改进
+- **sprint board**：Jira / Linear / Asana / Trello 上拖卡片
+- **story point**：每个任务 1-13 点（Fibonacci）估算
+- **velocity**：每个 sprint 完成 story point 数（衡量团队速度）
+- **burndown chart**：sprint 进度图
+
+一人工程做 sprint：
+- 没有 2 周节奏
+- 没有 sprint planning
+- 没有 sprint review
+- 没有 sprint retrospective
+- 没有 sprint board
+
+## simedw 的 sprint 哲学
+
+simedw 是 iPhone piano app。他没有 sprint：
+
+- **simedw 决定节奏**：simedw 想今天做就做，想明天做就明天做
+- **simedw 决定 duration**：simedw 想写 1 小时就 1 小时，想写 4 小时就 4 小时
+- **simedw 决定 task**：simedw 脑子里的 14 次实验 + Core ML + iOS
+- **simedw 不写 story point**：simedw 不估算（如果估算了 = 自己骗自己）
+
+simedw 的"节奏"：
+
+- 当天状态好：写 4 小时 + commit + 测
+- 当天状态差：休息 / 写 30 分钟 / commit
+- 当天灵感来：写 6 小时 + commit 5 个实验
+- 当天没灵感：休息 / 散步 / 看 HN
+
+不需要 2 周固定节奏，因为 simedw 状态每天不一样。
+
+## 一人工程的节奏工具
+
+- **git log**：什么时候做了什么都记录
+- **commit 时间**：每天 commit 时间反映工作节奏
+- **脑子**：今天做什么自己知道
+- **HN / paper / 散步**：灵感来源
+
+不需要 sprint，因为：
+- simedw 自己决定节奏
+- simedw 自己决定 task
+- simedw 不需要 2 周 deadline
+
+## sprint 在大公司的政治
+
+sprint 不是工具——是**节奏控制工具 + 政治工具**：
+
+- **scrum master**：要用 sprint 协调 5-10 个工程师
+- **PM**：要用 sprint 拆解任务到 2 周
+- **CTO**：要用 sprint 知道团队进度
+- **VP**：要用 sprint 知道项目健康度
+- **销售**：要用 sprint 知道 enterprise feature 何时交付
+- **HR**：要用 sprint velocity 评估团队绩效
+
+每个 stakeholder 都要 sprint：
+
+- scrum master sprint = "我协调团队"
+- PM sprint = "我拆解任务"
+- CTO sprint = "我知道进度"
+- VP sprint = "我知道项目健康"
+- 销售 sprint = "我知道 feature 何时交付"
+- HR sprint = "我评估团队"
+
+没有 sprint = 没有节奏 = 团队混乱。
+
+一人工程没有 stakeholder：
+- 开发者 = scrum master = PM = CTO = VP = 销售 = HR
+- 一个人节奏
+- 不需要 sprint
+
+## story point 在大公司的必要性
+
+大公司有 story point——每个任务 1-13 点估算：
+
+- **1 点**：trivial bug fix / 1-2 小时
+- **3 点**：small feature / 半天
+- **5 点**：medium feature / 1-2 天
+- **8 点**：large feature / 3-5 天
+- **13 点**：epic / 1-2 周
+
+每个 story point：
+
+- 工程师估算
+- sprint planning 时讨论
+- 团队 consensus
+
+一人工程没有 story point。一人工程有：
+
+- **simedw 自己估算**：simedw 写代码时知道要多久
+- **不需要讨论**：simedw 自己决定
+- **不需要 Fibonacci**：simedw 直接写
+
+不需要 story point，因为 simedw 写代码时自己知道复杂度。
+
+## velocity 在大公司的必要性
+
+大公司有 velocity——每个 sprint 完成 story point 数：
+
+- **sprint 1**：完成 30 story point
+- **sprint 2**：完成 32 story point
+- **sprint 3**：完成 28 story point
+- **average velocity**：30 story point / sprint
+
+每个 velocity：
+
+- 团队稳定后计算
+- 用来预测未来 sprint 能完成多少
+- HR 评估团队绩效
+
+一人工程没有 velocity。一人工程有：
+
+- **simedw 自己节奏**：commit 频率反映节奏
+- **不需要预测**：simedw 每天看 HN + 写代码
+- **不需要 HR 评估**：simedw 自己评估自己
+
+不需要 velocity，因为 simedw 不预测未来 sprint。
+
+## burndown chart 在大公司的必要性
+
+大公司有 burndown chart——sprint 进度图：
+
+- **X 轴**：sprint 天数（10 天 sprint）
+- **Y 轴**：剩余 story point
+- **理想线**：直线下降
+- **实际线**：实际剩余 story point
+
+每个 burndown chart：
+
+- sprint planning 时画理想线
+- 每天更新实际线
+- sprint review 时 review 偏差
+
+一人工程没有 burndown chart。一人工程有：
+
+- **simedw 自己看 git log**：今天 commit 多少 = 今天进度
+- **不需要画图**：simedw 脑子里知道进度
+- **不需要 sprint review**：simedw 自己 review
+
+不需要 burndown chart，因为 simedw 自己知道进度。
+
+## sprint planning 在大公司的必要性
+
+大公司有 sprint planning——sprint 开始前 1-2 小时：
+
+- **PM**：展示 sprint backlog（这 2 周要做的任务）
+- **scrum master**：协调讨论
+- **工程师**：认领任务 + 估算 story point
+- **VP**：偶尔参与（关键 sprint）
+
+每个 sprint planning：
+
+- 1-2 小时 meeting
+- 5-10 个工程师
+- 30-50 个任务
+
+一人工程没有 sprint planning。一人工程有：
+
+- **simedw 自己规划**：simedw 早上想今天做什么
+- **不需要 meeting**：simedw 自己跟自己开会浪费时间
+- **不需要 backlog**：simedw 脑子里就是 backlog
+
+不需要 Jira。
+
+## sprint review 在大公司的必要性
+
+大公司有 sprint review——sprint 结束后 1 小时：
+
+- **工程师**：demo 这 sprint 做的 feature
+- **PM**：收集 stakeholder 反馈
+- **stakeholder**：参与（产品 / 销售 / 客户支持）
+
+每个 sprint review：
+
+- 1 小时 meeting
+- 5-10 个 demo
+- stakeholder 反馈
+
+一人工程没有 sprint review。一人工程有：
+
+- **simedw 自己 review**：simedw 看 14 次实验结果
+- **不需要 demo**：simedw 自己看 commit message
+- **不需要 stakeholder**：simedw 自己就是 stakeholder
+
+不需要 demo。
+
+## sprint retrospective 在大公司的必要性
+
+大公司有 sprint retrospective——sprint review 后 1 小时：
+
+- **团队反思**：这 sprint 哪里做得好 / 哪里做得不好
+- **改进项**：下 sprint 改进的具体行动
+- **safe space**：团队 open 地讨论问题
+
+每个 retrospective：
+
+- 1 小时 meeting
+- 全团队参与
+- "start / stop / continue" 框架
+
+一人工程没有 retrospective。一人工程有：
+
+- **simedw 自己反思**：simedw 看 14 次实验结果 + 自己问"下次怎么改进"
+- **不需要 meeting**：simedw 自己反思
+- **不需要 safe space**：simedw 自己 = safe space
+
+不需要 retrospective，因为 simedw 自己反思。
+
+## 一人工程的 sprint 哲学
+
+大公司 sprint 是因为他们有：
+
+- 10 个工程师（需要协调节奏）
+- 1 个 scrum master（专门协调）
+- 1 个 PM（拆解任务）
+- 5 个 stakeholder（需要进度）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 scrum master（自己就是 scrum master）
+- 0 个 PM（自己就是 PM）
+- 0 个 stakeholder（自己就是 stakeholder）
+
+sprint 在一人工程里 = **自己想工作就工作**。
+
+## 我就是 sprint
+
+大公司 sprint 是**多角色参与的**：
+
+- 10 个工程师执行
+- 1 个 scrum master 协调
+- 1 个 PM 拆解
+- 1 个 CTO review
+
+一人工程 sprint 是**一个人做的**：
+
+- simedw 自己执行
+- simedw 自己协调
+- simedw 自己拆解
+- simedw 自己 review
+
+没有 scrum master，没有 PM，没有 CTO。
+
+## 公开 vs 私有 sprint
+
+大公司 sprint 是**半公开**：
+
+- sprint board 公开（Jira / Linear 团队内部）
+- velocity 公开（团队内部）
+- burndown chart 公开（团队内部）
+
+一人工程 sprint 是**完全公开**：
+
+- git log 公开（GitHub 公开）
+- commit 时间公开
+- 14 次实验公开
+
+simedw 的"velocity" 通过 git log 公开——所有 commit 时间戳 + message = simedw 的 sprint board。
+
+## 一人工程 + 想工作就工作
+
+simedw 不做 sprint。
+simedw 不做 story point。
+simedw 不做 velocity。
+simedw 不做 burndown chart。
+simedw 想工作就工作。
+
+sprint 在一人工程里不是节奏，是**simedw 的状态**。
+
+---
+
+solo engineer 没有 sprint。
+solo engineer 的 sprint = 想工作就工作。
+
+solus opus.
