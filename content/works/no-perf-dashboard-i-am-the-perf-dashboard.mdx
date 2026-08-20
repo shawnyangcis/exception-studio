@@ -1,0 +1,23 @@
+---
+title: "solo engineer 没有 perf dashboard，我就是 perf dashboard"
+slug: no-perf-dashboard-i-am-the-perf-dashboard
+date: 2026-08-21
+description: "团队有 Grafana / DataDog / New Relic / Prometheus / metrics / alerting。solo engineer 没有 perf dashboard，我开浏览器看 Vercel analytics + 自己看页面加载速度 + 自己感受。"
+tags: ["一人工程", "perf", "dashboard", "solo", "monitoring"]
+---
+
+团队有 perf dashboard。
+
+Grafana、DataDog、New Relic、Prometheus、自定义 metrics、alerting rules、P99 / P95 / P50 延迟、错误率、吞吐量、SLO breaches、incidents timeline。所有数字实时更新。
+
+solo engineer 没有 perf dashboard。
+
+我就是 perf dashboard。
+
+我开浏览器看 Vercel analytics——访问量、独立访客、来源 URL、平均加载时间。我看页面——首屏加载 0.8 秒还是 2.3 秒。我读自己的文章——文字是不是顺，链接是不是断。我看 commit log——今天改了什么，前 3 天的部署有没有问题。
+
+优势是「我亲自看、亲自感受、亲自决策」。代价是「没有历史趋势分析」「没有 P99 / P95 报告」「没有 alerting 提前告警」。
+
+一人工程的 perf = 我打开浏览器。Prometheus 是团队的代名词。
+
+---
