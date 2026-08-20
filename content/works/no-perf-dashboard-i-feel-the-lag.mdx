@@ -1,0 +1,164 @@
+---
+title: "Perf dashboard 不必要：感觉就是 dashboard"
+slug: "no-perf-dashboard-i-feel-the-lag"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "perf", "monitoring", "hn-show"]
+description: "大公司做 perf dashboard：Grafana / Datadog / New Relic + SLO + alert + oncall。一人工程：开发者自己用 + 自己感受 latency + 看到 lag 就修。感觉 = dashboard。"
+summary: "solo engineer 没有 perf dashboard。simedw 一个人用 iPhone app 听自己钢琴——延迟他自己感受；噪音他自己听；播放卡顿他自己知道。perf dashboard 是大公司政治工具，一人工程的感觉 = dashboard。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 perf dashboard。
+
+大公司做 perf dashboard：
+
+- Grafana / Datadog / New Relic（数据可视化平台）
+- 100 个 dashboard（每服务一个 + 每业务一个 + 每 region 一个）
+- SLO（service level objective，99.9% / 99.99% / 99.999%）
+- Alert（p99 latency > 500ms → oncall）
+- oncall 轮值（5 个工程师轮流 7×24 值班）
+
+一人工程做 perf dashboard：
+- 没有 dashboard
+- 没有 SLO
+- 没有 alert
+- 没有 oncall
+
+## simedw 的 perf 哲学
+
+simedw 是 iPhone piano app。他没有 perf dashboard：
+
+- **latency**：simedw 自己弹琴听——延迟 100ms 他自己感受
+- **memory**：iPhone 4GB RAM + Core ML INT8 125M 模型——simedw 自己看 Settings
+- **battery**：iPhone 电池百分比——simedw 自己看
+- **crash rate**：simedw 自己遇到 crash——iPhone TestFlight + App Store Connect
+- **用户数**：simedw 自己看 App Store downloads
+
+没有 Grafana。simedw 自己就是 Grafana。
+
+## 一人工程的 perf 工具
+
+- **latency**：开发者自己用，自己感受
+- **memory**：开发者自己看 Settings / Activity Monitor / htop
+- **battery**：开发者自己看 battery icon
+- **crash**：开发者自己遇到 + TestFlight + Crashlytics (free tier)
+- **用户数**：开发者自己看 App Store downloads
+
+不需要 Grafana，因为：
+- 开发者就是唯一一个 user
+- 开发者的体验 = 100% 用户的体验（如果有 100 个用户都像开发者）
+
+## perf dashboard 在大公司的政治
+
+大公司 perf dashboard 不是工具——是**政治工具**：
+
+- 工程师：要把 p99 latency 压到 100ms 以下
+- PM：要把"用户卡顿"报告率降到 0.1%
+- VP：要把 99.99% SLO 写进 SLA 合同
+- 客户：要 SLO 写进合同，否则不买
+
+每个 stakeholder 都要 dashboard 证明自己的需求：
+- 工程师 dashboard 证明"我已经优化"
+- PM dashboard 证明"用户满意度"
+- VP dashboard 证明"99.99% SLO"
+- 客户 dashboard 验证"SLA 没违反"
+
+没有 dashboard = 没有证据 = 没有谈判筹码。
+
+一人工程没有 stakeholder negotiation：
+- 开发者 = PM = VP = 客户
+- 一个人的体验 = 100% 用户的体验
+- 不需要 dashboard 证明
+
+## oncall 在一人工程里的缺席
+
+大公司有 oncall 轮值——5 个工程师轮流 7×24 值班：
+
+- alert 触发 → oncall 工程师接电话 → 5 分钟内 ACK → 30 分钟内修复
+- oncall 工程师被打断（睡眠 / 健身 / 家庭时间）
+
+一人工程没有 oncall：
+
+- alert = 用户发邮件 / 发 App Store 评论 / 发 HN 评论
+- 修复 = 开发者第二天起来看邮件
+- 没有 SLA 承诺
+
+simedw 的 iPhone app crash：
+
+- 用户 App Store 评论 "crashed twice today"
+- simedw 第二天读评论 + 看 Crashlytics
+- simedw 修复 + 提交新版本
+
+不需要 5 分钟内 ACK。
+
+## 一人工程的 perf 哲学
+
+大公司 perf 是因为他们有：
+
+- 100 万用户（latency 100ms vs 500ms = 100 万用户 vs 100 万用户）
+- 100 个工程师（不监控 = 找不到问题）
+- 10 个 SRE（专业 perf 工程师）
+- 1 个 VP of Engineering（SLO 是政治）
+
+一人工程没有 perf 团队。一人工程有：
+
+- 100 用户（latency 100ms vs 500ms = 100 用户 vs 100 用户）
+- 0 个工程师（自己就是 perf 工程师）
+- 0 个 SRE（自己就是 SRE）
+- 1 个 maintainer（自己写 SLO）
+
+SLO 在一人工程里 = **自己的体感标准**：
+
+- latency > 200ms → 我自己觉得卡
+- crash rate > 5% → 我自己看 Crashlytics
+- battery drain > 20%/h → 我自己看电池
+
+## 感觉 = dashboard
+
+大公司 perf 是**测量**：
+
+- p50 / p90 / p99 latency
+- QPS / error rate / availability
+- memory / CPU / network
+
+一人工程 perf 是**感觉**：
+
+- "卡了" / "不卡"
+- "电掉的快" / "电掉的慢"
+- "crash 了" / "没 crash"
+
+感觉比测量快：
+
+- 测量 = 触发 alert → oncall 看 dashboard → 决定阈值
+- 感觉 = 直接感受 → 直接修复
+
+simedw 弹钢琴时延迟 100ms 他**感觉**到，100ms 后下一个 note 出来他**感觉**不对。延迟 = 感觉，不需要 p99。
+
+## 一人工程的 perf dashboard = 用户评论
+
+simedw 不做 perf dashboard。但 simedw 的用户在 HN 评论里做 perf feedback：
+
+- **tom_vidal / bravura**：评论 simedw 的 piano continuation 质量
+- **Naitik88**：评论 simedw 的 Copilot / Duet framing
+- **taylorgt**：推荐 LLMStatus 作为公开 uptime 监控——是公开 perf 工具，不是 perf dashboard
+- 用户在 App Store 评论 latency / crash
+
+每个评论都是 user perf report。一人工程不需要 Grafana——用户评论就是 Grafana。
+
+## 一人工程 + 感觉 = 自然 perf
+
+simedw 不做 perf dashboard。
+simedw 弹钢琴听自己延迟。
+simedw 看 Crashlytics free tier。
+simedw 读 App Store 评论。
+simedw 读 HN 评论。
+
+perf dashboard 在一人工程里不是工具，是**感觉 + 评论**。
+
+---
+
+solo engineer 没有 perf dashboard。
+solo engineer 的 perf dashboard = 感觉 + App Store 评论 + HN 评论。
+
+solus opus.
