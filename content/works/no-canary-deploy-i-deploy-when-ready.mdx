@@ -1,0 +1,330 @@
+---
+title: "Canary deploy 不必要：准备好就 deploy"
+slug: "no-canary-deploy-i-deploy-when-ready"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "canary-deploy", "deployment", "hn-show"]
+description: "大公司做 canary deploy：5% → 25% → 50% → 100% + Spinnaker / Argo Rollouts + 分析 metric + error rate gate。一人工程：没有 canary，iPhone app 一次性 100% rollout（苹果审核）。"
+summary: "solo engineer 没有 canary deploy。simedw 一个人 iPhone app——准备好就 deploy，11 天苹果审核期就是天然 canary。canary deploy 是大公司灰度发布工具，一人工程的审核期 = canary。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 canary deploy。
+
+大公司做 canary deploy：
+
+- **5% rollout**：1 万用户先试新版本
+- **25% rollout**：5 万用户
+- **50% rollout**：50 万用户
+- **100% rollout**：所有用户
+- **metric gate**：每个阶段看 error rate / latency / business metric
+- **auto rollback**：metric 恶化 → 自动回滚
+- **Spinnaker / Argo Rollouts**：CD 平台自动 canary
+- **Flagger**：Kubernetes 自动 canary 工具
+
+一人工程做 canary deploy：
+- 没有 5% rollout
+- 没有 25% rollout
+- 没有 metric gate
+- 没有 auto rollback
+- 没有 Spinnaker
+
+## simedw 的 canary 哲学
+
+simedw 是 iPhone piano app。他没有 canary deploy：
+
+- **simedw 准备好就提交**：simedw 写完 + 自己测 + 提交 App Store
+- **苹果审核 11 天 = 天然 canary**：苹果审核员先试（≈ 5% 用户）
+- **审核通过 = 100% rollout**：所有用户立即收到
+- **审核拒绝 = rollback**：simedw 修复 + 重新提交
+- **TestFlight beta = canary**：simedw 用 TestFlight 给少量用户先试（如果需要）
+
+simedw 的"canary"在 App Store 审核 + TestFlight + Crashlytics：
+
+- **App Store 审核 11 天**：苹果审核员先试新版本 = 5% 用户试
+- **TestFlight beta**：simedw 给 10 个 beta 用户先试 = 10% 用户试
+- **Crashlytics**：simedw 看 crash rate = metric gate
+- **App Store release notes**：所有用户更新 = 100% rollout
+
+不需要 Spinnaker，因为：
+- 苹果审核期 = canary 阶段
+- TestFlight beta = canary 工具
+- Crashlytics = metric gate
+- 加急审核 = rollback
+
+## 一人工程的 canary 工具
+
+- **App Store 审核**：11 天天然 canary
+- **TestFlight beta**：10-100 用户先试
+- **Crashlytics**：crash rate metric gate
+- **加急审核 24 小时**：rollback 速度
+- **App Store release notes**：100% rollout 通知
+
+不需要 Spinnaker / Argo Rollouts / Flagger，因为：
+- 苹果审核已经做 canary
+- simedw 没有 server deployment
+- iPhone app 本地安装，不需要流量切分
+
+## 5% rollout 在大公司的细节
+
+大公司 5% rollout：
+
+- **5% user segment**：1 万用户先试
+- **metric 监控**：error rate / latency / business metric
+- **duration**：24-48 小时观察
+- **success criteria**：error rate < 0.1% / latency < 100ms / conversion > baseline
+- **auto rollback**：metric 恶化 → 自动回滚到 0%
+
+每个 5% rollout：
+
+- 1-2 天观察
+- oncall 工程师监控
+- PM / VP 看 dashboard
+
+一人工程没有 5% rollout。一人工程有：
+
+- **simedw TestFlight 5 用户**：simedw 给 5 个 beta 用户先试 = 5% user segment
+- **simedw 自己看 Crashlytics**：crash rate = metric
+- **simedw 不需要 oncall**：simedw 自己看
+- **simedw 不需要 dashboard**：simedw 自己看 Crashlytics 够了
+
+## 25% / 50% / 100% rollout 在大公司的细节
+
+大公司 rollout 阶段：
+
+- **25% rollout**：5 万用户 = 25% traffic
+- **50% rollout**：50 万用户 = 50% traffic
+- **100% rollout**：所有用户 = 100% traffic
+
+每个阶段：
+
+- 24-48 小时观察
+- metric 验证
+- auto rollback
+
+一人工程没有 25% / 50% rollout。一人工程有：
+
+- **simedw 100% rollout**：iPhone app 没有流量切分，新版本审核通过后 100% 用户立即收到
+- **simedw 不需要阶段**：iPhone app 没有阶段
+- **simedw 加急审核 = rollback**：如果有问题 simedw 加急审核 24 小时修复
+
+## metric gate 在大公司的细节
+
+大公司 metric gate——canary 必须 metric 通过：
+
+- **error rate**：canary error rate < baseline + 0.1%
+- **latency p99**：canary p99 latency < baseline + 50ms
+- **conversion rate**：canary conversion > baseline - 0.5%
+- **business metric**：canary revenue > baseline + 0%
+
+每个 metric：
+
+- 自动计算
+- dashboard 显示
+- auto rollback
+
+一人工程没有 metric gate。一人工程有：
+
+- **simedw 自己看 Crashlytics**：crash rate < 1% = metric gate
+- **simedw 自己看 App Store 评论**：用户反馈 = metric
+- **simedw 不需要 dashboard**：simedw 自己 = dashboard
+- **simedw 不需要 auto rollback**：simedw 加急审核 = rollback
+
+## auto rollback 在大公司的细节
+
+大公司 auto rollback——canary metric 恶化自动回滚：
+
+- **error rate 上升**：5% 上升到 0.5% → auto rollback
+- **latency 上升**：p99 上升 100ms → auto rollback
+- **conversion 下降**：conversion 下降 1% → auto rollback
+- **rollback 时间**：1 秒（k8s 自动回滚）
+
+每个 auto rollback：
+
+- 1 秒完成
+- 不需要人工
+- 不需要 dashboard
+
+一人工程没有 auto rollback。一人工程有：
+
+- **simedw 加急审核 24 小时**：iPhone app 没有 auto rollback，但 simedw 加急审核 24 小时 = rollback 速度
+- **simedw 不需要 1 秒**：iPhone app 没有 1 秒 SLA
+- **simedw 24 小时够**：simedw 改完 bug + 加急审核 = 24 小时 rollback
+
+## Spinnaker / Argo Rollouts 在大公司的细节
+
+大公司 CD 平台：
+
+- **Spinnaker**：Netflix 开源 CD 平台，支持 canary / blue-green / traffic shifting
+- **Argo Rollouts**：Kubernetes 原生 CD 平台，支持 canary
+- **Flagger**：Kubernetes 自动 canary 工具
+- **Harness / Octopus Deploy**：商业 CD 平台
+
+每个 CD 平台：
+
+- 几百万美元 / 年 license
+- 5-10 个 SRE 维护
+- 100 个工程师使用
+
+一人工程没有 CD 平台。一人工程有：
+
+- **苹果 App Store = CD 平台**：苹果审核 + 部署
+- **TestFlight = canary 工具**：beta 测试
+- **Crashlytics = metric 工具**：crash rate
+- **simedw 0 美元 / 年**：iPhone app 部署免费
+
+## Flagger 在大公司的细节
+
+大公司 Flagger——Kubernetes 自动 canary：
+
+- **metric collection**：自动收集 metric
+- **analysis**：自动分析 canary vs baseline
+- **promote**：metric 通过 → promote 到下一阶段
+- **rollback**：metric 失败 → rollback
+
+每个 Flagger：
+
+- 1-2 小时配置
+- 持续监控 metric
+- auto rollback
+
+一人工程没有 Flagger。一人工程有：
+
+- **simedw 自己看 Crashlytics**：simedw 自己分析
+- **simedw 24 小时 fix**：simedw 修复 + 加急审核
+- **simedw 不需要自动**：simedw 1 个人不需要自动
+
+## canary duration 在大公司的细节
+
+大公司 canary duration：
+
+- **5% canary**：24-48 小时观察
+- **25% canary**：24-48 小时观察
+- **50% canary**：24-48 小时观察
+- **100% canary**：永久
+
+每个 canary duration：
+
+- 24-48 小时
+- oncall 工程师监控
+- PM / VP 看 dashboard
+
+一人工程没有 canary duration。一人工程有：
+
+- **simedw 11 天苹果审核**：App Store 审核 11 天 = 5% canary 阶段
+- **simedw 24 小时加急审核**：加急审核 24 小时 = rollback 速度
+- **simedw 100% rollout**：审核通过后 100% 用户立即收到
+
+## iPhone app vs server 的 canary 区别
+
+iPhone app 和 server 根本不同：
+
+- **server**：24 小时在线，部署立即生效（用户立即收到新版本）→ 需要 canary deploy（5% → 100%）
+- **iPhone app**：用户本地安装，新版本需要苹果审核（11 天）→ 苹果审核就是天然 canary
+
+simedw 的 iPhone piano app：
+
+- 部署不立即生效（苹果审核 11 天）
+- 苹果审核 = 5% canary 阶段
+- 审核通过 = 100% rollout
+- 审核拒绝 = rollback
+
+不需要 Spinnaker canary，因为：
+- simedw 的 app 没有 server deployment
+- 苹果审核是自然 canary 屏障
+- 用户本地 app 永远能打开
+
+## TestFlight beta 在 simedw 的角色
+
+simedw 用 TestFlight beta 做 canary：
+
+- **TestFlight 内部测试**：simedw 自己 + 1-2 个朋友（1% 用户）
+- **TestFlight 外部测试**：10-100 个 beta 用户（5-10% 用户）
+- **TestFlight duration**：1-2 周观察
+- **metric 收集**：Crashlytics 看 crash rate
+- **feedback**：beta 用户反馈
+
+每个 TestFlight：
+
+- 1-2 周
+- 10-100 beta 用户
+- simedw 自己看 feedback
+
+不需要 Spinnaker canary，因为 TestFlight 已经做了。
+
+## canary 失败在大公司的细节
+
+大公司 canary 失败模式：
+
+- **canary metric 恶化**：error rate 上升 → rollback
+- **canary false positive**：metric 暂时恶化但实际正常 → 误判 rollback
+- **canary false negative**：metric 正常但实际有问题 → 没发现
+- **canary 时间不够**：canary 时间不够 → metric 没暴露
+
+每个 canary 失败：
+
+- 重新 canary
+- 调整 metric gate
+- 延长 canary 时间
+
+一人工程没有 canary 失败模式：
+
+- **simedw TestFlight 用户反馈**：beta 用户直接反馈
+- **simedw Crashlytics 看 crash**：crash rate 直接看
+- **simedw 不需要 false positive**：iPhone app 没有 false positive
+- **simedw 11 天审核**：审核期足够长
+
+## 一人工程的 canary 哲学
+
+大公司 canary deploy 是因为他们有：
+
+- 100 万用户（一次 bad deploy = 100 万用户受影响）
+- 100 个工程师（需要协调 canary）
+- 5 分钟 rollback SLA（需要 auto rollback）
+- $XX,XXX revenue impact（bad deploy 损失钱）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（一次 bad deploy = 100 用户受影响，simedw 自己通知）
+- 0 个工程师（自己就是工程师）
+- 24 小时苹果加急审核（不需要 5 分钟 SLA）
+- $0 revenue impact（iPhone app 免费）
+
+canary deploy 在一人工程里 = **苹果审核 + TestFlight + Crashlytics**。
+
+## 我就是 canary
+
+大公司 canary 是**多角色协作的**：
+
+- SRE 配置 Spinnaker
+- oncall 监控 metric
+- PM 看 dashboard
+- VP 决定 promote
+- engineer 改代码
+
+一人工程 canary 是**一个人做的**：
+
+- simedw 自己配置 TestFlight
+- simedw 自己看 Crashlytics
+- simedw 自己看 App Store 评论
+- simedw 自己决定 promote（提交 App Store）
+- simedw 自己改代码（修复 bug）
+
+没有 SRE，没有 oncall，没有 PM，没有 VP，没有 engineer。
+
+## 一人工程 + 准备好就 deploy
+
+simedw 不做 5% rollout。
+simedw 不做 25% rollout。
+simedw 不做 metric gate。
+simedw 不做 auto rollback。
+simedw 准备好就 deploy。
+
+canary deploy 在一人工程里不是工具，是**苹果审核 + TestFlight + Crashlytics**。
+
+---
+
+solo engineer 没有 canary deploy。
+solo engineer 的 canary deploy = 苹果审核 11 天 + TestFlight beta + Crashlytics。
+
+solus opus.
