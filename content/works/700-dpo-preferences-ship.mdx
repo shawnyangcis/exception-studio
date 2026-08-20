@@ -1,0 +1,140 @@
+---
+title: "700 个偏好就能 ship"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 DPO 训练只用了 700 个偏好例数，跑了 12 分钟。预训练 125M 模型用了半天。一人工程的少数据哲学——700 个偏好也能 ship，不需要 OpenAI 的百万例数。"
+tags: ["一人工程", "DPO", "少数据", "对齐"]
+---
+
+# 700 个偏好就能 ship
+
+> HN 评论里 arkmm 问训练成本，simedw 回答：
+> 「For DPO I only had around 700 preference examples, so not much data at all. That took about 12 minutes to train on a single GPU. Pretraining was obviously a a lot slower, the 125M model took roughly half a day.」
+
+700 preference examples。
+12 minutes。
+单 GPU。
+
+simedw 用 700 个偏好数据训了 DPO。
+iOS app 上的 Piano RollTab 用了这个 DPO 模型。
+
+# OpenAI 的 DPO 数字
+
+OpenAI / Anthropic 的对齐训练数据：
+
+- RLHF 偏好数据：百万级
+- Constitutional AI：几十万条原则
+- DPO 偏好数据：几十万到百万
+
+OpenAI 训练一个 DPO 模型：
+
+- 偏好数据：1M+
+- 训练时间：几天到几周
+- GPU：几百张 H100
+- 成本：百万美元级
+
+# simedw 的 DPO 数字
+
+simedw 的 DPO：
+
+- 偏好数据：700 例
+- 训练时间：12 分钟
+- GPU：单卡
+- 成本：电费（自己机器上跑）
+
+数字差 1000 倍。
+结果差多少？
+
+# 700 个偏好能做什么
+
+simedw 的 700 个偏好能做：
+
+- 把模型的「续写倾向」从随机偏向「接 prompt 的连续」和「避免重复」
+- iPhone 上用户弹了 8 个音，模型续写的质量明显提升
+- 自动指标「continuation 跟 prompt 的接续度」从 30% → 69%
+
+700 个偏好。
+4 行数字。
+一次训练的产物。
+
+# 为什么 700 个够
+
+700 个够的原因不是「OpenAI 错了」。
+
+是「少数据 + 自评」的特殊组合：
+
+- simedw 自己听 30 分钟
+- 给每个续写打「好/不好」
+- 攒到 700 个
+- 训练 12 分钟
+
+OpenAI 做不了：
+
+- 招 1000 个标注员
+- 每人听 30 分钟
+- 每人给 700 个打分
+- 1000 × 700 = 700,000 个偏好
+
+这是 OpenAI 的「人多」策略。
+
+simedw 的策略是「人少」：
+
+- 自己听
+- 自己打
+- 自己训练
+- 12 分钟出结果
+
+trade-off：
+
+- OpenAI：数据多 + 通用
+- simedw：数据少 + 自评
+
+# 少数据的好处
+
+少数据的隐含好处：
+
+- 没有「标注员审美污染」
+- 一个人听 + 一个人打 = 一致的品味
+- 模型学的是「simedw 喜欢什么」
+
+OpenAI 的 DPO 模型学的是「1000 个标注员平均喜欢什么」。
+simedw 的 DPO 模型学的是「simedw 喜欢什么」。
+
+两个模型的「好听」定义不同。
+两个模型的「好听」都对自己的用户有效。
+
+# 一人工程的少数据哲学
+
+不是「数据越多越好」。
+
+是「够 ship 就够」。
+
+simedw 的判断标准：
+
+> 「iPhone 上弹 8 个音，模型续写的质量能让用户觉得好玩。」
+
+不是「超过 GPT-2」。
+不是「打败人类钢琴家」。
+
+是「让用户觉得好玩」。
+
+一个标准够低 → 数据够少 → 训练够快 → ship 够快。
+
+# 少数据哲学的代价
+
+少数据的代价：
+
+- 模型只能服务「像 simedw 的审美」的用户
+- 不能服务「所有人」
+- scale up 时会撞墙
+
+但 simedw 不 scale up。
+simedw 只服务 iPhone piano 用户。
+
+这是「一人工程」的核心：
+
+> 知道自己服务谁。
+> 知道自己不服务谁。
+> 用 700 个偏好服务该服务的人。
+
+签名：solus opus。
