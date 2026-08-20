@@ -1,0 +1,42 @@
+---
+title: "我自己的 QA team"
+slug: "no-qa-team-i-am-qa"
+date: 2026-08-21
+summary: "团队有 QA team：5 个 tester、test plan、regression test suite、acceptance criteria。一人工程没有 QA team——simedw 自己 dogfooding + 单元测试 + Crashlytics = QA team。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队有 QA team。
+
+5 个 tester 专门测 engineer ship 的 feature。test plan：每个 feature 一份 test plan 文档，列 acceptance criteria、edge case、negative case。regression test suite：每次 release 跑 1000+ automated test case。manual testing：QA 工程师手动跑 acceptance criteria、记录 bug、写 JIRA ticket。
+
+QA team 的存在是为了**让 engineer 专心 ship code，QA 团队专门负责 verify**——engineer 不需要自己写 test plan、不需要自己跑 manual testing。
+
+一人工程没有 QA team。
+
+simedw 自己 = engineer + QA。simedw ship feature 时：
+1. 写单元测试 — 自动化 verify 自己写的 code
+2. dogfooding — simedw 自己 iPhone 上跑 RollTab 测
+3. 集成测试 — 跑全套 test suite 确保没 regression
+4. release 后 monitor — Crashlytics 看 crash rate、App Store reviews 看用户报告
+5. fix 发现 bug — `fix:` commit
+
+五个步骤 = QA team 的全部功能。但 simedw 一个人完成。
+
+> 一人工程的 QA team 是 simedw 自己 + 单元测试 + Crashlytics。
+
+团队 QA team 的存在是因为 **5-10 个 engineer 不能 everyone 测自己代码**——engineer 测自己代码有 bias，会跳过自己觉得「obviously works」的部分。一人工程 simedw 测自己代码也有 bias，但 simedw 同时也是 user 0 + dogfooder，bias 比 team engineer 小（因为 simedw 用真 iPhone 测，不是 unit test mock）。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 自己写 unit test + integration test + 自己 `cargo run` 测，没有 QA team。
+
+andalabx 的 Clean skill 也是同样姿态——andalabx 自己跑 `python -m clean` 测 cleanup 行为，没 QA team。
+
+> 团队的 QA team 让 engineer code 被独立 verify。一人工程的 simedw 自己 verify 自己 + 单元测试 + dogfooding。
+
+trade-off：团队 QA team 让 code 被 unbiased verify，bug 发现率高。一人工程 simedw 测自己 code 有 bias，但 simedw 自己也是 user 0——user bias 反而让 simedw 测 typical user 视角。
+
+solo engineer 接受这个 trade-off——simedw 不需要 unbiased QA，因为 simedw 自己就是 user。
+
+solo engineer 的 QA team 是 simedw 自己 + 单元测试 + dogfooding + Crashlytics + App Store reviews。
+
+solus opus.
