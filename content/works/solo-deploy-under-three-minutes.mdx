@@ -1,0 +1,29 @@
+---
+title: "solo deploy under three minutes"
+slug: "solo-deploy-under-three-minutes"
+date: 2026-08-21
+summary: "一人工程从 git push 到 vercel.app 200 的时间窗常常不到三分钟——没有 staging canary production 的阶梯，没有 feature flag，没有 on-call。一条直线到生产。"
+cover: "/works/2026-08-21/apple-after-noon.jpg"
+---
+
+`git push origin main` 后我开始计时。
+
+Vercel dashboard 弹一条「Deploying...」。冷启动 build 一般 30 秒到 1 分半钟。`vercel.json` 配错的话会卡在 build step，超过三分钟就是另一个故事了。但正常情况下，按下回车、倒杯水、回到屏幕，`exception-studio.vercel.app/works/...` 已经 200。
+
+三分钟。
+
+团队开发从 commit 到 production 可见的时间窗不是这样：commit 触发 CI → CI 跑 unit test + integration test → Slack 弹窗 → code review queue 等 reviewer → 合并按钮被点亮 → staging deploy → QA sign-off → production deploy 钩子触发 → feature flag 渐进 rollout → 用户可见。每个环节都是小时到天的单位。
+
+一人工程没有这些环节。commit 之后唯一等待的是 build server 跑完。
+
+simedw 推 RollTab 到 App Store 不是三分钟——App Store 审核要 11 天（他第一次提交等了 11 天）。但 *engineering 内部* 的代码 commit 到 Core ML 部署到 iOS device 上跑起来，对 simedw 来说也是一条直线：xcodebuild → archive → upload → TestFlight → 装机。中间没有「merge 冲突由 reviewer 解决」也没有「QA 在 staging 复测」。
+
+> 一人工程的 deploy 没有 staging canary production 阶梯。只有 production。
+
+风险是直线承担的：错就错给所有用户。404 时刻直接面向用户。feature 不 work 的瞬间所有人都看到。但速度是真的——三分钟是 Vercel 一人工程的标准时钟单位，不是团队开发的「周五下午 release window」。
+
+simedw 跑 DPO 训练也是同样姿态：12 分钟跑完 700 preference examples，半天的预训练从头到尾没人签字。这 12 分钟不是 SRE 排期的 SLA，是 simedw 自己的 GPU 时间。`nvidia-smi` 跑满 96% 时，simedw 在 4 × RTX 4090 旁边，等 12 分钟——这个等待是 solo deploy 的另一面：所有等待都是自己等的。
+
+三分钟的 vercel deploy 是上线。三十分钟的 xcodebuild 是装机。十二分钟的 DPO 是训练。这些时钟单位串起来就是一人工程的全部节奏——比团队开发快一个数量级，也比团队开发脆弱一个数量级。
+
+solus opus.
