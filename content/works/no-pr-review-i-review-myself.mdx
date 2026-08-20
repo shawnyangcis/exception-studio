@@ -1,0 +1,288 @@
+---
+title: "PR review 不必要：自己 review 自己"
+slug: "no-pr-review-i-review-myself"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "pr-review", "code-review", "hn-show"]
+description: "大公司做 PR review：2-3 个 reviewer approve 才能 merge + GitHub PR + GitLab MR + reviewer assignment + CODEOWNERS + CI check。一人工程：没有 PR，自己 commit。"
+summary: "solo engineer 没有 PR review。simedw 一个人 iPhone app——他写代码，他自己 review，他自己 merge（直接 commit）。PR review 是大公司代码质量工具，一人工程的自己 = reviewer。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 PR review。
+
+大公司做 PR review：
+
+- **GitHub PR / GitLab MR**：feature branch → main branch
+- **2-3 个 reviewer approve**：code owner + 1-2 个同事
+- **CODEOWNERS**：指定哪些文件必须被特定人 review
+- **CI check**：PR 触发 CI（unit test / lint / type check）
+- **branch protection**：main branch 必须 PR + review 才能 merge
+- **review checklist**：每个 reviewer 检查 security / perf / readability / test coverage
+
+一人工程做 PR review：
+- 没有 PR
+- 没有 reviewer
+- 没有 CODEOWNERS
+- 没有 CI
+- 没有 branch protection
+
+## simedw 的 PR review 哲学
+
+simedw 是 iPhone piano app。他没有 PR review：
+
+- **simedw 写代码**：PyTorch 125M 模型 + Core ML INT8 + iOS app
+- **simedw 自己 review**：写代码时自己 review（一边写一边想）
+- **simedw 直接 commit**：main branch 直接 commit
+- **simedw 直接 push**：push 到 origin/main 触发 Vercel 部署
+- **simedw 自己 merge**：自己 = main branch
+
+不需要 PR review，因为：
+- simedw 写代码时已经 review（自己一边写一边 review）
+- simedw 测试时已经 review（跑测试 = review）
+- simedw commit 时已经 review（commit message = 自己的 review）
+
+## 一人工程的 PR 工具
+
+- **git diff**：自己看自己的 diff（= 自己 review）
+- **git status**：自己看 working tree 状态
+- **git commit message**：写清楚改动（= reviewer comments）
+- **git log**：看历史 commit（= 历史 review）
+
+不需要 GitHub PR，因为：
+- 开发者就是唯一一个 reviewer
+- 开发者就是唯一一个 author
+- 不需要 PR = branch + merge
+
+## PR review 在大公司的政治
+
+PR review 不是工具——是**代码质量工具 + 知识传播工具**：
+
+- **code owner**：要 PR review 确保 file ownership
+- **同事**：要 PR review 学新代码
+- **security**：要 PR review 找 security 漏洞
+- **performance**：要 PR review 找 performance 问题
+- **mentor**：要 PR review 教 junior 工程师
+- **compliance**：要 PR review 确保 license + GDPR 合规
+
+每个 stakeholder 都要 PR review：
+
+- code owner review = "我的代码有人 review"
+- 同事 review = "我学到新代码"
+- security review = "我们没引入漏洞"
+- performance review = "我们没引入慢代码"
+- mentor review = "junior 学到东西"
+- compliance review = "license + GDPR 没问题"
+
+没有 PR review = 没有代码质量 = 没有知识传播。
+
+一人工程没有 stakeholder：
+- 开发者 = code owner = 同事 = security = performance = mentor = compliance
+- 一个人 review
+- 不需要 PR
+
+## reviewer 在大公司的必要性
+
+大公司有 reviewer——专门 review PR 的人：
+
+- **code owner review**：特定文件必须被特定人 review
+- **2-3 个 reviewer**：多人 approve 才能 merge
+- **GitHub auto-assign**：基于 CODEOWNERS 自动分配 reviewer
+- **review SLA**：每个 reviewer 24 小时内必须 review
+
+每个 reviewer：
+
+- 1 个 PR 平均 review 30 分钟
+- 1 天 review 5-10 个 PR
+- 1 周 review 25-50 个 PR
+
+一人工程没有 reviewer。一人工程有：
+
+- **自己 review**：simedw 写代码时自己 review
+- **自己 approve**：simedw commit = approve
+- **自己 SLA**：自己决定什么时候 commit
+
+不需要 GitHub auto-assign。
+
+## CODEOWNERS 在大公司的细节
+
+大公司有 CODEOWNERS——指定哪些文件必须被特定人 review：
+
+- **/models/**：@ml-team 所有人必须 review
+- **/security/**：@security-team lead 必须 review
+- **/billing/**：@finance-team 必须 review
+- **/api/**：@api-team 必须 review
+
+每个 CODEOWNERS rule：
+
+- GitHub 自动分配 reviewer
+- 必须 2-3 个 approve 才能 merge
+- PR 自动加 label
+
+一人工程没有 CODEOWNERS。一人工程有：
+
+- **simedw 自己决定哪些文件重要**：模型 / Core ML / iOS app 都重要
+- **simedw 自己 review 重要文件**：写完自己 review
+- **不需要自动分配**：自己就是 reviewer
+
+## CI check 在大公司的必要性
+
+大公司有 CI check——PR 触发 CI（unit test / lint / type check）：
+
+- **unit test**：每个 PR 跑 1000 个 unit test
+- **lint**：每个 PR 跑 ESLint / Prettier / Pylint
+- **type check**：每个 PR 跑 TypeScript / mypy
+- **build**：每个 PR 编译（确保 build 通过）
+
+每个 CI check：
+
+- 5-15 分钟跑完
+- 必须 pass 才能 merge
+- CI 失败 = PR 拒绝
+
+一人工程没有 CI check。一人工程有：
+
+- **本地 unit test**：simedw 跑 test 验证
+- **本地 lint**：simedw 用 IDE lint
+- **本地 type check**：simedw 用 mypy
+- **本地 build**：simedw 用 Xcode build iPhone app
+
+不需要 GitHub Actions CI，因为 simedw 本地 CI 够了。
+
+## branch protection 在大公司的必要性
+
+大公司有 branch protection——main branch 必须 PR + review 才能 merge：
+
+- **main branch protected**：不能直接 push
+- **feature branch → PR → review → merge main**：流程
+- **Squash merge / rebase merge**：保持 main branch 干净
+- **Delete feature branch**：merge 后删除
+
+每个 branch protection：
+
+- 防止 main branch 直接 push
+- 强制 PR review
+- 强制 CI check
+
+一人工程没有 branch protection。一人工程有：
+
+- **直接 push main**：simedw 直接 commit + push main
+- **不需要 feature branch**：simedw 自己 = feature branch
+- **不需要 squash merge**：simedw commit message 简洁
+- **不需要 delete branch**：simedw 没有 feature branch
+
+不需要 GitHub branch protection。
+
+## review checklist 在大公司的细节
+
+大公司 PR review 有 checklist——每个 reviewer 检查：
+
+- **security**：SQL injection / XSS / CSRF / 加密
+- **performance**：N+1 query / 内存泄漏 / O(n²) 算法
+- **readability**：variable naming / function length / comment 清晰
+- **test coverage**：新代码有 test / edge case 测试
+- **API design**：RESTful / consistent naming / version compat
+- **documentation**：README / docstring / CHANGELOG
+
+每个 reviewer 按 checklist 检查。
+
+一人工程没有 review checklist。一人工程有：
+
+- **自己 security review**：simedw 写代码时想 security（iOS sandbox + Core ML sandbox）
+- **自己 performance review**：simedw 写代码时想 performance（Core ML INT8 + 125M）
+- **自己 readability review**：simedw 自己看代码可读性
+- **自己 test coverage**：simedw 写 test（如果需要）
+- **自己 API design**：simedw 自己设计 API
+- **自己 documentation**：simedw 写 commit message
+
+不需要 checklist，因为 simedw 自己 = checklist。
+
+## 知识传播在大公司的细节
+
+PR review 是大公司知识传播的重要方式：
+
+- **junior 学 senior 的代码**：review 时学新 pattern
+- **senior 学 junior 的代码**：review 时发现新思路
+- **跨团队 review**：学其他团队的代码
+- **mentor 教 junior**：review 时直接教学
+
+没有 PR review = 没有知识传播 = 团队水平停滞。
+
+一人工程没有知识传播问题：
+- simedw 自己 = 知识
+- 不需要学别人代码（如果学 = 看 HN / 读 paper）
+- 不需要教别人代码（如果教 = 写 commit message + GitHub release notes）
+
+知识传播在一人工程里 = **HN + paper + 自我反思**。
+
+## 一人工程的 PR 哲学
+
+大公司 PR review 是因为他们有：
+
+- 100 个工程师（互相 review）
+- 10 个 code owner（必须 review）
+- 1 个 security team（专门 review）
+- 1 个 performance team（专门 review）
+- 5 个 mentor（教 junior）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 code owner（自己就是 code owner）
+- 0 个 security team（自己就是 security）
+- 0 个 performance team（自己就是 performance）
+- 0 个 mentor（自己就是 mentor）
+
+PR review 在一人工程里 = **写代码时自己 review**。
+
+## 我就是 reviewer
+
+大公司 PR review 是**多角色参与的**：
+
+- 2-3 个 reviewer approve
+- CI check pass
+- code owner approve
+- security / performance / compliance review
+
+一人工程 PR review 是**一个人做的**：
+
+- simedw 写代码时自己 review
+- simedw commit message 写清楚
+- simedw 直接 push main
+- simedw 自己 deploy
+
+没有 reviewer，没有 CI，没有 code owner，没有 security review。
+
+## 公开 vs 私有 PR review
+
+大公司 PR review 是**公开 + 团队内部**：
+
+- GitHub PR 公开（公司内部）
+- review comment 公开（团队）
+- review history 公开（公司内部）
+
+一人工程 PR review 是**公开 + 自己的反思**：
+
+- commit message 公开（GitHub 公开）
+- git log 公开（GitHub 公开）
+- 不需要 review comment（自己看）
+
+simedw 的代码 review 在 GitHub commit message + README 里，不需要 GitHub PR。
+
+## 一人工程 + 自己 review 自己
+
+simedw 不做 PR review。
+simedw 不做 reviewer。
+simedw 不做 CODEOWNERS。
+simedw 不做 CI。
+simedw 写代码时自己 review。
+simedw 直接 commit + push。
+
+PR review 在一人工程里不是流程，是**写代码时自己 review**。
+
+---
+
+solo engineer 没有 PR review。
+solo engineer 的 PR review = 写代码时自己 review 自己。
+
+solus opus.
