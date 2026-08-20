@@ -1,0 +1,89 @@
+---
+title: "每四分音符 24 步"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的 timing 量化选择：每四分音符 24 步。看自己训练数据集 timing 分布后选了这个分辨率。够 8 分 / 三连音 / \"almost but not quite on the beat\"。"
+tags: ["一人工程", "MIDI", "timing", "量化"]
+---
+
+# 每四分音符 24 步
+
+> simedw 的 timing 量化选择：
+> 24 steps per quarter note。
+> 看自己训练数据集 timing 分布后选了这个分辨率。
+
+timing 量化是 MIDI 表征的核心选择：
+
+- 太粗：丢失节奏细节
+- 太细：vocabulary 太大
+
+simedw 的选择：24 steps per quarter note。
+
+# 为什么是 24
+
+24 = 8 分音符 × 3 = 三连音 4 分音符 × 2
+
+具体：
+
+- 8 分音符 = 12 步
+- 16 分音符 = 6 步
+- 三连音 8 分 = 8 步
+- 三连音 16 分 = 4 步
+- 「差不多但不在 beat 上」= 任意步数
+
+12 步的 8 分音符能精确表达。
+三连音 8 分的 8 步也能精确表达。
+这就是 24 选的「刚刚够」。
+
+# 一人工程的视角
+
+simedw 不是从教科书选的。
+他看自己训练数据集的 timing 分布后选的：
+
+> 「也看了一下训练数据集里的 timing 分布才决定。」
+
+不是 480 PPQ（MIDI 标准）。
+不是 96 PPQ。
+是 24 steps per quarter note。
+
+# 24 vs 96 vs 480
+
+MIDI 标准：
+
+- 480 PPQ（pro tools 默认）
+- 96 PPQ（很多 MIDI 编辑器）
+- 24 PPQ（simedw 的选择）
+
+vocabulary 大小：
+
+- 96 PPQ：delta 词汇量 ~96
+- 24 PPQ：delta 词汇量 ~24 + 几个特殊值
+
+simedw 的 vocabulary：
+
+> delta : 0...48 steps, plus 72, 96, 144, 192
+
+实际使用 0-48 步，加几个常用特殊值。
+总共 ~55 个 delta 词汇。
+
+比 96 PPQ 小一半。
+vocabulary 小 = 训练快 + 部署轻 + 推理快。
+
+# 一人工程的细节
+
+不是「用 MIDI 标准」。
+是「看自己数据集后选适合自己的」。
+
+simedw 的 24：
+
+- 不来自教科书
+- 不来自 Pro Tools
+- 来自自己训练数据集的 timing 分布
+
+这是「一人工程」的姿态：
+
+> 自己看自己数据。
+> 自己选自己表征。
+> 不被标准绑架。
+
+签名：solus opus。
