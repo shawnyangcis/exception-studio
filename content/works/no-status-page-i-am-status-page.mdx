@@ -1,0 +1,37 @@
+---
+title: "我自己就是 status page"
+slug: "no-status-page-i-am-status-page"
+date: 2026-08-21
+summary: "团队 incident 时更新 statuspage.com ——investigation / identified / monitoring / resolved 四个阶段，订户邮件 + Slack webhook。一人工程没有 status page——simedw 不用通知任何用户，crash 只影响他自己。solo engineer 的 status page 是他自己，commit message 是 update。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+凌晨两点，simedw 的 RollTab crash。
+
+团队处理流程：oncall 工程师 → Slack #incident channel → update statuspage.com 「investigating」→ investigation 完成 update 「identified」→ mitigation 开始 update 「monitoring」→ fix 完毕 update 「resolved」。整个过程 4 个 status 切换 + 邮件通知所有订户 + Slack webhook 推送 + post-incident timeline 永久可见于 statuspage.com/incidents/{id}。
+
+订户体验：半小时内收到 4 封邮件 + Slack 通知，知道现在状态是什么、什么时候修好、是否影响自己。
+
+一人工程没有 status page。
+
+simedw 的 RollTab crash 了——只有 simedw 自己的手机响。simedw 醒来、看 Crashlytics、修代码、`fix: crash on rapid section switch`、commit、push、回床上。整个过程没有 statuspage 更新、没有邮件通知、没有 Slack 频道。
+
+为什么不需要？因为 RollTab 没有付费订户——crash 不影响任何外部用户。simedw 自己就是唯一用户，自己就是 status page 的唯一读者。
+
+> 一人工程的 status page 是 simedw 自己。
+
+团队 status page 的存在是为了**让外部用户知道服务状态**——不更新 status page 会让用户猜测、抱怨、流失。一人工程没有外部用户——simedw 自己知道服务状态，因为他是工程师 + 用户。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——Ullis crash 时没有任何 status page 更新，因为 Ullis 的用户在 vladislav 自己的 terminal 里跑，看 stderr 就知道状态。vladislav 不需要为「用户」更新 status page。
+
+andalabx 释放 Clean 5.3 GB 中断，andalabx 看自己的终端输出，自己 retry，不需要通知任何外部用户。
+
+> 团队的 status page 是 to users。一人工程的 status page 是 to self。
+
+这件事的 trade-off：团队 incident 期间用户被透明告知，体验受保护。一人工程没有 incident 透明度——如果 simedw 不 commit 修复，外部观察者根本不知道 RollTab 状态。
+
+但 simedw 接受这个 trade-off——因为他不需要外部观察者。
+
+solo engineer 的 status page 是 `git log` + 他自己的 git push notification。`fix:` commit 是 status page update。`feat:` commit 是新 feature deployment notification。
+
+solus opus.
