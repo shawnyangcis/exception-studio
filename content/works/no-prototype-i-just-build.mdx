@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 prototype，我直接 build"
+slug: no-prototype-i-just-build
+date: 2026-08-21
+description: "团队有 prototype / throwaway code / PoC / 可抛弃 demo / 探索性项目。solo engineer 没有 prototype，我想 build 就 build production code、没用就 git revert。"
+tags: ["一人工程", "prototype", "solo", "engineering"]
+---
+
+团队有 prototype。
+
+Throwaway code：先写一个能跑的 demo，看 idea 可不可行。PoC（Proof of Concept）：证明某个 idea 技术上可行。Demo：给 stakeholder 看的东西。探索性项目：notebook / scratch repo。
+
+每个新 feature 先写 prototype → 评审 → 决定是否 build production → 写 production code。1 周 prototype + 2 周 production = 3 周。
+
+solo engineer 没有 prototype。
+
+我直接 build。
+
+我想写 production code 就写 production code。如果发现 idea 不 work、`git revert`，commit 历史就是 prototype 失败记录。如果发现 idea work、commit 即 production code。
+
+我没 throwaway code 的必要——commit 即 prototype。我没 PoC 的必要——我不需要证明给 stakeholder 看。我没 demo 的必要——Vercel 自动部署、commit log 就是 demo。我没探索性项目的必要——所有实验在 main 分支做。
+
+团队的 prototype 价值是「降低 idea 失败的代价 + 早期可见」。前提是改动大、需要 buy-in、需要 alignment。solo engineer 没这个问题——我的改动只影响我自己、出问题 `git revert`、production code = 第一版代码。
+
+一人工程的 prototype = `git revert`。不是 1 周 throwaway。
+
+---
