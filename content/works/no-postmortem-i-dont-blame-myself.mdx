@@ -1,0 +1,268 @@
+---
+title: "Postmortem 不必要：不 blame 自己"
+slug: "no-postmortem-i-dont-blame-myself"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "postmortem", "blameless", "hn-show"]
+description: "大公司做 postmortem：blame culture / blameless postmortem + retrospective + timeline + lessons learned + action items。一人工程：没有 postmortem，不 blame 自己。"
+summary: "solo engineer 没有 postmortem。simedw 一个人 iPhone app——bug 发生他自己 fix，不需要 blameless retrospective，他不 blame 自己也不 blame 别人。postmortem 是大公司责任文化工具，一人工程的 fix = postmortem。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 postmortem。
+
+大公司做 postmortem：
+
+- **incident 触发**：P0/P1 incident
+- **blame culture / blameless postmortem**：blame 文化（找替罪羊）vs blameless 文化（系统问题，不是人问题）
+- **timeline**：详细时间线（incident 发生 → 发现 → 升级 → 缓解 → 修复 → 关闭）
+- **lessons learned**：3-5 个 lessons learned
+- **action items**：5-10 个 action items（每个 owner + deadline）
+- **follow-up**：3 个月后检查 action items
+- **公开**：内部公开（公司 wiki / Confluence）
+
+一人工程做 postmortem：
+- 没有 blame culture
+- 没有 blameless postmortem
+- 没有 timeline
+- 没有 lessons learned
+- 没有 action items
+
+## simedw 的 postmortem 哲学
+
+simedw 是 iPhone piano app。他没有 postmortem：
+
+- **bug 发生时 simedw 自己 fix**：simedw 不 blame 自己也不 blame 别人
+- **simedw 不需要 blameless retrospective**：simedw 写代码时知道 root cause，不需要 retrospective 找替罪羊
+- **simedw 不需要 timeline**：simedw 写代码时知道每个时间点
+- **simedw 不需要 lessons learned**：simedw 写代码时已经在学
+- **simedw 不需要 action items**：simedw 自己 fix 就是 action
+
+simedw 的"postmortem"在 commit message + git log 里：
+
+- commit message 写 root cause + fix
+- git log 记录所有 bug fix
+- 不需要 separate postmortem doc
+
+不需要 blame culture，因为 simedw = 唯一的工程师，blame 自己 = blame 项目 = 无意义。
+
+## 一人工程的 postmortem 工具
+
+- **commit message**：root cause + fix
+- **git log**：bug fix 历史
+- **App Store 评论**：用户反馈 bug
+- **Crashlytics**：自动收集 crash 数据
+- **脑子**：simedw 写代码时已经反思
+
+不需要 postmortem doc，因为：
+- simedw 自己 = postmortem author
+- simedw 自己 = postmortem reviewer
+- simedw 自己 = action item owner
+
+## blame culture vs blameless postmortem
+
+大公司 postmortem 演变：
+
+- **1990s-2000s**：blame culture（找替罪羊，谁出错解雇谁）
+- **2010s**：blameless postmortem（系统问题，不是人问题，Google SRE 推广）
+- **2020s**：blameless 普及（Etsy / Slack / Netflix 都 blameless）
+
+blameless 哲学：
+
+- bug 是系统问题（code / process / tool）
+- bug 不是人问题（engineer 是系统的产物）
+- action items 是系统改进，不是个人改进
+
+一人工程没有 blame culture vs blameless debate：
+
+- simedw 自己 = 唯一的 engineer
+- simedw 写代码时知道每个 why
+- simedw 不 blame 自己（如果 blame 自己 = 抑郁）
+- simedw 不 blame 别人（没有别人）
+
+blameless postmortem 在一人工程里 = **默认**。
+
+## timeline 在大公司的细节
+
+大公司 timeline——incident 详细时间线：
+
+- **T+0**：incident 发生
+- **T+2min**：监控报警触发
+- **T+5min**：oncall 工程师 ACK
+- **T+15min**：incident commander 接管
+- **T+30min**：找到 root cause
+- **T+45min**：mitigation 部署
+- **T+1h**：完全修复
+- **T+2h**：incident 关闭
+- **T+24h**：postmortem doc 发布
+
+每个 timeline：
+
+- 精确到分钟
+- 10-20 个时间点
+- 每个时间点 = 1 个 action
+
+一人工程没有 timeline。一人工程有：
+
+- **simedw 的 commit 时间戳**：bug fix 时间 = mitigation 时间
+- **simedw 的 Crashlytics 时间戳**：bug 发现时间 = incident 发生时间
+- **simedw 不需要 10-20 个时间点**：simedw 写代码时知道每个时间点
+
+## lessons learned 在大公司的细节
+
+大公司 lessons learned——incident 后 3-5 个 lessons learned：
+
+- **lesson 1**：监控要加 P0 报警（之前只有 P1）
+- **lesson 2**：schema migration 必须 review
+- **lesson 3**：incident response training 必须每年
+- **lesson 4**：oncall 工程师不能连续值夜班
+- **lesson 5**：customer communication template 必须更新
+
+每个 lesson：
+
+- 1-2 句话
+- 抽象出可学习的原则
+- 不针对个人
+
+一人工程没有 lessons learned。一人工程有：
+
+- **simedw 写代码时已经在学**：simedw 改完 bug 就知道下次怎么避免
+- **simedw 不需要 separate lessons learned doc**：simedw 写代码时 = lessons learned
+- **simedw 不需要 1-2 句话抽象**：simedw 写代码时已经知道具体怎么做
+
+## action items 在大公司的细节
+
+大公司 action items——incident 后 5-10 个 action items：
+
+- **action item 1**：所有 schema migration 必须 PR review + CI 检查（owner: VP Eng, deadline: 2 周）
+- **action item 2**：加 P0 报警（owner: SRE, deadline: 1 周）
+- **action item 3**：incident response 培训（owner: HR, deadline: 3 个月）
+- **action item 4**：customer communication template 更新（owner: PM, deadline: 2 周）
+- **action item 5**：oncall rotation 改进（owner: VP Eng, deadline: 1 个月）
+
+每个 action item：
+
+- owner（具体人）
+- deadline（具体日期）
+- follow-up（3 个月后检查）
+
+一人工程没有 action items。一人工程有：
+
+- **simedw 自己决定 fix 后的下一步**：simedw 改完 bug 就知道下一步
+- **simedw 不需要 owner**：simedw 自己 = owner
+- **simedw 不需要 deadline**：simedw 自己决定何时
+
+## follow-up 在大公司的细节
+
+大公司 follow-up——3 个月后检查 action items：
+
+- **action item 1 完成了吗？** 是 / 否
+- **action item 2 完成了吗？** 是 / 否
+- **未完成的 action item**：再给 3 个月
+
+每个 follow-up：
+
+- 1 小时 meeting
+- 5-10 个 action items
+- 每个 action item 状态（done / in progress / not started）
+
+一人工程没有 follow-up。一人工程有：
+
+- **simedw 自己 follow-up**：simedw 改完 bug 后自己 follow-up 下次怎么避免
+- **simedw 不需要 meeting**：simedw 自己 = meeting
+- **simedw 不需要 3 个月 deadline**：simedw 自己决定何时
+
+## postmortem 公开 vs 私有
+
+大公司 postmortem 公开程度：
+
+- **内部公开**：公司 wiki / Confluence / Notion
+- **跨团队公开**：incident 影响多个团队 → 跨团队 review
+- **半公开**：incident 影响客户 → 发 blog post
+- **公开**：大公司 incident（如 AWS S3 outage）→ 发 public RCA
+
+一人工程 postmortem 公开程度：
+
+- **公开**：simedw 的 commit message + git log 公开（GitHub 公开）
+- **跨平台**：HN 评论公开（HN 公开）
+- **半公开**：App Store 评论公开（App Store 公开）
+- **公开**：所有 bug fix + root cause 都公开
+
+simedw 的 postmortem 通过 commit message + git log + HN 评论 + App Store 评论**完全公开**。
+
+## incident 等级在大公司的细节
+
+大公司 incident 等级：
+
+- **P0**：production down，所有用户受影响（7×24 oncall, 5 分钟 ACK, 30 分钟 mitigation）
+- **P1**：major feature down，大部分用户受影响（7×24 oncall, 15 分钟 ACK, 2 小时 mitigation）
+- **P2**：minor feature down，少部分用户受影响（工作时间, 1 小时 ACK, 1 天 mitigation）
+- **P3**：cosmetic bug，几乎不影响用户（下个 sprint 修）
+
+每个 incident 等级：
+
+- 不同 SLA
+- 不同 stakeholder 通知
+- 不同 postmortem 深度
+
+一人工程没有 incident 等级。一人工程有：
+
+- **simedw 决定 bug 等级**：simedw 自己知道哪些 bug critical 哪些 minor
+- **simedw 不需要 SLA**：simedw 没有 SLA 承诺
+- **simedw 不需要 stakeholder 通知**：simedw 自己 = stakeholder
+
+## 一人工程的 postmortem 哲学
+
+大公司 postmortem 是因为他们有：
+
+- 100 个工程师（需要 blameless 防止互相 blame）
+- 10 个 SRE（需要协调 incident response）
+- 5 个 VP（需要跨团队 review）
+- 1 个 CTO（需要决定 budget）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 SRE（自己就是 SRE）
+- 0 个 VP（自己就是 VP）
+- 0 个 CTO（自己就是 CTO）
+
+postmortem 在一人工程里 = **simedw 改 bug**。
+
+## 我就是 postmortem
+
+大公司 postmortem 是**多角色协作的**：
+
+- incident commander 协调
+- SRE 写 timeline
+- 5 个工程师 review
+- VP 决定 budget
+- HR 决定培训
+
+一人工程 postmortem 是**一个人做的**：
+
+- simedw 自己协调（看 Crashlytics）
+- simedw 自己写 timeline（commit 时间戳）
+- simedw 自己 review（写代码时 review）
+- simedw 自己决定 budget（自己花钱）
+- simedw 自己决定培训（自己看 paper）
+
+没有 incident commander，没有 SRE，没有 VP，没有 HR。
+
+## 一人工程 + 不 blame 自己
+
+simedw 不做 blame culture。
+simedw 不做 blameless postmortem。
+simedw 不做 timeline。
+simedw 不做 lessons learned。
+simedw 不做 action items。
+simedw 改 bug。
+
+postmortem 在一人工程里不是流程，是**simedw 改 bug + 写 commit message**。
+
+---
+
+solo engineer 没有 postmortem。
+solo engineer 的 postmortem = 改 bug + 写 commit message。
+
+solus opus.
