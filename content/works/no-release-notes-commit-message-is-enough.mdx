@@ -1,0 +1,264 @@
+---
+title: "Release notes 不必要：commit message 就够了"
+slug: "no-release-notes-commit-message-is-enough"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "release-notes", "changelog", "hn-show"]
+description: "大公司做 release notes：changelog / what's new / version diff / migration guide + PM 写 + 法务审 + 翻译 20 种语言。一人工程：commit message + App Store release notes = release notes。"
+summary: "solo engineer 没有 release notes。simedw 一个人 iPhone app——commit message 就是 changelog，App Store release notes 就是 what's new。release notes 是大公司协调 + 法律工具，一人工程的 commit + App Store description = release notes。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 release notes。
+
+大公司做 release notes：
+
+- **changelog**（`CHANGELOG.md` 按版本列所有改动）
+- **what's new**（App Store / Play Store / 网页的"What's New"部分）
+- **version diff**（v1.2 vs v1.1 的 API diff）
+- **migration guide**（v1 → v2 怎么迁移）
+- **deprecation notice**（哪些 API 在下版本移除）
+
+每条 release notes：
+
+- PM 写
+- 工程团队 review
+- 法务审（合规 / GDPR / 数据使用）
+- 翻译 20 种语言
+- 发版前 1 周开始准备
+
+一人工程做 release notes：
+- 没有 changelog
+- 没有 what's new（除了 App Store 强制填的）
+- 没有 migration guide
+- 没有 deprecation notice
+
+## simedw 的 release 哲学
+
+simedw 是 iPhone piano app。他的 release notes：
+
+- **App Store release notes**：苹果强制填，最多 4000 字符
+  - "新版本支持 top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换"
+- **commit message**：本地 git log
+  - "exp 2: compound note events → 5× speedup"
+  - "exp 3: DPO → preference optimization"
+- **GitHub Releases**：可选，不强制
+- **HN 帖子**：simedw 在 HN show 上自描述 progress
+
+没有 PM 写 release notes，simedw 自己写。
+
+## 一人工程的 release 工具
+
+- **commit message**：本地 git log
+- **App Store release notes**：苹果强制字段，自己写
+- **GitHub Releases**：可选，自己决定
+- **README 更新**：可选
+- **HN / Twitter 公告**：可选
+
+不需要 changelog.md，因为：
+- 开发者就是唯一一个 maintainer
+- commit message 已经详细记录每次改动
+- 不需要专门文档给团队对齐
+
+## release notes 在大公司的政治
+
+release notes 不是工具——是**协调工具 + 法律工具**：
+
+- PM：要把 user-facing feature 写进 release notes 让客户看到
+- 工程：要把 breaking change 写进 migration guide 让客户迁移
+- 法务：要把 data usage change 写进 release notes 让用户同意
+- 销售：要把 enterprise feature 写进 release notes 卖给客户
+- 客户支持：要知道哪些 bug 修了告诉客户
+- 翻译：要把 release notes 翻译 20 种语言
+
+每个 stakeholder 都要 release notes：
+
+- PM release notes = "客户看到新 feature"
+- 工程 release notes = "客户看到 breaking change"
+- 法务 release notes = "客户看到 data usage 改变"
+- 销售 release notes = "客户看到 enterprise feature"
+- 客户支持 release notes = "客服知道 bug 修复"
+- 翻译 release notes = "全球客户看到"
+
+没有 release notes = 没有对齐 = 10 个团队撞车。
+
+一人工程没有 stakeholder：
+- 开发者 = PM = 工程 = 法务 = 销售 = 客户支持 = 翻译
+- 一个人对齐
+- 不需要 release notes
+
+## changelog 在大公司的必要性
+
+大公司有 changelog——按版本列所有改动：
+
+- **v1.2.0**：
+  - Added: feature A, feature B
+  - Changed: behavior C, behavior D
+  - Deprecated: API E
+  - Removed: API F
+  - Fixed: bug G, bug H
+  - Security: CVE-2024-XXXX
+- **v1.1.0**：...
+- **v1.0.0**：...
+
+每个 changelog 由 release manager 维护，每次发版前整理。
+
+一人工程没有 changelog。一人工程有：
+
+- **git log**：所有 commit 列表
+- **git tag**：版本号（v1.0.0 / v1.1.0）
+- **git diff**：版本之间的代码改动
+
+`git log v1.0.0..v1.1.0` 就是 changelog。
+
+## migration guide 在大公司的必要性
+
+大公司有 migration guide——v1 → v2 怎么迁移：
+
+- **API 改动**：哪些 endpoint 改了
+- **数据迁移**：哪些 schema 改了
+- **行为变化**：哪些 default 改了
+- **deprecation timeline**：哪些 API 在 v3 移除
+
+每个 migration guide 由 developer advocate 写，PM review，工程 review。
+
+一人工程没有 migration guide。一人工程有：
+
+- **breaking commit**：commit message 自己写清楚
+- **README 更新**：breaking change 在 README 标注
+- **GitHub issue**：用户问 migration 怎么搞，simedw 自己答
+
+不需要 migration guide，因为：
+- 用户数量小（100-1000 个）
+- simedw 直接回答每个用户的 migration 问题
+- breaking change 少（每 6 个月一次大版本）
+
+## commit message 作为 changelog
+
+大公司 changelog 是**人类写的**：
+
+- PM 整理 100 个 commit
+- 分类（Added / Changed / Deprecated / Removed / Fixed / Security）
+- 翻译
+- 发版
+
+一人工程 changelog 是**git 生成的**：
+
+- `git log v1.0.0..v1.1.0` = 100 个 commit message
+- 每个 commit message 自己写
+- 不需要整理（git 已经按时间排序）
+- 不需要分类（commit message 已经够详细）
+
+commit message 作为 changelog 的好处：
+
+- **不会丢失**：每个 commit message 都在 git history
+- **自动生成**：`git log` 直接看
+- **可追溯**：从 changelog 可以找到具体 commit
+- **跨版本**：`git log v1.0.0..HEAD` 看所有未发版的 commit
+
+坏处：
+
+- **不 user-friendly**：用户不喜欢看 commit message
+- **不分类**：用户不想看 fix + feat + docs 混在一起
+- **不翻译**：commit message 是英文
+
+但一人工程用户少 + simedw 直接回答 + 简单 release = 坏处不是问题。
+
+## App Store release notes 作为 what's new
+
+苹果 App Store 强制每个版本填 release notes：
+
+- 最多 4000 字符
+- 显示在 App Store 更新页面
+- 用户更新前必看
+
+simedw 的 App Store release notes：
+
+- "新版本支持 top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换"
+- "新模型 DPO 训练，continuation 接 prompt 接续度更高"
+- "新增 64M 量化模型，更省内存"
+
+不需要 PM 写，不需要翻译（英文即可），不需要法务审（苹果自己审）。
+
+App Store release notes = 大公司 changelog 的**最小子集**——只有 user-facing feature。
+
+## 一人工程的 release 哲学
+
+大公司 release notes 是因为他们有：
+
+- 100 万用户（要详细 changelog 让用户了解）
+- 10 个 PM（要整理 release notes）
+- 5 个法务（要审 data usage change）
+- 10 个翻译（要翻译 20 种语言）
+- 1 个 release manager（要协调发版）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（commit message 够了）
+- 0 个 PM（自己就是 PM）
+- 0 个法务（如果出问题自己承担）
+- 0 个翻译（英文即可）
+- 0 个 release manager（自己就是 release manager）
+
+release notes 在一人工程里 = **commit message + App Store description**。
+
+## 我就是 release notes
+
+大公司 release notes 是**多角色协作的**：
+
+- 10 个 PM 写
+- 5 个法务审
+- 10 个翻译译
+- 1 个 release manager 协调
+
+一人工程 release notes 是**一个人写的**：
+
+- simedw 自己写 App Store release notes
+- simedw 自己写 commit message
+- simedw 自己发 GitHub release（可选）
+- simedw 自己发 HN 公告
+
+没有协调，没有审，没有翻译。
+
+## 公开 vs 私有 release notes
+
+大公司 release notes 是**公开 + 法务审过**：
+
+- changelog.md 公开在 GitHub
+- what's new 公开在 App Store
+- 法务审过才能发（GDPR / CCPA 合规）
+
+一人工程 release notes 是**公开 + 自己审**：
+
+- App Store release notes 公开（苹果强制）
+- commit message 公开（GitHub 公开）
+- GitHub release 公开（可选）
+- 自己审，不等法务
+
+simedw 的 release 流程：
+
+- 写代码
+- 写 commit message
+- 提交
+- 写 App Store release notes
+- 提交 App Store
+- 等苹果审核（11 天）
+
+不需要 1 周 release notes 准备。
+
+## 一人工程 + commit message = release notes
+
+simedw 不做 changelog.md。
+simedw 不做 migration guide。
+simedw 不做 deprecation notice。
+simedw 写 commit message。
+simedw 写 App Store release notes。
+
+release notes 在一人工程里不是文档，是**commit message + 苹果字段**。
+
+---
+
+solo engineer 没有 release notes。
+solo engineer 的 release notes = commit message + App Store description。
+
+solus opus.
