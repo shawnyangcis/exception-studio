@@ -1,0 +1,39 @@
+---
+title: "App Store 上线就是 canary"
+slug: "no-canary-deploy-app-store-is-canary"
+date: 2026-08-21
+summary: "团队发新版用 canary 部署——5% 流量到 v2、95% 到 v1、观察 metrics、逐步 increase。一人工程没有 canary——simedw 直接 ship App Store 全量，App Store 1-3 天 review 期是天然 canary。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队发新版用 canary 部署。
+
+canary 流程：ship v2 code 到 production、5% 流量路由到 v2、95% 到 v1。observe 5% v2 的 latency、error rate、conversion metric 30 分钟。如果 metric 改善 → increase 到 25% → 50% → 100%。如果 metric regression → rollback v2 流量到 0%。
+
+canary 的存在是为了**让 ship 风险分批承担**——5% 流量出错只影响 5% 用户，比 100% 流量出错损失小。一人工程没有 canary。
+
+simedw ship 新版 RollTab 直接 App Store 全量——v1.4 提交、review、release、所有用户立刻看到。如果发现 crash → App Store emergency release + git revert。ship 风险集中在 release 那一刻。
+
+但 App Store 有一个天然的 canary 期：review 1-3 天。
+
+App Store review 期间（提交到 release 之间 1-3 天）：simedw 的 v1.4 binary 在 App Store review team 的 sandbox 跑——苹果 QA 团队用各种设备、iOS 版本、网络条件测 simedw 的 binary。如果 review 期间发现 crash → review 拒绝、simedw 修代码、re-submit。如果 review 通过 → release、全量用户收到。
+
+> 一人工程的 canary 是 App Store review 1-3 天，不是 5% 流量灰度。
+
+团队 canary 的 5% 灰度是**给 production 用户的 canary**——5% production 用户当 guinea pig。一人工程 App Store review 是**给苹果 QA 团队的 canary**——苹果 sandbox 当 guinea pig。
+
+simedw 不让生产用户当 guinea pig——苹果 QA 团队当 guinea pig 更安全。
+
+vladislav-kalinkin 的 Ullis 也有 canary——`cargo publish` 后 crates.io index build 30 分钟是天然 canary。如果 build 失败 → crates.io 自动拒绝 publish、vladislav 修。
+
+andalabx 的 Clean skill 也有 canary——GitHub release 后 5 分钟 download 自动化 pipeline 跑，如果 SHA256 mismatch → 自动 revert。
+
+> 团队的 canary 让 5% production 用户做 risk buffer。一人工程的 App Store review 让苹果 QA 团队做 risk buffer。
+
+trade-off：团队 canary 让 ship 速度可控（5% → 100% 阶梯式），但 canary infrastructure 成本高（load balancer 配置、metrics dashboard、rollback script）。一人工程 App Store review 让 ship 速度不可控（1-3 天 review 不可加速），但 review 0 成本（苹果承担）。
+
+solo engineer 接受这个 trade-off——simedw 不需要 canary infrastructure，因为 App Store review 0 成本。
+
+solo engineer 的 canary 是 App Store review 1-3 天。review 通过 = canary success。review 拒绝 = canary fail、simedw 修代码。
+
+solus opus.
