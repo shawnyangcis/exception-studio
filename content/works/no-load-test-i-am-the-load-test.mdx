@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 load test，我自己就是 load test"
+slug: no-load-test-i-am-the-load-test
+date: 2026-08-21
+description: "团队有 load test / JMeter / Locust / k6 / Artillery / stress test / spike test / soak test / 性能基线。solo engineer 没有 load test，我自己开浏览器看、自己 ping、自己感受。"
+tags: ["一人工程", "load-test", "solo", "performance"]
+---
+
+团队有 load test。
+
+JMeter、Locust、k6、Artillery、Gatling、wrk、ab、vegeta。模拟 N 个并发用户、定义 ramp-up、持续 N 分钟、收集 P99 latency、错误率、throughput。
+
+stress test：超过正常流量看断点；spike test：瞬间流量峰值；soak test：长时间低流量看 memory leak。performance baseline：建立性能基线，每次 release 对比回归。
+
+solo engineer 没有 load test。
+
+我自己就是 load test。
+
+我开浏览器看——首屏加载 0.8 秒还是 2.3 秒？我开多个 tab 同时刷新——服务器挂没挂？我用 `curl` + `time` 命令——API 响应时间多少毫秒？我用 Vercel analytics——访问量、独立访客、来源 URL。
+
+我没 JMeter 的必要——访问量 1000 的站点，JMeter 模拟 1 万并发没意义。我没 stress test 的必要——我的站点没人来压。我没 soak test 的必要——memory leak 我睡一晚上看访问量有没有掉。
+
+团队的 load test 价值是「提前发现性能问题」。前提是流量大、需要 SLA、需要 capacity planning。solo engineer 没这个问题——我的访问量 1000，挂了我自己知道。
+
+一人工程的 load test = 我开浏览器 + `curl -w '%{time_total}\n'`。不是 100 页 k6 脚本。
+
+---
