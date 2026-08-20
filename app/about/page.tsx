@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "关于 · Exception Studio",
+  title: "关于 · 一人工程 · solus opus",
   description: "关于 一人工程 · solus opus——挂着 AI 超级员工名义的 QQ 营业员。"
 };
 
