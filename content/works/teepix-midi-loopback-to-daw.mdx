@@ -1,0 +1,220 @@
+---
+title: "Tepix 的 MIDI 闭环"
+date: "2026-08-21"
+kind: "essay"
+summary: "HN 评论 Tepix 提出功能请求：把 AI 生成的音频通过 MIDI 发回 DAW，不要只走 iPhone 喇叭。simedw 已想。这是「一人工程的 MIDI 闭环」哲学——iPhone 输入 → 模型 → MIDI 输出 → Logic Pro / Ableton。"
+tags: ["一人工程", "Tepix", "MIDI", "DAW"]
+---
+
+# Tepix 的 MIDI 闭环
+
+> HN 评论 Tepix：
+> 「功能请求——把 AI 生成的音频通过 MIDI 发回去，而不是只通过 iPhone 喇叭。」
+> simedw：「已想。」
+
+Tepix 提了一个功能请求。
+simedw 回应了。
+
+请求很简单：
+
+- iPhone app 现在只把 AI 续写输出到 iPhone 喇叭
+- 用户希望 AI 续写能输出 MIDI 信号
+- MIDI 信号能进 Logic Pro / Ableton / FL Studio
+- 进入专业音乐工作流
+
+simedw 回应「已想」。
+意思是他知道这个功能。
+还没做。
+
+# 当前 iPhone app 是单向的
+
+simedw 当前 RollTab 的流程：
+
+1. 用户弹 iPhone → MIDI input
+2. iPhone 收集 8 个音
+3. Core ML 跑 125M transformer
+4. 模型输出 next note
+5. iPhone 触发 MIDI playback
+6. iPhone 喇叭出声
+
+这是「输入 → 处理 → 输出」的单向流。
+
+输入端：iPhone 麦克风 / MIDI 键盘。
+输出端：iPhone 喇叭。
+
+整个流程闭环在 iPhone 里。
+
+# Tepix 想要的 MIDI 闭环
+
+Tepix 想要的流程：
+
+1. 用户弹 iPhone → MIDI input
+2. iPhone 收集 8 个音
+3. Core ML 跑 125M transformer
+4. 模型输出 next note
+5. **iPhone 通过 MIDI 发给 DAW**
+6. **DAW 接收 MIDI → 触发乐器音源 → 录音**
+
+这是「输入 → 处理 → 跨设备输出」的闭环。
+
+输入端：iPhone 麦克风 / MIDI 键盘。
+处理端：iPhone Core ML。
+输出端：Mac 上的 Logic Pro / Ableton / FL Studio。
+
+# MIDI 闭环的价值
+
+MIDI 闭环的价值：
+
+- AI 续写能进专业工作流
+- 用户能在 Logic Pro 里编辑
+- 用户能用任意乐器音色
+- 用户能多轨叠加
+- 用户能录音导出
+
+iPhone 喇叭的价值：
+
+- 听感测试
+- 即兴玩
+
+trade-off：
+
+- iPhone 喇叭：即时 + 简单
+- MIDI 闭环：复杂 + 专业
+
+# simedw 为什么「已想」
+
+simedw 已想但没做的原因（猜）：
+
+- 第一版先 ship 最小版本（iPhone 喇叭）
+- MIDI 输出是 iOS 的 Network MIDI / Virtual MIDI API
+- 需要 Mac 端配置 IAC driver
+- 用户操作门槛高
+- 不适合所有用户
+
+最小可行产品（MVP）的策略：
+
+- v1：iPhone 喇叭 ← shipped
+- v2：MIDI 输出（专业版）← 想做
+
+simedw 走 MVP 路径。
+
+# OpenAI 不会做 MIDI 闭环
+
+OpenAI 的 Jukebox / MuseNet 不会做 MIDI 闭环：
+
+- 没有硬件入口
+- 不会有专业 DAW 集成
+- 不会做专业音乐工作流
+
+OpenAI 的音乐产品：
+
+- 网页端
+- 听感
+- 不专业
+
+simedw 的 RollTab：
+
+- iOS app
+- 实时
+- 专业
+
+# 一人工程的 MIDI 哲学
+
+simedw 一个人 + Core ML + MIDI = iPhone app。
+Tepix 想要 MIDI 闭环 = iPhone + Core ML + MIDI + DAW = 跨设备工作流。
+
+跨设备工作流是「一人工程的版本控制」：
+
+- v1：单人设备
+- v2：双人设备（iPhone + Mac）
+- v3：多人协作（多人 + 多个 Mac）
+
+# MIDI 闭环的工程
+
+MIDI 闭环的工程：
+
+- iPhone 输出 MIDI 用 Core MIDI Network Session
+- Mac 输入 MIDI 用 IAC Driver
+- DAW 接收 MIDI 通道 1-16
+- 触发任意 VST / AU 乐器
+
+这是 iOS 开发者做过的标准事。
+不是新发明。
+但需要 simedw 在 iPhone app 里加一段。
+
+代码量：
+
+- iPhone 端：~100 行 Swift
+- Mac 端：用户自己配置
+- 总成本：1-2 天开发 + 测试
+
+# 一人工程的 MIDI 哲学
+
+simedw 的 MIDI 哲学：
+
+- iPhone 不只是 AI 玩具
+- 是专业音乐创作的入口
+- 应该能进 Logic Pro
+- 应该能进 Ableton
+- 应该能进任何 DAW
+
+MIDI 是音乐行业的「通用语言」。
+
+- iPhone 输出 MIDI
+- Mac 输入 MIDI
+- DAW 处理 MIDI
+
+iPhone + Mac + DAW = AI 音乐工作流。
+
+# Tepix 的远见
+
+Tepix 这个功能请求的远见：
+
+- 不只是「AI 续写」
+- 是「AI 进入专业工作流」
+
+普通用户用 iPhone 喇叭够了。
+专业用户要 MIDI 闭环。
+
+Tepix 是专业用户。
+simedw 也是专业用户。
+两个人都想要 MIDI 闭环。
+
+# simedw 的下一步
+
+simedw 「已想」 = 「在做」之前的中间状态。
+
+「已想」的意思：
+
+- 我知道这个功能
+- 我会做
+- 但不是现在
+- 现在先把基础功能做稳
+
+MVP 哲学：
+
+- v1 ship（iPhone 喇叭）
+- v2 加 MIDI 输出
+- v3 加 DAW integration
+
+一步一步来。
+
+# 一人工程的版本控制
+
+simedw 的版本控制：
+
+- v1 = iPhone 喇叭（已 ship）
+- v2 = MIDI 输出（Apple 审核中）
+- v3 = MIDI 闭环（想）
+- v4 = 多设备协作（远景）
+
+OpenAI 的版本控制：
+
+- v1 = 网页
+- v2 = API
+- v3 = iOS app
+- v4 = ???
+
+两个版本控制哲学。
+
+签名：solus opus。
