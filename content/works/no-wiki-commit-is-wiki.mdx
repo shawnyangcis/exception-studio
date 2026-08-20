@@ -1,0 +1,52 @@
+---
+title: "commit 是 wiki 的最小单元"
+slug: "no-wiki-commit-is-wiki"
+date: 2026-08-21
+summary: "团队有 Confluence wiki：onboarding、architecture、API reference、runbook、glossary。一人工程没有 wiki——所有信息在 commit message + code comments + diff history 里。git log 是 solo engineer 的 wiki，commit 是 page，diff 是 content。"
+cover: "/works/2026-08-21/macbook-figure-sitting-dusk.jpg"
+---
+
+团队 onboarding 新工程师时，wiki 是必需品。
+
+Confluence / Notion / GitHub Wiki / Docusaurus —— 团队有 onboarding page（怎么跑 dev environment）、architecture diagram（microservice 怎么连）、API reference（endpoint 怎么调）、runbook（incident 怎么处理）、glossary（abbreviation 什么意思）、FAQ。
+
+新人 onboarding 第一周是「读 wiki」：3 天读完 50 页 Confluence，2 天问 senior 工程师问题。新人产出的速度取决于 wiki 质量。
+
+一人工程没有 wiki。
+
+simedw 的 RollTab 没有 onboarding page（他不需要招募新工程师）、没有 architecture diagram（架构在 diff 里）、没有 API reference（iOS app 只有一个用户——simedw 自己）、没有 runbook（incident response 是 commit message）。
+
+> 一人工程的 wiki 不在 Confluence，在 git log。
+
+`git log --oneline content/rolltab/` 是 simedw 的 RollTab wiki：
+
+```
+a3f8b91c feat: add bar/measure token
+2c53bba5 feat: implement planning step (CoT)
+0436b9f5 feat: parallel continuation UI
+71018b30 fix: Vercel cache miss
+1cfa3ff4 docs: update README with bar/measure token example
+5b81b67e feat: compound note events
+ed43c382 fix: crash on rapid section switch
+```
+
+每一行 commit 是 wiki 的一个 page：
+- page title = commit message
+- page content = commit diff
+- page author = simedw
+- page history = 永远只有一个 author
+- page link = 上一个 commit → 下一个 commit
+
+新功能「bar/measure token」在哪一页？在 commit a3f8b91c 的 diff 里。要理解为什么 bar/measure token 在这个时间点引入？看上一个 commit ed43c382 的 crash report——是因为某个 crash 触发了 simedw 重新评估 rhythmic anchors。
+
+> 团队的 wiki 是树状的——page 之间有 hyperlink。一人工程的 wiki 是线性的——commit 之间有 git parent。
+
+wiki 的页与页之间通过 hyperlink 跳转。git log 的 commit 与 commit 之间通过 parent SHA 链接。形式不同，但都是「page 到 page」的导航。
+
+团队的 wiki 有 search bar、tag、category、folder 结构。git log 有 `git grep`、`git log --grep`、`git log --author`。形式不同，但都是 query。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——架构决策在 `git log uls-core/` 的 commit message 里，没有外部 architecture diagram。andalabx 的 Clean 没有 wiki——所有 agent skill 文档在 commit message 和 README.md（README 是 wiki 的第一个 page，也是唯一一个）。
+
+solo engineer 的 wiki 是一个 commit chain。`git log` 是 search bar，`git show` 是 page view，`git blame` 是 page edit history。
+
+solus opus.
