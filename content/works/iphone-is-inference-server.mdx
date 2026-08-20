@@ -1,0 +1,35 @@
+---
+title: "iPhone 就是 inference server"
+slug: "iphone-is-inference-server"
+date: 2026-08-21
+summary: "团队 ML 用 GPU cluster 跑 inference，latency 是 network round-trip + GPU queue。simedw 把 125M transformer 部署到 iPhone Core ML，latency 是 process spawn + Core ML forward pass。一人工程接受 iPhone 算力物理上限，把它变成产品特性。"
+cover: "/works/2026-08-21/apple-iphone-midnight-music.jpg"
+---
+
+simedw 的 RollTab 跑在 iPhone 上。
+
+不是云端 GPU cluster、不是 AWS inference endpoint、不是内部 ML serving platform——是用户口袋里的 ARM CPU + Apple Neural Engine。一个 125M transformer 部署到 Core ML，每次用户按键时 forward pass 跑 200 毫秒，生成下一个 MIDI 续写。
+
+团队的 ML infra 不是这样。
+
+团队的 ML serving：模型上传到 S3 → inference server 加载模型到 GPU → 用户通过 REST API call → GPU forward pass → 返回结果。latency 是 network round-trip + GPU 调度队列 + forward pass 时间。99% 的延迟都不是 forward pass 本身——是 network + queue + serialization。
+
+simedw 的 RollTab：iPhone 用户按键 → Core ML 加载模型（一次性，10ms） → forward pass（200ms） → 返回 MIDI 字节流。**latency 全是 forward pass 本身**。没有 network round-trip、没有 GPU 调度、没有 REST 序列化。模型在用户口袋里跑。
+
+> 一人工程的 inference server = 用户自己的设备。
+
+这意味着什么？意味着 simedw 接受了 iPhone 算力的物理上限——108 notes/sec 是 iPhone 上 transformer 的 throughput 上限，simedw 不可能跑出这个上限。团队 ML engineer 可以加 GPU、加 batch size、加 TensorRT 优化。simedw 只能加表征优化：compound note events 把 sequence length 砍掉 60%，5× speedup 来自这里，不是 inference 优化。
+
+iPhone 算力的上限是 ARM CPU 的物理上限、是 Core ML 不暴露 Q/K/V 的 API 上限、是 ANE 只能跑特定算子的 kernel 上限。simedw 接受这些限制，然后问：「在这个限制下，钢琴续写能不能做到实时？」
+
+答案是能。
+
+这是 solo engineer 的核心 trade-off：**没有 cluster 的奢侈**。simedw 没法买 A100、没法申请 H100 quota、没法跑 distributed inference。他只有用户的 iPhone。在这个硬件上能跑出什么，他就 ship 什么。
+
+> 一人工程接受 platform 限制，把它变成产品特性。
+
+团队 ML 的产品特性是「我们用 H100 跑 inference」——marketing deck 上写满了 GPU type 和 batch size。simedw 的产品特性是「on-device、offline、无网络、无云端」——这是 iPhone 算力限制倒逼出来的设计哲学。
+
+iPhone 不是 inference server 的降级版——它是 solo engineer 的 inference server 全部形态。
+
+solus opus.
