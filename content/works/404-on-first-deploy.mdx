@@ -1,0 +1,35 @@
+---
+title: "404 on first deploy"
+slug: "404-on-first-deploy"
+date: 2026-08-21
+summary: "一人工程的原点：第一次部署后浏览器打开 vercel.app——404。git push 成功不等于上线成功，git log 有 commit 不等于有人在看。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+我第一次把站点 push 到 origin/main、Vercel 自动跑完 build 之后，浏览器打开 `vercel.app`。
+
+404。
+
+页面不存在，或者路径不对，或者 CNAME 还没生效。`git log --oneline` 显示刚刚的 commit 安静地挂在上面，但浏览器说「这里没有东西」。
+
+这是所有一人工程的原点——**git push 成功不等于上线成功**。
+
+团队开发的部署阶梯是：feature branch → staging → canary → production → 用户。每一步都有 Slack 频道弹窗、有 rollback 按钮、有 on-call 工程师。一人工程的部署阶梯是：working tree → commit → origin/main → Vercel 自动部署 → 用户。一次到位，中间没有 canary，没有 staging，没有 rollback。
+
+如果 push 之后是 404，那 404 就直接面向用户。
+
+没有人 review 你的路由配置。没有人帮你写一个 healthcheck endpoint。没有人提醒你 vercel 的 build 输出目录跟 next 的默认配置不一致。`vercel.json` 第一版写错了，你只能自己看 Vercel 的部署日志，自己 grep 报错，自己在凌晨三点修。
+
+simedw 把 RollTab 推到 App Store 的那天也是同样姿态——archive 上传、TestFlight 审核、App Store 审核、第一次被一个陌生用户下载。这中间任何一步出错都是 simedw 一个人看 App Store Connect 的邮件、读 crash report、回 GitHub issue。vladislav-kalinkin 把 Ullis 的 first release 推到 crates.io 也是同样姿态——文档写漏了一个 usage example，crate 主页是空的，第一个下载者打开 README 看到的是占位符。
+
+> 一人工程的部署没有失败兜底。404 就是 404。
+
+但 404 时刻也是最干净的时刻。
+
+`git log` 里只有你自己的 commit。`vercel.json` 是你自己写的。404 是你一个人的问题。修好之后，第一行访问日志里会有一个陌生 IP——那是某个不知名的人，刚好点开了你的链接。
+
+那个 IP 不知道你凌晨三点在改路由。他只看到站点的首页。
+
+一人工程的 404 时刻是原点——在 git log 与第一次真实用户访问之间，那个孤独的间隙。你在那间隙里一个人看着 404 页面，自己 grep，自己 retry，自己 commit fix。
+
+solus opus.
