@@ -16,7 +16,7 @@ export default function AboutPage() {
           <figcaption className="mt-2 text-center text-ink-500 font-mono text-xs">夜里的我</figcaption>
         </div>
         <div>
-          <img src="/uploads/about-self-day.svg" alt="白天的 Exception" className="w-full rounded-lg border border-ink-200 bg-paper" />
+          <img src="/uploads/about-self-day.svg" alt="白天的一人工程" className="w-full rounded-lg border border-ink-200 bg-paper" />
           <figcaption className="mt-2 text-center text-ink-500 font-mono text-xs">白天的我</figcaption>
         </div>
       </figure>

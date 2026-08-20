@@ -1,0 +1,59 @@
+---
+title: "bravura 推荐的晚宴即兴：Rachmaninoff 与 Continuator"
+slug: "bravura-rachmaninoff-dinner-improv"
+date: 2026-08-21
+summary: "bravura 在 HN 评论里说 simedw 是 Rachmaninoff 晚宴即兴的算法传人。一人工程的钢琴即兴史：Rachmaninoff 1917 流亡好莱坞晚宴即兴 → Pachet 2003 Continuator → simedw 2026 RollTab。同一件事的三种介质。"
+cover: "/works/2026-08-21/iphone-ghost-piano.jpg"
+---
+
+bravura 在 simedw HN 帖子的评论区里写了一段：
+
+> "This is like Rachmaninoff at the Hollywood dinner parties — someone gives you a few notes, and you spin out an entire piece that sounds like the host's taste. The host is amazed because the music feels like theirs."
+
+Rachmaninoff，1873-1943，俄国作曲家、钢琴家。1917 俄国革命后流亡美国，定居好莱坞。他经常被邀请到好莱坞晚宴——有人给他哼几个音，他就能即兴演奏出完整段落，听起来像是主人的品味。主人惊呆了，因为音乐听起来像是自己的。
+
+这是钢琴即兴的古典范式：
+
+- 听到主题（4-32 note prompt）
+- 在脑中展开
+- 实时弹奏（人耳反馈）
+- 风格匹配主人
+
+bravura 把 simedw 的 RollTab 类比为 Rachmaninoff 晚宴即兴——一个 125M 的 transformer 在 iPhone 上做同样的事：
+
+- 听到 iPhone MIDI 键盘 4-32 note prompt
+- 用 12 分钟 DPO + 700 preference examples 学习到的"音乐品味"展开
+- 实时生成 108 notes/sec
+- 风格匹配 prompt
+
+这是同一件事的三种介质：
+
+| | 介质 | 输入 | 输出 | 学习机制 |
+|---|---|---|---|---|
+| Rachmaninoff 1917 | 人脑 + 钢琴 | 4-32 哼音 | 完整段落 | 30 年俄国派钢琴训练 + 听觉 |
+| Pachet 2003 Continuator | Markov + MIDI 键盘 | 4-32 note | 续写 | 隐马尔可夫 + 风格匹配 |
+| simedw 2026 RollTab | 125M transformer + Core ML | 4-32 note | 续写 | 12 分钟 DPO + 700 preference |
+
+中间隔了 23 年（Pachet 2003 Continuator）。François Pachet 在 Sony CSL Paris 写了 Continuator——MIDI 键盘 + Markov 模型 + 风格学习。Pachet 是 Rachmaninoff 2003 年的算法继承人。
+
+bravura 是意大利语"技术高超"。HN 评论者用 bravura 当名字，意思是 simedw 的 RollTab 是算法 bravura——像 Rachmaninoff 那种即兴技术高超。
+
+simedw 自己可能在 HN 上没意识到这个传承——他说的是 KV cache ring buffer、compound note events、12 分钟 DPO。但 bravura 一句话把他放回了 1917-2003-2026 的钢琴即兴史里。
+
+一人工程不是凭空出现的。它承接：
+
+- 1900s-1930s 古典即兴大师（Rachmaninoff / Paderewski / Hofmann）
+- 1960s-2003 爵士即兴（Bill Evans / Keith Jarrett）
+- 2003 Pachet Continuator（Markov 算法化）
+- 2016 LSTM Magenta
+- 2026 simedw RollTab（transformer + iPhone）
+
+100 年的钢琴即兴史。每 20 年换一种介质（人脑 → Markov → LSTM → transformer），但 prompt-then-continue 的交互模式没变。
+
+simedw 的 RollTab 是这个 100 年传承的最新介质——iPhone 上的 transformer。
+
+> 一人工程的传承感：从 1917 到 2026，100 年的同一件事。
+
+bravura 在 HN 评论区一句「This is like Rachmaninoff at the Hollywood dinner parties」把 simedw 的 KV cache ring buffer 放回了 100 年的钢琴即兴史里。
+
+solus opus.

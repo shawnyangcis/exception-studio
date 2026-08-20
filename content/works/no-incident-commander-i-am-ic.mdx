@@ -1,0 +1,39 @@
+---
+title: "我是 IC of one"
+slug: "no-incident-commander-i-am-ic"
+date: 2026-08-21
+summary: "Google SRE book 定义 incident commander 角色：拉 Slack #incident、协调 oncall、SME、communications lead、做 tactical decision。一人工程没有 IC——simedw 自己同时是 engineer + IC + comms lead，决策时间 = 醒来到 fix 完的时间。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+凌晨三点 Vercel 报警。
+
+Google SRE book 的 incident commander 流程：PagerDuty 触发 oncall engineer → oncall 拉 #incident Slack channel → 任命 IC（incident commander）→ IC 任命 comms lead → IC 任命 operations lead → IC 任命 SME subject matter expert → IC 协调 mitigation → IC 决策 tactical choice（mitigate first 还是 root cause first）→ mitigation 完成 → postmortem。
+
+IC 的核心职责：**让别人专心工作**。oncall engineer 专心修代码，SME 专心 debug root cause，comms lead 专心更新 statuspage，IC 协调 + 决策。
+
+一人工程没有 IC。
+
+simedw 醒来到 fix 完的全过程 = IC + oncall engineer + SME + comms lead 四个角色同时跑：
+- IC 决策：「先 fix cache miss 再追 root cause」——simedw 脑子里想
+- oncall engineer 修代码：「`git commit -m 'fix: vercel cache miss'`」——simedw 键盘敲
+- SME debug root cause：grep Vercel 日志找 cold start 原因——simedw 眼睛看
+- comms lead update statuspage：没有 statuspage，所以 simedw 不用做
+
+四个角色的工作量在 simedw 一个人身上完成。决策时间 = 醒来到 fix 完的时间（典型 5-15 分钟）。
+
+> 一人工程的 IC 是 simedw 自己，IC of one。
+
+团队 IC 流程的工时成本：拉 Slack channel 5 分钟 + 任命 + 协调 5-15 分钟 + mitigation 30 分钟 + comms lead 5 分钟 + postmortem 30 分钟 = 1-2 小时/incident。一人工程没有这个工时成本——simedw 直接 fix。
+
+vladislav-kalinkin 的 Ullis 有过几次版本回滚事件，vladislav 自己 = IC + oncall + SME，没有 Slack channel、没有 comms lead。fix 完 git log 就是 postmortem。
+
+andalabx 释放 Clean 5.3 GB 中断，andalabx 自己 retry、自己 verify SHA256、自己通知 GitHub sponsors = IC + oncall + comms lead 三合一。
+
+> 团队的 IC 让别人专心工作。一人工程没有别人，所以没有 IC 角色。
+
+这件事的 trade-off：团队 IC 流程让 incident response 速度稳定（每次 1-2 小时），但协调工时是固定开销。一人工程 IC 流程让 response 速度**极快**（5-15 分钟），但 simedw 一个人承担全部压力——没有 backup IC、没有 escalation 路径、没有休息。
+
+solo engineer 接受这个 trade-off。fix 完睡觉，simedw 就是自己的 IC。
+
+solus opus.
