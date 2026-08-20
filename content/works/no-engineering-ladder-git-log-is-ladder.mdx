@@ -1,0 +1,31 @@
+---
+title: "git log 就是 ladder"
+slug: "no-engineering-ladder-git-log-is-ladder"
+date: 2026-08-21
+summary: "团队有 junior → mid → senior → staff → principal engineering ladder，每年两次 promotion cycle，calibration committee，promotion packet。一人工程没有 ladder——simedw 不会「升 senior」，他的 ladder 是 git log 的 commit count。"
+cover: "/works/2026-08-21/macbook-figure-sitting-dusk.jpg"
+---
+
+团队的 engineering ladder 是这样：
+
+L3 → L4 → L5 → L6 → L7。每个 level 配 salary band、scope of influence、cross-team impact narrative。每年两次 promotion cycle——H1 cycle 七月、H2 cycle 一月。HR system 跳一个窗口，员工提交 promotion packet：过去 6 个月的 impact、cross-team influence、mentorship evidence。calibration committee 开会三天，每个 packet 在 rubric 上打分。promotion 决定发给 manager，manager 跟员工 1:1 沟通。
+
+一人工程没有 ladder。
+
+simedw 不会「升 senior」。他就是 simedw。他不会在 H2 cycle 提交 promotion packet 描述过去 6 个月的 impact。他的 promotion cycle 是 commit cycle：每次 `git push` 是潜在的「升 senior」瞬间——如果那次 commit 揭示了一个 engineer 级别的成长，git log 是唯一见证者。
+
+> 一人工程的 ladder 写在 git log 里，不是 HR system 里。
+
+`git log --author="Simon Edwardsson" --oneline | wc -l` 是一个数字。这个数字每 push 一次 +1。半年时间 simedw 大概几百次 commit。每个 commit 是一个微小的成长决策：`feat: add bar/measure token`、`fix: Vercel cache miss`、`docs: update README`。
+
+团队的 promotion packet 把这些 commit 提炼成「impact narrative」：「过去 6 个月，我主导了 X feature 的设计、与 Y 团队 cross-collaboration、推动 Z metric 提升 N%」。simedw 的 promotion packet 是 git log 本身——不需要提炼，不需要 impact narrative，不需要 rubric 打分。git log 不会撒谎，commit 写下来就是写了。
+
+> 团队把 commit 提炼成 impact narrative。一人工程把 commit 当 ladder。
+
+simedw 在 14 次实验散文里写到的失败（mirostat repeat / born-again networks failed / extra local auxiliary failed）在团队 promotion packet 里会变成「learning experience」段落，被弱化、被遗忘。一人工程里，失败的 commit 永远是 git log 的一部分。`fix: revert born-again networks` 这一行比任何「learning experience」段落都诚实。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——他的 ladder 是 crates.io 上 Ullis 的 release history。0.1 → 0.2 → 0.3，每个版本是他在 Rust + MoE-Kan 上的一次晋升。promotion packet 是 CHANGELOG.md，不是 HR form。
+
+solo engineer 的 ladder 是 release history，不是职位等级。
+
+solus opus.
