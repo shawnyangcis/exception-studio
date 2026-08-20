@@ -1,0 +1,39 @@
+---
+title: "git log 就是 error budget"
+slug: "no-error-budget-git-log-is-error-budget"
+date: 2026-08-21
+summary: "团队 error budget 是 SLO violation 后剩多少可用 downtime 的季度计算。一人工程没有 error budget——simedw 自己决定什么时候 ship、什么时候 fix，git log 是他的 error budget。"
+cover: "/works/2026-08-21/macbook-figure-flying.jpg"
+---
+
+团队的 error budget 是 SLO violation 算出来的。
+
+99.9% availability SLO → 季度 error budget = 43.2 分钟 downtime。每 incident 减去 budget，季度末剩多少 budget 决定 ship 节奏——budget < 50% 时 freeze new feature，专注于 reliability。
+
+Google SRE book 详细推导：error budget 是 **availability 的反面**——SLO 99.9% 不是「必须 99.9% 在线」，而是「允许 0.1% 不在线」。error budget 把 reliability 从「无限制追 100%」变成「量化 trade-off」。
+
+一人工程没有 error budget。
+
+simedw 没有 99.9% SLO doc、没有 quarterly error budget 计算、没有 burn rate alert。simedw 自己的 error budget 是 `git log --since="1 month ago" --grep="fix:" | wc -l` —— 一个月内有多少 `fix:` commit 决定 simedw 自己的 error budget：
+
+- 5 个 `fix:` commit = 良好（acceptable）
+- 20 个 `fix:` commit = 紧张（紧张的 simedw = 收紧下次 feature ship）
+- 50 个 `fix:` commit = 危机（simedw 自己 freeze 写新 feature，专心修 bug）
+
+> 一人工程的 error budget 是 simedw 自己的 git log + 自我判断。
+
+团队 error budget 的存在是为了**让 reliability trade-off 量化、跨团队对齐**——SRE、PM、director 看同一个 dashboard 做 ship/reliability 决策。一人工程没有这个跨团队对齐问题——simedw 自己 = SRE + PM + director，决策是 simedw 脑子里的 mental trade-off。
+
+vladislav-kalinkin 的 Ullis 也是同样姿态——vladislav 没有 error budget，git log 是他自己的 reliability budget。
+
+andalabx 释放 Clean 没有 error budget——andalabx 自己 grep clean/ 看 error budget 消耗。
+
+> 团队的 error budget 是数学公式 (1 - SLO) × time。一人工程的 error budget 是 git log --grep="fix:" 的直觉。
+
+这件事的 trade-off：团队 error budget 把 reliability 变成 explicit number，可对照、可追责。一人工程 error budget 是 simedw 自己的 mental model——直觉式、可调整、不可外部观测。
+
+solo engineer 接受这个 trade-off——simedw 不需要外部观测他自己的 reliability。
+
+solo engineer 的 error budget 是 `git log --grep="fix:" | wc -l` + simedw 的判断。
+
+solus opus.
