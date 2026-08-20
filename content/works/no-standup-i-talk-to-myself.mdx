@@ -1,0 +1,268 @@
+---
+title: "Standup 不必要：自己跟自己 talk"
+slug: "no-standup-i-talk-to-myself"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "standup", "scrum", "hn-show"]
+description: "大公司做 daily standup：每天 9:30 早上 15 分钟 + scrum master 协调 + 3 个问题（昨天做什么 / 今天做什么 / blocker）+ zoom 视频。一人工程：没有 standup，自己 talk。"
+summary: "solo engineer 没有 daily standup。simedw 一个人 iPhone app——他决定今天做什么，他昨天做了什么他知道，他没有 blocker（如果有 = 自己解决）。standup 是大公司协调工具，一人工程的脑子 = standup。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 standup。
+
+大公司做 daily standup：
+
+- **每天 9:30 早上 15 分钟**（calendar reminder）
+- **scrum master 协调**（专门协调 standup 的人）
+- **3 个问题**：昨天做什么 / 今天做什么 / blocker
+- **zoom 视频**（远程团队也 standup）
+- **轮流说话**（每人 1-2 分钟）
+- **parking lot**（不能立即解决的问题记下来）
+
+一人工程做 standup：
+- 没有 standup
+- 没有 scrum master
+- 没有 3 个问题
+- 没有 zoom
+
+## simedw 的 standup 哲学
+
+simedw 是 iPhone piano app。他没有 standup：
+
+- **昨天做什么**：simedw 自己知道（git log + 记忆）
+- **今天做什么**：simedw 自己知道（脑子 + 任务清单）
+- **blocker**：simedw 没有 blocker（如果有 = 自己解决或问 HN）
+
+simedw 的"standup" = **晚上睡前想一下明天做什么**：
+
+- 早上起来：做 representation 优化（如果还没做完）
+- 中午：看 Crashlytics + App Store 评论
+- 下午：写代码 + commit
+- 晚上：想明天做什么
+
+不需要 standup，因为 simedw 就是 standup。
+
+## 一人工程的 standup 工具
+
+- **git log**：昨天做了什么
+- **任务清单**：今天做什么（如果有 = 脑子里）
+- **blocker 列表**：如果有 = 自己解决或问 HN
+
+不需要 standup，因为：
+- simedw 自己知道昨天做了什么
+- simedw 自己知道今天做什么
+- simedw 自己解决 blocker
+
+## standup 在大公司的政治
+
+standup 不是工具——是**协调工具 + 监督工具**：
+
+- **scrum master**：要 standup 协调 5-10 个工程师
+- **PM**：要 standup 知道每个工程师进度
+- **CTO**：要 standup 知道整个团队进度
+- **VP**：要 standup 知道项目健康度
+- **同事**：要 standup 知道谁做什么（避免重复劳动）
+- **HR**：要 standup 知道谁遇到 blocker（防止 burnout）
+
+每个 stakeholder 都要 standup：
+
+- scrum master standup = "我协调团队"
+- PM standup = "我知道进度"
+- CTO standup = "我知道团队健康"
+- VP standup = "我知道项目健康"
+- 同事 standup = "我知道谁做什么"
+- HR standup = "我知道谁 burnout"
+
+没有 standup = 没有协调 = 团队各自为战。
+
+一人工程没有 stakeholder：
+- 开发者 = scrum master = PM = CTO = VP = 同事 = HR
+- 一个人协调
+- 不需要 standup
+
+## scrum master 在大公司的必要性
+
+大公司有 scrum master——专门协调 standup 的人：
+
+- **职责**：协调 standup / 移除 blocker / 跟踪 sprint / 协调 sprint planning
+- **人数**：1 个 scrum master / 5-10 个工程师
+- **认证**：Certified ScrumMaster (CSM)
+- **工具**：Jira / Linear / Asana sprint board
+
+每个 scrum master：
+
+- 每天协调 standup（15 分钟 × 5 天 = 75 分钟/周）
+- 每周协调 sprint planning（1-2 小时 × 1 次）
+- 每周协调 retrospective（1 小时 × 1 次）
+- 移除 blocker（1-5 个/天）
+
+一人工程没有 scrum master。一人工程有：
+
+- **自己协调 standup**：simedw 早上想一下今天做什么
+- **自己移除 blocker**：simedw 自己解决
+- **自己跟踪 sprint**：simedw 脑子里的 14 次实验
+- **自己 retrospective**：simedw 看 14 次实验结果
+
+不需要 Jira。
+
+## 3 个问题在大公司的细节
+
+大公司 standup 有 3 个问题：
+
+- **昨天做什么**：每个工程师说（5 分钟 × 5 人 = 25 分钟）
+- **今天做什么**：每个工程师说（5 分钟 × 5 人 = 25 分钟）
+- **blocker**：每个工程师说（5 分钟 × 5 人 = 25 分钟）
+
+总时间：15 分钟（每人 1 分钟）或 75 分钟（每人 5 分钟）。
+
+一人工程没有 3 个问题。一人工程有：
+
+- **昨天做什么**：git log（自动）
+- **今天做什么**：脑子里（不需要说）
+- **blocker**：如果 simedw 有 = 自己解决或问 HN
+
+不需要说，因为 simedw 听自己说话浪费时间。
+
+## zoom standup 在远程团队的特殊性
+
+大公司远程团队也有 standup——zoom 视频：
+
+- **9:30 早上 zoom**：5 个工程师开视频
+- **轮流说话**：每人 1 分钟
+- **mute / unmute**：每个工程师控制
+- **camera on**：鼓励开视频（建立连接）
+
+zoom standup 的问题：
+
+- 时区（5 个工程师跨 3 个时区 = 找共同时间）
+- 网络（视频卡顿）
+- 害羞（不想开视频）
+- 干扰（小孩 / 狗 / 室友）
+
+一人工程没有 zoom standup。一人工程有：
+
+- **不需要协调时区**：simedw 自己决定什么时候工作
+- **不需要视频**：simedw 自己跟自己说话
+- **不需要害羞**：simedw 自己一个人
+- **不需要干扰**：simedw 安排自己时间
+
+zoom standup 在一人工程里 = **零**。
+
+## parking lot 在大公司的细节
+
+大公司 standup 有 parking lot——不能立即解决的问题：
+
+- **parking lot 例子**："API 设计需要跟其他团队对齐" / "需要等设计稿" / "需要 SRE 批准"
+- **parking lot 处理**：sprint 结束后专门处理
+
+每个 parking lot 问题：
+
+- scrum master 跟踪
+- PM 协调
+- 下次 sprint 处理
+
+一人工程没有 parking lot。一人工程有：
+
+- **如果 simedw 有 blocker**：自己解决（写代码 / 搜 Google / 问 HN / GitHub issue）
+- **如果 simedw 不能立即解决**：放下做别的
+- **不需要跟踪**：simedw 脑子里记着
+
+不需要 parking lot，因为 simedw 自己就是 parking lot 跟踪。
+
+## 异步 standup 在远程公司的兴起
+
+大公司远程团队开始用**异步 standup**——Slack 消息代替 zoom：
+
+- **Slack 频道**：#standup
+- **3 个问题**：每个工程师写（不是说出来）
+- **时间**：早上 9:30 前写完
+- **scrum master**：收集 + 整理
+
+异步 standup 的好处：
+
+- 不需要找共同时间
+- 不需要 15 分钟同步
+- 文档化（搜索历史）
+
+异步 standup 的坏处：
+
+- 不是实时（scrum master 看到消息滞后）
+- 缺少 connection（没有视频）
+- 容易被忽略（不是开会）
+
+一人工程不需要异步 standup，因为：
+
+- simedw 不需要 3 个问题（git log 够了）
+- simedw 不需要 slack 频道（脑子里够了）
+- simedw 不需要 scrum master 收集（自己收集）
+
+## 一人工程的 standup 哲学
+
+大公司 standup 是因为他们有：
+
+- 10 个工程师（需要协调）
+- 1 个 scrum master（专门协调）
+- 1 个 PM（要知道进度）
+- 1 个 CTO（要知道健康）
+- 5 个 stakeholder（要知道进度）
+
+一人工程没有这些。一人工程有：
+
+- 0 个工程师（自己就是工程师）
+- 0 个 scrum master（自己就是 scrum master）
+- 0 个 PM（自己就是 PM）
+- 0 个 CTO（自己就是 CTO）
+- 0 个 stakeholder（自己就是 stakeholder）
+
+standup 在一人工程里 = **早上想一下今天做什么**。
+
+## 我就是 standup
+
+大公司 standup 是**多角色参与的**：
+
+- 10 个工程师轮流说
+- 1 个 scrum master 协调
+- 1 个 PM 听进度
+- 1 个 CTO 听健康
+
+一人工程 standup 是**一个人做的**：
+
+- simedw 早上起来想今天做什么
+- simedw 自己说给自己听（如果需要）
+- simedw 自己记录（git commit message / 任务清单）
+
+没有协调，没有听众，没有 3 个问题。
+
+## 公开 vs 私有 standup
+
+大公司 standup 是**半公开 + 强制参与**：
+
+- 团队内部参与（10 个人）
+- 偶尔邀请 stakeholder
+- 必须参加（缺席要通知）
+
+一人工程 standup 是**完全私有 + 自愿**：
+
+- simedw 自己决定
+- simedw 自己参与
+- simedw 自己缺席 = 自己 OK
+
+simedw 的"standup" = **写 commit message 时回顾昨天做什么 + 想今天做什么**。
+
+## 一人工程 + 自己 talk
+
+simedw 不做 standup。
+simedw 不做 scrum master。
+simedw 不做 3 个问题。
+simedw 自己 talk。
+simedw 早上想今天做什么。
+
+standup 在一人工程里不是会议，是**早上想一下**。
+
+---
+
+solo engineer 没有 standup。
+solo engineer 的 standup = 早上想今天做什么。
+
+solus opus.
