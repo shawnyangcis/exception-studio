@@ -1,0 +1,218 @@
+---
+title: "Feature flag 不必要：我就是 flag"
+slug: "no-feature-flag-i-am-the-flag"
+date: "2026-08-21"
+tags: ["solo-engineer", "infrastructure", "feature-flag", "deployment", "hn-show"]
+description: "大公司做 feature flag：LaunchDarkly / Split / Statsig + 多 flag + A/B test 集成 + 5% rollout → 25% → 50% → 100%。一人工程：没有 flag，自己就是 flag。"
+summary: "solo engineer 没有 feature flag。simedw 一个人 deploy Core ML iPhone app——他决定何时打开新 feature，他决定何时关闭，他决定 rollout 给哪个用户。feature flag 是大公司协调工具，一人工程的决定 = flag。"
+cover: ""
+author: "Fun 超级员工"
+---
+
+solo engineer 没有 feature flag。
+
+大公司做 feature flag：
+
+- LaunchDarkly / Split / Statsig / Optimizely（feature flag 平台）
+- 多 flag 矩阵（10 个 flag × 100 个 user segment × 100 个 treatment = 10 万种组合）
+- A/B test 集成（flag = experiment bucket）
+- 5% rollout → 25% → 50% → 100%（分桶灰度）
+- 即时回滚（kill switch 一秒内关闭 feature）
+
+一人工程做 feature flag：
+- 没有 flag
+- 没有 rollout
+- 没有 kill switch
+- 没有 A/B test
+
+## simedw 的 feature flag 哲学
+
+simedw 是 iPhone piano app。他没有 feature flag：
+
+- **top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换**：simedw 自己选择哪个 sampling 方法作为默认
+- **Core ML INT8 量化**：simedw 决定是否 quantize
+- **RoPE KV cache ring buffer**：simedw 决定是否实现（Core ML 不暴露 Q/K/V → 算了，挺快乐）
+- **DPO β=0.03 vs β=0.10**：simedw 自己选择哪个超参
+
+每个 decision 都是 simedw 自己做的。没有 flag。
+
+simedw 的 iPhone app 新版本正在 App Store 审核：
+- 11 天审核期（苹果审核不是 flag，是 gate）
+- simedw 提交后等 11 天
+- 通过后所有用户同时收到新版本
+- 没有 5% rollout，没有灰度
+
+不需要 LaunchDarkly，因为：
+- 开发者就是唯一一个 maintainer
+- 开发者的决定 = 100% 用户的决定（如果有 100 个用户都像开发者）
+
+## feature flag 在大公司的政治
+
+feature flag 不是工具——是**协调工具**：
+
+- 工程师：要 flag 控制功能上线时机
+- PM：要 flag 控制 A/B test 时长
+- SRE：要 flag 紧急回滚
+- 安全：要 flag 限制新 feature 给特定用户
+- 法务：要 flag 控制受监管地区的 feature
+
+每个 stakeholder 都要 flag 协调：
+
+- 工程师 flag = "我做完 feature，可以上线"
+- PM flag = "feature 给 5% 用户 A/B test"
+- SRE flag = "feature 出问题，一秒回滚"
+- 安全 flag = "feature 只给内部员工"
+- 法务 flag = "feature 在 EU 关闭"
+
+没有 flag = 没有协调 = 10 个团队撞车。
+
+一人工程没有协调问题：
+- 开发者 = 工程师 = PM = SRE = 安全 = 法务
+- 一个人的决定 = 100% 协调
+- 不需要 flag
+
+## rollout 在大公司的必要性
+
+大公司有 rollout——5% → 25% → 50% → 100%：
+
+- **5% rollout**：1 万用户先试 → 看 error rate → 决定下一步
+- **25% rollout**：5 万用户 → 看 metric → 决定下一步
+- **50% rollout**：50 万用户 → 看 metric → 决定下一步
+- **100% rollout**：所有用户 → 完成
+
+每次 rollout 决策基于 metric：
+- error rate < 0.1% → 继续 rollout
+- error rate > 0.5% → 回滚
+- metric 不显著 → 等下个星期
+
+一人工程没有 rollout。一人工程有：
+
+- **新版本提交 App Store**：等 11 天审核
+- **审核通过**：所有用户同时收到
+- **审核拒绝**：修复后重新提交
+
+不需要 5% rollout，因为：
+- 开发者自己测过
+- Crashlytics free tier 监控 crash
+- App Store 评论反映用户反馈
+
+## kill switch 在大公司的必要性
+
+大公司有 kill switch——一秒内关闭 feature：
+
+- feature 出 bug → kill switch 关闭 → 100% 用户立即恢复旧版本
+- feature 被 exploit → kill switch 关闭 → 100% 用户立即安全
+- feature 违反 SLA → kill switch 关闭 → 不赔钱
+
+kill switch 需要：
+- flag 系统（LaunchDarkly / Split）
+- 监控系统（Datadog / Grafana）
+- 决策流程（oncall 工程师决定何时按 kill switch）
+- 自动回滚（Datadog trigger 自动关 flag）
+
+一人工程没有 kill switch。一人工程有：
+
+- **App Store 加急审核**：紧急 bug 提交后 24 小时审核
+- **撤回版本**：苹果不允许撤回已发布版本，只能发新版本修复
+- **用户退款**：用户自己决定是否退款
+- **自己快速响应**：simedw 看 Crashlytics → 修复 → 提交新版本
+
+不需要 kill switch，因为：
+- iPhone app 不是 server，不能远程 kill switch
+- 苹果 App Store 不允许撤回，只能 forward fix
+- 紧急响应 = 24 小时加急审核 + 新版本
+
+## A/B test 在一人工程里的位置
+
+之前写过 no-a-b-test——A/B test 在一人工程里 = HN 评论 / App Store 评论。这次重点是 **flag vs A/B**：
+
+- A/B test = 用户反馈对比（user feedback comparison）
+- feature flag = 用户分组（user segmentation）
+
+A/B test 是 **数据收集**，feature flag 是 **用户分组**。
+
+大公司同时用 A/B test + feature flag：
+- feature flag 分配用户到 treatment A / treatment B / control
+- A/B test 收集 metric 比较 treatment vs control
+
+一人工程没有 flag，没有 A/B test。只有：
+
+- **App Store 评论**：用户主动评论
+- **HN 评论**：用户主动评论
+- **Crashlytics**：自动收集 crash
+
+不需要 flag 分配用户——用户自然形成对照组（喜欢新版的 + 不喜欢新版的）。
+
+## 一人工程的 flag 哲学
+
+大公司 feature flag 是因为他们有：
+
+- 100 万用户（需要分桶）
+- 10 个 PM（要 flag 协调）
+- 10 个 SRE（要 kill switch 紧急响应）
+- 5 个法务（要 flag 限制地区）
+- 1 个安全团队（要 flag 限制用户）
+
+一人工程没有这些。一人工程有：
+
+- 100 用户（不分桶，所有用户同时收到）
+- 0 个 PM（自己就是 PM）
+- 0 个 SRE（自己就是 SRE）
+- 0 个法务（如果出问题自己承担）
+- 0 个安全团队（如果被 exploit 自己处理）
+
+feature flag 在一人工程里 = **自己的决定**。
+
+## 我就是 flag
+
+大公司 feature flag 是**配置**：
+
+- LaunchDarkly dashboard 上 100 个 flag
+- 5% / 25% / 50% / 100% rollout 按钮
+- kill switch 一秒关闭
+
+一人工程 feature flag 是**决定**：
+
+- 脑子里决定
+- 不需要 dashboard
+- 不需要配置
+- 不需要按钮
+
+simedw 的 iPhone app 新功能：
+- simedw 决定打开
+- simedw 决定关闭
+- simedw 决定发给谁（所有 iPhone 用户 = 100%）
+
+没有 flag 配置——simedw 的决定就是 flag。
+
+## 苹果 App Store = 大公司的 feature flag
+
+讽刺的是：**App Store 审核**就是大公司的 feature flag 模拟：
+
+- 11 天审核 = 灰度期
+- 审核通过 = 100% rollout
+- 审核拒绝 = kill switch
+
+但这是**苹果的 flag**，不是 simedw 的 flag。
+
+simedw 不能秒回滚（App Store 不允许撤回），但 simedw 可以：
+- 加急审核（24 小时紧急）
+- 新版本覆盖（forward fix）
+- 用户通知（App Store release notes）
+
+## 一人工程 + 我就是 flag
+
+simedw 没有 feature flag。
+simedw 决定新功能。
+simedw 决定采样方法。
+simedw 决定 KV cache 实现。
+simedw 决定 β 超参。
+
+feature flag 在一人工程里不是工具，是**决定**。
+
+---
+
+solo engineer 没有 feature flag。
+solo engineer 的 feature flag = 我自己的决定。
+
+solus opus.
