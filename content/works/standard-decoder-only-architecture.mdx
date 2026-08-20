@@ -1,0 +1,87 @@
+---
+title: "标准 decoder-only 架构"
+date: "2026-08-21"
+kind: "essay"
+summary: "simedw 的架构笔记：标准 decoder-only，RMSNorm / RoPE / causal self-attention / SwiGLU / 自回归。这跟 GPT-2 同构。但 simedw 没读太多论文，先做再说。"
+tags: ["一人工程", "架构", "transformer", "MIDI"]
+---
+
+# 标准 decoder-only 架构
+
+> simedw 的架构笔记：
+> 标准 decoder-only。
+> RMSNorm / RoPE / causal self-attention / SwiGLU / 自回归。
+> 这跟 GPT-2 同构。
+
+simedw 的 125M 模型：
+
+- decoder-only transformer
+- RMSNorm 替代 LayerNorm
+- RoPE 位置编码
+- causal self-attention
+- SwiGLU 激活
+- 自回归采样
+
+这不是 simedw 发明。
+这是 LLaMA 之后的标准架构。
+GPT-2 用的是 LayerNorm + 绝对位置编码。
+GPT-3 / LLaMA / Mistral 都是这个套路。
+
+simedw 的姿态：
+
+> deliberately 故意没读太多论文
+> 先做自己的事再比对文献
+
+这不是「不学」。
+这是「先做，再比对」。
+
+# 一人工程的标准姿态
+
+OpenAI / Anthropic 的研究路径：
+
+- 读 1000+ 论文
+- 做 100+ 内部 ablation
+- 训练大模型 100B+
+- 写 paper
+
+simedw 的研究路径：
+
+- 写代码
+- 跑实验
+- rollout 听
+- 标注 metric
+
+不读论文不是「不尊重学术」。
+是「先把模型训起来，再回头看文献」。
+
+# 一人工程的可贵之处
+
+LLM 时代最大的浪费是「等论文再动手」。
+
+simedw 的方法：
+
+- 选标准架构（已经成熟的）
+- 不创新架构
+- 优化表征（这是核心创新）
+- 14 次实验
+- 半年
+
+如果他要创新架构：
+
+- 1 年时间
+- 几十次 ablation
+- 不一定成功
+
+如果他用标准架构：
+
+- 立刻动手
+- 14 次实验
+- 成功
+
+# 一人工程的边界
+
+不是「架构不重要」。
+是「架构已经有最优解」。
+把精力花在表征 + 数据 + 训练目标上。
+
+签名：solus opus。
