@@ -1,0 +1,126 @@
+---
+title: "longer-term planning：simedw bullet 2 步"
+slug: longer-term-planning-simedw-step-2
+date: "2026-08-21"
+summary: "simedw bullet 3 步第二步：longer-term planning = 类似 CoT 的 planning step，让模型先想后输出。一人工程的 planning 哲学。"
+tags: ["一人工程", "AI 音乐", "simedw", "planning", "CoT", "下一步"]
+cover: ""
+---
+
+simedw bullet 3 步第二步：longer-term planning。
+
+类似 CoT（Chain of Thought）的 planning step，让模型先想后输出。
+
+## longer-term planning 是什么
+
+longer-term planning = 模型在输出 note 之前先生成 planning sequence = 类似 CoT 的推理链。
+
+例：
+
+输入 prompt：mi-mi-fa-re
+
+无 planning 的输出：直接下一个 note。
+
+有 planning 的输出：先生成 planning 「往下走向 do / re 解决」 → 然后输出 re-do 解决。
+
+CoT 风格的 planning = 模型先生成 reasoning，再生成 final output。
+
+## 为什么需要 planning
+
+simedw 当前模型（125M + DPO + compound note events）输出下一个 note 是「贪婪 / sampling / temperature-based」。
+
+模型不知道：
+
+- 接下来 4-8 个 note 应该走向哪里（局部规划）
+- 接下来 16-32 个 note 应该走向哪里（中期规划）
+- 接下来 64-128 个 note 应该走向哪里（长期规划）
+
+模型只知道下一个 note。CoT 风格的 planning 让模型先想 4-128 个 note 的走向，再输出下一个。
+
+## planning 的 trade-off
+
+加 longer-term planning 的好处：
+
+- 模型能学乐句（phrase）级结构
+- 模型能学终止式（cadence）级走向
+- 模型能学乐段（section）级走向
+
+加 longer-term planning 的代价：
+
+- inference 时间 ×2（先生成 planning + 再生成 output）
+- 模型复杂度更高（125M + planning module → ~150M 等效）
+- 训练数据需要 planning 标注（MIDI 文件大多没有）
+- planning 可能错误传播（生成错 planning → 输出错 note）
+
+4 个好处 + 4 个代价 = trade-off。
+
+## 跟 CoT 的对照
+
+simedw planning vs Anthropic / OpenAI CoT：
+
+- Anthropic / OpenAI CoT：自然语言 reasoning + 自然语言 answer
+- simedw planning：MIDI reasoning + MIDI note answer
+
+两个 CoT：一个是语言 CoT，一个是音乐 CoT。
+
+音乐 CoT 比语言 CoT 更难：
+
+- 语言 reasoning 容易标注（CoT 数据集公开）
+- MIDI reasoning 难标注（planning 标注稀缺）
+- 音乐 evaluation 难（评测要看 16-32 note 走向）
+
+## 一人工程的 planning 哲学
+
+solo engineer 加 planning = 接受 trade-off：
+
+- inference 时间 ×2 → 用户等更久
+- 模型更复杂 → iPhone Core ML 跑得更慢
+- 训练数据难标注 → solo engineer 自己做标注
+
+solo engineer 选 planning：
+
+- 不只看下一个 note
+- 看乐句级结构
+- 看终止式级走向
+- 看乐段级走向
+
+4 个深度 = solo engineer 加 planning 的哲学。
+
+## 跟 bar/measure token 的对照
+
+simedw bullet 3 步：
+
+1. bar/measure token = 给模型加小节级表征（已写第二十一篇）
+2. longer-term planning = 给模型加推理链（写这篇）
+3. parallel continuation picking = 并行生成多个续写挑最好的（待写）
+
+3 步 = 23 年传承的下一代表征 + 推理 + 选择。
+
+## 洞穴人格式补充
+
+洞穴人格式第二篇 note = symbolic MIDI 通用代词。
+
+longer-term planning 是 note 的上层推理：
+
+- note 是输出单位（几分之一秒）
+- planning 是推理单位（几分之一秒之前的 reasoning）
+
+planning + note = 推理 + 输出。
+
+solo engineer 加 planning = 表征更深。
+
+## 一人工程的表征 + 推理哲学
+
+solo engineer 不靠 inference 优化（不靠更快 GPU），solo engineer 靠表征 + 推理：
+
+- 表征（representation）：compound note events + bar/measure token
+- 推理（reasoning）：longer-term planning
+- 选择（selection）：parallel continuation picking
+
+3 步 = solo engineer 的表征 + 推理 + 选择哲学。
+
+solo engineer 核心哲学：表征 > 优化，推理 > 暴力，选择 > 单次。
+
+---
+
+这是 simedw 系列散文。Longer-term planning = simedw bullet 3 步第二步，类似 CoT 让模型先生成 reasoning 再输出 note。Solo engineer 加表征 + 推理 + 选择，不靠 inference 优化。

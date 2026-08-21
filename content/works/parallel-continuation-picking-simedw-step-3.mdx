@@ -1,0 +1,141 @@
+---
+title: "parallel continuation picking：simedw bullet 3 步"
+slug: parallel-continuation-picking-simedw-step-3
+date: "2026-08-21"
+summary: "simedw bullet 3 步第三步：parallel continuation picking = 并行生成多个续写，挑最好的。一人工程的选择哲学。"
+tags: ["一人工程", "AI 音乐", "simedw", "parallel", "picking", "下一步"]
+cover: ""
+---
+
+simedw bullet 3 步第三步：parallel continuation picking。
+
+并行生成多个续写，挑最好的。
+
+## parallel continuation picking 是什么
+
+parallel continuation = 并行生成 N 个续写（同一 prompt）。
+
+picking = 挑最好的一个（用某种排序标准）。
+
+例：
+
+输入 prompt：mi-mi-fa-re
+
+parallel continuation 生成 N=4 个续写：
+
+1. re-do-do-re（C 大调 IV-I 解决）
+2. mi-fa-mi-fa（C 大调 I-IV-I-IV 循环）
+3. re-mi-fa-mi（半音下行 + 解决）
+4. do-ti-la-sol（大调下行音阶）
+
+picking 标准：DPO β=0.03 一致率（与 reference continuation 一致）。
+
+挑出 re-do-do-re（C 大调 IV-I 解决，与 reference 一致率最高 70%）。
+
+输出 re-do-do-re。
+
+## 为什么需要 parallel + picking
+
+simedw 当前模型输出 1 个续写（sampling based）。
+
+1 个续写的风险：
+
+- 输出是最差续写（sampling 是概率分布，可能选到低概率）
+- 用户不喜欢这个续写，但模型不知道换
+- 评测 1 个续写 = 评测 1 个概率分布，可能错误
+
+parallel continuation picking 的好处：
+
+- N 个续写 = 评测 N 个候选
+- 挑最好的 = 增加用户满意度
+- 评测 N 个 = 评测精度更高
+
+## parallel continuation picking 的 trade-off
+
+加 parallel picking 的好处：
+
+- 用户体验更好（挑最好的）
+- 评测精度更高（看 N 个）
+- 商业化更稳（用户不喜欢率低）
+
+加 parallel picking 的代价：
+
+- inference 时间 ×N（生成 N 个续写）
+- iPhone Core ML 跑得更慢（N=4 → 时间 ×4）
+- picking 标准需要选（DPO β / Gemini / 自己听）
+- picking 本身可能错（DPO 偏好 + 自己听也可能选错）
+
+4 个好处 + 4 个代价 = trade-off。
+
+## 跟 LLM inference 的对照
+
+OpenAI / Anthropic 也有 parallel sampling：
+
+- Best-of-N = 生成 N 个，reward model 挑最好的
+- Beam search = 生成 N 个 beam，挑 probability 最高的
+- Self-consistency = 生成 N 个 answer，多数投票
+
+simedw parallel picking = 音乐版的 Best-of-N。
+
+3 个 LLM parallel 策略对应音乐 3 个 picking 标准：
+
+- Best-of-N → DPO β preference
+- Beam search → probability-based ranking
+- Self-consistency → Gemini pairwise 70% 一致
+
+## 一人工程的 picking 哲学
+
+solo engineer 选 picking 因为：
+
+- 不强求 1 次输出完美
+- 接受 N 次输出 + 1 次挑选
+- 把「完美」的负担转嫁给 inference（生成 N 个）+ evaluation（挑最好的）
+
+solo engineer 选 picking 标准：
+
+- DPO β=0.03 preference（用自己训练的偏好模型）
+- Gemini pairwise 70% 一致（用第三方评测）
+- 自己听 30 分钟（人工评测）
+
+3 个 picking 标准 = solo engineer 的 multi-criteria picking。
+
+## 跟 bar/measure + planning 的对照
+
+simedw bullet 3 步：
+
+1. bar/measure token = 表征（已写第二十一篇）
+2. longer-term planning = 推理（已写第二十二篇）
+3. parallel continuation picking = 选择（写这篇）
+
+3 步 = 表征 + 推理 + 选择。
+
+solo engineer 加表征 + 推理 + 选择 = 完整 AI pipeline。
+
+## 洞穴人格式补充
+
+洞穴人格式第二篇 note = symbolic MIDI 通用代词。
+
+parallel continuation picking 是 note 的选择层：
+
+- 表征层（bar/measure token）：输入是什么
+- 推理层（longer-term planning）：想什么
+- 输出层（note）：输出什么
+- 选择层（parallel picking）：输出多个，挑最好的
+
+4 层 = solo engineer 的完整 AI pipeline。
+
+## 一人工程的表征 + 推理 + 选择哲学
+
+solo engineer 不靠 inference 优化（不靠更快 GPU），solo engineer 靠表征 + 推理 + 选择：
+
+- 表征（representation）：compound note events + bar/measure token
+- 推理（reasoning）：longer-term planning
+- 选择（selection）：parallel continuation picking
+
+3 步 = solo engineer 的完整 AI pipeline。
+
+solo engineer 核心哲学：表征 > 优化，推理 > 暴力，选择 > 单次。
+
+---
+
+这是 simedw 系列散文。Parallel continuation picking = simedw bullet 3 步第三步，并行生成多个续写挑最好的。Solo engineer 加表征 + 推理 + 选择 = 完整 AI pipeline。Solo engineer 核心哲学：表征 > 优化，推理 > 暴力，选择 > 单次。
