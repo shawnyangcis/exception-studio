@@ -1,0 +1,84 @@
+---
+title: "man ships thing thing ship app"
+slug: "man-ships-thing-thing-ship-app"
+date: "2026-08-21"
+summary: "洞穴人格式第四篇。plink（领域）/ note（表示）/ training（方法）/ ship（部署）—— 四层抽象。simedw App Store 11 天 + Core ML 量化 + 部署层 8 件事 = 一人工程四层全栈。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "simedw", "App Store", "Core ML", "部署"]
+cover: ""
+---
+
+plink 是「man hits thing thing go plink」——领域层。
+
+note 是「man says thing thing say note」——表示层。
+
+training 是「man trains thing thing train model」——方法层。
+
+ship 是「man ships thing thing ship app」——部署层。
+
+## simedw 的 App Store 11 天
+
+simedw 在 HN 帖和 blog 记录：8/8 上传 App Store Connect。8/19 正式上线。11 天过审。
+
+11 天对独立开发者来说不算长也不算短。Apple 现在的 AI 应用审核没有明确违规，分类在 Music 类目，Core ML 模型在 iPhone 上跑，App Store 没问 RoPE 也没问 DPO。
+
+一人工程的部署路径比想象更简单：iOS 平台提供 Core ML 提供 quantization 提供 sandbox 提供 App Review 提供 11 天过审。
+
+大公司的部署路径完全不一样：Kubernetes + Docker + Cloud Run + Cloud TPU + 模型 API + 多 region 部署 + A/B testing。
+
+## 部署也是 solo 工程的核心
+
+simedw 一人 = 数据 + 训练 + 部署 + 评测 + App Store 沟通 + 用户支持 + README 写作 + HN 营销 = 9 个角色。
+
+ship 是第 4 个：方法层（training）+ 表示层（note）+ 领域层（plink）+ 部署层（ship）。
+
+每一层都有专属工程：
+
+- 领域层（plink）：不部署，只看 trade-off
+- 表示层（note）：MIDI 数据表征
+- 方法层（training）：DPO β + 14 次实验
+- 部署层（ship）：App Store 11 天 + Core ML 量化 + RoPE KV cache 节省内存
+
+## 部署层的工程量
+
+ship 不只是打包上传。simedw 部署层的工作量：
+
+1. Core ML 模型转换（PyTorch → Core ML）
+2. 量化（FP32 → INT8，125M 模型压缩到 50MB 以内）
+3. RoPE KV cache ring buffer 内存管理（Core ML 不暴露 Q/K/V）
+4. iOS sandbox 文件路径处理（MIDI 文件读写）
+5. App Store Connect 元数据（截图 + 描述 + 关键词）
+6. App Review 沟通（Apple 拒绝 / 通过邮件）
+7. TestFlight beta 用户反馈
+8. iPhone 不同机型兼容（iPhone 12 / 13 / 14 / 15 / 16）
+
+8 件事。一个人。11 天过审。
+
+## 洞穴人第四个代词
+
+plink / note / training / ship 四层抽象：
+
+- plink = 抽象层 1（领域）
+- note = 抽象层 2（表示）
+- training = 抽象层 3（方法）
+- ship = 抽象层 4（部署）
+
+洞穴人用四个词描述 AI 音乐，因为 AI 音乐本身就是四层结构。少一个词，描述就缺一层。
+
+deploy 也是 deployment，与 ship 同一个意思。但 ship 更口语，更像「寄出」的拟声，跟 plink/note/training 风格一致。
+
+## 一人工程选四层
+
+一人工程在四层都有 commit log：
+
+- 领域层 commit：「选 plink 还是 note」（决策记录）
+- 表示层 commit：「MIDI 表征选 compound note events」（表征记录）
+- 方法层 commit：「DPO β=0.03 偏好率 57.14%」（训练记录）
+- 部署层 commit：「App Store 8/19 上线」（发布记录）
+
+每层都有 README 章节，每章节都有实验数据。
+
+四人工程：领域层有人做、表示层有人做、方法层有人做、部署层有人做。
+
+一人工程：四层都是同一个人。
+
+这是 solo engineer 的核心定义——全栈、全层、全抽象。
