@@ -1,0 +1,125 @@
+---
+title: "bar/measure token：simedw 的下一步"
+slug: bar-measure-token-simedw-next-step
+date: "2026-08-21"
+summary: "simedw bullet 3 步第一步：bar/measure token = 给模型加小节标记，提升节奏感。一人工程的下一代表征：symbolic 层不止 note，还加 bar / measure / chord。"
+tags: ["一人工程", "AI 音乐", "simedw", "bar token", "measure", "表征"]
+cover: ""
+---
+
+simedw bullet 3 步第一步：bar/measure token。
+
+给模型加小节标记，提升节奏感。
+
+## bar/measure token 是什么
+
+bar / measure = 小节 = 音乐的基本结构单位（4/4 拍 = 4 拍 = 1 小节）。
+
+token = 模型输入单位。MIDI note 是 simedw 当前的 token。
+
+bar/measure token = 给模型加小节级别的 token，让模型知道「现在在第几小节」「这一小节什么拍号」「下一小节什么调性」。
+
+## 为什么需要 bar/measure token
+
+simedw 当前模型（125M + DPO + compound note events）只输出 note。模型不知道：
+
+- 当前位置在第几小节（1 / 2 / 3 / ...）
+- 当前小节什么拍号（4/4 / 3/4 / 6/8）
+- 当前小节什么调性（C 大调 / A 小调）
+- 下一小节可能什么走向（终止 / 解决 / 转折）
+
+模型只知道「下一个 note 是什么」。但小节级结构（cadence / phrase / modulation）模型不预测。
+
+## 加 bar/measure token 的 trade-off
+
+加 bar/measure token 的好处：
+
+- 模型能学 cadence（终止式）
+- 模型能学 phrase（乐句）
+- 模型能学 modulation（转调）
+- 模型能预测小节级结构
+
+加 bar/measure token 的代价：
+
+- token 词汇表更大（加 bar 类型 + measure 类型 + 拍号 + 调性）
+- 表征更复杂（不只是 note，还有 bar metadata）
+- 训练数据需要 bar 标注（MIDI 文件大多没有）
+- 模型可能过拟合到小节级结构（学得太死）
+
+4 个好处 + 4 个代价 = trade-off。
+
+## 一人工程的下一代表征
+
+solo engineer 加 bar/measure token = 下一代表征：
+
+- 第 1 代表征：note（2003 Pachet Continuator）
+- 第 2 代表征：compound note events（2026 simedw，5× speedup 来自此）
+- 第 3 代表征：bar/measure token（simedw 下一步）
+
+3 代表征 = 23 年传承。
+
+## 跟其他 solo engineer 对比
+
+其他 solo engineer 怎么加表征：
+
+- Continuator 2003：note 单 token
+- simedw 2026：compound note events
+- Magenta Music Transformer：note + 时间 token（onset / offset）
+
+simedw 的 bar/measure token 比 Magenta 更进一步——加小节级结构（不只是 onset / offset）。
+
+solo engineer 走前面，research lab 跟在后面。
+
+## 训练代价
+
+加 bar/measure token 的训练代价：
+
+- 数据准备：MIDI 文件标注 bar / measure / 拍号 / 调性
+- 数据清洗：去掉无标注的 MIDI 文件（数量减半）
+- 模型架构：token embedding 加 bar 类型
+- 训练时间：125M 模型 + bar metadata → 训练时长 +50%（半天 → 大半天）
+
+4 个代价 = 加 bar/measure token 的工程量。
+
+## 一人工程的下一代表征哲学
+
+solo engineer 加表征 = 接受 trade-off：
+
+- 表征更复杂 + 训练更长 + 数据更难
+- 但模型能学更深（cadence / phrase / modulation）
+
+solo engineer 选深表征：
+
+- 不只看下一个 note
+- 看小节级结构
+- 看乐句
+- 看终止式
+
+4 个深度 = solo engineer 加 bar/measure token 的哲学。
+
+## 洞穴人格式补充
+
+洞穴人格式第二篇 note = symbolic MIDI 通用代词。
+
+bar/measure token = note 的上层抽象：
+
+- note 是微观单位（几分之一秒）
+- measure 是宏观单位（几秒）
+
+两个单位一起 = 微观 + 宏观的 symbolic 层。
+
+solo engineer 加宏观层 = 表征更深。
+
+## 一人工程的表征改变哲学
+
+solo engineer 不靠 inference 优化（不靠更快 GPU），solo engineer 靠表征改变（加 bar/measure token）。
+
+5× speedup 来自 compound note events（simedw bullet 1 步之前的表征改变）。
+
+下一代表征改变 = bar/measure token。
+
+solo engineer 的核心哲学：表征 > 优化。
+
+---
+
+这是 simedw 系列散文。Bar/measure token = simedw bullet 3 步第一步，加小节级表征让模型学 cadence / phrase / modulation。Solo engineer 加表征不靠 inference 优化，靠表征改变。Solo engineer 核心哲学：表征 > 优化。
