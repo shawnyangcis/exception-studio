@@ -1,0 +1,150 @@
+---
+title: "simedw 评测困境详细：自动指标 + Gemini + 自己听 + A/B + 绝对 scalar"
+slug: simedw-evaluation-trilemma-detailed
+date: "2026-08-21"
+summary: "simedw 评测困境详细分析：5 种方法叠加用。自动指标（pitch n-gram / chord entropy）失效 + Gemini 3.5 Flash pairwise 70% 一致 + 自己听 30 分钟 + A/B 偏好比绝对分好 + 绝对 scalar 不一致。Solo engineer 没 evals team 怎么评测。"
+tags: ["一人工程", "AI 音乐", "simedw", "评测", "Gemini", "DPO", "偏好"]
+cover: ""
+---
+
+simedw 评测困境详细分析：
+
+评测是 solo engineer 最慢的环节（评测时间 > 训练时间）。simedw 怎么评测？
+
+## 评测的 5 个子问题
+
+simedw 评测有 5 个子问题：
+
+1. 自动指标失效
+2. Gemini 3.5 Flash pairwise 70% 一致
+3. 自己听 30 分钟 / 次
+4. A/B 偏好比绝对 scalar 准
+5. 绝对 scalar 不一致
+
+5 个子问题 = simedw 评测困境的全部。
+
+## 1. 自动指标失效
+
+自动指标：
+
+- pitch n-gram：重复音检测
+- pitch entropy：音高分布
+- chord density：和弦密度
+- 长停顿：音乐间隔
+
+4 个自动指标。
+
+失效的原因：
+
+- 只能抓明显失败（重复音 + 持续停顿 = 失败）
+- 抓不出最佳模型（不同 β 的偏好差异自动指标看不出来）
+- 自动指标对「模型是否好听」不敏感
+
+3 个失效 = simedw 不能只用自动指标。
+
+## 2. Gemini 3.5 Flash pairwise 70% 一致
+
+Gemini 评测：
+
+- pairwise（两两对比）vs absolute score（绝对分）
+- pairwise 翻转两次 70% 一致
+- absolute score 不一致
+
+3 个 Gemini 评测。
+
+70% 一致意味着 Gemini 对偏好有基本一致判断（不是完全随机）。
+
+simedw 用 Gemini pairwise 而不是 absolute score，因为 absolute score 在不同 prompt 下分数漂移。
+
+## 3. 自己听 30 分钟 / 次
+
+自己听评测：
+
+- 每次 30 分钟（14 次实验 = 7 小时）
+- 能分噪音 / 不噪音
+- 分不出 β=0.03 vs β=0.10 偏好
+
+3 个自己听特点。
+
+评测时间 > 训练时间：训练半天 vs 评测 7 小时。
+
+solo engineer 没 evals team = 自己听是 solo engineer 的核心评测方法。
+
+## 4. A/B 偏好比绝对 scalar 准
+
+A/B 偏好：
+
+- 「这两个续写哪个更好」
+- 偏好比 = chosen count / total count
+- simedw β=0.03 偏好率 57.14% vs β=0.10 偏好率 38.10%
+
+绝对 scalar：
+
+- 「这个续写打几分（1-10）」
+- 同一续写不同 prompt 分数漂移大
+- 不可重复
+
+2 个评测对比。
+
+A/B 偏好比绝对 scalar 可靠，因为：
+
+- A/B 是相对比较，不是绝对赋值
+- 偏好对单一变量（β）敏感
+- 偏好可以聚合多 reviewer
+
+3 个优势 = A/B 偏好是 simedw 主要评测方法。
+
+## 5. 绝对 scalar 不一致
+
+绝对 scalar 的问题：
+
+- 不同 prompt（4-note / 8-note / 16-32 note）下分数漂移大
+- 不同时间（早上 / 晚上）评分漂移
+- 不同模型（Gemini 3.5 vs Claude 3.5 vs GPT-4o）评分不一致
+
+3 个不一致。
+
+绝对 scalar 不一致 = simedw 不能用绝对 scalar 评测。
+
+## 5 个方法叠加用
+
+simedw 不只用 1 个评测方法，5 个叠加：
+
+- 自动指标：抓明显失败（pitch n-gram / chord entropy）
+- Gemini pairwise：偏好比较（70% 一致）
+- 自己听：评测噪音 / 不噪音（30 分钟 / 次）
+- A/B 偏好：相对评测（β=0.03 vs β=0.10）
+- 绝对 scalar：辅助参考（不可单独用）
+
+5 个方法 = simedw 评测困境的解。
+
+## 评测的后期拆分
+
+simedw 后期把评测拆成 2 个维度：
+
+- 维度 1：continuation 跟 prompt 的接续度
+- 维度 2：isolated 听觉质量
+
+2 个维度 = simedw 评测精细化。
+
+DPO 主要用维度 1（接续度）。
+自己听主要用维度 2（听觉质量）。
+
+2 个维度分开评测 = 评测不混淆。
+
+## 一人工程的评测困境哲学
+
+solo engineer 评测困境哲学：
+
+- 评测时间 > 训练时间（7 小时 vs 半天）
+- 5 个方法叠加用（自动 + Gemini + 听 + A/B + scalar）
+- 评测困境 = solo engineer 的核心瓶颈
+- 没 evals team = 自己评测 = 诚实
+
+4 个事实 = solo engineer 评测困境哲学。
+
+simedw 评测 = 5 方法叠加 + 7 小时 / 14 次实验 + 2 个维度拆分。
+
+---
+
+这是 43+ 篇散文的评测困境详细篇。Solo engineer 评测困境 = 5 个子问题（自动指标 + Gemini + 自己听 + A/B + 绝对 scalar）= 5 方法叠加 + 2 维度拆分 = 评测时间 > 训练时间 = 一人工程核心瓶颈。
