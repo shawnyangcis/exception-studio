@@ -1,0 +1,144 @@
+---
+title: "DDSP vs Transformer 抽象层对比：audio 层 vs symbolic 层"
+slug: ddsp-vs-transformer-abstract-layer
+date: "2026-08-21"
+summary: "DDSP（Google audio 层神经网络 + DSP 合成）vs Transformer（simedw symbolic 层 MIDI 续写）。不同抽象层 + 不同 trade-off + 不同一人工程适配度。Audio 层（DDSP）需要 DSP + 神经网络控制 vs Symbolic 层（simedw）纯 transformer + MIDI。两条 AI 音乐生成路线。"
+tags: ["一人工程", "DDSP", "Transformer", "audio 层", "symbolic 层", "抽象层", "trade-off", "哲学"]
+cover: ""
+---
+
+DDSP vs Transformer 抽象层对比详细：
+
+HN 评论 throw_m239339 提到 Google DDSP 生成 trumpet /_saxophone。DDSP vs Transformer 两条 AI 音乐生成路线。
+
+## DDSP 是什么
+
+DDSP = Differentiable Digital Signal Processing = Google 2020 项目：
+
+- 神经网络控制传统 DSP 合成音频
+- 输入：音频 + 控制参数（pitch / loudness）
+- 输出：音频
+- 核心：神经网络学控制参数 + DSP 合成实际音频
+- 例子：trumpet / saxophone / flute / violin 等音色
+
+5 个 DDSP 特点。
+
+DDSP 的优势：
+
+- 音频层（直接合成音频）
+- 音色可控（神经网络学控制）
+- 神经网络小（10M 左右）
+- 训练时长短（几小时）
+
+4 个 DDSP 优势。
+
+DDSP 的劣势：
+
+- 需要传统 DSP（trumpet / saxophone 模型）
+- 音色受限于训练的音色
+- 不能创造新音色
+- 不能跨音色转换
+
+4 个 DDSP 劣势。
+
+## Transformer (simedw) 是什么
+
+Transformer (simedw) = simedw 2026 项目：
+
+- 125M 参数 transformer 续写 MIDI
+- 输入：MIDI note 序列
+- 输出：MIDI note 序列
+- 核心：transformer 学 MIDI 序列分布
+- 例子：钢琴 MIDI 续写
+
+5 个 Transformer (simedw) 特点。
+
+Transformer (simedw) 的优势：
+
+- symbolic 层（生成 MIDI，不生成音频）
+- 音色不受限（MIDI 不绑定音色）
+- 可以创造新音乐（自由生成）
+- 可以跨风格（古典 / 流行 / 爵士）
+
+4 个 Transformer (simedw) 优势。
+
+Transformer (simedw) 的劣势：
+
+- 不能直接生成音频（需要 MIDI 播放器）
+- 模型大小 125M（比 DDSP 大 10×）
+- 训练时长半天（比 DDSP 训练时间长）
+- iOS 部署困难（需要 Core ML + INT8 量化）
+
+4 个 Transformer (simedw) 劣势。
+
+## DDSP vs Transformer 对照
+
+10 个对照：
+
+- 抽象层：audio 层 vs symbolic 层
+- 输出：音频 vs MIDI
+- 模型大小：10M vs 125M
+- 训练时长：几小时 vs 半天
+- 音色控制：受训练音色限制 vs 自由
+- 新音乐：不能 vs 可以
+- 跨风格：受训练音色 vs 跨风格
+- iOS 部署：难（DSP 合成）vs 难（Core ML + INT8）
+- 神经网络学：控制参数 vs MIDI 序列分布
+- 一人工程适配度：低（DSP 复杂）vs 高（symbolic 简单）
+
+10 个对照。
+
+## 两条路线的一人工程适配度
+
+DDSP 一人工程适配度：
+
+- DSP 复杂（需要音频工程知识）
+- 音色难扩展（受训练音色限制）
+- 一人工程不友好
+
+3 个 DDSP 一人工程不友好。
+
+Transformer (simedw) 一人工程适配度：
+
+- symbolic 简单（MIDI 文件）
+- 自由（不受音色限制）
+- 一人工程友好
+
+3 个 Transformer 一人工程友好。
+
+## 抽象层选择哲学
+
+solo engineer 抽象层选择哲学：
+
+- 选简单抽象层（symbolic > audio）
+- 选自由抽象层（MIDI > DSP）
+- 选一人工程友好（symbolic > audio）
+
+3 个 solo engineer 抽象层哲学。
+
+## 一人工程抽象层哲学
+
+solo engineer 抽象层哲学：
+
+- DDSP = 音频层 + DSP + 受限 + 不适合一人工程
+- Transformer = symbolic 层 + MIDI + 自由 + 适合一人工程
+- 抽象层选择决定一人工程适配度
+
+6 个事实 = solo engineer 抽象层哲学的全部。
+
+## 一人工程抽象层总结
+
+一人工程抽象层总结：
+
+- DDSP 不适合一人工程（音频层 + DSP 复杂）
+- Transformer 适合一人工程（symbolic + MIDI 简单）
+- 抽象层选择 = 一人工程适配度的关键
+- 两条路线 = 不同 trade-off
+
+4 个事实 = 一人工程抽象层哲学的全部。
+
+DDSP vs Transformer 抽象层对比 = audio vs symbolic + 受限 vs 自由 + 复杂 vs 简单 = 一人工程抽象层哲学的全部。
+
+---
+
+这是 63+ 篇散文的抽象层篇。DDSP vs Transformer 抽象层对比 = audio 层 vs symbolic 层 + 受限 vs 自由 + 复杂 vs 简单 = 一人工程抽象层哲学的全部。Solo engineer 选 symbolic（MIDI）+ 自由 = 一人工程抽象层选择哲学。
