@@ -1,0 +1,88 @@
+---
+title: "man hears realtime realtime hear magic"
+slug: "man-hears-realtime-realtime-hear-magic"
+date: "2026-08-21"
+summary: "speedgoose 在 HN 引用 Google Magenta Realtime 2。两条 realtime 路线：Google 云端 realtime vs simedw 口袋端侧 realtime。一个 magic 在云端，一个 magic 在口袋。一人工程选口袋，因为 0 延迟 / 0 网络 / 0 月费 / 0 隐私泄露。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "speedgoose", "Magenta", "Google", "realtime", "Core ML"]
+cover: ""
+---
+
+speedgoose 在 simedw HN 帖评论：「看 Google 的 Magenta Realtime 2，几周前发布。」
+
+两个 realtime。一个在云端，一个在口袋。
+
+## Google 的 realtime
+
+Magenta Realtime 2 = Google Magenta 团队 + 大算力（TPU pod）+ 几周前发布 + API 调用 + 几秒延迟 + 服务器跑。
+
+Google realtime 是「云端 realtime」——把音频传到 Google 服务器，Google 模型生成音频流，传回用户。用户听的是流，不是端侧。
+
+## simedw 的 realtime
+
+simedw realtime = 1 人 + iPhone + 125M MIDI transformer + RoPE KV cache + Core ML + 端侧跑 + 0 延迟 + 0 网络。
+
+simedw realtime 是「口袋 realtime」——在 iPhone 上跑，用户按键，模型预测下一个 note，Core ML 输出 MIDI 流。用户弹的是本地，不是云。
+
+## 两种 realtime 哲学
+
+Google 哲学：realtime = 网络 + 服务器 + API + 月费。realtime 是云服务。
+
+simedw 哲学：realtime = 端侧 + 内存 + Core ML + App Store 一次性付费。realtime 是产品。
+
+solo engineer 跟大实验室的 realtime 路线不一样。
+
+solo engineer 选 pocket realtime，因为：
+
+- 0 延迟（按键到输出 < 100ms）
+- 0 网络（断网也能跑）
+- 0 月费（一次性付费）
+- 0 隐私泄露（用户按键不上传）
+
+Google 选 cloud realtime，因为：
+
+- 模型更大（>1B 参数）
+- 数据更多（百万小时音频）
+- 算力更多（TPU pod）
+- 团队更多（音频研究员 + 工程师 + 产品 + 营销）
+
+## 两种 realtime 的 trade-off
+
+pocket realtime 的代价：
+
+- 模型小（125M vs >1B）
+- 音色单一（MIDI 钢琴 vs 多音色）
+- 数据少（几百万 MIDI note vs 几百万小时音频）
+- 训练少（半天 vs 几月）
+
+cloud realtime 的代价：
+
+- 高延迟（按键到输出 500ms - 2s）
+- 必须联网（断网 = 无响应）
+- 月费（按 API 调用计费）
+- 隐私风险（用户按键被收集）
+
+一人工程的取舍：选 pocket，丢音色和模型大小，但赢延迟、隐私、定价。
+
+Google 实验室的取舍：选 cloud，保音色和模型大小，但输延迟、隐私、定价。
+
+## 洞穴人第五个代词
+
+plink / note / training / ship / realtime：
+
+- plink = 抽象层 1（领域）
+- note = 抽象层 2（表示）
+- training = 抽象层 3（方法）
+- ship = 抽象层 4（部署）
+- realtime = 抽象层 5（运行模式）
+
+洞穴人五个词，描述 AI 音乐的五个抽象层。
+
+realtime 跟 batch 对。batch = 训练完后离线跑；realtime = 边输入边生成。
+
+simedw 是 realtime 路线（端侧实时），Magenta Realtime 2 也是 realtime 路线（云端实时）。两个 realtime 都对，但 tradeoff 不同。
+
+solo engineer 选 pocket realtime。Google 实验室选 cloud realtime。两个 realtime 对应两个 abstract layer。
+
+---
+
+这是 isoprophlex 洞穴人格式系列的第五篇。前四篇是 plink / note / training / ship，第五篇是 realtime。五个代词对应 AI 音乐的五个抽象层：领域、表示、方法、部署、运行模式。
