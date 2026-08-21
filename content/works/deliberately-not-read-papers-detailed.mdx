@@ -1,0 +1,121 @@
+---
+title: "故意没读太多论文：simedw 的工作哲学"
+slug: deliberately-not-read-papers-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 论文哲学, 工作姿态, 独立工作, 表征, MIDI]
+cover: https://exception-studio.vercel.app/works/deliberately-not-read-papers
+---
+
+simedw 在博客里写了一句被人反复引用的话：
+
+> deliberately haven't read a lot of papers, would rather do my own thing first and then compare against literature afterwards
+
+这句话是「一人工程」的核心姿态——不是「不读论文」，是「先做再说」。
+
+## 不读论文 vs 先做后读
+
+OpenAI / Anthropic / DeepMind 的工作模式是「先读 100 篇 → 再设计实验 → 再跑」。simedw 反过来：先按自己想法做 14 次实验 → 失败了 → 再回去看论文找原因。
+
+区别：
+- 前者：「先做文献综述 → 再做实验」= 论文驱动。
+- 后者：「先做实验 → 失败了 → 再做文献综述」= 实验驱动。
+
+simedw 不是「不读论文」，是「不在做实验前读论文」。
+
+## 为什么这样工作
+
+simedw 的实验 1-3 是「找 MIDI 表征」。note-on/note-off 飘音 → grammar-masked 慢 → compound note events（5 个 head）落地。
+
+如果他事先读 100 篇 MIDI generation 论文，会学到：
+- 所有人都用 note-on / note-off 表征。
+- grammar-masked 是 Google Magenta 的标准做法。
+- compound note events 没人试过。
+
+按论文，他会先选 note-on/note-off，失败了，再换 grammar-masked，失败了，再试 compound。整个过程被论文的「标准答案」框住。
+
+按 simedw 的方法，他直接试 compound note events（按他自己的想法：把 5 个属性塞一个 token）。一次落地。
+
+不是因为他比论文聪明，是因为他不被论文的「已有方案」束缚。
+
+## 14 次实验里的「先做后读」节奏
+
+- 实验 1-3：MIDI 表征。3 次失败找到 compound 方案。
+- 实验 4：DPO β=0.10。崩坏。回去看 DPO 论文，发现 β 的影响。
+- 实验 5-7：β=0.01 / 0.03 / 共识去噪。3 次微调到 69.05%。
+- 实验 8-14：scheduled sampling / 截断 / 部署 / 量化 / Apple 审核。
+
+每一次失败的「解读」都是在实验之后才补文献综述——不是为了「我应该做什么」，是为了「我刚才做的对不对」。
+
+## 一人工程的论文哲学
+
+一人工程不是「不读论文」。是：
+
+1. **先做**：按自己的直觉、经验、数学感觉做实验。
+2. **失败**：实验失败，记录原因。
+3. **再读**：失败之后才去读论文，找「别人怎么解决这个问题」。
+4. **对照**：把自己的方案和论文方案对比，找差异。
+5. **再迭代**：根据对照结果迭代下一轮实验。
+
+OpenAI / Anthropic 是「先读后做」，一人工程是「先做后读」。OpenAI 的优势是规模，simedw 的优势是「不被已有方案束缚」。
+
+## 这和「不读论文」不同
+
+读论文的价值是「知道哪里有坑」。simedw 不在实验前读论文，意味着他会踩论文里写明的坑——note-on/note-off 飘音、grammar-masked 慢、Mirostat 紊乱、born-again networks 没用。
+
+每踩一个坑，他都写下来：第几次实验、什么坑、为什么没用。
+
+14 次实验公开记 = 14 个「踩过的坑 + 写的笔记」。这不是浪费，是 simedw 的「论文综述」——用实验写出来的综述。
+
+OpenAI 写 Limitations + future work，simedw 写「14 个没用 + 为什么没用」。两种都公开，但 simedw 的版本更细，因为每一个「没用」都对应一次具体的实验。
+
+## 「先做后读」的成本与收益
+
+成本：
+- 会踩论文里写明的坑（多花 2-3 次实验）
+- 不知道「这是不是死路」（有时整条路论文已证明走不通）
+
+收益：
+- 不被论文的「标准答案」框住（能找到论文没写过的新方案）
+- 每一个决定都有「为什么」而不是「别人这么做」
+- 失败更诚实（不是「我按论文做了但没用」，是「我按自己想法做了但没用」）
+
+simedw 的 compound note events、β=0.03、共识去噪，都是论文里没写过（或写得很少）的方案。先做后读让这些方案能被发现。
+
+## 一人工程的「论文」
+
+simedw 的 GitHub README 本身就是「论文」：
+
+- 训练数据（300M → 18M，清洗流水线 5 步）
+- 14 次实验（含失败的 8 个）
+- 模型架构（standard decoder-only + 5 head）
+- 评估方法（pairwise + 共识去噪）
+- 部署细节（Core ML + INT8 + 108 notes/sec）
+
+这不是「论文风格」，是「论文内容」——OpenAI 论文有的部分，simedw 的 README 都有。OpenAI 论文没有的部分（具体失败原因、清洗流水线细节、Apple 审核摩擦），simedw 的 README 也有。
+
+arXiv 不需要。GitHub README 就是论文。
+
+## 一人工程 vs 学术 vs 工业
+
+- 学术：「先读后做 + 发表」= 论文驱动 + 发表驱动。
+- 工业（OpenAI）：「先读后做 + 服务」= 论文驱动 + 服务驱动。
+- 一人工程（simedw）：「先做后读 + 发布」= 实验驱动 + 发布驱动。
+
+simedw 不需要发表（GitHub README 已经是发布）。simedw 不需要服务（iOS app 已经发布）。他需要的是「找到能跑的方案 + 把它发布出去」。
+
+先做后读 = 最小阻力路径 = 一人工程的工作哲学。
+
+## 14 次实验公开记是 simedw 的「arXiv」
+
+simedw 在 HN 评论里把 14 次实验写得很细：
+
+> 14 experiments, around half of which failed: note-on/note-off 飘音, grammar-masked 慢, 噪声数据没用, Mirostat 紊乱, born-again networks 没用, extra local auxiliary 没收益, 绝对 scalar 不一致, 验证 loss 漏了 rollout 质量
+
+这是 simedw 的「论文综述」+「Limitations + future work」+「下一步研究」。三个学术部分合在 HN 评论里。
+
+学术 / OpenAI 不会公开失败。simedw 全公开。这是一人工程的「论文哲学」——失败是数据，不是污点。
+
+## 签名
+
+solus opus。
