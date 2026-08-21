@@ -1,0 +1,133 @@
+---
+title: "一人工程图景的 4 个接受哲学详细：Core ML 算了 + RoPE 算了 + INT8 算 + 不重写 kernel"
+slug: solo-engineer-4-acceptance-philosophies-detailed
+date: "2026-08-21"
+summary: "一人工程图景的 4 个接受哲学详细：1 Core ML 不暴露 Q/K/V 算了 + 2 RoPE KV cache ring buffer 算了 + 3 INT8 量化替代 Born-again 蒸馏 + 4 不重写 kernel。Solo engineer 接受哲学 = 接受工具限制 + 不重写 + 算了 + 挺快乐 = 一类工程师代代相传。"
+tags: ["一人工程", "接受哲学", "solo engineer", "Core ML", "RoPE", "INT8", "算了", "挺快乐", "哲学"]
+cover: ""
+---
+
+一人工程图景的 4 个接受哲学详细：
+
+一人工程图景的 4 个接受哲学 = Core ML 算了 + RoPE 算了 + INT8 算 + 不重写 kernel。
+
+## 接受哲学 1：Core ML 不暴露 Q/K/V 算了
+
+Core ML 不暴露 Q/K/V：
+
+- simedw 想做 RoPE KV cache ring buffer 节省内存
+- Core ML 不暴露 Q/K/V
+- simedw 算了，挺快乐
+- 不重写 Core ML
+
+4 个接受哲学 1 细节。
+
+接受 vs 重写：
+
+- 大公司：不接受 → 重写 Core ML（投入 100+ 工程师 + 几月）
+- solo engineer：接受 → 算了，挺快乐（不投入）
+
+2 个对照。
+
+## 接受哲学 2：RoPE KV cache ring buffer 算了
+
+RoPE KV cache ring buffer：
+
+- 理论上可以做（节省内存）
+- Core ML 不暴露 Q/K/V → 算了，挺快乐
+- 不重写 Core ML framework
+- 不跟工具较劲
+
+4 个接受哲学 2 细节。
+
+## 接受哲学 3：INT8 量化替代 Born-again 蒸馏
+
+INT8 量化替代 Born-again 蒸馏：
+
+- Born-again networks 没用（MIDI 序列任务不适用蒸馏）
+- simedw 用 INT8 量化压缩模型（不是蒸馏）
+- INT8 量化 = 125M 模型大小 4× 减少（FP32 500MB → INT8 125MB）
+- INT8 量化不改变模型结构（不损失质量）
+
+4 个接受哲学 3 细节。
+
+接受 vs 重写：
+
+- 大公司：不接受 → 重写框架或重写模型（投入大量资源）
+- solo engineer：接受 → 用 INT8 量化（替代 Born-again）
+
+2 个对照。
+
+## 接受哲学 4：不重写 kernel
+
+不重写 kernel：
+
+- simedw 不重写 Core ML kernel
+- simedw 不重写 PyTorch kernel
+- simedw 不重写任何 framework kernel
+- 接受现有 kernel + 用现有工具
+
+4 个接受哲学 4 细节。
+
+不重写 vs 重写：
+
+- 大公司：重写 kernel（投入 100+ 工程师 + 几月）
+- solo engineer：不重写 kernel（接受现有 kernel + 用现有工具）
+
+2 个对照。
+
+## 4 个接受哲学 = 一类工程师的接受哲学
+
+4 个接受哲学：
+
+- 接受哲学 1：Core ML 不暴露 Q/K/V 算了
+- 接受哲学 2：RoPE KV cache ring buffer 算了
+- 接受哲学 3：INT8 量化替代 Born-again 蒸馏
+- 接受哲学 4：不重写 kernel
+
+4 个接受哲学 = 一类工程师的接受哲学。
+
+## simedw 接受哲学的 6 个 trade-off
+
+6 个 trade-off：
+
+- 时间：算了（几天）vs 不算了（几月）
+- 健康：不跟工具较劲 vs 跟工具较劲
+- 用户体验：早 release vs 晚 release
+- 项目存在：上线 vs 不
+- 投入：几千美元（INT8 量化）vs 几百万（重写 kernel）
+- 上下文：模型大小 4× 减少（量化）vs 模型大小 1/4（蒸馏失败）
+
+6 个接受哲学 trade-off。
+
+## simedw 接受哲学的 4 收益 vs 3 代价
+
+4 收益（时间 + 健康 + 用户体验 + 项目存在）vs 3 代价（精度 + 部署 + 性能）= 接受哲学 trade-off 净收益。
+
+## 接受哲学 = 一人工程核心
+
+接受哲学是一人工程核心：
+
+- 接受工具限制 = Core ML 不暴露 Q/K/V 算了
+- 接受模型限制 = Born-again 没用 INT8 算
+- 接受部署限制 = iPhone 算 125M
+- 接受时间限制 = 半年写完
+
+4 个接受 = 一人工程核心。
+
+## 一人工程接受哲学总结
+
+一人工程4接受哲学总结：
+
+- 4 个接受哲学 = Core ML 算了 + RoPE 算了 + INT8 算 + 不重写 kernel
+- 6 个 trade-off = 时间 + 健康 + 用户体验 + 项目存在 + 投入 + 上下文
+- 4 收益 > 3 代价 = 接受哲学 trade-off 净收益
+- 一人工程 = 接受 + 不重写 + 算了 + 挺快乐
+
+4 个事实 = 一人工程接受哲学的全部。
+
+一人工程图景的 4 个接受哲学详细 = Core ML 算了 + RoPE 算了 + INT8 算 + 不重写 kernel = 一类工程师的接受哲学的全部。
+
+---
+
+这是 106+ 篇散文的 4 个接受哲学篇。一人工程图景的 4 个接受哲学详细 = Core ML 算了 + RoPE 算了 + INT8 算 + 不重写 kernel = 一类工程师的接受哲学的全部。
