@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"; // Trigger Vercel redeploy 2026-08-21
 import { getLatestWork, getWorks, getNotes } from "@/lib/content";
 import { EntryCard } from "@/components/Meta";
 
