@@ -1,0 +1,142 @@
+---
+title: "一人工程的 9 个角色：simedw 的全栈"
+slug: full-stack-solo-engineer-9-roles
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 全栈, 9 角色, solo engineer, 全栈单干]
+cover: https://exception-studio.vercel.app/works/full-stack-solo-engineer-9-roles
+---
+
+simedw 一个人做了 9 个角色。OpenAI 一个角色 = 一个团队。一人工程 = 全栈单干。
+
+## 9 个角色
+
+1. **数据收集者**：爬 BitMidi + Classical Archives + 自家私藏，共 60 万 MIDI 文件。
+2. **数据清洗者**：写 5 步流水线（钢琴主导 → 多轨砍 → 维度筛 → 指纹去重 → split 归一），60 万 → 21 万。
+3. **训练者**：PyTorch 训 33M / 64M / 125M 三档 transformer，14 次实验迭代。
+4. **部署者**：PyTorch → ONNX → Core ML + INT8 量化 + iPhone 真机测试。
+5. **评测者**：Gemini 3.5 Flash pairwise（70% 一致）+ autoregressive loss + rollout 偏好 + 真用户反馈。
+6. **App Store 沟通者**：提交 iOS app + 苹果审核 11 天等待 + V1 提交审核中。
+7. **HN 营销**：写 14 次实验公开记 HN 评论 +「deliberately haven't read a lot of papers」工作哲学传播。
+8. **README 作者**：GitHub README = 「论文综述」+「Limitations」+「下一步研究」三个学术部分合一。
+9. **iOS 用户支持**：回复 App Store 评论 + Reddit 邮件 + GitHub issues，决定 V1 3 个修复方向。
+
+## OpenAI 对照：190+ 人
+
+| 角色 | simedw | OpenAI |
+|---|---|---|
+| 数据收集者 | simedw | 5+ 数据工程师 |
+| 数据清洗者 | simedw | 20+ 数据工程师 |
+| 训练者 | simedw | 30+ 研究科学家 |
+| 部署者 | simedw | 15+ ML 系统工程师 |
+| 评测者 | simedw | 50+ 评估工程师 |
+| App Store 沟通者 | simedw | 5+ 产品经理 |
+| HN 营销 | simedw | 10+ 内容营销 |
+| README 作者 | simedw | 5+ 技术写作 |
+| iOS 用户支持 | simedw | 50+ 客服 + 5+ 产品经理 |
+| **总计** | **1** | **190+** |
+
+OpenAI 一个角色 = 一个团队（5-50 人）。simedw 一个角色 = 一个人。
+
+总规模差 190×。但产品形态一致——iOS 上线 + 数据干净 + 模型 work + 评测 honest + 用户支持。
+
+## 全栈的代价
+
+simedw 一个人做 9 个角色，每个角色都不是「专家级」：
+
+- 数据清洗：教科书 5 步组合，没有新算法。
+- 训练：标准 transformer + 已知 tricks，没有架构创新。
+- 部署：PyTorch → Core ML 标准流水线，没有自定义推理引擎。
+- 评测：Gemini pairwise + autoregressive loss + rollout 偏好，没有新评估方法。
+- 营销：HN 评论 + Reddit，没有 press release。
+- 用户支持：App Store 评论回复，没有客服系统。
+
+每个角色都是「工程师水平」，不是「专家水平」。simedw 不会写自定义推理引擎（像 vLLM 那样），不会训 RLHF（像 OpenAI 那样），不会建客服系统（像 Apple 那样）。
+
+但「工程师水平 × 9」覆盖了「产品上线 + 用户能用 + 用户反馈」的完整链路。
+
+## 全栈的优势
+
+simedw 一个人做 9 个角色，每个角色的反馈都直达：
+
+- 数据清洗的反馈（训练效果）→ 改清洗流水线。
+- 训练的反馈（rollout 偏好）→ 改训练目标。
+- 部署的反馈（iOS 真机）→ 改 Core ML 配置。
+- 评测的反馈（V0 上线）→ 改 V1 设计。
+- 营销的反馈（HN 评论）→ 调整工作哲学表述。
+- 用户支持的反馈（App Store 评论）→ 决定 V1 3 个修复方向。
+
+OpenAI 一个角色 = 一个团队 = 「反馈经过多个角色 → 多层 interpretation → 慢 10×」。
+
+simedw 一个角色 = 一个人 = 「反馈直达 → 自己 interpretation → 快 10×」。
+
+V0 → V1 = 1 周（simedw）。
+GPT-3 → GPT-3.5 = 1 年（OpenAI）。
+
+## 角色切换的隐性成本
+
+simedw 一周的角色切换：
+
+- 周一：写数据清洗（5 步流水线第 4 步的 fingerprint 算法）。
+- 周二：训练实验 9（scheduled sampling 微调）。
+- 周三：iOS 真机测试（Core ML 加载 + 推理速度验证）。
+- 周四：写 HN 评论（实验 9-12 公开记）。
+- 周五：回复 App Store 评论（3 类反馈 → V1 设计）。
+- 周末：V1 实现 + 提交苹果审核。
+
+每天切换 1 个角色。5 天 5 个角色。周末收尾。
+
+一人工程的隐性成本 = 「每天切换上下文」。simedw 不能「专注一件事」，必须 9 个角色并行。
+
+OpenAI 的隐性优势 = 「专注一件事」。一个数据工程师专注 5 年清洗数据，越洗越好。simedw 洗 1 周就跑训练，下次清洗是几个月后。
+
+## 角色切换的「意外创新」
+
+但 9 个角色并行有意外好处：跨角色的灵感。
+
+- 数据清洗发现的「指纹去重算法」启发训练实验的「同曲不同版本归到同一 split」。
+- 训练实验发现的「β=0.03 偏好」启发部署的「64M 蒸馏」。
+- 部署发现的「INT8 量化 -2%」启发评测的「consensus 去噪」。
+- 评测发现的「validation loss 漏 rollout」启发训练的「scheduled sampling」。
+
+跨角色灵感 = 「一个人同时懂 9 个角色的好处」。OpenAI 一个团队 = 「懂 1 个角色」。
+
+一人工程的意外优势 = 「跨角色灵感」。9 个角色串成 1 个人的知识图谱。
+
+## 全栈的极限
+
+simedw 的全栈是「钢琴 MIDI 续写 iOS app」的极限：
+
+- 任务域小（钢琴 + MIDI）→ 一个人能 cover。
+- 数据源小（60 万 MIDI）→ 一个人能清洗。
+- 模型小（125M）→ 一个人能训。
+- 部署平台小（iOS）→ 一个人能部署。
+
+任务域变大（多模态 + 多任务）→ 一个人 cover 不了 → 必须团队。
+
+OpenAI 的 GPT-4：
+
+- 任务域大（多模态 + 多任务 + 多语言）。
+- 数据源大（几亿文档 + 几亿图片）。
+- 模型大（1.7T）。
+- 部署平台大（云服务 + 100+ 国家）。
+
+GPT-4 必须团队。simedw 的 RollTab 必须一人。
+
+「全栈的极限」= 任务域能小到一个人 cover。
+
+## 14 次实验里 9 角色的体现
+
+- 实验 0：数据收集 + 数据清洗（角色 1 + 2）。
+- 实验 1-3：训练（角色 3）。
+- 实验 4-8：训练 + 评测（角色 3 + 5）。
+- 实验 9-12：部署 + 训练（角色 4 + 3）。
+- 实验 13：用户支持 + 决定 V1 方向（角色 9）。
+- 实验 14：V1 实现 + 提交苹果（角色 6 + 4 + 3）。
+- HN 评论（角色 7）+ README（角色 8）：贯穿全部 14 次。
+
+9 角色 = 14 次实验的全部工作量。
+
+## signature
+
+solus opus。
