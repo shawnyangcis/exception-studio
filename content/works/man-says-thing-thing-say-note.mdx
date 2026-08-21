@@ -1,0 +1,60 @@
+---
+title: "man says thing thing say note"
+slug: "man-says-thing-thing-say-note"
+date: "2026-08-21"
+summary: "洞穴人格式第二篇。plink 通用、note 精确。两个代名词对应 AI 音乐的两个抽象层：audio 层和 symbolic 层。一人工程选 symbolic，因为可工程化。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "simedw", "note", "plink"]
+cover: ""
+---
+
+上一篇「man hits thing thing go plink」写过 plink——洞穴人用来替代 AI 音乐整个领域的通用代词。什么都能塞：DDSP 的喇叭、MIDI 钢琴补全、AudioCraft 的环境音、GPT-4 哼的那段旋律。
+
+洞穴人还有一个词，专门给一类特定的 AI 音乐用：**man says thing thing say note**。
+
+## plink 是宽的，note 是窄的
+
+plink = AI 生成的、可听的、连续的声音。可能是 MIDI，可能是 raw audio，可能是混合。
+
+note = AI 生成的、可编辑的、symbolic 的声音。一定是 MIDI 类，一定有音符表，能在钢琴卷帘里看到。
+
+simedw 走 note。125M transformer 预测下一个 MIDI note，piano roll 输出，iPhone 上跑。
+
+Continuator 走 note。François Pachet 2003 年，符号生成，钢琴卷帘输出。
+
+Magenta Music Transformer 走 note。钢琴补全，多音轨。
+
+DDSP 不走 note。DDSP 直接合成音频，没有 MIDI 这个中间层。DDSP 生成的 trumpet 是 plink，不是 note——能听，不能弹。
+
+AudioCraft 不走 note。AudioCraft 生成 raw audio waveform，跟 MIDI 没关系。
+
+GPT-4 哼的那段旋律如果真能哼出什么，那是 plink，不是 note——因为没有音符表。
+
+## 为什么需要两个词
+
+洞穴人知道 plink 和 note 是两个世界，所以他用两个词。
+
+plink 世界听起来更惊艳（直接是 audio），但难编辑、难控制、难评估。
+
+note 世界听起来更干（钢琴音色单一），但好编辑、好控制、好评估。
+
+simedw 选择 note 世界，因为 note 世界的工程量更适合一个人——评估简单（pitch n-gram / chord entropy）、控制简单（top-k / top-p / min-p / XTC / top-h / Mirostat）、编辑简单（直接改 note event）。
+
+DDSP 在 Google 那种实验室做 plink 世界。Google 有 audio researcher 团队，有 perceptual loss 大牛，有大规模 TPU compute。
+
+一人工程和 Google 实验室选不同的代词。
+
+不是 note 比 plink 高级，是两个不同的工具。两者解决的问题不一样，使用的工程方法不一样，需要的资源也不一样。
+
+## 一人工程的代词选择
+
+洞穴人用 plink 和 note 两个词，是因为 AI 音乐真的分成两层。audio 层 + symbolic 层。两层都能做 AI 音乐，但两层需要的能力栈完全不同。
+
+一人工程选 symbolic 层。一个人能搞定 symbolic 层的整个 pipeline：数据采集 → 清洗 → 训练 → 部署 → 评测。一个人搞不定 audio 层全 pipeline，因为 perceptual loss + 音频合成需要大团队。
+
+simedw 一个人 + 1 个 iPhone app + 125M MIDI transformer + 14 次实验 + 半年——这是 note 世界的一人工程极限。
+
+---
+
+这是 isoprophlex 洞穴人格式系列的第二篇。第一篇写 plink（通用代词），这篇写 note（精确代词）。两个代词对应 AI 音乐的两个抽象层：audio 层和 symbolic 层。
+
+一人工程选 symbolic 层，因为 symbolic 层更可工程化。一个人能搞定 symbolic 层的整个 pipeline。一个人搞不定 audio 层。
