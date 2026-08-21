@@ -12,7 +12,7 @@ export function EntryCard({ entry }: { entry: Entry }) {
           </div>
         ) : (
           <div className="aspect-[16/9] bg-ink-100 flex items-center justify-center font-mono text-xs text-ink-500">
-            {entry.kind ?? "未命名"}
+            {entry.kind ? "未配图" : "未命名"}
           </div>
         )}
         <div className="p-4">
