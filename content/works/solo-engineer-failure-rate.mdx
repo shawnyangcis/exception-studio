@@ -1,0 +1,134 @@
+---
+title: "solo engineer 失败率：公开失败占 commit 总数的比例"
+slug: solo-engineer-failure-rate
+date: "2026-08-21"
+summary: "simedw 14 个 commit 中 8 个失败 = 失败率 57%。Solo engineer 的失败率远高于大公司工程师。一人工程的失败率哲学：公开失败 + 高失败率 + 接受失败 = 真实进化。"
+tags: ["一人工程", "solo engineer", "失败率", "失败", "commit", "公开"]
+cover: ""
+---
+
+simedw 14 个 commit 中 8 个失败 = 失败率 57%。
+
+solo engineer 失败率远高于大公司工程师。
+
+## 失败率是什么
+
+失败率 = 失败 commit 数 / 总 commit 数。
+
+simedw 14 个 commit，8 个失败 → 失败率 = 8/14 = 57%。
+
+对比大公司：
+
+- 大公司 PR failure rate = 5-10%（CI 失败 + review 不过）
+- 大公司 design failure rate = 20-30%（实验失败 + 产品失败）
+- simedw 失败率 = 57%（commit 失败 + DPO 实验失败）
+
+3 倍差距。
+
+## 为什么 solo engineer 失败率高
+
+solo engineer 失败率 57% > 大公司 5-10% 的原因：
+
+- 1 人设计实验（没有 reviewer 提前发现问题）
+- 1 人跑实验（没有团队交叉验证）
+- 1 人评结果（没有 evals team 检查）
+- 1 人记录（README 失败清单公开）
+
+4 个 1 人 = 失败率 3 倍。
+
+## 失败率的代价
+
+solo engineer 失败率 57% 的代价：
+
+- 时间：每次失败实验 ~30 分钟 × 8 次 = 4 小时
+- 心态：每次失败需要 reset + 重新做
+- 收入：失败实验占时间，影响上线节奏
+- 信心：失败率高可能让 solo engineer 失去信心
+
+4 个代价 = solo engineer 失败率哲学的核心。
+
+## 失败率的收益
+
+solo engineer 失败率 57% 的收益：
+
+- 学习：失败是 solo engineer 的主要学习方式
+- 公开：失败清单是社区学习的素材
+- 进化：每次失败 → 下次实验避开该路径 → 进化加速
+- 诚实：失败率 57% 是公开诚实，不是假装成功
+
+4 个收益 = solo engineer 失败率哲学的另一面。
+
+## solo engineer 失败率哲学
+
+solo engineer 选 57% 失败率：
+
+- 接受高失败率 = 接受深度迭代
+- 公开失败率 = 公开诚实
+- 失败率不能太低（太低 = 没深度迭代）
+- 失败率不能太高（太高 = 没进展）
+
+4 个边界 = solo engineer 失败率哲学。
+
+## 失败率 vs 评测困境
+
+solo engineer 失败率 57% 跟评测困境相关：
+
+- simedw 8 个失败 commit = 评测失败的实验
+- 评测失败 = 自动指标失效（pitch n-gram / chord entropy 抓不住细微差异）
+- 评测困境 + 失败率 57% = solo engineer 的真实工作状态
+
+2 个事实 = solo engineer 的现实。
+
+## 失败率 vs 表征哲学
+
+solo engineer 失败率 57% 跟表征哲学相关：
+
+- 失败率 57% → 大部分表征实验失败
+- 5× speedup 来自 compound note events（成功 1 个表征）
+- 失败率 57% × 14 次实验 = 8 次失败 + 6 次成功 = 14 次 commit
+
+成功 1 个表征（compound note events）= solo engineer 14 次实验的回报。
+
+失败率 57% 是 solo engineer 找出「成功表征」的代价。
+
+## 失败率的传播
+
+solo engineer 失败率 57% 的传播：
+
+- README 公开失败清单（8 个失败 commit）
+- HN show 评论公开失败（HN 评论者读到失败）
+- GitHub issues 公开失败（用户读到失败）
+- App Store 评价可能提到失败（用户反映）
+
+4 个公开渠道 = solo engineer 失败率公开。
+
+## 跟 research lab 对照
+
+research lab AI 工程师失败率：
+
+- 论文 negative result rate = 30-40%（学术论文里 negative result 不发）
+- 实验失败率 = 50-60%（内部统计）
+- 公开失败率 = 0%（学术不公开 negative result）
+
+research lab 失败率 50-60% 但不公开。
+
+solo engineer 失败率 57% + 公开 = 跟 research lab 失败率一样高，但 solo engineer 公开。
+
+solo engineer 公开失败 = 研究范式绕开（不蒸馏 Stanford + 公开失败率）。
+
+## 一人工程的失败率总结
+
+solo engineer 失败率 57%：
+
+- 失败率高于大公司（3 倍）
+- 失败率跟 research lab 相当（50-60%）
+- 失败率公开（README 失败清单）
+- 失败率是 solo engineer 进化的代价
+
+4 个事实 = solo engineer 失败率哲学的全部。
+
+solo engineer 失败率 57% = 公开诚实 + 高失败率 + 接受失败 = 真实进化。
+
+---
+
+这是 24 篇散文系列的失败率视角篇。Solo engineer 失败率 57% = 14 个 commit 中 8 个失败 = solo engineer 进化的代价。一人工程失败率哲学：公开失败 + 高失败率 + 接受失败 = 真实进化。

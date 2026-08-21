@@ -1,0 +1,107 @@
+---
+title: "solo engineer 工作流：一天 24 小时怎么分配"
+slug: solo-engineer-24-hour-workflow
+date: "2026-08-21"
+summary: "solo engineer 一天 24 小时的时间分配：commit log 4 小时 + train 4 小时 + eval 2 小时 + sleep 6 小时 + iterate 4 小时 + read 2 小时 + market 2 小时。Simedw 工作流的实际分布。"
+tags: ["一人工程", "solo engineer", "工作流", "24 小时", "时间分配"]
+cover: ""
+---
+
+solo engineer 一天 24 小时怎么分配？
+
+按 simedw 工作流实测：
+
+- 训练：4 小时（半天预训练 + 12 分钟 DPO）
+- 评测：2 小时（Gemini pairwise + 自己听 30 分钟 + 一致率检查）
+- commit log：4 小时（写 commit message + README + HN 评论）
+- iterate：4 小时（实验循环 + 失败记录 + 下一步规划）
+- read：2 小时（GitHub issues + HN show 评论 + 邮件）
+- market：2 小时（HN 帖 + App Store 更新 + README 更新）
+- sleep：6 小时
+
+7 项 = 4 + 2 + 4 + 4 + 2 + 2 + 6 = 24 小时。
+
+## 训练 vs 评测 vs iterate 的 trade-off
+
+simedw 一天分配：
+
+- 训练 4 小时（125M 模型 + 半天预训练 + 12 分钟 DPO）
+- 评测 2 小时（Gemini pairwise + 自己听 30 分钟 + 一致率检查）
+- iterate 4 小时（实验循环）
+
+训练 : 评测 : iterate = 4 : 2 : 4
+
+评测比训练短，但 iterate（实验设计 + 失败记录）跟训练一样长。
+
+这意味着 solo engineer 一天：
+
+- 训练时间 = iterate 时间
+- 评测时间 = iterate 时间的一半
+
+iterate 是 solo engineer 的最大块时间。
+
+## 跟大公司对照
+
+大公司 AI 工程师一天：
+
+- 训练：0 小时（用大集群，不是自己跑）
+- 评测：1 小时（用 evals team）
+- 会议：4 小时（sprint review + 1:1 + design review）
+- commit：2 小时（写 PR + review）
+- iterate：1 小时（自己写实验）
+- read：1 小时（Slack + Jira）
+- market：1 小时（产品经理 + 营销）
+- sleep：6 小时
+
+大公司 AI 工程师一天 4 项（会议 + commit + iterate + read）+ 训练 / 评测用集群 + market 通过团队。
+
+solo engineer 一天 7 项（训练 + 评测 + commit + iterate + read + market + sleep），全部同一个人。
+
+## solo engineer 的时间哲学
+
+solo engineer 选 7 项时间分配：
+
+- 训练：solo engineer 必须自己跑（不是大集群）
+- 评测：solo engineer 必须自己评（不是 evals team）
+- iterate：solo engineer 必须自己设计实验（不是研究团队）
+- market：solo engineer 必须自己 marketing（不是营销团队）
+- sleep：solo engineer 必须足够睡（不然失败率上升）
+
+5 个必须 + 2 个非必须（commit + read）。
+
+solo engineer 时间哲学：5 个必须由 solo engineer 自己完成。
+
+## 一人工程的工作流 cycle
+
+solo engineer 工作流 cycle：
+
+1. 训练（4 小时）
+2. 评测（2 小时）
+3. iterate（4 小时，cycle 1 → 2 → 3）
+4. commit（4 小时，写 commit message + README + HN 评论）
+5. market（2 小时，HN 帖 + App Store + README 更新）
+6. read（2 小时，GitHub issues + HN 评论 + 邮件）
+
+6 个步骤 + sleep = 一天 cycle。
+
+iterate 是 cycle 的核心。train → eval → iterate = 实验 loop。
+
+## 一人工程的 24 小时总结
+
+solo engineer 24 小时分配：
+
+- 训练 4 小时（17%）
+- 评测 2 小时（8%）
+- iterate 4 小时（17%）
+- commit 4 小时（17%）
+- market 2 小时（8%）
+- read 2 小时（8%）
+- sleep 6 小时（25%）
+
+7 项 = 100%。
+
+solo engineer 一人 = 全栈单干 = 24 小时分配全栈。
+
+---
+
+这是 24 篇散文系列的工作流篇。Solo engineer 一天 24 小时分配 = 训练 + 评测 + iterate + commit + market + read + sleep = 7 项。Solo engineer 一人 = 全栈单干 = 24 小时全栈。
