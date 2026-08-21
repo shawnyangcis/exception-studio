@@ -1,0 +1,238 @@
+---
+title: "simedw 8 个失败 commit 详细：note-on/note-off 飘音 + grammar-masked 慢 + 噪声数据放大..."
+slug: simedw-8-failed-commits-detailed
+date: "2026-08-21"
+summary: "Simedw 14 次 commit 8 个失败：note-on/note-off 飘音 + grammar-masked 慢 + 噪声数据放大没用 + Mirostat 减重复但紊乱 + extra local auxiliary 无收益 + 绝对 scalar 没 pairwise 准 + 验证 loss 漏了 rollout + Born-again networks 没用。Solo engineer 失败哲学 = 8 个失败 = 公开失败清单。"
+tags: ["一人工程", "AI 音乐", "simedw", "失败", "commit", "14 次", "8 个失败"]
+cover: ""
+---
+
+simedw 8 个失败 commit 详细：
+
+simedw 14 次 commit 里 8 个失败的具体细节。
+
+## 14 次 commit 概览
+
+simedw 14 次 commit：
+
+- 8 个失败 commit（没走通的）
+- 6 个成功 commit（最终结论）
+
+2 个 14 次 commit 分组。
+
+失败率 57% = 8/14。
+
+## 失败 1：note-on/note-off 飘音
+
+note-on/note-off 表征：
+
+- 朴素的 MIDI 表征（note-on / note-off / TIME_SHIFT）
+- 出现「飘音」问题
+- 出现「不释放」问题
+- 出现「active 状态搞丢」问题
+
+4 个问题。
+
+飘音 = 模型生成的 note 没正确释放（持续响）。
+
+失败原因：
+
+- 表征不能表达完整状态（active / released）
+- 模型需要自己追踪状态
+- 状态追踪错误 = 飘音
+
+3 个失败原因。
+
+simedw 后来用 NOTE 单 token 包含 duration = 解决飘音。
+
+## 失败 2：grammar-masked 慢
+
+grammar-masked：
+
+- 语法有效（不会出现无效 token 组合）
+- 慢（4 个 autoregressive step 出一个音）
+- 长序列（200 音 = 800 token）
+
+3 个 grammar-masked 特点。
+
+失败原因：
+
+- iOS 部署延迟高（>500ms / 200 音）
+- 长上下文超 512 tokens 限制
+- 推理速度慢（27 notes/sec）
+
+3 个失败原因。
+
+simedw 后来用 NOTE 单 token + nested decoder = 解决 grammar-masked 慢。
+
+## 失败 3：噪声数据放大没用
+
+噪声数据放大：
+
+- 想放大未清洗数据
+- 5× data 实验
+- 模型更差
+
+3 个噪声数据放大结果。
+
+失败原因：
+
+- 未清洗数据噪声多
+- 模型被噪声数据带偏
+- 偏好率下降
+
+3 个失败原因。
+
+simedw 后来回到 5 步清洗 = 不增加数据。
+
+## 失败 4：Mirostat 减重复但紊乱
+
+Mirostat：
+
+- 采样算法（Mirostat v2）
+- 减重复
+- 但紊乱
+
+3 个 Mirostat 表现。
+
+失败原因：
+
+- 减重复 + 紊乱 = 不平衡
+- 减重复用 Mirostat 解决一部分
+- 但紊乱是新问题
+
+3 个失败原因。
+
+simedw 后来用 DPO + scheduled sampling + A/B 偏好 = 解决 Mirostat 紊乱。
+
+## 失败 5：extra local auxiliary 没收益
+
+extra local auxiliary：
+
+- 想加额外局部辅助 loss
+- 加速收敛
+- 但没收益
+
+3 个 extra local auxiliary 表现。
+
+失败原因：
+
+- 5 个 head 交叉熵求和已足够
+- 额外 loss 不提供新梯度
+- 训练时长不变，质量不变
+
+3 个失败原因。
+
+simedw 放弃 extra local auxiliary，回到基础 5 个 head 交叉熵。
+
+## 失败 6：绝对 scalar 没 pairwise 准
+
+绝对 scalar：
+
+- 「这个续写打几分（1-10）」
+- 同一续写不同 prompt 分数漂移大
+- 不可重复
+
+3 个绝对 scalar 表现。
+
+失败原因：
+
+- 不同 prompt（4-note / 8-note / 16-32 note）下分数漂移大
+- 不同时间（早上 / 晚上）评分漂移
+- 不同模型（Gemini 3.5 vs Claude 3.5 vs GPT-4o）评分不一致
+
+3 个失败原因。
+
+simedw 改用 Gemini pairwise = 解决绝对 scalar 不一致。
+
+## 失败 7：验证 loss 漏了 rollout 质量
+
+验证 loss：
+
+- 训练时监控验证 loss
+- 验证 loss 下降 = 模型好
+- 但 rollout 质量不一定好
+
+3 个验证 loss 表现。
+
+失败原因：
+
+- 验证 loss 抓逐 token 准确度
+- rollout 抓完整序列质量
+- 逐 token 准确度高 ≠ 完整序列质量好
+
+2 个失败原因。
+
+scheduled sampling 是验证 loss 上升但 rollout 质量变好的反例。
+
+simedw 后来用 rollout 质量作为主要评测 = 验证 loss 是 sanity check。
+
+## 失败 8：Born-again networks 没用
+
+Born-again networks：
+
+- 模型蒸馏技术（teacher → student）
+- 想用 Born-again 压缩模型
+- 但没用
+
+3 个 Born-again 表现。
+
+失败原因：
+
+- Born-again 主要用于分类任务（不适用于 MIDI transformer）
+- student 学 teacher 的输出分布，但 MIDI 是序列任务
+- 蒸馏后质量下降
+
+3 个失败原因。
+
+simedw 放弃 Born-后来用 INT8 量化 = 压缩模型（不蒸馏）。
+
+## 8 个失败的共同特点
+
+8 个失败的共同特点：
+
+- 失败是公开的（README 写失败清单）
+- 失败有具体原因
+- 失败有后续解法
+- 失败不重复
+
+4 个共同特点。
+
+## 8 个失败的哲学
+
+8 个失败的哲学：
+
+- 失败是公开的（不是私密）
+- 失败是 solo engineer 的核心
+- 失败有具体解法
+- 失败不重复
+
+4 个哲学 = 8 个失败哲学。
+
+## 一人工程的失败哲学
+
+solo engineer 失败哲学：
+
+- 8 个失败 commit 是公开的
+- 失败有原因 + 解法
+- 失败不重复 = solo engineer 进步
+- 失败率 57% = 正常（14 次里 8 个失败）
+
+4 个事实 = solo engineer 失败哲学。
+
+## 一人工程的失败哲学总结
+
+solo engineer 失败哲学：
+
+- 8 个失败 = 公开失败清单
+- 失败有原因
+- 失败有解法
+- 失败不重复
+
+4 个事实 = solo engineer 失败哲学的全部。
+
+simedw 8 个失败 commit = 公开失败清单 + 失败原因 + 失败解法 + 失败不重复 = 一人工程失败哲学的全部。
+
+---
+
+这是 55+ 篇散文的失败篇。Simedw 8 个失败 commit = note-on/note-off 飘音 + grammar-masked 慢 + 噪声数据放大 + Mirostat + extra local auxiliary + 绝对 scalar + 验证 loss + Born-again networks = 失败率 57% = 公开失败清单 = 一人工程失败哲学的全部。
