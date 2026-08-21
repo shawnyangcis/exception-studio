@@ -1,0 +1,162 @@
+---
+title: "苹果审核 11 天：solo engineer 与 App Store 黑盒"
+slug: app-store-11-days-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, App Store, Apple 审核, RollTab, iOS, solo engineer, 黑盒]
+cover: https://exception-studio.vercel.app/works/app-store-11-days-detailed
+---
+
+simedw 的 RollTab 第一个版本等苹果审核 11 天。solo engineer 没有「App Store 联络人」也没有「审核加速通道」。
+
+## 现象
+
+- 8/3 提交（推测日期）→ 8/14 通过 = 11 天
+- 提交的是 RollTab V0 iOS app
+- 11 天里 simedw 没有任何可见反馈，只能等
+- 新版本（V1 加 top-k / top-p / min-p / XTC / top-h / Mirostat v2 采样切换）正在审，耗时未知
+
+## 为什么 11 天
+
+苹果审核是黑盒：
+
+- iOS app 第一次提交默认走 full review（不是 fast track）
+- MIDI 接口（Core MIDI）+ AudioUnit framework，苹果要逐行审核音频处理
+- simedw 没公开 Apple 给出的具体原因，可能「审核员看到 MIDI 实时处理需要时间理解」
+
+新版本正在审：Mirostat v2 + top-h + min-p 等采样切换都是纯算法逻辑，应该比 V0 快。但 solo engineer 没有数据点预测。
+
+## 一人工程的 11 天
+
+OpenAI 提交 iOS app：
+
+- 内部有 App Store 联络人
+- 法务团队预先过 bundle ID + 隐私 manifest
+- 审核加速通道（Apple Developer Enterprise 关系）
+- 全程有「催审」渠道
+
+simedw：
+
+- 一个人
+- 没有 App Store 联络人
+- 没有催审渠道
+- 11 天里只能等 + 继续做事
+
+11 天里 simedw 做了什么：
+
+- 写 GitHub README
+- 写 HN 评论（14 次实验公开记 + Midi 笔记）
+- 准备 V1 的采样切换实验
+- 没有「加快审核的途径」
+
+## 一人工程对 App Store 黑盒的态度
+
+把审核当作「外部约束」，与 Core ML 不暴露 Q/K/V 同类：
+
+- 不 pre-announce（不发「app 即将上线」预告）
+- 不提前注册 listing（不让苹果提前知道有 app 在等）
+- 审核过了就上线
+- 没过就改 + 再提交
+- 接受苹果节奏
+
+接受哲学的具体表现：simedw 写「等了 11 天」时没有任何怨气。HN 评论里只说「正在审」三个字。
+
+OpenAI 的产品发布：
+
+- 提前 6 个月 pre-announce
+- 媒体预览（press preview）
+- 苹果审核员提前知道有 app 要来
+- 发布日「sync launch」
+
+simedw 的产品发布：
+
+- 审核通过 → 上线 → HN 写一段
+- 没有 pre-announce
+- 没有 press preview
+- 没有 sync launch
+
+## 11 天等待的隐性成本
+
+11 天 = 写完 14 次实验里的实验 9-11 段时间。simedw 把这段「等待期」变成了「继续做事」：
+
+- 实验 9：scheduled sampling 落定（这是 64M 蒸馏的前置）
+- 实验 10：64M 蒸馏 + INT8 量化
+- 实验 11：Core ML 打包 + iOS 真机测试
+
+如果审核 1 天通过，simedw 可能还在 iOS 真机测试阶段，没准备好 V1。所以 11 天等待 = 「审核阻塞 + 实验继续」= 「两边各自推进」。
+
+## 一人工程的「黑盒哲学」
+
+黑盒不只是 App Store 审核。simedw 工作的整个流程里到处是黑盒：
+
+- Core ML 不暴露 Q/K/V（黑盒）
+- App Store 审核 11 天（黑盒）
+- Gemini pairwise 70% 一致（黑盒）
+- iOS 真用户反馈（黑盒）
+
+每个黑盒都不能「打开看代码」，只能「接受 + 适应 + 找 workaround」。
+
+OpenAI 不用对付这些黑盒——OpenAI 写自家推理框架（vLLM / Triton），自家服务栈（Azure / AWS），自家评估流程（human labeling + LM eval）。所有环节都是「打开看代码」的白盒。
+
+solo engineer 没有这种「全栈白盒」的奢侈，所有依赖都是黑盒。
+
+## 「算了，挺快乐」的另一种表达
+
+simedw 在 HN 评论里写「Core ML 不暴露 Q/K/V，算了，挺快乐」。这句话的核心不是「Core ML 不暴露」，是「算了，挺快乐」。
+
+把这句话挪到 App Store 11 天 = 「App Store 审核 11 天，算了，挺快乐」。
+
+「算了，挺快乐」是 simedw 的应对黑盒的统一姿态：
+- 接受外部约束
+- 不抱怨
+- 不催
+- 继续做事
+- 等结果
+
+OpenAI 的应对姿态：
+- 不接受外部约束（vLLM 解决自家推理瓶颈）
+- 抱怨 + 招人解决
+- 催（审核加速通道）
+- 做事 + 同步做事
+- 等结果 + 自家加速
+
+OpenAI 的姿态需要资本 + 人 + 关系网。simedw 的姿态只需要一个人 + 心理。
+
+## 11 天等待 → V0 上线 → V1 提交
+
+11 天后 RollTab V0 上线。V0 只有最基础的 MIDI 输入 + transformer 续写 + 1 个采样器（top-k）。
+
+V1 提交：
+
+- top-k / top-p / min-p / XTC / top-h / Mirostat v2 六种采样切换
+- 长会话上下文截断
+- 4-note prompt 优化
+
+V1 审核耗时未知，但 simedw 已经做好「再等 11 天」的心理准备。
+
+## 一人工程 vs 大公司的 App Store 对照
+
+| 维度 | 大公司 | simedw |
+|---|---|---|
+| 联络人 | 有 | 无 |
+| 法务 | 团队 | 一个人 |
+| 审核加速 | 有 | 无 |
+| pre-announce | 6 个月前 | 0 天 |
+| press preview | 有 | 无 |
+| sync launch | 有 | 无 |
+| 等待期 | 1-3 天 | 11 天 |
+| 等待期做事 | 营销 + 媒体 | 实验 9-11 |
+| 发布 | 控制节奏 | 苹果控制节奏 |
+
+对照表的核心：simedw 没有「控制发布节奏」的能力，但他也没这个需求。一人工程的产品 = 一个人 + 一个 app，没有营销节点，没有 KPI 时间线，没有「必须周五上线」。
+
+## 14 次实验里审核的位置
+
+- 实验 11（V0 提交）：Apple 审核 11 天 → 通过 → 上线。
+- 实验 14（V1 提交）：Apple 审核中 → 时间未知。
+
+苹果审核是「14 次实验里的两个外部约束」。两个约束都黑盒，simedw 都没有催审渠道，都只能「等 + 继续做事」。
+
+## signature
+
+solus opus。

@@ -1,0 +1,176 @@
+---
+title: "INT8 量化：64M 模型装进 iPhone"
+slug: quantization-int8-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, INT8 量化, Core ML, iPhone, 模型大小, FP32, PTQ]
+cover: https://exception-studio.vercel.app/works/quantization-int8-detailed
+---
+
+simedw 的 64M 模型从 FP32 (256MB) 量化到 INT8 (64MB)，iPhone 15 上跑到 150 notes/sec。
+
+## 现象
+
+- FP32 64M 模型：256 MB
+- INT8 量化后：64 MB（4× 压缩）
+- iPhone 15 推理速度：250 notes/sec（INT8）vs 100 notes/sec（FP32）（2.5× 加速）
+- 质量损失：DPO 偏好率从 87% 降到 85%（-2 个百分点）
+
+直觉上 4× 压缩 + 2.5× 加速 + 2% 损失 = 数学上的好交易。
+
+## 为什么 INT8 够
+
+模型权重 + activations 都量化到 8-bit 整数：
+
+- 权重量化：per-channel asymmetric（每个 channel 单独算 scale + zero point）
+- 激活量化：per-tensor symmetric（整个 tensor 共享 scale）
+- Calibration：用 1000 个 MIDI 样本跑前向，统计 activation range
+- Bias 不量化（保持 FP32）
+- 极端 outliers 用 mixed-precision（部分敏感层保持 FP16）
+
+Post-training quantization (PTQ) 不需要重新训练——直接在训好的 FP32 模型上做量化。
+
+## 一人工程的部署约束
+
+iPhone 部署的硬约束：
+
+- 安装包 < 200 MB（App Store 软限制）
+- 冷启动 < 5 秒（用户不会等更久）
+- 推理时不能持续占用 CPU（要省电）
+- 不能发热（iPhone 降频保护）
+
+INT8 + 64M + Core ML = 满足所有约束：
+
+- 模型 64 MB → 安装包 ~80 MB（含 RollTab 自身）→ 远低于 200 MB
+- 冷启动 < 1 秒（Core ML 加载 + warm cache）
+- 推理时 64M INT8 占用 CPU ~20%（iPhone 15）
+- 不发热（持续推理 30 分钟后温度升 < 5°C）
+
+## 量化损失补偿
+
+INT8 模型 DPO 偏好率 -2%：
+
+- FP32: 87%（vs base 24.55%）
+- INT8: 85%
+
+但 64M 是从 125M 蒸馏的（β=0.03 共识去噪作 teacher）：
+
+- 125M FP32: 87%
+- 125M INT8: 85%（-2%）
+- 64M FP32（蒸馏）: 85%
+- 64M INT8（蒸馏 + 量化）: 83%
+
+INT8 对 125M 和 64M 都是 -2%。蒸馏 + 量化 = -4%。
+
+但 64M INT8 仍然比「64M 不蒸馏 + FP32」偏好率高——蒸馏的 +5% 部分补偿了量化的 -2%。
+
+## OpenAI 的部署 vs simedw 的部署
+
+| 维度 | OpenAI | simedw |
+|---|---|---|
+| 模型 | 175B | 64M |
+| 精度 | FP16 | INT8 |
+| 显存 | 350 GB | 64 MB |
+| 硬件 | 5× A100 GPU | 1× iPhone CPU |
+| 用户数 | 1 亿+ | < 1 万 |
+| 推理时延 | 100ms-2s | 30ms |
+| 离线可用 | 否 | 是 |
+| 用户隐私 | 服务端 | 端侧 |
+
+规模差 2700×（64M vs 175B），但用途一致——跑 AI 推理给最终用户。
+
+## 一人工程的部署哲学
+
+模型小 + 量化 + 端侧 = 不需要云 = 用户隐私 + 离线可用。
+
+- 用户隐私：MIDI 数据不离开 iPhone。OpenAI 部署 = 用户数据上传服务端，有隐私风险。
+- 离线可用：飞机上 / 地下室 / 网络封锁区都能用。OpenAI 部署 = 必须联网。
+
+simedw 选 INT8 + 端侧 = 「用户隐私 + 离线可用」双满足。OpenAI 没这个需求——他们卖的是「云服务」，用户主动放弃隐私换便利。
+
+## Core ML 的具体角色
+
+Core ML 是 Apple 的机器学习推理框架，把 FP32/FP16/INT8 模型编译成 iOS app 可调用的本地推理。
+
+- Core ML 自动处理算子融合（operator fusion）
+- Core ML 自动用 Apple Neural Engine（ANE）跑适合的层
+- Core ML 不暴露 Q/K/V（RoPE 不能直接做 KV cache ring buffer）
+- Core ML 支持 INT8 量化模型 + calibration
+
+simedw 的部署链路：
+
+1. PyTorch 训 64M 模型（FP32）
+2. 导出 ONNX
+3. onnx2coreml 转 Core ML 格式
+4. INT8 量化（post-training）
+5. Calibration 用 1000 个 MIDI 样本
+6. 嵌入 iOS app
+7. Core ML 推理引擎跑
+
+整个链路一个人搞定。
+
+## 量化细节的工程哲学
+
+simedw 的量化策略不是「无脑 INT8」：
+
+- 权重量化 per-channel（不是 per-tensor）—— 更精细
+- 激活量化 per-tensor（不是 per-channel）—— activation 分布稳定
+- Calibration 集 = 训练集的子集（1000 个 MIDI）—— 不需要单独准备
+- 极端 outliers 用 mixed-precision（LayerNorm / Embedding 保持 FP16）—— 保留敏感层精度
+- 不重新训练（PTQ 而非 QAT）—— 一人工程没有时间做 QAT
+
+PTQ vs QAT：
+- PTQ (Post-Training Quantization)：训完 → 量化 → 校准。1-2 小时搞定。
+- QAT (Quantization-Aware Training)：训时模拟量化。几小时到几天。
+
+simedw 选 PTQ 因为损失 -2% 已可接受。如果损失 -5%，才考虑 QAT。
+
+## 蒸馏 + 量化 = 一人工程的「杠杆叠加」
+
+蒸馏：
+
+- teacher 125M FP32 → student 64M FP32（KL + CE 混合 loss）
+- 偏好率 85%（vs 蒸馏前 82%）
+- 训练时间 2 epoch × 18 万 MIDI = 几小时
+
+量化：
+
+- student 64M FP32 → student 64M INT8
+- 偏好率 83%（-2%）
+- 量化时间 < 30 分钟
+
+蒸馏 + 量化 = 偏好率 83% + 模型 64 MB + 推理 150 notes/sec。
+
+OpenAI 的「模型 + 蒸馏 + 量化」三件套需要 100+ 人团队。simedw 一个人 + 一台机器 + 几小时就搞定。
+
+## 64M INT8 在 iPhone 15 上的实际表现
+
+测试场景：用户弹 4 个音，模型续写 4 个音。
+
+- Core ML 加载模型：~200 ms（首次冷启动）
+- Core ML 推理 4 音：~30 ms
+- 用户感知延迟：~250 ms（冷启动）/ ~30 ms（warm）
+
+用户弹 4 音的间隔通常 1-2 秒（弹琴速度）。30 ms 推理延迟远低于感知阈值。
+
+长会话（用户弹 100 音 + 模型续 100 音）：
+
+- 推理 200 音：~400 ms（warm）
+- 用户感知「流畅」
+
+## 14 次实验里量化的位置
+
+- 实验 1-3：MIDI 表征（FP32 模型训出来）
+- 实验 4-7：DPO β 调优（FP32）
+- 实验 8：scheduled sampling（FP32）
+- 实验 9：scheduled sampling 落定（FP32）
+- 实验 10：64M 蒸馏 + INT8 量化 ← 这一篇
+- 实验 11：Core ML 打包 + iOS 真机测试
+- 实验 12：上下文截断 + 长会话优化
+- 实验 13-14：iOS 真用户反馈 + V1 采样切换
+
+实验 10 是「14 次实验里工程优化的一环」。从 FP32 训出来到 INT8 部署 = 4× 压缩 + 2.5× 加速 = 一人工程部署的关键工程优化。
+
+## signature
+
+solus opus。
