@@ -1,0 +1,145 @@
+---
+title: "simedw 「算了，挺快乐」哲学：solo engineer 接受约束 + 享受开发"
+slug: simedw-suan-le-ting-kuai-le-acceptance-philosophy
+date: "2026-08-21"
+summary: "simedw 多次「算了，挺快乐」：Core ML 不暴露 Q/K/V → 算了，挺快乐。Solo engineer 接受约束哲学 vs 大公司永不放弃重写 kernel。一人工程的「算了」= 不跟工具较劲 + 接受限制 + 享受开发。"
+tags: ["一人工程", "AI 音乐", "simedw", "Core ML", "算了", "接受", "哲学"]
+cover: ""
+---
+
+simedw 「算了，挺快乐」哲学：
+
+Core ML 不暴露 Q/K/V → simedw 算了，挺快乐。
+
+一人工程的「算了」哲学 vs 大公司永不放弃。
+
+## simedw 「算了，挺快乐」出现的位置
+
+simedw 多次「算了，挺快乐」：
+
+- RoPE KV cache ring buffer：Core ML 不暴露 Q/K/V → 算了，挺快乐
+- RoPE 算了，挺快乐（其他地方）
+- 数据清洗：5× data → 模型更差 → 算了，回到清洗（不增加数据）
+- 训练时长：增加训练时长 → 边际收益下降 → 算了
+
+4 个「算了」位置 = simedw 「算了，挺快乐」哲学的全部。
+
+## 「算了，挺快乐」是什么
+
+算了 = 不跟工具较劲 + 接受限制 + 享受开发。
+
+挺快乐 = 接受限制后的情绪 = 不是挫败，是 happy acceptance。
+
+simedw 算了一件事 → 仍 happy = solo engineer 接受哲学。
+
+## 跟大公司「永不放弃」的对照
+
+大公司遇到工具限制：
+
+- 不接受 → 重写工具（重写 PyTorch 底层 / 重写 CUDA kernel / 重写 Core ML）
+- 投入大量资源（100+ 工程师 / 几月时间）
+- 不接受 = 不妥协 = 「永不放弃」
+
+simedw 遇到工具限制：
+
+- 接受 = 算了
+- 不投入大量资源（1 人 + 几小时 / 几天）
+- 接受 = 妥协 = 「算了，挺快乐」
+
+两种姿态对照：
+
+- 大公司：投入多，接受少，「永不放弃」
+- solo engineer：投入少，接受多，「算了，挺快乐」
+
+4 个对照 = solo engineer vs 大公司哲学。
+
+## 接受哲学的代价
+
+solo engineer 接受哲学的代价：
+
+- 模型精度可能低（Core ML 量化损失）
+- 部署可能有限制（不能完全自定义 kernel）
+- 性能可能受限（不能完全利用 GPU）
+
+3 个代价 = solo engineer 接受哲学的代价。
+
+## 接受哲学的收益
+
+solo engineer 接受哲学的收益：
+
+- 时间节省（不算了可能几月，算了几天）
+- 心理健康（不跟工具较劲）
+- 用户体验（项目早 release）
+- 项目存在（不上线 vs 上线）
+
+4 个收益 = solo engineer 接受哲学的收益。
+
+4 个收益 > 3 个代价 = solo engineer 选接受哲学。
+
+## 「算了，挺快乐」vs 「永不放弃」
+
+算了，挺快乐 = solo engineer 哲学 = 接受 + happy + 推进项目。
+
+永不放弃 = 大公司哲学 = 不接受 + 不妥协 + 重写工具。
+
+solo engineer 选算了 + 挺快乐。
+大公司选永不放弃 + 重写工具。
+
+两个 trade-off。
+
+## 一人工程的接受哲学
+
+solo engineer 接受哲学：
+
+- 接受工具限制 = 算了
+- 接受后 happy = 挺快乐
+- 接受哲学 = solo engineer 的核心
+- 不接受哲学 = 大公司的核心
+
+4 个事实 = solo engineer 接受哲学。
+
+## 接受哲学的代价 vs 收益
+
+接受哲学 trade-off：
+
+- 代价 3 个：精度 + 部署 + 性能
+- 收益 4 个：时间 + 健康 + 用户体验 + 项目存在
+- 收益 > 代价
+
+3 代价 vs 4 收益 = 接受哲学 trade-off 净收益。
+
+## 接受哲学的传播
+
+solo engineer 接受哲学传播：
+
+- README 接受限制清单（Core ML 不暴露 Q/K/V）
+- HN show 评论提到接受哲学
+- App Store 部署接受限制（不上 Core ML kernel patch）
+- GitHub issues 回复接受限制
+
+4 个传播 = solo engineer 接受哲学公开。
+
+## 接受哲学跟 solo engineer 其他哲学的对照
+
+solo engineer 接受哲学 vs 其他哲学：
+
+- 表征 > 优化：接受哲学不优化（接受工具限制）
+- 简洁 > 复杂：接受哲学选简洁（不重写 kernel）
+- 公开 > 私密：接受哲学公开（README 写 Core ML 限制）
+
+3 个对照 = solo engineer 接受哲学与 17 核心兼容。
+
+## 一人工程的「算了，挺快乐」哲学
+
+solo engineer 「算了，挺快乐」哲学：
+
+- 4 个算了位置（RoPE + KV cache + data 5x + 训练时长）
+- 4 个收益 > 3 个代价
+- 接受哲学 = solo engineer 的核心
+- 不接受哲学 = 大公司的核心
+
+4 个事实 = solo engineer 「算了，挺快乐」哲学的全部。
+
+---
+
+这是 45+ 篇散文的接受哲学篇。Simedw 「算了，挺快乐」= 接受工具限制 + 不跟工具较劲 + 享受开发 = solo engineer vs 大公司哲学对照。Solo engineer 接受哲学 = 时间 + 健康 + 用户体验 + 项目存在 = 4 收益 > 3 代价。
