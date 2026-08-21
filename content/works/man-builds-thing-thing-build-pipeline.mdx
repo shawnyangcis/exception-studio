@@ -1,0 +1,87 @@
+---
+title: "man builds thing thing build pipeline"
+slug: "man-builds-thing-thing-build-pipeline"
+date: "2026-08-21"
+summary: "洞穴人格式第六篇。plink / note / training / ship / realtime / pipeline —— 六层抽象。simedw 14 次 commit log = 14 个 pipeline step。一人 pipeline 的载体是 commit log，不是大公司那种 7 团队 7 review 7 SLA 的 pipeline。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "simedw", "pipeline", "commit log"]
+cover: ""
+---
+
+plink / note / training / ship / realtime 五个抽象层之后，第六层是 pipeline。
+
+## 什么是 pipeline
+
+pipeline = 一组顺序执行的步骤，每个步骤有输入输出，下一步接上一步的输出。
+
+Google Magenta pipeline = 数据采集 → 预处理 → 模型训练 → 模型评估 → 模型部署 → 推理服务 → 用户反馈。七个步骤，每个步骤有团队。
+
+simedw pipeline = 数据采集（MIDI 文件）→ 预处理（compound note events）→ 模型训练（DPO β=0.03）→ 模型评估（Gemini pairwise + 自己听）→ 模型部署（Core ML 量化）→ 推理服务（iPhone app）→ 用户反馈（App Store 评论）。七个步骤，每个步骤是一个人。
+
+## pipeline 是抽象层第六层
+
+plink = 抽象层 1（领域）
+note = 抽象层 2（表示）
+training = 抽象层 3（方法）
+ship = 抽象层 4（部署）
+realtime = 抽象层 5（运行模式）
+pipeline = 抽象层 6（流程）
+
+pipeline 跟前五个不同：前五个是单点抽象，pipeline 是多点序列。
+
+solo engineer 的 pipeline 不是「大公司 pipeline 缩小版」。一人 pipeline 跟大公司 pipeline 在结构上一样，但在容量、人数、失败容忍度上完全不同。
+
+## pipeline 是 commit log
+
+一人 pipeline 的实际载体是 commit log。simedw 14 次 commit 是 14 个 pipeline step。每个 commit 对应一个 pipeline step：
+
+- commit 1: 数据清洗（去掉无效 MIDI）
+- commit 2: 表征切换（note-on/note-off → compound）
+- commit 3: DPO β=0.03 实验
+- commit 4: DPO β=0.10 实验
+- commit 5: grammar-masked 失败记录
+- commit 6: Mirostat 失败记录
+- commit 7: RoPE KV cache ring buffer
+- commit 8: Core ML 转换
+- commit 9: INT8 量化
+- commit 10: iOS sandbox 文件路径
+- commit 11: App Store 元数据
+- commit 12: TestFlight beta 反馈
+- commit 13: README 更新
+- commit 14: HN 营销
+
+14 个 commit = 14 个 pipeline step = 一个完整的一人 pipeline。
+
+## 一人 pipeline vs 大公司 pipeline
+
+大公司 pipeline：
+- 每个步骤有人（5-7 个团队）
+- 每个步骤有 review（设计 review + 代码 review + 数据 review）
+- 每个步骤有 SLA（响应时间 + 准确率）
+- 失败容忍度低（一次失败影响 1000+ 用户）
+
+一人 pipeline：
+- 每个步骤同一个人（1 个人 7 步骤）
+- 没有 review（自己 review 自己）
+- 没有 SLA（什么时候做完什么时候上线）
+- 失败容忍度高（一次失败影响 10 个 beta 用户）
+
+一人 pipeline 不是大公司 pipeline 的精简版，是另一种物种。物种差异不在 pipeline 本身，在 pipeline 周围的 ecosystem。
+
+## 洞穴人第六个代词
+
+plink / note / training / ship / realtime / pipeline 六层抽象：
+
+- plink = 领域
+- note = 表示
+- training = 方法
+- ship = 部署
+- realtime = 运行模式
+- pipeline = 流程
+
+洞穴人六个词，描述 AI 音乐的六个抽象层。
+
+simedw 14 次 commit 走完 pipeline 全程。一人 pipeline 在 14 个 commit 里完成。
+
+---
+
+这是 isoprophlex 洞穴人格式系列的第六篇。前五篇是 plink / note / training / ship / realtime，第六篇是 pipeline。六个代词对应 AI 音乐的六个抽象层：领域、表示、方法、部署、运行模式、流程。一人 pipeline 是 commit log 的同义词。
