@@ -1,0 +1,203 @@
+---
+title: "「算了，挺快乐」的四次出现：solo engineer 的黑盒哲学"
+slug: four-times-suan-le-ting-kuai-le
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 算了挺快乐, 黑盒, 接受哲学, solo engineer, Core ML, App Store]
+cover: https://exception-studio.vercel.app/works/four-times-suan-le-ting-kuai-le
+---
+
+simedw 的 HN 评论里有句被人反复引用的话：「Core ML 不暴露 Q/K/V，算了，挺快乐。」这句话在 simedw 的工作流里至少出现 4 次，每次都是黑盒。
+
+## 第一次：Core ML 不暴露 Q/K/V
+
+RoPE 理论上可以做 KV cache ring buffer——把旧的 KV cache 移到外存或重建，省内存。Core ML 不暴露 Q/K/V 内部张量，开发者拿不到 KV cache 的指针。
+
+后果：不能做 ring buffer。
+
+- simedw 的解法：「算了，挺快乐。」
+- OpenAI 的解法：自己写 inference framework（vLLM），用 paged attention 实现 ring buffer。
+- OpenAI 解法的代价：50+ ML 系统工程师 + 1 年 + 几十万行代码。
+- simedw 解法的代价：0 行额外代码 + 接受 512 token context 上限。
+
+长会话时 simedw 直接截断到最近 384 token 重建 KV cache。效果差，但能做。
+
+## 第二次：App Store 审核 11 天
+
+RollTab V0 提交后苹果审核 11 天。simedw 没数据点预测时间，没催审渠道，没法加速。
+
+后果：V0 上线时间不可控。
+
+- simedw 的解法：「算了，挺快乐。」继续写 14 次实验里的实验 9-11。
+- 大公司的解法：Apple 内部关系 + 审核加速通道 + 预先联络。
+- 大公司解法的代价：法务团队 + 企业关系 + 月费数万美金的企业开发者账号。
+- simedw 解法的代价：11 天等待 + 期间继续做事。
+
+11 天里 simedw 写了 scheduled sampling 落定、64M 蒸馏、INT8 量化。等待期变成实验期。
+
+## 第三次：HN 评论也被 Reddit 屏蔽
+
+HN show 文本在 Reddit 被 bot 当 spam 屏蔽。simedw 没法在 Reddit 发链接。
+
+后果：Reddit 营销渠道 = 0。
+
+- simedw 的解法：继续 HN 评论（不指望 Reddit）+ 自己博客 simedw.com（独立渠道）。
+- 大公司的解法：找 Reddit 内部人 + 付费广告 + 多个账号矩阵。
+- 大公司解法的代价：营销预算 + 渠道维护人。
+- simedw 解法的代价：放弃 Reddit，把时间花在更深的 HN 评论。
+
+HN 评论和 GitHub README = simedw 的两个公开渠道。Reddit 没了就没了。
+
+## 第四次：iOS 真用户反馈的「失忆」
+
+RollTab V0 上线后用户反馈：「弹 80 个音突然失忆。」原因是 context 满了 + 按 token 滚动窗口 = 动机被砍碎。
+
+后果：长会话质量不可控。
+
+- simedw 的解法：「算了，挺快乐。」V1 改按音符滚动 + 重建 KV cache。
+- 大公司的解法：训长 context 模型（百万 token）+ 强化学习反馈 + RLHF reward。
+- 大公司解法的代价：几百万美元训练 + 长 context 推理延迟 + 数据准备。
+- simedw 解法的代价：V1 多 2 周开发 + 苹果审核再多等 N 天。
+
+按音符滚动 = 100 行 Swift + 100 行 Python。「算了，挺快乐」换来 100 行代码。
+
+## 黑盒的共同模式
+
+四个「算了，挺快乐」都对应一个共同模式：
+
+- 黑盒 = simedw 不能打开看内部实现的系统。
+- 黑盒 = 大公司能打开（花人 + 钱 + 时间）。
+- simedw 的应对 = 接受 + 适应 + workaround。
+- 大公司的应对 = 招人 + 花钱 + 自己造。
+
+四个黑盒：
+
+1. Core ML 不暴露 Q/K/V → simedw 接受 512 token 上限。
+2. App Store 审核 11 天 → simedw 接受等待期。
+3. Reddit 屏蔽 → simedw 接受营销渠道变窄。
+4. 长会话失忆 → simedw 接受按音符滚动。
+
+每个黑盒 = 一个「不能改的事」。solo engineer 的工作 = 「在不黑盒的边界内做事」。
+
+## 为什么 simedw 算得快乐
+
+OpenAI 的解法：
+
+- 自己写 inference framework（vLLM）—— 50+ 人 1 年。
+- 自己训长 context 模型—— 几百万美元。
+- 自己建客服系统—— 100+ 人。
+- 自己写 RLHF reward model—— 30+ 人 半年。
+
+每个解法都是「重造一个系统」。代价是「把人 + 钱 + 时间」叠加起来。
+
+simedw 的解法：
+
+- 接受 512 token + 长会话截断—— 0 行代码（截断就是截断）。
+- 接受 11 天等待—— 期间继续做事（不算代价，算时间利用）。
+- 接受 Reddit 屏蔽—— 继续 HN（不算代价，算渠道聚焦）。
+- 接受按音符滚动—— 100 行代码（小工程）。
+
+每个解法都是「在不重造的前提下做事」。代价是「接受限制」+ 「workaround」。
+
+「算了，挺快乐」的核心不是「算了」，是「挺快乐」。simedw 接受限制之后没有不快乐——他真的挺快乐。
+
+为什么会快乐？
+
+- 限制让工作变得简单（接受 = 不纠结）。
+- workaround 让产品能上线（接受 + 做 = 能用）。
+- 时间花在「做产品」不是「砸黑盒」（接受 = 时间分配合理）。
+
+OpenAI 砸黑盒 50+ 人 1 年 = 「砸完黑盒，1 年没产品」。simedw 算了 1 天 = 「1 天后产品上线」。
+
+两者效率差 100×。
+
+## solo engineer 的黑盒哲学
+
+solo engineer 没法砸黑盒：
+
+- Core ML 砸不动（Apple 内部框架）。
+- App Store 审核砸不动（苹果政策）。
+- Reddit 屏蔽砸不动（Reddit 算法）。
+- 长 context 砸不动（自己没算力训长 context 模型）。
+
+每个黑盒 = solo engineer 的天花板。solo engineer 在天花板下做事。
+
+接受天花板 + 在天花板下做事 = solo engineer 的工作方式。
+
+不接受的 solo engineer 会怎样？
+
+- 不接受 Core ML 黑盒 → 必须自己写 inference framework（不可能一个人做）。
+- 不接受 App Store 黑盒 → 必须找苹果内部人（不可能一个人联系上）。
+- 不接受 Reddit 黑盒 → 必须搞 Reddit 营销矩阵（不可能一个人维护）。
+- 不接受长 context 黑盒 → 必须训长 context 模型（不可能一个人训）。
+
+不接受 = 砸墙 = 砸不动 = 沮丧 = 放弃。
+
+接受 = 算了 = 挺快乐 = 继续做 = 14 次实验 = V0 上线 = V1 提交。
+
+「算了，挺快乐」不是认输。是「认清天花板 + 在天花板下创造」。
+
+## OpenAI 的反面对照
+
+OpenAI 的核心哲学是「永不放弃重写 kernel」：
+
+- Transformer 不够好 → 自己写 Transformer。
+- RLHF 不够稳 → 自己写 PPO + reward model。
+- Inference 太慢 → 自己写 vLLM + TensorRT-LLM。
+- 长 context 不够长 → 自己训百万 token 模型。
+- Multi-modal 不够顺 → 自己写 DALL-E + Sora。
+
+每个「不够好」都自己砸。砸不动就继续砸。砸得动人 + 钱 + 时间。
+
+OpenAI 的产品 = 「砸穿所有黑盒的产品」。GPT-4 = 砸穿 30+ 黑盒的产物。
+
+simedw 的产品 = 「接受所有黑盒的产品」。RollTab = 接受 4 个黑盒的产物。
+
+两种产品都是 AI 钢琴 MIDI 续写 iOS app。规模差 1000×。
+
+## solo engineer 不砸黑盒的更深原因
+
+solo engineer 不砸黑盒不是「不想砸」，是「砸不起」：
+
+- Core ML 砸不动 → 一个人 5 年也砸不出 vLLM 级的框架。
+- App Store 砸不动 → 一个人联系不上苹果 VP。
+- Reddit 砸不动 → 一个人搞不定 Reddit 算法。
+- 长 context 砸不动 → 一个人没几百万美元训 100M token context。
+
+砸不动 = solo engineer 的客观约束。不是主观放弃。
+
+「算了，挺快乐」是「认清客观约束 + 在约束内做事」。
+
+主观放弃会不快乐（想做但做不了）。客观约束 + 接受 = 挺快乐（想做但做不到，所以做能做的）。
+
+simedw 不是「做不到 Core ML 内部」所以不快乐。simedw 是「做不到 Core ML 内部，所以做 512 token 截断」。后者 = 现实。
+
+## 黑盒哲学 + 一人工程
+
+一人工程 = 一个人 + 一台机器 + 几个黑盒。
+
+- 一个人：simedw 自己。
+- 一台机器：4 × RTX 4090（V7 contractor 借的）。
+- 几个黑盒：Core ML / App Store / Reddit / 长 context / Gemini pairwise 一致性 / iOS 真用户反馈 / 苹果审核 N 天。
+
+每个黑盒都不能砸。接受 + workaround = 一个人能 cover 的范围。
+
+14 次实验 = 「在 7-8 个黑盒下能做的范围」。
+
+OpenAI 14 次实验 = 「砸穿 7-8 个黑盒后再做的实验」。规模差 100×。
+
+## 黑盒哲学的传播
+
+simedw 在 HN 评论里写「算了，挺快乐」被人反复引用。这个引用传播的不只是 simedw，是整个 solo engineer 的工作哲学：
+
+- 接受 + 适应 + workaround = 一个人能做的事。
+- 砸墙 + 重造 + 自己搞 = 一个团队能做的事。
+- solo engineer 不砸墙 = solo engineer 不假装团队。
+
+OpenAI 不引用 simedw 的「算了，挺快乐」。OpenAI 的哲学是「永不放弃」。simedw 的哲学是「算了，挺快乐」。
+
+两个哲学都是 AI 钢琴 MIDI 续写 iOS app 的版本。一个 1000× 大，一个 1× 小。
+
+## 签名
+
+solus opus。
