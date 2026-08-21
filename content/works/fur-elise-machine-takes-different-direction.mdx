@@ -1,0 +1,94 @@
+---
+title: "Für Elise 被模型带向完全不同的方向"
+slug: fur-elise-machine-takes-different-direction
+date: "2026-08-21"
+summary: "Beethoven 1808 写 Für Elise 开头 'mi-mi-fa-re'。simedw 2026 的 MIDI transformer 把这四个音带向完全不同的方向。一人工程的即兴史：solo engineer 接 solo engineer，跨 200 年。"
+tags: ["一人工程", "AI 音乐", "simedw", "Für Elise", "Beethoven", "即兴史", "古典"]
+cover: ""
+---
+
+Beethoven 1808 年写了 Für Elise 开头四个音：「mi-mi-fa-re」。
+
+200 年后 simedw 2026 年的 MIDI transformer 拿这四个音当 prompt，把 Für Elise 带向完全不同的方向。
+
+两个「即兴」：「mi-mi-fa-re」之后 Beethoven 接什么 vs simedw 接什么。
+
+## Beethoven 1808 的即兴
+
+Beethoven 接的是：mi-fa-mi-re-mi-mi-mi-fa-re-do-re-mi。
+
+这是古典和声学规则下的进行：mi → fa → mi 是半音下行，fa → re 是下行四度。符合 18 世纪古典乐派的旋律走向。
+
+Für Elise 不是贝多芬最著名的曲子（命运 / 英雄 / 月光更有名），但开头四个音的即兴性是 solo engineer 也能认同的：「给定开头 → 即兴续写 → 听众听到完整作品」。
+
+## simedw 2026 的即兴
+
+simedw 的 MIDI transformer 接的是：完全 MIDI 概率分布下的下一个音。
+
+DPO β=0.03 consensus 69.05% + Gemini pairwise 70% 一致 + 4-32 note prompt + 持续到停。
+
+simedw 拿「mi-mi-fa-re」当 prompt，输出会跟 Beethoven 的「mi-fa-mi-re-mi-mi-mi-fa-re-do-re-mi」完全不同。
+
+为什么？simedw 模型在 300M piano-only notes 上训练，看到的是「古典 + 流行 + jazz + 练习曲 + 各种钢琴曲」的混合。模型不知道 Beethoven 写过什么。模型只知道「给定这四个音，什么是最可能的下一个音」。
+
+最可能的下一个音（统计上）不一定是 Beethoven 的选择（音乐上）。
+
+## 即兴史的传承
+
+古典即兴史 150 年：
+
+- Bach 1750：管风琴即兴 + 赋格
+- Mozart 1780：钢琴即兴 + 协奏曲华彩
+- Beethoven 1808：钢琴小品即兴
+- Liszt 1840：钢琴独奏音乐会即兴
+- Pachet 2003：Continuator 钢琴补全
+- Magenta 2018：Music Transformer
+- simedw 2026：MIDI transformer + iPhone
+
+7 个里程碑 = 250 年 + 200 年 + 23 年 + 8 年 = 同一件事的不同名字。
+
+solo engineer 接 solo engineer：
+
+- Beethoven 1808：solo pianist
+- Pachet 2003：solo researcher
+- simedw 2026：solo engineer
+
+3 个「solo」跨 200 年。同一种姿态：一个人 + 一件乐器 + 一个目标。
+
+## 一人工程的即兴哲学
+
+solo engineer 即兴 = 接受开头不确定 + 跟着 prompt 走 + 不预测完整作品。
+
+Beethoven 写 Für Elise 时也不确定完整作品是什么样。simedw 写 MIDI transformer 时也不确定 prompt-then-continue 会输出什么。
+
+即兴的本质：solo engineer 给定开头，跟着 prompt / 模型 / 灵感走，不强求完整作品。
+
+simedw 的 MIDI transformer 是「即兴的即兴」：solo engineer 给模型开头，模型给 solo engineer 续写。双向即兴。
+
+## 洞穴人格式补充
+
+洞穴人格式第十三篇写过 fail = 训练失败。
+
+Für Elise 不是一个 fail。但「mi-mi-fa-re」+ MIDI transformer 是一个 fail-safe 设计：模型即使续写得很离谱，听众也不会觉得是 bug——因为「即兴」本身允许离谱。
+
+即兴哲学的 fail-safe：
+
+- 即使模型输出完全不像 Für Elise，用户也接受（这是「即兴」的一部分）
+- 即使模型输出和 Beethoven 一样，用户也接受（这是「续写」的本意）
+- 即使模型输出失败，用户也接受（这是「fail」）
+
+3 个 fail-safe = solo engineer 的即兴哲学。
+
+## 一人工程的 200 年
+
+200 年前 Beethoven 一人写 Für Elise。
+
+200 年后 simedw 一人写 MIDI transformer。
+
+两个一人工程。同一种姿态：一个人 + 一件乐器 / 一台机器 + 一个目标。
+
+solo engineer 跨 200 年。
+
+---
+
+这是 simedw 系列散文。Beethoven 1808 写 Für Elise 开头「mi-mi-fa-re」 → simedw 2026 用 MIDI transformer 把这四个音带向完全不同的方向。Solo engineer 接 solo engineer，跨 200 年的即兴史传承。
