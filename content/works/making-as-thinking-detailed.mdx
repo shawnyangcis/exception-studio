@@ -1,0 +1,126 @@
+---
+title: "制作即思考：solo engineer 的实验循环哲学"
+slug: making-as-thinking-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 制作即思考, 实验循环, 反思实践, Schön, solo engineer, making]
+cover: https://exception-studio.vercel.app/works/making-as-thinking-detailed
+---
+
+设计学者 Donald Schön 写过一本《反映的实践者》（The Reflective Practitioner）。核心观点：「专业人士不是在思考后才动手，是在动手中思考。」
+
+simedw 是这个观点在 AI 时代的最具体实现：他不是「想清楚表征再写代码」，是「写完表征、看 loss、改表征、再写」。思考和制作交替进行，不能拆开。
+
+## 制作 = 思考的载体
+
+simedw 14 次实验的每一步都包含：
+
+- 「我想用 compound note events」= 思考。
+- 「让我用 5 个 categorical field 实现」= 制作。
+- 「loss 下降但 rollout 质量差」= 思考的反馈。
+- 「我改用 scheduled sampling」= 思考 + 制作。
+- 「Gemini pairwise 64.3% 偏好」= 思考的反馈。
+
+思考和制作不能拆开——「我想清楚再做」和「我边做边想」是两个不同的工作方式。simedw 走第二条路。
+
+OpenAI 一个研究员的工作方式：
+
+- 「我想清楚表征再设计实验」= 思考（2 周）。
+- 「实验设计好提交算力排队」= 制作（1 周等待）。
+- 「结果出来」= 思考的反馈。
+
+Schön 说这种工作方式不是「反映的实践者」，是「技术专家」——思考和制作被组织结构切断了。
+
+simedw 的工作方式：思考和制作在 1 个循环里完成，每 3-7 天一个循环。
+
+## 实验 = 思考的实体化
+
+simedw 的 14 次实验不是「思考的副产品」，是「思考本身」。
+
+每次实验跑完，simedw 不是「回去想」——他是「听结果」+「改代码」+「跑下一个」。听 → 改 → 跑 是反思循环，不是「先想清楚再动手」。
+
+Schön 的「reflection-in-action」就是 simedw 的工作方式：
+
+1. 实验进行中遇到 surprise（loss 没下降）。
+2. 在 surprise 出现当下，simedw 调整假设。
+3. 调整后的假设立刻编码进新实验。
+5. 新实验跑出新的 surprise。
+6. 循环。
+
+每一步都不是「先想后做」，是「边做边想」。
+
+## 一人工程的反思循环
+
+simedw 的反思循环：
+
+- 周期：3-7 天（一次实验）。
+- 参与者：simedw 自己 + Gemini（pairwise 评估者）。
+- 反馈源：loss + 自己听 + Gemini pairwise + GitHub issue。
+- 反思时机：每次实验跑完后的当天晚上。
+
+OpenAI 一个研究员的反思循环：
+
+- 周期：3-6 个月（一次完整实验）。
+- 参与者：自己 + 同事 + reviewer。
+- 反馈源：review comments + 实验结果。
+- 反思时机：每个 milestone 后。
+
+solo engineer 的反思循环 50× 更密，反馈密度 50× 更高。
+
+## 制作即思考的代价
+
+Schön 说「反映的实践者」不擅长「把思考外化」——他们能做事但说不清楚为什么这样做。
+
+simedw 的代价：他 14 次实验的逻辑不能简单概括成一篇论文。每一次调整都是「surprise 出现当下」的反应，不是「先想清楚再设计」的产物。
+
+后果：simedw 的 blog post 看起来是「实验日志」，不是「研究报告」。读者要读完 14 次实验才能理解他在做什么。
+
+但反过来：simedw 的 14 次实验都是「真实验过的」，不是「理论推断的」。可靠性比论文高。
+
+## 写作即反思
+
+simedw 在 blog 里写自己 14 次实验的过程，本质上是在做「reflection-on-action」（事后反思）。
+
+simedw 的 blog = 「事后反思」的实体化。每一篇博客 = 「把边做边想的逻辑事后整理成可读文本」。
+
+写作即反思：
+
+- 写出来 = 强迫自己事后看一遍。
+- 事后看 = 发现自己当时没意识到的逻辑。
+- 发现新逻辑 = 调整下一次实验的假设。
+
+simedw 的博客循环：
+
+1. 做完一批实验。
+2. 写 blog post。
+3. 写的过程发现自己当时的 hidden logic。
+4. 用新的 hidden logic 设计下一批实验。
+
+写作即思考。写作即制作之后的反思。
+
+## 大公司的反思循环成本
+
+OpenAI 一个研究员写 blog post 反思的代价：
+
+- 时间：写一篇 blog 要 1-2 周。
+- 协作：要 PM 配合、要 legal review、要 marketing 配合。
+- 风险：说出来可能影响股价、影响竞争、影响 product positioning。
+
+后果：OpenAI 公开反思 = 0。OpenAI 的反思都是内部 review = 不能公开。
+
+simedw 的反思循环 = 全公开。一个人 + 一个 blog + 一个 GitHub。反思循环 50× 更密 + 100% 公开。
+
+## solo engineer 的反映的实践者
+
+simedw 是 21 世纪 AI 时代最具体的「反映的实践者」：
+
+- 思考和制作不分离。
+- 反思循环 50× 更密。
+- 反思结果 100% 公开。
+- 反思 + 制作 + 下一次反思 = 14 次实验 = V0 + V1 + V2。
+
+这是 solo engineer 的工作方式。这是 AI 时代的反映的实践者。
+
+## 签名
+
+solus opus。

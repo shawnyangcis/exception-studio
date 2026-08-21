@@ -1,0 +1,84 @@
+---
+title: "Stillness 的预热：solo engineer 等待审核的 11 天能做什么"
+slug: the-warmup-of-stillness-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, App Store 审核, 等待, 算力等待, solo engineer, still warm-up]
+cover: https://exception-studio.vercel.app/works/the-warmup-of-stillness-detailed
+---
+
+simedw 提交 RollTab V0 给苹果审核的那 11 天，是一人工程里最被低估的一段。
+
+## 11 天 = 三个独立实验的完整跑完
+
+simedw 自己在博客里写过：这 11 天里他做完了 scheduled sampling 落定、64M 蒸馏到 125M 质量、INT8 量化到 iPhone 15 108 notes/sec。
+
+OpenAI 一个 inference engineer 等一次 GPU 排队的时间可能都不止 11 天。simedw 把审核期 = 「免费的一段不被打断的时间」。审核结果只在第 11 天揭晓，前 10 天完全是 simedw 自己的。
+
+## Stillness 不等于空转
+
+HN 评论 throw_m239339 写过一句话：「等待不是空，是被填满的 still warm-up。」simedw 的 11 天就是这种 still warm-up——没有产品上线，但实验在跑、论文在写、训练在跑。
+
+一人工程的 still warm-up 不止是 simedw 这种审核期。任何「产品已经提交、还没反馈」的时段都是 still warm-up：
+
+- App Store 审核 11 天。
+- HN show 等评论 6 小时。
+- 论文 under review 2-6 个月。
+- 训练 job 等算力几小时到几天。
+- 用户反馈收集 1-2 周。
+
+每一段 still warm-up 都可以用来推进下一个独立工作。
+
+## solo engineer 的 still warm-up 哲学
+
+OpenAI 一个工程师提交 PR 后等 review 1-3 天，期间没什么能推进——下一个工作被依赖前一步的结果卡住。
+
+simedw 提交 RollTab 后等审核 11 天，期间实验 9-11 三个完全独立。独立性 = 等待期能推进。
+
+一人工程的独立性设计原则：
+
+- 实验之间不共享状态（每个 experiment 自己的 checkpoint）。
+- 论文之间不互相引用（每个 essay 独立成文）。
+- 产品迭代之间不依赖用户反馈（V0 用自己听、V1 用 Gemini、V2 才用真用户）。
+- 渠道之间不互相依赖（HN 评论独立、博客独立、GitHub README 独立）。
+
+每个 still warm-up 期间，simedw 都能切换到下一段独立工作。这就是一人工程的 still warm-up 哲学。
+
+## 大公司 still warm-up 是被浪费的
+
+OpenAI 的 still warm-up：等 review、等 review、等 review。一个工程师的日历上可能 70% 时间在等。
+
+simedw 的 still warm-up：等审核期间做实验。一个月能做的事 = OpenAI 一个工程师两个月的 still warm-up + 实际工作。
+
+效率差不是 2×，是 5-10×。这就是一人工程的核心优势：still warm-up 不是瓶颈，是加速器。
+
+## 反过来说：simedw 也付代价
+
+simedw 的 still warm-up 只在「审核 = 黑盒」的前提下成立。如果审核内部能加速（OpenAI 有企业账号），那 simedw 应该用企业账号而不是 still warm-up。
+
+但 simedw 用不起企业账号（年费数万美金 + 法务团队 + 关系维护）。still warm-up 是「没钱加速时的次优解」。
+
+一人工程 = 「没有花钱解决就接受时间解决」的工作方式。
+
+## solo engineer 的工作日历
+
+simedw 的工作日历：
+
+- 早上：实验运行（自动）+ 自己听前一天的结果。
+- 下午：训练 job + scheduled sampling 实验。
+- 晚上：写博客 + HN 评论。
+- 提交后：审核期 = still warm-up = 下一个独立实验。
+
+OpenAI 一个工程师的工作日历：
+
+- 早上：开会。
+- 下午：等 review。
+- 晚上：被上一个 review 卡住，第二个实验跑不了。
+
+simedw 一个工作日 = 推进 1-2 个独立实验。OpenAI 一个工程师一个工作日 = 推进 0.5 个独立实验。
+
+still warm-up 是 simedw 的杠杆。
+
+## 签名
+
+solus opus。
