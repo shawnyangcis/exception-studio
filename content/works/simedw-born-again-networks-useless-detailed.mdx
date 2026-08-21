@@ -1,0 +1,146 @@
+---
+title: "Born-again networks 没用详细：solo engineer 失败哲学 + Born-again 蒸馏不适用于 MIDI"
+slug: simedw-born-again-networks-useless-detailed
+date: "2026-08-21"
+summary: "Simedw Born-again networks 实验失败 = student 学 teacher 输出分布，但 MIDI 是序列任务，蒸馏后质量下降。Solo engineer 失败哲学 = 公开失败 + 失败有原因 + 失败有解法 = 用 INT8 量化替代蒸馏。一人工程不接受不适用工具哲学。"
+tags: ["一人工程", "Born-again networks", "失败", "solo engineer", "蒸馏", "MIDI", "哲学"]
+cover: ""
+---
+
+Born-again networks 没用详细：
+
+solo engineer 失败哲学的具体表现之一 = Born-again networks 蒸馏不适用于 MIDI。
+
+## Born-again networks 是什么
+
+Born-again networks = 教师模型蒸馏技术：
+
+- student 模型学 teacher 模型输出分布
+- student 比 teacher 小
+- student 比 teacher 快
+- 蒸馏后保留 teacher 性能
+
+4 个 Born-again networks 特点。
+
+Born-again networks 的应用：
+
+- 分类任务（图像分类 / 文本分类）
+- 大模型压缩（BERT → DistilBERT）
+- 边缘部署（手机 / 嵌入式）
+
+3 个 Born-again networks 应用。
+
+## simedw Born-again 实验
+
+simedw Born-again 实验：
+
+- teacher：125M MIDI transformer
+- student：30M MIDI transformer
+- 目标：student 保留 teacher 性能
+- 结果：student 质量下降
+
+4 个 simedw Born-again 实验。
+
+simedw Born-again 实验结果：
+
+- student 质量下降（不是保留）
+- student 失去长上下文能力
+- student 失去风格一致性
+- student 失败
+
+4 个 simedw Born-again 失败结果。
+
+## Born-again 为什么在 MIDI 失败
+
+Born-again 在 MIDI 失败的原因：
+
+- Born-again 主要用于分类任务（输出分布固定）
+- MIDI 是序列任务（输出分布不固定，依赖上下文）
+- student 学固定分布但 MIDI 上下文动态
+- student 学不到 teacher 的长上下文推理
+
+4 个 Born-again 在 MIDI 失败的原因。
+
+## simedw 怎么解决 Born-again 失败
+
+simedw 解决 Born-again 失败的方法：
+
+- 放弃 Born-again 蒸馏
+- 用 INT8 量化压缩模型（不是蒸馏）
+- INT8 量化 = 125M 模型大小 4× 减少（FP32 500MB → INT8 125MB）
+- INT8 量化不改变模型结构（不损失质量）
+
+4 个 simedw 解决方法。
+
+## INT8 量化 vs Born-again 对照
+
+6 个对照：
+
+- 压缩方法：量化 vs 蒸馏
+- 模型大小：125M → 125MB vs 125M → 30M
+- 推理速度：108 notes/sec vs 200 notes/sec（更快但质量差）
+- 模型结构：不变 vs 变（student 更小）
+- 质量损失：轻微（量化误差）vs 显著（蒸馏失败）
+- 适用场景：通用 vs 分类任务
+
+6 个对照。
+
+## simedw 失败哲学
+
+simedw Born-again 失败哲学：
+
+- 失败是公开的（README 写失败清单）
+- 失败有原因（Born-again 不适用 MIDI）
+- 失败有解法（INT8 量化替代）
+- 失败不重复（不再试 Born-again）
+
+4 个 simedw 失败哲学。
+
+## 跟 solo engineer 接受哲学的对照
+
+solo engineer 接受哲学：
+
+- 接受工具限制（Core ML 不暴露 Q/K/V = 算了，挺快乐）
+- 接受 Born-again 失败（不适用 MIDI）
+- 接受工具限制 = 哲学 = 一人工程核心
+
+3 个 solo engineer 接受哲学。
+
+## 跟 solo engineer 失败哲学的对照
+
+solo engineer 失败哲学：
+
+- 失败是公开的（不私密）
+- 失败有原因
+- 失败有解法
+- 失败不重复
+
+4 个 solo engineer 失败哲学。
+
+## 一人工程的失败哲学
+
+solo engineer 失败哲学：
+
+- 失败是公开的
+- 失败有原因
+- 失败有解法
+- 失败不重复
+
+4 个事实 = solo engineer 失败哲学。
+
+## 一人工程的 Born-again 哲学总结
+
+solo engineer Born-again 哲学：
+
+- Born-again 在 MIDI 失败
+- INT8 量化替代 Born-again
+- 失败公开 + 失败有原因 + 失败有解法 + 失败不重复
+- 接受工具限制 = 一人工程核心
+
+4 个事实 = solo engineer Born-again 哲学的全部。
+
+Born-again networks 没用详细 = student 学固定分布但 MIDI 上下文动态 + INT8 量化替代 + 失败公开哲学 + 接受工具限制 = 一人工程失败哲学的具体表现。
+
+---
+
+这是 67+ 篇散文的 Born-again 篇。Born-again networks 没用详细 = student 学固定分布但 MIDI 上下文动态 + INT8 量化替代 + 失败公开哲学 + 接受工具限制 = 一人工程失败哲学的具体表现。
