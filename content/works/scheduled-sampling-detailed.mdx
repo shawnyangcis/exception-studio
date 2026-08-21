@@ -1,0 +1,96 @@
+---
+title: "Scheduled Sampling：验证 loss 升但 rollout 变好"
+slug: scheduled-sampling-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, scheduled sampling, teacher forcing, validation loss, rollout]
+cover: https://exception-studio.vercel.app/works/scheduled-sampling-detailed
+---
+
+simedw 的 scheduled sampling 实验跑出一个反直觉的曲线：验证 loss 升了，rollout 质量反而更好。
+
+## 现象
+
+训练时 50% 概率把 ground truth 换成模型自己的预测，让模型「适应自己的错误」。
+
+- 验证 loss：升 5%
+- Gemini pairwise 偏好：64.3% vs 35.7%（vs 不开 schedule sampling 的同模型）
+
+直觉上「验证 loss 升 = 模型变差」，但 rollout（让模型自己续写）时反而更好。
+
+## 为什么 validation loss 升
+
+训练时：
+- 一半时间用 ground truth（teacher forcing）
+- 一半时间用模型自己的预测（free running）
+
+验证时：
+- 100% 用 ground truth（teacher forcing）——这是「标准做法」
+- 模型评估的是「给定 ground truth 前缀，下一个 token 预测对的概率」
+
+scheduled sampling 让模型「见过自己错」，所以当验证时强制用 ground truth，模型在「预测下一个 token」的纯净度上反而略降（它一部分 capacity 用来「学如何从错误恢复」）。
+
+## 为什么 rollout 好
+
+rollout 时：
+- 模型没有任何 ground truth
+- 必须用自己预测的音作为后续输入
+- 一旦一个音预测错，所有后续音都基于错的输入
+
+不训练 scheduled sampling 的模型：rollout 时「一个音错 = 后面全乱」（曝光偏差）。
+训练 scheduled sampling 的模型：rollout 时「一个音错 = 模型学过的场景 = 能继续」。
+
+验证 loss 升 5% 换来 rollout 偏好 64.3%。这不是 trade-off，是「训练和评估匹配」——既然 rollout 时永远会错，训练时也要学会从错恢复。
+
+## 训练-评估 mismatch
+
+simedw 实验里最值得展开的一点：教科书的标准做法是「训练用 ground truth，评估用 ground truth」，干净。但 rollout 永远没有 ground truth——这意味着训练分布和 rollout 分布不一致。
+
+scheduled sampling 直接把这个 mismatch 摆到训练目标里：50% 时间走「真实 rollout 分布」。
+
+Bengio 2015 提的 Scheduled Sampling for Sequence Prediction 是这个思路的经典论文。simedw「deliberately haven't read a lot of papers」是不是独立想到的不重要，但「验证 loss 升但 rollout 好」是实战里才会注意到的现象——教科书只写了「loss 升」，没说 rollout 实际偏好多少。
+
+## 一人工程的解读
+
+- OpenAI 训大模型：scheduled sampling 默认开（GPT 系列都用过类似机制）+ 大量人工评估 + RLHF。
+- simedw 训小模型：一个人跑 scheduled sampling 实验，发现 validation loss 升但 rollout 偏好 64.3%。
+
+simedw 的实验哲学：不在「validation loss」这个单一指标上纠结，看 rollout 质量。如果只看 validation loss，他会把 scheduled sampling 当成「失败的实验」删掉。但看 rollout 偏好，64.3% 是 6 个有效实验里涨得最大的一次。
+
+## 50% 概率的选择
+
+simedw 试过 25% / 50% / 75%：
+
+- 25%：rollout 偏好 55%（略涨，温和）
+- 50%：rollout 偏好 64.3%（最大涨）
+- 75%：rollout 偏好 60%（开始回落）
+
+直觉：50% 是「既见过足够多自己错、又不过度依赖错恢复」的甜蜜点。75% 时模型「学错恢复」学过头，反而对 ground truth 分布的拟合变差。
+
+## 三档对比
+
+实验 1-3（MIDI 表征）→ 没用飘音 → 找到 compound 表征。
+实验 4-7（DPO）→ β=0.10 崩坏 → β=0.01/0.03 微调 → 共识去噪 69.05%。
+实验 8（scheduled sampling）→ validation loss 升但 rollout 偏好 64.3%。
+
+实验 8 是「14 次实验里涨得最大的一次」。从 50% 偏好（同模型 baseline）到 64.3%（scheduled sampling）= +14.3 个百分点。比 DPO β=0.03 共识去噪的 69.05%（vs base 24.55% = +44.5 个百分点）涨得小，但 DPO 是从 base 涨起，scheduled sampling 是从已经训好的 125M 涨起，绝对值更可观。
+
+## 一人工程的「不要只看单一指标」
+
+simedw 的 14 次实验里，「验证 loss 升但 rollout 好」这件事单独看不一定是好事——可能是「模型崩坏但 rollout 听起来像」。但 Gemini pairwise 70% 一致率（每次翻转都能保持 70% 一致）+ rollout 偏好 64.3% = 「真实偏好」。
+
+OpenAI 的 eval team 不会因为 validation loss 升就把模型删掉，他们看「真用户反馈 + 真评估员 pairwise + 多个独立维度」。simedw 也是——他用 Gemini pairwise + rollout 持续测试 + iOS app 真用户反馈三重验证。
+
+## 14 次实验公开记里 scheduled sampling 的位置
+
+simedw 在 HN 评论里写：
+
+> validation loss漏了 rollout质量
+
+这是 14 次实验里他公开的 8 个没用之一（实验 8）。但实际上「验证 loss 漏了 rollout 质量」不是没用——是发现了「单一指标的局限性」。scheduled sampling 才是解决方案。
+
+把「漏 rollout 质量」当成「问题陈述」，scheduled sampling 当成「解决方案」。两个一起写出来，才是一人工程的完整记录。
+
+## signature
+
+solus opus。

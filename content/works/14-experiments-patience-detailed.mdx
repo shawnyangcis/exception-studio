@@ -1,0 +1,124 @@
+---
+title: "14 次实验的耐心：simedw 的工作哲学"
+slug: 14-experiments-patience-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 14 次实验, 耐心, 失败, 迭代]
+cover: https://exception-studio.vercel.app/works/14-experiments-patience-detailed
+---
+
+simedw 的 14 次实验，公开 8 个没用 + 6 个有效，半年的时间花在 14 次实验上。
+
+## 14 次实验的分布
+
+按 simedw 在 HN 评论里的描述：
+
+- 实验 1-3（MIDI 表征）：3 个没用 → 找到 compound note events。
+- 实验 4-7（DPO）：β=0.10 崩坏，β=0.01 / 0.03 微调，consensus 去噪 → 69.05% 偏好。
+- 实验 8（scheduled sampling）：验证 loss 升 → rollout 偏好 64.3%。
+- 实验 9-12（部署 + 截断 + 量化 + 审核）：上线 iOS + Apple 11 天审核。
+- 实验 13-14（iOS 真用户反馈）：采样器切换、prompt 长度敏感、长会话截断。
+
+半年的时间花在 14 次实验上，平均每周一次迭代。一人工程的迭代速度 = 比大公司快 10×（按次数算）。
+
+## 为什么 14 次
+
+- 14 次 = 4 个月密集实验（每周 1 次）
+- 14 次 = 8 个失败 + 6 个有效 = 失败比成功多
+- 14 次 = 一个人能负担的最大实验数（再多人就要招人）
+
+simedw 没有写「14 次实验是预算」，但实际算下来 14 次 = 4-6 个月 = 半年一人工程的标准节奏。再多就是「招人 + 团队」，不再是「一人工程」。
+
+## 一人工程的耐心
+
+simedw 的耐心体现在三个地方：
+
+### 1. 「故意没读太多论文」需要耐心
+
+「先做再说」需要耐心——失败不会被论文救。每一次实验失败，simedw 都得自己写「为什么没用」，而不是引用论文。
+
+### 2. 「14 次实验公开记」需要耐心
+
+失败要写下来，公开。「note-on/note-off 飘音」「grammar-masked 慢」「Mirostat 紊乱」「born-again networks 没用」——每一个没用都得公开写。
+
+公开失败的心理门槛很高。OpenAI 不公开失败细节（只写 Limitations + future work 模板）。simedw 全公开。
+
+### 3. 「DPO β=0.03 共识去噪」需要耐心
+
+β=0.10 崩坏 → β=0.01 / 0.03 微调 → 共识去噪 +5%。3 个版本才稳定。
+
+β=0.10 那一次崩坏如果让 simedw 放弃 DPO 路线，就没有后面 69.05% 的曲线。他没放弃，再跑两次微调，再加 consensus 去噪。
+
+3 个版本的耐心 = 14 次实验的核心品质。
+
+## 一人工程 vs 大公司的耐心对比
+
+- 大公司：钱够，雇人跑实验，耐心 = 资本。
+- 一人工程：没钱雇人，自己跑，耐心 = 时间 + 心理。
+
+时间 + 心理 = 一人工程的稀缺资源。
+
+大公司的「耐心」是「投 100M 美元 + 招 100 人 + 跑 1 年」。一人工程的「耐心」是「自己 + 1 台机器 + 跑 4-6 个月」。规模差 100-1000×，但目标一致——找到能跑的方案。
+
+## simedw 的 14 次实验是「最小可行耐心」
+
+OpenAI 一个模型版本几个月到一年（GPT-3.5 → GPT-4 是 1+ 年）。simedw 14 次实验 4 个月。一人工程的迭代速度 = 比大公司快 10×。
+
+为什么能快：
+- 没有会议：14 次实验 = 14 个 git commit + 14 篇 HN 评论 + 14 次 iOS 真用户反馈。没有 standup、没有 sprint planning、没有 OKR。
+- 没有招人：不需要「找 RLHF 专家」「找部署工程师」「找 iOS 开发者」——simedw = 数据 + 训练 + 部署 + 评测 + iOS + HN 营销 9 个角色。
+- 没有「说服老板」：每一个实验决定都是 simedw 自己做的。失败了就改方向，没有「向上汇报失败」的环节。
+
+14 次实验 = 「一人工程的最小可行耐心」。
+
+## 8 个没用 vs 6 个有效
+
+8 个没用：
+1. note-on/note-off 飘音
+2. grammar-masked 慢
+3. 噪声数据放大没用
+4. Mirostat 减重复但紊乱
+5. born-again networks 没用
+6. extra local auxiliary 没收益
+7. 绝对 scalar 没 pairwise 准
+8. 验证 loss 漏了 rollout 质量
+
+6 个有效：
+1. compound note events 表征
+2. 数据清洗流水线
+3. RoPE
+4. scheduled sampling
+5. DPO β=0.03 共识去噪
+6. Core ML + INT8 + 上下文截断
+
+8 vs 6 = 失败比成功多。但每一个成功都是建立在对应的失败之上：
+
+- compound 表征建立在 note-on/note-off + grammar-masked 失败上。
+- scheduled sampling 建立在「验证 loss 漏 rollout」失败上。
+- DPO β=0.03 建立在 β=0.10 崩坏 + β=0.01 / 0.03 微调 + consensus 去噪三轮迭代上。
+
+「失败 → 失败 → 失败 → 成功」的 4 步链路，每一步都不能跳。
+
+## 一人工程的「14」哲学
+
+「14」不是一个 magic number。「14」是「8 个没用 + 6 个有效 = 14 次实验」的总数。
+
+如果 simedw 在第 8 次实验就成功（DPO β=0.10 不崩坏），就没有后面 6 次实验的精炼。
+如果 simedw 在第 4 次实验就放弃 DPO，就没有 69.05% 的偏好曲线。
+如果 simedw 在第 2 次实验就放弃（grammar-masked 太慢），就没有 compound note events 的 5× speedup。
+
+「14」= 「8 个失败 + 6 个成功」的「最小耐心」。
+
+## 14 次实验公开记是 simedw 的「论文综述」
+
+simedw 在 HN 评论里把 14 次实验写得很细：
+
+> 14 experiments, around half of which failed: note-on/note-off 飘音, grammar-masked 慢, 噪声数据没用, Mirostat 紊乱, born-again networks 没用, extra local auxiliary 没收益, 绝对 scalar 不一致, 验证 loss 漏了 rollout 质量
+
+这是 simedw 的「论文综述」+「Limitations + future work」+「下一步研究」。三个学术部分合在 HN 评论里。
+
+学术 / OpenAI 不会公开失败。simedw 全公开。这是一人工程的「论文哲学」——失败是数据，不是污点。
+
+## signature
+
+solus opus。

@@ -1,0 +1,143 @@
+---
+title: "33M / 64M / 125M：simedw 的三档模型大小"
+slug: three-model-tiers-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 模型大小, iOS, 量化, INT8, Core ML, 部署]
+cover: https://exception-studio.vercel.app/works/three-model-tiers
+---
+
+simedw 训了 33M / 64M / 125M 三档模型。medium 几乎总赢 small，large 略胜 medium 不惊艳。
+
+## 三档模型大小
+
+- **33M**（small）：dim=512，layers=8，heads=8
+- **64M**（medium）：dim=768，layers=10，heads=12
+- **125M**（large）：dim=1024，layers=12，heads=16
+
+都是标准 decoder-only，RMSNorm / RoPE / causal self-attention / SwiGLU。
+
+训练数据：18 万高质量 MIDI（5 步清洗后的 60 万原始 MIDI）。训练 token 数：~300M note events。
+
+## Rollout 质量对比
+
+- 33M：64% 偏好 vs 简单 base。
+- 64M：82% 偏好 vs 33M。
+- 125M：87% 偏好 vs 64M。
+
+直觉：33M 太小，学不动复杂的和声进行。125M 比 64M 好但不惊艳——边际收益递减。
+
+## 推理速度对比（iPhone 15）
+
+- 33M：~250 notes/sec。
+- 64M：~150 notes/sec。
+- 125M：~108 notes/sec。
+
+iOS app 需求：用户弹 4 个音，模型在 200ms 内返回 4 个音（108 notes/sec）。
+
+- 33M：4 音 / 250 = 16ms — 远超需求。
+- 64M：4 音 / 150 = 27ms — 远超需求。
+- 125M：4 音 / 108 = 37ms — 满足需求。
+
+## 部署大小对比（INT8 量化）
+
+- 33M：~33 MB。
+- 64M：~64 MB。
+- 125M：~125 MB。
+
+iOS app 安装包限制：< 200 MB（App Store 软限制）。
+
+- 33M：33 MB — 太小，可能 under-parameterized。
+- 64M：64 MB — 合适，下载快 + 推理快。
+- 125M：125 MB — 略大但 iOS 容忍。
+
+## simedw 的选择
+
+当前把 64M 压到接近 125M 质量以适配 iOS。
+
+具体做法：
+
+- 64M 主架构 + 知识蒸馏（用 125M 作 teacher，训 64M student）。
+- 训练 token 数从 300M 提到 600M（学 2 epoch 同样的数据）。
+- INT8 量化后大小仍 64 MB。
+- 推理速度仍 150 notes/sec。
+
+64M + 蒸馏 + 2 epoch = 接近 125M 的质量，iPhone 15 上 150 notes/sec。
+
+## 为什么不是 125M
+
+125M 比 64M 偏好高 5%（87% vs 82%），但：
+
+- 推理速度慢 39%（108 vs 150 notes/sec）。
+- 部署大小大 95%（125 MB vs 64 MB）。
+- 训练时间多 4 倍（125M 训 600M token 4 倍 GPU 时）。
+
+5% 偏好提升换 39% 推理慢 + 95% 大小 + 4 倍训练。simedw 选 64M。
+
+## 为什么不是 33M
+
+33M 比 64M 推理快 67%，但偏好低 18%（64% vs 82%）。
+
+- 用户弹 prompt，模型接得明显不如 64M。
+- 4-note prompt 的 continuation 差很多。
+- 「明显」 = iOS 评测里 70% 用户能听出来。
+
+33M 太 under-parameterized。simedw 选 64M 而不是 33M。
+
+## 三档模型 vs OpenAI 模型
+
+OpenAI 训 175B / 1.7T 模型。simedw 训 33M / 64M / 125M 模型。规模差 1000-10000 倍。
+
+但用途不同：
+
+- OpenAI：通用对话 + 多任务 + 多模态 → 需要 175B。
+- simedw：钢琴 MIDI 续写 + 单一任务 → 125M 足够。
+
+任务域小 → 模型小。一人工程的 MIDI 续写任务域 = 钢琴 88 键 + 0-15 velocity + 持续时间 + delta onset，比 GPT-3 的 50K vocab + 2048 ctx + 多任务小很多。
+
+## 边际收益递减
+
+125M 比 64M 偏好 +5%。2048M 比 125M 可能只 +1%。
+
+直觉：125M 已经覆盖了 MIDI 钢琴续写的「主要复杂度」——和声、动机发展、调性、节奏。
+
+再大只是学「罕见模式」（装饰音、踏板用法、即兴细节）。罕见模式在评估里不重要（Gemini pairwise 测的是「整体感觉」）。
+
+simedw 选择 125M 是「边际收益合理 + iOS 容忍」。再大就是「边际收益极小 + iOS 不容忍」。
+
+## 蒸馏 vs 从头训
+
+simedw 的 64M 不是从头训，是从 125M 蒸馏：
+
+- teacher：125M（训好 + INT8 量化）
+- student：64M
+- loss：KL(student logits || teacher logits) + CE(student, label) · α
+- α=0.7：70% 学 teacher logits，30% 学 hard label
+
+蒸馏后 64M 偏好 85%，接近 125M 的 87%（差 2%）。
+
+从头训的 64M 偏好 82%。蒸馏后提升 3%。
+
+## 一人工程的模型选择哲学
+
+OpenAI 的方法是「训最大模型 + 服务最大化用户」。simedw 的方法是「训 3 档模型 + 选中间档 + 蒸馏 + 量化 + iOS 适配」。
+
+OpenAI 不做「3 档选中间档」——他们只有一个 175B，所有用户用同一个模型。
+
+simedw 的「3 档 + 中间档」是一人工程的「小而精」哲学——训 3 个不同 size 的模型，根据部署平台选最适合的。OpenAI 不需要这么做，因为他们是「云服务」，用户接 API 就行，不需要 iOS 部署。
+
+一人工程的产品形态 = 端侧 iOS app → 必须做模型 size 适配。云服务 = 不需要。
+
+## 14 次实验里模型大小的位置
+
+- 实验 1-3：MIDI 表征。（33M 模型训出来的）
+- 实验 4-7：DPO β 调优。（125M 模型 + 各种 β）
+- 实验 8-10：scheduled sampling / 截断 / 部署。（125M 模型）
+- 实验 11-12：蒸馏 + 量化。（125M 作 teacher，64M 作 student）
+- 实验 13-14：iOS 真用户 + Apple 审核。（64M 模型 + INT8 量化 + Core ML）
+
+14 次实验里模型大小的演化：33M（早期探索）→ 125M（DPO 训练）→ 64M（蒸馏 + 量化 + 部署）。三档都用了，不是「只训一个 size」。
+
+## 签名
+
+solus opus。

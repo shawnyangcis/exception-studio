@@ -1,0 +1,109 @@
+---
+title: "两个评估维度：continuation 跟 isolated"
+slug: two-eval-dimensions-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 评估, continuation, isolated, pairwise, Gemini]
+cover: https://exception-studio.vercel.app/works/two-eval-dimensions
+---
+
+simedw 后期把评估拆成两个独立维度：「continuation 跟 prompt 的接续度」和「isolated 听觉质量」。
+
+## 为什么拆
+
+之前评估是单一的「听起来怎么样」，但两种 prompt 拆开来看：
+
+- **continuation**：模型接着 prompt 往下生成。和 prompt 是否和谐？接得顺不顺？
+- **isolated**：把模型生成的部分单独拿出来听。把它当作一首独立曲子，好不好听？
+
+两个维度能选最差模型的概率不同：
+
+- 自动指标只抓明显失败，挑不出最佳模型。
+- 自己听 30 分钟只能分「噪音 / 不噪音」，分不出「哪个 best」。
+- Gemini 3.5 Flash pairwise（绝对 scalar 不一致，A/B 偏好 70% 一致）。
+
+拆开两个维度后，能各自挑 best，然后看 best of continuation + best of isolated 是否重叠。
+
+## 维度 1：continuation 跟 prompt 的接续度
+
+继续度 = 评估者拿到 prompt + 模型续写，问「这一段和 prompt 接得顺不顺？」
+
+典型高分：模型延续 prompt 的调性、和声、节奏，类似 Bach 给主题 + 4 个声部即兴的模式。
+
+典型低分：模型突然换调、跑出节奏跟 prompt 不一致的段落、风格跳跃（prompt 是 Bach 赋格，模型接了爵士）。
+
+DPO 主要用这个维度。β=0.03 + 共识去噪在 continuation 上偏好 69.05%。
+
+## 维度 2：isolated 听觉质量
+
+独立质量 = 评估者只拿到模型续写（不显示 prompt），问「这一段当独立曲子听好不好听？」
+
+典型高分：完整的乐句结构、和声进行、有呼吸、有结尾感。
+
+典型低分：卡在重复 loop、突兀转调、节奏混乱、终止不自然。
+
+isolation 维度自动指标更准——重复 pitch n-gram 抓 loop、长停顿抓终止不自然、pitch entropy 抓音域混乱。
+
+## 两个维度的 trade-off
+
+continuation best 不一定是 isolated best。例如：
+
+- 模型 A：continuation 80%（极擅长接 prompt）+ isolated 60%（单听一般）
+- 模型 B：continuation 60%（接 prompt 一般）+ isolated 85%（单听极好）
+
+DPO 偏好模型 A（β=0.03 偏好 69% 包含 continuation best）。但 isolated 维度模型 B 更好。
+
+simedw 的选择：用 DPO 训 continuation 好的模型（β=0.03 共识去噪），iOS app 默认按 continuation 模式给用户（接用户的 prompt）。
+
+## 一人工程的评估哲学
+
+OpenAI 的 eval team 有 50+ 人，分多个维度（helpfulness / harmlessness / hallucination / bias / factuality 等）。simedw 一个人拆 2 个维度。
+
+规模差 50 倍，方向一致——评估要分维度，单一指标不够。
+
+但 simedw 拆得更粗（2 个维度），OpenAI 拆得更细（10+ 维度）。simedw 是「一人工程的评估最小可行版本」。
+
+## 14 次实验里评估的位置
+
+- 实验 1-3：MIDI 表征。（没评估）
+- 实验 4-7：DPO β 调优。（用 Gemini pairwise continuation 维度）
+- 实验 8：scheduled sampling。（Gemini pairwise continuation + isolated 两个维度）
+- 实验 9-14：截断 / 部署 / 量化 / 审核。（iOS 真用户 + A/B 测试）
+
+早期（实验 1-3）没评估，靠「作者自己听 + 14 个没用笔记」。中期（实验 4-8）开始用 Gemini pairwise + 两个维度。后期（实验 9-14）iOS 真用户反馈。
+
+评估是「14 次实验里慢慢进化的能力」，不是「一开始就设计好的方法论」。
+
+## 一人工程 vs OpenAI 的评估对照
+
+OpenAI 的方法：
+- 50+ eval team
+- 10+ 评估维度
+- 几万条标注数据
+- A/B 测试 + 真用户反馈
+- 红队 adversarial probing
+
+simedw 的方法：
+- 1 个作者
+- 2 个评估维度
+- 几千条 Gemini pairwise 标注
+- iOS app A/B 测试 + 真用户反馈
+- 没有红队（iOS app 公开下载本身就是被动红队）
+
+评估方法上规模差 50 倍，但 simedw 的 2 维度 + Gemini pairwise + iOS 真用户反馈已经能稳定选出 DPO β=0.03 共识去噪 = 69.05% 偏好率的模型。
+
+## 评估哲学的更深意义
+
+simedw 不是「设计完美评估方法再训练」，是「先训了，看哪不对，再补评估」。
+
+- 实验 1-3：没评估，凭作者感觉。
+- 实验 4：DPO 崩坏，回来看 DPO 论文，意识到需要评估。
+- 实验 5-7：用 Gemini pairwise，发现 consensus 比 absolute 更准，拆出 β 偏好曲线。
+- 实验 8：scheduled sampling，验证 loss 升但 rollout 好——继续评估，发现是「continuation vs isolated」两个维度。
+- 实验 9-14：iOS 真用户 + A/B 测试，发现 prompt 长度敏感 + 长会话截断需求。
+
+评估是「训出来的」，不是「设计出来的」。这又是一人工程的「先做后读」——评估方法论是从 14 次实验里长出来的，不是从论文里抄的。
+
+## 签名
+
+solus opus。
