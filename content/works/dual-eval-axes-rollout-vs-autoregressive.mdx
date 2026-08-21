@@ -1,0 +1,174 @@
+---
+title: "两套评估维度：rollout 跟 autoregressive 不一致"
+slug: dual-eval-axes-rollout-vs-autoregressive
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, 评估, autoregressive, rollout, validation loss, exposure bias]
+cover: https://exception-studio.vercel.app/works/dual-eval-axes-rollout-vs-autoregressive
+---
+
+simedw 的实验发现 autoregressive validation loss 跟 rollout 偏好不一致。两个指标是两个维度，不是同一维度。
+
+## 现象
+
+实验 8（scheduled sampling）：
+
+- 验证 loss：升 5%
+- rollout 偏好：64.3% vs 35.7%
+
+同一模型，两个指标方向相反。
+
+直觉上「验证 loss 升 = 模型变差」，但 rollout（让模型自己续写）偏好率从 50% 涨到 64.3%。
+
+## autoregressive validation loss 是什么
+
+训练 + 评估时，模型输入是 ground truth 前缀，预测下一个 token 的概率。
+
+loss = -log P(token[i] | ground_truth_token[0:i-1])
+
+这是「teacher forcing」评估——模型永远看到正确答案。
+
+优点：
+
+- 计算快（一次 forward）。
+- 梯度信号干净。
+- 教科书默认评估方式。
+
+缺点：
+
+- 不反映 rollout 时模型「没有 ground truth 怎么办」。
+- 模型在 autoregressive 评估里表现好，不等于 rollout 时表现好。
+
+## rollout 偏好是什么
+
+训练 + 评估时，模型输入只有自己的预测，预测下一个 token 的概率。
+
+rollout = 真实使用场景：模型从「开始符」出发，一个 token 一个 token 续写，所有 token 都是模型自己生成的。
+
+评估 rollout 时：
+
+- 用 Gemini 3.5 Flash pairwise（A/B 偏好）。
+- 给模型一个 prompt（前 N 个 token），让模型续写 K 个 token。
+- A/B 比较两个模型（基线 vs 实验）的续写。
+- Gemini 给偏好 = 「哪个续写更好」。
+- 翻转 prompt 验证一致性（70% 一致）。
+
+优点：
+
+- 反映真实使用。
+- 抓住 autoregressive 评估抓不到的「错了一个 token 后能不能恢复」。
+
+缺点：
+
+- 计算慢（要 rollout K 个 token）。
+- 评估者一致性依赖 Gemini 70%。
+- 不直接给梯度信号。
+
+## 两套评估的方向不一致
+
+| 模型 | validation loss | rollout 偏好 |
+|---|---|---|
+| baseline（不开 scheduled sampling） | 0.92 | 50% |
+| 实验 8（50% scheduled sampling） | 0.97 | 64.3% |
+| 差距 | loss +5% | 偏好 +14.3 pp |
+
+为什么 validation loss 升：
+
+- scheduled sampling 让模型「见过自己错」，所以 autoregressive 评估时「给定 ground truth 前缀预测下一个 token」的纯净度略降（部分 capacity 用来学「错恢复」）。
+
+为什么 rollout 好：
+
+- scheduled sampling 让模型「练过从错恢复」，所以 rollout 时「一个 token 错 = 模型学过的场景 = 能继续」。
+
+两个维度反映不同能力：
+- autoregressive loss = 「在理想条件下预测下一个 token 的能力」。
+- rollout 偏好 = 「在没有 ground truth 条件下持续生成的能力」。
+
+OpenAI / Anthropic 训 RLHF 时用「人类反馈」对齐 rollout 偏好——不是因为 validation loss 不准，是因为 rollout 才是用户最终体验到的。
+
+## 两套评估的真实代价
+
+simedw 的两套评估：
+
+- autoregressive loss：每个 epoch 跑一次（计算便宜）。
+- rollout 偏好：每个 epoch 跑 50 次 Gemini pairwise（计算贵 + API 钱）。
+
+成本差 10×。所以 simedw 不是每个 epoch 都跑 rollout——只对「看起来不错」的 epoch 跑 rollout。
+
+OpenAI 的两套评估：
+
+- autoregressive loss：每个 epoch 跑一次。
+- rollout 偏好：每个 epoch 跑 10000 次人工 pairwise（成本极高 + 人海）。
+- 加 RLHF reward model：训练一个模型模拟 rollout 偏好，便宜但有失真。
+
+成本差 1000×。OpenAI 之所以能负担，是因为 RLHF reward model 把 rollout 偏好的成本从 10000 次人海降到 1 次模型前向。
+
+## 一人工程的简化评估
+
+simedw 的两套评估是「一人工程的简化版」：
+
+- autoregressive loss = 标准做法（每个 epoch 跑）。
+- rollout 偏好 = 简化版（50 次 Gemini pairwise，不是 10000 次人工）。
+
+一人工程能负担的「rollout 偏好评估」是 50 次 Gemini pairwise。
+
+如果 simedw 想做 OpenAI 那样的 RLHF：
+
+- 训 reward model：~2 周（一个人）
+- 训 PPO：~2 周（一个人）
+- 加起来 4 周 = 14 次实验里的 4 次 = 28% 实验时间
+
+simedw 没做 RLHF，选 DPO（1 周内可完成）。一人工程的预算 = 「能 1 周做完的事」，不是「能 4 周做完的事」。
+
+## 14 次实验里两套评估的位置
+
+- 实验 1-3：MIDI 表征（autoregressive loss 为主，没 rollout）。
+- 实验 4：DPO β=0.10（autoregressive loss 升，rollout 偏好掉到 38%）。
+- 实验 5-7：β=0.01/0.03/共识去噪（autoregressive loss 降，rollout 偏好 57%-69%）。
+- 实验 8：scheduled sampling（autoregressive loss 升 5%，rollout 偏好 +14.3 pp）。
+
+实验 4 和实验 8 是「两套评估方向相反」的经典案例：
+
+- 实验 4：loss 升 + rollout 掉 → 两个指标一致 → 真失败。
+- 实验 8：loss 升 + rollout 涨 → 两个指标矛盾 → 看 rollout。
+
+实验 8 是 simedw 「不要只看 validation loss」哲学的核心案例。
+
+## 两套评估的「哲学」
+
+OpenAI 的评估哲学：
+
+- autoregressive loss 是「学生考试」—— 模型在标准测试上表现好。
+- rollout 偏好是「实际工作」—— 模型在真实任务上表现好。
+- 学生考试好不等于工作好。
+- RLHF = 让模型朝「工作好」优化。
+
+simedw 的评估哲学：
+
+- autoregressive loss 是「开发工具」—— fast feedback，方便调试。
+- rollout 偏好是「产品标准」—— 决定是否发布。
+- autoregressive loss 涨不一定是坏事。
+- DPO + scheduled sampling = 让模型朝「rollout 好」优化。
+
+simedw 一个人做实验，rollout 偏好比 autoregressive loss 重要——因为 V0 上线后用户感受到的是 rollout，不是 autoregressive loss。
+
+## 14 次实验公开记里的两套评估
+
+simedw 在 HN 评论里写：
+
+> 验证 loss漏了 rollout质量
+
+这是 14 次实验里他公开的 8 个没用之一（实验 8 之前的实验 1-3 都只看了 autoregressive loss）。
+
+但「验证 loss 漏了 rollout」是「问题陈述」，不是「解决方案」。实验 8 的 scheduled sampling 才是解决方案。
+
+把两个合起来写：
+
+- 问题：验证 loss 漏了 rollout 质量（实验 1-3 时的盲点）。
+- 解决方案：scheduled sampling 训练时模拟 rollout（实验 8）。
+
+两个一起写，才是一人工程的完整记录。
+
+## signature
+
+solus opus。
