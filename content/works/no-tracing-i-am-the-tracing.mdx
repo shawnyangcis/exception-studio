@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 tracing，我自己就是 tracing"
+slug: no-tracing-i-am-the-tracing
+date: 2026-08-21
+description: "团队有 tracing / OpenTelemetry / Jaeger / Zipkin / distributed tracing / observability / APM / Datadog APM / Honeycomb。solo engineer 没有 tracing，我自己 = tracing、不需要 OpenTelemetry、不需要 Jaeger。"
+tags: ["一人工程", "tracing", "solo", "observability"]
+---
+
+团队有 tracing。
+
+Tracing：分布式追踪。OpenTelemetry：OTel。Jaeger：open source tracing。Zipkin：alternative tracing。Datadog APM：managed APM。Honeycomb：observability platform。Tempo：Grafana tracing。$0-$500 / 月 in tracing.
+
+每 startup 1 个 Datadog APM + 1 个 tracing engineer + 1 个 observability team。$200K-$500K / 年.
+
+solo engineer 没有 tracing。
+
+我自己就是 tracing。
+
+我想 trace 就 trace、想 span 就 span、想 query 就 query、想 correlate 就 correlate。我不需要 tracing、不需要 OpenTelemetry、不需要 Jaeger、不需要 Zipkin、不需要 Datadog APM、不需要 Honeycomb、不需要 Tempo.
+
+我没 tracing 的必要——访问量 1000 不需要 trace。我没 OpenTelemetry 的必要——没 OTel。我没 Jaeger 的必要——没 Jaeger。我没 Zipkin 的必要——没 Zipkin。我没 Datadog APM 的必要——没 Datadog。我没 Honeycomb 的必要——没 Honeycomb。我没 Tempo 的必要——没 Tempo。我没 $0-$500 / 月 的必要——Vercel free + commit log。我没 tracing engineer 的必要——没 tracing engineer。我没 observability team 的必要——没 observability team。我没 $200K-$500K / 年 的必要——没 tracing.
+
+团队的 tracing 价值是「让 distributed request 追踪 + performance 分析 + debugging」。前提是有 microservices、需要追踪、需要 debugging。solo engineer 没这个问题——访问量 1000、commit log 是追踪、我 = debugging.
+
+一人工程的 tracing = Vercel Logs + git commit。不是 Datadog APM $500/月 + observability team。
+
+---

@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Docker，我自己就是 Docker"
+slug: no-docker-i-am-the-docker
+date: 2026-08-21
+description: "团队有 Docker / Kubernetes / K8s / EKS / AKS / GKE / 容器 / 编排 / containerization / orchestration。solo engineer 没有 Docker，我自己 = Docker、不需要 Kubernetes、不需要 EKS。"
+tags: ["一人工程", "docker", "solo", "kubernetes"]
+---
+
+团队有 Docker。
+
+Docker：container runtime。Kubernetes：container orchestration。K8s：Kubernetes abbreviation。EKS：AWS Kubernetes。AKS：Azure Kubernetes。GKE：Google Kubernetes。Helm：Kubernetes package manager。$0-$73 / 月 in cluster, $200K-$500K / 年 in K8s team.
+
+每 startup 1 个 EKS + 1 个 DevOps + 1 个 SRE。$300K-$700K / 年。
+
+solo engineer 没有 Docker。
+
+我自己就是 Docker。
+
+我想 containerize 就 containerize、想 deploy 就 deploy、想 scale 就 scale、想 orchestrate 就 orchestrate。我不需要 Docker、不需要 Kubernetes、不需要 K8s、不需要 EKS、不需要 AKS、不需要 GKE、不需要 Helm。
+
+我没 Docker 的必要——Vercel = Docker auto-managed。我没 Kubernetes 的必要——访问量 1000 不需要 K8s。我没 K8s 的必要——Vercel = K8s。我没 EKS 的必要——没 AWS。我没 AKS 的必要——没 Azure。我没 GKE 的必要——没 GCP。我没 Helm 的必要——没 Helm chart。我没 $0-$73 / 月 的必要——Vercel free。我没 DevOps 的必要——没 DevOps。我没 SRE 的必要——没 SRE。我没 $300K-$700K / 年 的必要——没 K8s team。
+
+团队的 Docker 价值是「让 app 一致运行 + scale + orchestrate」。前提是有 high traffic、需要一致性、需要 scale。solo engineer 没这个问题——访问量 1000、Vercel 一致运行、Vercel auto-scale。
+
+一人工程的 Docker = Vercel + commit log。不是 EKS $73/月 + DevOps 团队。
+
+---

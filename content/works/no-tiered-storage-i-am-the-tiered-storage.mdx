@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 tiered storage，我自己就是 tiered storage"
+slug: no-tiered-storage-i-am-the-tiered-storage
+date: 2026-08-21
+description: "团队有 tiered storage / hot-cold storage / hot-warm-cold storage / storage class / archive storage / object storage tiering。solo engineer 没有 tiered storage，我自己 = tiered storage、不需要 hot-warm-cold、不需要 storage class。"
+tags: ["一人工程", "tiered-storage", "solo", "storage"]
+---
+
+团队有 tiered storage。
+
+Tiered storage：分层存储。Hot-cold storage：热冷存储。Hot-warm-cold storage：热温冷存储。Storage class：存储类。Archive storage：归档存储。Object storage tiering：对象存储分层。$0-$1000 / 月 in tiered storage.
+
+每 startup 1 个 tiered storage + 1 个 hot-warm-cold + 1 个 storage class + 1 个 storage engineer.。$100K-$300K / 年.
+
+solo engineer 没有 tiered storage。
+
+我自己就是 tiered storage。
+
+我想 tier 就 tier、想 archive 就 archive、想 hot 就 hot、想 cold 就 cold。我不需要 tiered storage、不需要 hot-cold storage、不需要 hot-warm-cold storage、不需要 storage class、不需要 archive storage、不需要 object storage tiering.
+
+我没 tiered storage 的必要——访问量 1000 不需要 tier。我没 hot-cold storage 的必要——commit log 是 hot-cold。我没 hot-warm-cold storage 的必要——没 hot-warm-cold。我没 storage class 的必要——Vercel Postgres = storage class。我没 archive storage 的必要——commit log 是 archive。我没 object storage tiering 的必要——Vercel auto tier。我没 $0-$1000 / 月 的必要——Vercel free + commit log。我没 storage engineer. 的必要——没 storage engineer.。我我 $100K-$300K / 年 的必要——没 tiered storage infrastructure.
+
+团队的 tiered storage 价值是「让 hot data 快速 + cold data 便宜 + 自动化分层」。前提是有大量 data、需要 cost optimization、需要分层。solo engineer 没这个问题——访问量 1000、commit log 是 hot-cold、我我 = cost optimization.
+
+一人工程的 tiered storage = git commit log + Vercel Postgres。不是 hot-warm-cold + storage class $1000/月 + storage engineer. .
+
+---

@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Sentry，我自己就是 Sentry"
+slug: no-sentry-i-am-the-sentry
+date: 2026-08-21
+description: "团队有 Sentry / error tracking / error monitoring / Rollbar / Bugsnag / 错误追踪 / observability。solo engineer 没有 Sentry，我自己 = Sentry、不需要 observability。"
+tags: ["一人工程", "sentry", "solo", "error-tracking"]
+---
+
+团队有 Sentry。
+
+Sentry：错误追踪。Error tracking：错误追踪。Error monitoring：错误监控。Rollbar：alternative。Bugsnag：alternative。Observability：可观测性。APM：application performance monitoring。$26-$80 / 月 in Sentry.
+
+每 SaaS 1 个 Sentry + 1 个 error monitoring engineer + 1 个 on-call。$200K-$500K / 年。
+
+solo engineer 没有 Sentry。
+
+我自己就是 Sentry。
+
+我想 track 就 track、想 alert 就 alert、想 fix 就 fix、想 report 就 report。我不需要 Sentry、不需要 error tracking、不需要 observability、不需要 APM。
+
+我没 Sentry 的必要——Vercel analytics 够用。我没 error tracking 的必要——访问者不 report error。我没 error monitoring 的必要——我没 error 要 monitor。我没 observability 的必要——commit log = observability。我没 APM 的必要——没 APM。我没 Rollbar 的必要——没 Rollbar。我没 Bugsnag 的必要——没 Bugsnag。我没 on-call 的必要——我自己 = on-call。我没 $26-$80 / 月 的必要——Vercel free。我没 $200K-$500K / 年 的必要——没 error monitoring engineer。
+
+团队的 Sentry 价值是「让 error 快速发现 + 快速 fix」。前提是有 error、需要快速发现、需要快速 fix。solo engineer 没这个问题——我没 error、commit log = 发现、commit = fix。
+
+一人工程的 Sentry = git log + Vercel analytics。不是 Sentry $80/月。
+
+---

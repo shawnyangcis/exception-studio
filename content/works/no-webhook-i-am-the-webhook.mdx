@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 webhook，我自己就是 webhook"
+slug: no-webhook-i-am-the-webhook
+date: 2026-08-21
+description: "团队有 webhook / callback / API gateway / Kong / Tyk / 事件回调。solo engineer 没有 webhook，我自己 = webhook、不需要 Kong、不需要 Tyk。"
+tags: ["一人工程", "webhook", "solo", "callback"]
+---
+
+团队有 webhook。
+
+Webhook：HTTP callback。Callback：回调。API gateway：Kong / Tyk / AWS API Gateway。Webhook signature：HMAC 签名。Webhook retry：重试。Webhook dead letter：失败队列。$100-$500 / 月 in gateway cost。
+
+每 SaaS 1 个 API gateway + 1 个 webhook service + 1 个 retry strategy。$200K-$500K / 年。
+
+solo engineer 没有 webhook。
+
+我自己就是 webhook。
+
+我想 callback 就 callback、想 hook 就 hook、想 retry 就 retry。我不需要 webhook、不需要 callback、不需要 API gateway、不需要 Kong、不需要 Tyk。
+
+我没 webhook 的必要——访问者不 hook 我。我没 callback 的必要——没 callback 要 send。我没 API gateway 的必要——没 API 要 route。我没 Kong 的必要——没 Kong。我没 Tyk 的必要——没 Tyk。我没 webhook signature 的必要——没 webhook signature 要 verify。我没 webhook retry 的必要——访问者自己 retry。我没 webhook dead letter 的必要——没 dead letter。我没 $100-$500 / 月 的必要——Vercel free。我没 $200K-$500K / 年 的必要——没 webhook service。
+
+团队的 webhook 价值是「让 service 异步通知 + 处理 retry」。前提是有 service、需要 async、需要 retry。solo engineer 没这个问题——我没 service、不需要 async、commit log = retry。
+
+一人工程的 webhook = Vercel Edge Function。不是 Kong $500/月。
+
+---

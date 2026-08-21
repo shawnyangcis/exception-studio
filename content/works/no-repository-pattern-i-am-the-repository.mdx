@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 repository pattern，我自己就是 repository"
+slug: no-repository-pattern-i-am-the-repository
+date: 2026-08-21
+description: "团队有 repository pattern / data access object / DAO / ORM / Active Record / DDD aggregate / clean architecture / hex architecture。solo engineer 没有 repository pattern，我自己 = repository、不需要 DAO、不需要 Active Record。"
+tags: ["一人工程", "repository-pattern", "solo", "architecture"]
+---
+
+团队有 repository pattern。
+
+Repository pattern：data access abstraction。Data access object：DAO。Active Record：Rails ORM。Data Mapper：separate domain from persistence。DDD aggregate：domain-driven design。Clean architecture：Robert Martin。Hex architecture：ports and adapters。$0 / 月 in pattern.
+
+每 startup 1 个 repository pattern + 1 个 ORM + 1 个 architect。$200K-$500K / 年.
+
+solo engineer 没有 repository pattern。
+
+我自己就是 repository。
+
+我想 persist 就 persist、想 query 就 query、想 map 就 map、想 clean 就 clean。我不需要 repository pattern、不需要 DAO、不需要 Active Record、不需要 Data Mapper、不需要 DDD aggregate、不需要 clean architecture、不需要 hex architecture.
+
+我没 repository pattern 的必要——我是 1 个 engineer 我写 SQL。我没 DAO 的必要——没 DAO。我没 Active Record 的必要——没 Rails。我没 Data Mapper 的必要——没 Data Mapper。我没 DDD aggregate 的必要——没 DDD。我没 clean architecture 的必要——没 clean。我没 hex architecture 的必要——没 hex。我没 ORM 的必要——Vercel Postgres = ORM。我没 architect 的必要——没 architect。我没 $200K-$500K / 年 的必要——没 architecture.
+
+团队的 repository pattern 价值是「让 data access 解耦 + 可测试 + 可替换」。前提是有 domain、需要解耦、需要可测试。solo engineer 没这个问题——访问量 1000、commit log 是数据访问、commit = 可测试.
+
+一人工程的 repository pattern = Vercel Postgres + git。不是 DDD + clean architecture 团队。
+
+---

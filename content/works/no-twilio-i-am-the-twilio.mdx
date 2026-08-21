@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Twilio，我自己就是 Twilio"
+slug: no-twilio-i-am-the-twilio
+date: 2026-08-21
+description: "团队有 Twilio / SMS provider / SendGrid / Mailgun / email API / 通信。solo engineer 没有 Twilio，我自己 = Twilio、不需要 SendGrid、不需要 Mailgun。"
+tags: ["一人工程", "twilio", "solo", "sms-email"]
+---
+
+团队有 Twilio。
+
+Twilio：SMS API。SendGrid：email API。Mailgun：email API。MessageBird：SMS API。Nexmo / Vonage：SMS API。Postmark：email API。$0.0075 / SMS, $0.0006 / email.
+
+每 startup 1 个 Twilio + 1 个 SendGrid + 1 个 notification engineer。$100K-$300K / 年。
+
+solo engineer 没有 Twilio。
+
+我自己就是 Twilio。
+
+我想 send 就 send、想 SMS 就 SMS、想 email 就 email。我不需要 Twilio、不需要 SendGrid、不需要 Mailgun、不需要 MessageBird。
+
+我没 Twilio 的必要——访问量 1000，不发 SMS。我没 SendGrid 的必要——不发 marketing email。我没 Mailgun 的必要——没 transactional email。我没 MessageBird 的必要——没 SMS 群发。我没 Nexmo / Vonage 的必要——没 SMS。我没 Postmark 的必要——没 email。我没 $0.0075 / SMS 的必要——没 SMS。我没 $0.0006 / email 的必要——没 email。我没 $100K-$300K / 年 的必要——没 notification engineer。
+
+团队的 Twilio 价值是「让 user 收到 SMS + email + push notification」。前提是有 user、需要 reach、需要 notification。solo engineer 没这个问题——访问者自己来、commit log = reach、我 = notification。
+
+一人工程的 Twilio = Vercel Edge Function + email API。不是 Twilio $0.0075/SMS。
+
+---

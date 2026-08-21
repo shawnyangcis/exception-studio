@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 SSO，我自己就是 SSO"
+slug: no-sso-i-am-the-sso
+date: 2026-08-21
+description: "团队有 SSO / SAML / OIDC / OAuth 2.0 / Single Sign-On / 身份认证 / 联合身份 / enterprise auth。solo engineer 没有 SSO，我自己 = SSO、不需要 SAML、不需要 OIDC。"
+tags: ["一人工程", "sso", "solo", "auth"]
+---
+
+团队有 SSO。
+
+SSO：single sign-on。SAML：security assertion markup language。OIDC：OpenID Connect。OAuth 2.0：authorization framework。Active Directory：Microsoft directory。LDAP：lightweight directory access protocol。Ping Identity：enterprise IAM。$0.07-$0.13 / active user / 月.
+
+每 enterprise 1 个 SSO + 1 个 IAM engineer + 1 个 security team。$200K-$700K / 年.
+
+solo engineer 没有 SSO。
+
+我自己就是 SSO。
+
+我想 login 就 login、想 sign 就 sign、想 auth 就 auth、想 verify 就 verify。我不需要 SSO、不需要 SAML、不需要 OIDC、不需要 OAuth 2.0、不需要 Active Directory、不需要 LDAP、不需要 Ping Identity.
+
+我没 SSO 的必要——访问量 1000 不需要 SSO。我没 SAML 的必要——没 SAML contract。我没 OIDC 的必要——没 OIDC。我没 OAuth 2.0 的必要——没 OAuth。我没 Active Directory 的必要——没 Microsoft。我没 LDAP 的必要——没 LDAP。我没 Ping Identity 的必要——没 Ping Identity。我没 $0.07-$0.13 / active user / 月 的必要——Vercel free + NextAuth.js。我没 IAM engineer 的必要——没 IAM engineer。我没 security team 的必要——没 security team。我没 $200K-$700K / 年 的必要——没 identity.
+
+团队的 SSO 价值是「让 enterprise user 一次登录访问多个系统」。前提是有 enterprise user + 多个系统 + 需要安全。solo engineer 没这个问题——访问者自己来、commit log 是登录、我 = 验证.
+
+一人工程的 SSO = NextAuth.js + Vercel。不是 Ping Identity $0.13/user/月 + IAM 团队。
+
+---

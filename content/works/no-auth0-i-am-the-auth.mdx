@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Auth0，我自己就是 auth"
+slug: no-auth0-i-am-the-auth
+date: 2026-08-21
+description: "团队有 Auth0 / Okta / identity provider / SSO / SAML / OAuth / 身份认证。solo engineer 没有 Auth0，我自己 = auth、不需要 Okta、不需要 identity provider。"
+tags: ["一人工程", "auth0", "solo", "identity"]
+---
+
+团队有 Auth0。
+
+Auth0：identity as a service。Okta：enterprise SSO。Identity provider：身份提供方。SSO：single sign-on。SAML：security assertion markup language。OAuth 2.0：authorization framework。OIDC：OpenID Connect。$0.07-$0.13 / active user / 月。
+
+每 startup 1 个 Auth0 + 1 个 identity engineer + 1 个 security audit。$100K-$500K / 年。
+
+solo engineer 没有 Auth0。
+
+我自己就是 auth。
+
+我想 auth 就 auth、想 login 就 login、想 SSO 就 SSO、想 SAML 就 SAML。我不需要 Auth0、不需要 Okta、不需要 identity provider、不需要 SSO。
+
+我没 Auth0 的必要——访问量 1000，不需要 SSO。我没 Okta 的必要——没 enterprise SSO。我没 identity provider 的必要——没 identity 要 manage。我没 SSO 的必要——我是 1 个 user。我没 SAML 的必要——没 SAML contract。我没 OAuth 2.0 的必要——没 OAuth 需求。我没 OIDC 的必要——没 OIDC。我没 $0.07-$0.13 / active user / 月 的必要——Vercel free + NextAuth.js free。我没 $100K-$500K / 年 的必要——没 identity engineer。
+
+团队的 Auth0 价值是「让 enterprise user 用 SSO 登录 + 减少 friction」。前提是有 enterprise user、需要 SSO、需要 compliance。solo engineer 没这个问题——访问量 1000、commit log = login、我 = friction。
+
+一人工程的 auth = NextAuth.js + Vercel。不是 Auth0 $0.13/user/月。
+
+---

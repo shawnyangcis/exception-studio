@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 data lineage，我自己就是 data lineage"
+slug: no-data-lineage-i-am-the-data-lineage
+date: 2026-08-21
+description: "团队有 data lineage / data catalog / data governance / data dictionary / data provenance / data discovery / data observability。solo engineer 没有 data lineage，我自己 = data lineage、不需要 data catalog、不需要 data governance。"
+tags: ["一人工程", "data-lineage", "solo", "governance"]
+---
+
+团队有 data lineage。
+
+Data lineage：数据血缘。Data catalog：数据目录。Data governance：数据治理。Data dictionary：数据字典。Data provenance：数据出处。Data discovery：数据发现。Data observability：data 可观测性。$0-$5000 / 月 in lineage tool.
+
+每 startup 1 个 data lineage + 1 个 data catalog + 1 个 data governance + 1 个 data team.。$200K-$500K / 年.
+
+solo engineer 没有 data lineage。
+
+我自己就是 data lineage。
+
+我想 lineage 就 lineage、想 trace 就 trace、想 catalog 就 catalog、想 discover 就 discover.。我不需要 data lineage、不需要 data catalog、不需要 data governance、不需要 data dictionary、不需要 data provenance、不需要 data discovery、不需要 data observability.
+
+我没 data lineage 的必要——访问量 1000 不需要 lineage。我没 data catalog 的必要——commit log = catalog。我没 data governance 的必要——commit log 是 governance。我没 data dictionary 的必要——commit log = dictionary。我没 data provenance 的必要——commit log = provenance。我没 data discovery 的必要——commit log = discovery。我没 data observability 的必要——Vercel = observability。我没 $0-$5000 / 月 的必要——Vercel free + commit log。我没 data team 的必要——没 data team.。我我 $200K-$500K / 年 的必要——没 lineage infrastructure.
+
+团队的 data lineage 价值是「让 data 流向可追溯 + 可发现 + 合规」。前提是有复杂 data pipeline、需要 traceability、需要 compliance.。solo engineer 没这个问题——访问量 1000、commit log 是 lineage、我我 = traceability.
+
+一人工程的 data lineage = git commit + 散文。不是 DataHub + Amundsen + data team. .
+
+---

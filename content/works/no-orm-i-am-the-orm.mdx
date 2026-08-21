@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 ORM，我自己就是 ORM"
+slug: no-orm-i-am-the-orm
+date: 2026-08-21
+description: "团队有 ORM / Prisma / Sequelize / TypeORM / Drizzle / SQLAlchemy / Hibernate。solo engineer 没有 ORM，我自己 = ORM、不需要 Prisma、不需要 SQLAlchemy。"
+tags: ["一人工程", "orm", "solo", "prisma"]
+---
+
+团队有 ORM。
+
+ORM：object-relational mapping。Prisma：现代 Node.js ORM。Sequelize：传统 Node.js ORM。TypeORM：TypeScript ORM。Drizzle：现代 TypeScript ORM。SQLAlchemy：Python ORM。Hibernate：Java ORM。$0 / 月 in ORM（自己写）。
+
+每 startup 1 个 ORM choice + 1 个 migration tool + 1 个 schema designer。$100K-$300K / 年。
+
+solo engineer 没有 ORM。
+
+我自己就是 ORM。
+
+我想 map 就 map、想 query 就 query、想 schema 就 schema、想 migrate 就 migrate。我不需要 ORM、不需要 Prisma、不需要 Sequelize、不需要 TypeORM。
+
+我没 ORM 的必要——TypeScript type = schema。我没 Prisma 的必要——没 Prisma client。我没 Sequelize 的必要——没 Sequelize。我没 TypeORM 的必要——没 decorator。我没 Drizzle 的必要——没 Drizzle。我没 SQLAlchemy 的必要——没 Python。我没 Hibernate 的必要——没 Java。我没 migration tool 的必要——commit log 是 migration。我没 schema designer 的必要——TypeScript = schema。我没 $100K-$300K / 年 的必要——没 ORM team。
+
+团队的 ORM 价值是「让 developer 不用写 SQL + 类型安全」。前提是有 developer、需要 type safety、需要 productivity。solo engineer 没这个问题——我是 developer、TypeScript type 安全、commit = productivity。
+
+一人工程的 ORM = TypeScript interface + SQL query。不是 Prisma。
+
+---

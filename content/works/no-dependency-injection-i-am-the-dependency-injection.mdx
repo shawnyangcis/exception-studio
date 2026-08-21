@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 dependency injection，我自己就是 dependency injection"
+slug: no-dependency-injection-i-am-the-dependency-injection
+date: 2026-08-21
+description: "团队有 dependency injection / DI / IoC / inversion of control / DI container / Spring / Guice / Dagger。solo engineer 没有 DI，我自己 = DI、不需要 IoC container、不需要 Spring。"
+tags: ["一人工程", "dependency-injection", "solo", "ioc"]
+---
+
+团队有 dependency injection。
+
+Dependency injection：依赖注入。DI：dependency injection。IoC：inversion of control。Inversion of control：控制反转。DI container：依赖注入容器。Spring：Java DI framework。Guice：Google DI。$0 / 月 in DI library.
+
+每 startup 1 个 DI + 1 个 IoC container + 1 个 Spring。$100K-$300K / 年.
+
+solo engineer 没有 dependency injection。
+
+我自己就是 dependency injection。
+
+我想 inject 就 inject、想 resolve 就 resolve、想 wire 就 wire、想 manage 就 manage。我不需要 dependency injection、不需要 DI、不需要 IoC、不需要 inversion of control、不需要 DI container、不需要 Spring、不需要 Guice.
+
+我没 DI 的必要——我是 1 个 engineer 我写 code。我没 IoC 的必要——Next.js = IoC。我没 inversion of control 的必要——没 inversion。我没 DI container 的必要——没 container。我没 Spring 的必要——没 Java。我没 Guice 的必要——没 Guice。我没 Dagger 的必要——没 Dagger。我没 $100K-$300K / 年 的必要——没 DI framework team.
+
+团队的 DI 价值是「让 dependency 解耦 + 可测试 + 可替换」。前提是有 complex dependency、需要解耦、需要 testability。solo engineer 没这个问题——访问量 1000、commit log 是 dependency、commit = 解耦.
+
+一人工程的 DI = Next.js module + git commit。不是 Spring + Guice + DI 团队.
+
+---

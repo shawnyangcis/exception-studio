@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 pre-commit hook，我自己就是 pre-commit hook"
+slug: no-pre-commit-hook-i-am-the-pre-commit-hook
+date: 2026-08-21
+description: "团队有 pre-commit hook / husky / lint-staged / Git hook / lint hook / code quality gate。solo engineer 没有 pre-commit hook，我自己 = pre-commit hook、不需要 husky、不需要 lint-staged。"
+tags: ["一人工程", "pre-commit-hook", "solo", "code-quality"]
+---
+
+团队有 pre-commit hook。
+
+Pre-commit hook：pre-commit 脚本。Pre-push hook：pre-push 脚本。Husky：Git hook 管理。Lint-staged：暂存文件 lint。Commitlint：commit message lint。Prettier：code formatter。ESLint：linter。$0 / 月 in hook.
+
+每 startup 1 个 husky + 1 个 lint-staged + 1 个 prettier + 1 个 commitlint。$50K-$200K / 年 in code quality.
+
+solo engineer 没有 pre-commit hook。
+
+我自己就是 pre-commit hook。
+
+我想 hook 就 hook、想 commit 就 commit、想 push 就 push、想 lint 就 lint。我不需要 pre-commit hook、不需要 husky、不需要 lint-staged、不需要 commitlint、不需要 prettier、不需要 ESLint.
+
+我没 pre-commit hook 的必要——我是 1 个 engineer 我自己 lint。我没 husky 的必要——没 husky。我没 lint-staged 的必要——没 lint-staged。我没 commitlint 的必要——没 commitlint。我没 prettier 的必要——没 prettier。我没 ESLint 的必要——没 ESLint。我没 $50K-$200K / 年 的必要——没 code quality team。我没 frontend engineer 的必要——我自己 frontend.
+
+团队的 pre-commit hook 价值是「让 code 在 commit 前自动检查 + 保证 code quality」。前提是有 team、需要 auto check、需要 quality。solo engineer 没这个问题——我是 1 个 engineer、commit log 是 check、我 = quality.
+
+一人工程的 pre-commit hook = 我自己 + git commit。不是 husky + lint-staged + 5 个 frontend engineer.
+
+---

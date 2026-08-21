@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 data warehouse，我自己就是 data warehouse"
+slug: no-data-warehouse-i-am-the-data-warehouse
+date: 2026-08-21
+description: "团队有 data warehouse / Snowflake / BigQuery / Redshift / Databricks / data lake / lakehouse / OLAP。solo engineer 没有 data warehouse，我自己 = data warehouse、不需要 Snowflake、不需要 BigQuery。"
+tags: ["一人工程", "data-warehouse", "solo", "olap"]
+---
+
+团队有 data warehouse。
+
+Data warehouse：数据仓库。Snowflake：cloud data warehouse。BigQuery：Google data warehouse。Redshift：AWS data warehouse。Databricks：data lake + warehouse。Data lake：data lake。Lakehouse：lakehouse。OLAP：online analytical processing。$100-$5000 / 月 in data warehouse.
+
+每 startup 1 个 Snowflake + 1 个 BigQuery + 1 个 data engineer + 1 个 data team。$200K-$700K / 年.
+
+solo engineer 没有 data warehouse。
+
+我自己就是 data warehouse。
+
+我想 query 就 query、想 store 就 store、想 analyze 就 analyze、想 report 就 report。我不需要 data warehouse、不需要 Snowflake、不需要 BigQuery、不需要 Redshift、不需要 Databricks、不需要 data lake、不需要 lakehouse、不需要 OLAP.
+
+我没 data warehouse 的必要——访问量 1000 不需要 warehouse。我没 Snowflake 的必要——没 Snowflake。我没 BigQuery 的必要——没 BigQuery。我没 Redshift 的必要——没 AWS。我没 Databricks 的必要——没 Databricks。我没 data lake 的必要——没 data lake。我没 lakehouse 的必要——没 lakehouse。我没 OLAP 的必要——没 OLAP。我没 $100-$5000 / 月 的必要——Vercel Postgres free + commit log。我没 data engineer 的必要——没 data engineer。我没 data team 的必要——没 data team。我没 $200K-$700K / 年 的必要——没 data infrastructure.
+
+团队的 data warehouse 价值是「让 query 跨大量 data 快速执行 + OLAP + BI」。前提是有 big data、需要 OLAP、需要 BI。solo engineer 没这个问题——访问量 1000、commit log 是 data、commit = query.
+
+一人工程的 data warehouse = Vercel Postgres + git commit。不是 Snowflake + BigQuery $5000/月 + data team.
+
+---

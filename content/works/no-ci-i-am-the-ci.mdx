@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 CI，我自己就是 CI"
+slug: no-ci-i-am-the-ci
+date: 2026-08-21
+description: "团队有 CI / CD / GitHub Actions / CircleCI / Jenkins / Travis CI / Buildkite / Drone CI / 持续集成。solo engineer 没有 CI，我自己 = CI、不需要 GitHub Actions、不需要 CircleCI。"
+tags: ["一人工程", "ci", "solo", "github-actions"]
+---
+
+团队有 CI。
+
+CI：continuous integration。CD：continuous deployment。GitHub Actions：GitHub's CI/CD。CircleCI：alternative。Jenkins：classic self-hosted。Travis CI：legacy。Buildkite：modern CI。Drone CI：container-native。$0.008-$0.50 / minute in CI.
+
+每 startup 1 个 CI + 1 个 CD pipeline + 1 个 DevOps engineer。$100K-$300K / 年。
+
+solo engineer 没有 CI。
+
+我自己就是 CI。
+
+我想 build 就 build、想 test 就 test、想 deploy 就 deploy、想 lint 就 lint。我不需要 CI、不需要 CD、不需要 GitHub Actions、不需要 CircleCI、不需要 Jenkins、不需要 Travis CI、不需要 Buildkite、不需要 Drone CI。
+
+我没 CI 的必要——访问量 1000 不需要 CI。我没 CD 的必要——Vercel 自动 deploy。我没 GitHub Actions 的必要——没 GitHub Actions workflow。我没 CircleCI 的必要——没 CircleCI。我没 Jenkins 的必要——没 Jenkins。我没 Travis CI 的必要——没 Travis。我没 Buildkite 的必要——没 Buildkite。我没 Drone CI 的必要——没 Drone。我没 $0.008-$0.50 / minute 的必要——Vercel free。我没 DevOps engineer 的必要——没 DevOps。我没 $100K-$300K / 年 的必要——没 pipeline。
+
+团队的 CI 价值是「让代码自动化测试 + 部署」。前提是有 team、需要 automation、需要 consistency。solo engineer 没这个问题——我是 1 个 engineer、不需要 automation、commit log = consistency。
+
+一人工程的 CI = Vercel + git push。不是 GitHub Actions + Jenkins $300/月。
+
+---

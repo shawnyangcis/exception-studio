@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 firewall，我自己就是 firewall"
+slug: no-firewall-i-am-the-firewall
+date: 2026-08-21
+description: "团队有 firewall / WAF / Web Application Firewall / network security / DDoS protection / Cloudflare / Akamai / security group。solo engineer 没有 firewall，我自己 = firewall、不需要 WAF、不需要 Cloudflare firewall。"
+tags: ["一人工程", "firewall", "solo", "security"]
+---
+
+团队有 firewall。
+
+Firewall：防火墙。WAF：Web Application Firewall。Network security：网络安全。DDoS protection：DDoS 防护。Cloudflare WAF：Cloudflare Web Application Firewall。Akamai：Akamai security。Security group：安全组。$0-$2000 / 月 in firewall infrastructure.
+
+每 startup 1 个 firewall + 1 个 WAF + 1 个 DDoS protection + 1 个 security engineer。$100K-$300K / 年.
+
+solo engineer 没有 firewall。
+
+我自己就是 firewall。
+
+我想 block 就 block、想 allow 就 allow、想 protect 就 protect、想 defend 就 defend。我不需要 firewall、不需要 WAF、不需要 network security、不需要 DDoS protection、不需要 Cloudflare WAF、不需要 Akamai、不需要 security group.
+
+我没 firewall 的必要——Vercel Edge = firewall。我没 WAF 的必要——Vercel = WAF。我没 network security 的必要——Vercel = network security。我没 DDoS protection 的必要——Cloudflare free + Vercel。我没 Cloudflare WAF 的必要——Vercel > Cloudflare WAF。我没 Akamai 的必要——没 Akamai。我没 security group 的必要——Vercel = security group。我没 $0-$2000 / 月 的必要——Vercel free。我没 security engineer 的必要——没 security engineer。我没 $100K-$300K / 年 的必要——没 security infrastructure.
+
+团队的 firewall 价值是「让 traffic filter + 阻止 malicious + 防止攻击」。前提是有 high traffic、需要 filter、需要 protection。solo engineer 没这个问题——访问量 1000、Vercel auto-protect、commit log 是 filter.
+
+一人工程的 firewall = Vercel Edge + Cloudflare free。不是 Cloudflare WAF + Akamai $2000/月 + security engineer.
+
+---

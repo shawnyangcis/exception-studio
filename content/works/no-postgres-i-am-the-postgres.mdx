@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Postgres，我自己就是 Postgres"
+slug: no-postgres-i-am-the-postgres
+date: 2026-08-21
+description: "团队有 Postgres / Vercel Postgres / Neon / Supabase / PlanetScale / serverless Postgres / 托管 Postgres。solo engineer 没有 Postgres，我自己 = Postgres、不需要 Vercel Postgres free tier、不需要 Neon。"
+tags: ["一人工程", "postgres", "solo", "neon"]
+---
+
+团队有 Postgres。
+
+Postgres：开源关系数据库。Vercel Postgres：Vercel managed Postgres。Neon：serverless Postgres。Supabase：open source Firebase alternative with Postgres。PlanetScale：MySQL-based serverless。$0-$10 / 月 in free tier, $50-$500 / 月 in production。
+
+每 startup 1 个 Postgres cluster + 1 个 DBA + 1 个 database engineer。$200K-$500K / 年。
+
+solo engineer 没有 Postgres。
+
+我自己就是 Postgres。
+
+我想 query 就 query、想 store 就 store、想 migrate 就 migrate、想 backup 就 backup。我不需要 Postgres、不需要 Vercel Postgres、不需要 Neon、不需要 Supabase。
+
+我没 Postgres 的必要——访问量 1000 不需要关系数据库。我没 Vercel Postgres 的必要——Vercel Postgres free tier $0.60/月够用，但访问量 1000 不需要。我没 Neon 的必要——没 Neon。我没 Supabase 的必要——没 realtime。我没 PlanetScale 的必要——没 MySQL。我没 $0-$500 / 月 的必要——commit log 够用。我没 $200K-$500K / 年 的必要——没 DBA。
+
+团队的 Postgres 价值是「让 data 持久化 + 关系查询 + scale」。前提是有 high traffic、需要关系查询、需要 scale。solo engineer 没这个问题——访问量 1000、commit log 持久化、我 = scale。
+
+一人工程的 Postgres = Vercel Postgres free tier + git。不是 AWS RDS $500/月。
+
+---

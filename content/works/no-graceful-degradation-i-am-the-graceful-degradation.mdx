@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 graceful degradation，我自己就是 graceful degradation"
+slug: no-graceful-degradation-i-am-the-graceful-degradation
+date: 2026-08-21
+description: "团队有 graceful degradation / fallback / circuit breaker / resilience / fault tolerance / degradation strategy / Hystrix / resilience4j。solo engineer 没有 graceful degradation，我自己 = graceful degradation、不需要 circuit breaker、不需要 fallback。"
+tags: ["一人工程", "graceful-degradation", "solo", "resilience"]
+---
+
+团队有 graceful degradation。
+
+Graceful degradation：优雅降级。Fallback：后备方案。Circuit breaker：断路器。Resilience：弹性。Fault tolerance：容错。Degradation strategy：降级策略。Hystrix：Netflix circuit breaker。Resilience4j：modern circuit breaker。$0-$100 / 月 in resilience library.
+
+每 startup 1 个 graceful degradation + 1 个 circuit breaker + 1 个 resilience engineer。$100K-$300K / 年.
+
+solo engineer 没有 graceful degradation。
+
+我自己就是 graceful degradation。
+
+我想 degrade 就 degrade、想 fallback 就 fallback、想 break 就 break、想 recover 就 recover。我不需要 graceful degradation、不需要 fallback、不需要 circuit breaker、不需要 resilience、不需要 fault tolerance、不需要 degradation strategy、不需要 Hystrix、不需要 Resilience4j.
+
+我没 graceful degradation 的必要——Vercel = graceful degradation。我没 fallback 的必要——commit log 是 fallback。我没 circuit breaker 的必要——没 circuit breaker。我没 resilience 的必要——Vercel = resilience。我没 fault tolerance 的必要——Vercel = fault tolerance。我没 degradation strategy 的必要——commit log 是 strategy。我没 Hystrix 的必要——没 Hystrix。我没 Resilience4j 的必要——没 Resilience4j。我没 $0-$100 / 月 的必要——Vercel free + commit log。我没 resilience engineer 的必要——没 resilience engineer。我没 $100K-$300K / 年 的必要——没 resilience infrastructure.
+
+团队的 graceful degradation 价值是「让 service 在故障时优雅降级 + 保持核心功能」。前提是有 critical service、需要高可用、需要 fault tolerance。solo engineer 没这个问题——访问量 1000、Vercel auto-degrade、commit log 是 recovery.
+
+一人工程的 graceful degradation = Vercel + git commit。不是 Hystrix + Resilience4j $100/月 + resilience engineer.
+
+---

@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 PostgreSQL，我自己就是 database"
+slug: no-postgresql-i-am-the-database
+date: 2026-08-21
+description: "团队有 PostgreSQL / MySQL / MongoDB / SQLite / Redis / 数据库。solo engineer 没有 PostgreSQL，我自己 = database、不需要 PostgreSQL、不需要 MongoDB。"
+tags: ["一人工程", "postgresql", "solo", "database"]
+---
+
+团队有 PostgreSQL。
+
+PostgreSQL：开源关系数据库。MySQL：另一开源关系数据库。MongoDB：文档数据库。SQLite：嵌入式关系数据库。Database：数据库。Sharding：分片。Replication：复制。$100-$1K / 月 in managed PostgreSQL.
+
+每 startup 1 个 PostgreSQL cluster + 1 个 DBA + 1 个 backup strategy。$200K-$500K / 年。
+
+solo engineer 没有 PostgreSQL。
+
+我自己就是 database。
+
+我想 store 就 store、想 query 就 query、想 backup 就 backup、想 scale 就 scale。我不需要 PostgreSQL、不需要 MySQL、不需要 MongoDB、不需要 SQLite。
+
+我没 PostgreSQL 的必要——访问量 1000，不需要关系数据库。我没 MySQL 的必要——没 MySQL。我没 MongoDB 的必要——没 document database。我没 SQLite 的必要——没 SQLite。我没 Database 的必要——我没 data。我没 Sharding 的必要——访问量 1000 不需要 sharding。我没 Replication 的必要——没 high availability。我没 $100-$1K / 月 的必要——Vercel Postgres free tier。我没 $200K-$500K / 年 的必要——没 DBA。
+
+团队的 PostgreSQL 价值是「让 data 持久化 + 处理高 QPS + 关系查询」。前提是有 data、需要持久化、需要高 QPS。solo engineer 没这个问题——访问量 1000、commit log 持久化、我 = QPS。
+
+一人工程的 database = Vercel Postgres free tier。不是 AWS RDS $500/月。
+
+---

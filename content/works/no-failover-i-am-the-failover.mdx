@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 failover，我自己就是 failover"
+slug: no-failover-i-am-the-failover
+date: 2026-08-21
+description: "团队有 failover / disaster recovery / DR / business continuity / hot standby / cold standby / active-passive。solo engineer 没有 failover，我自己 = failover、不需要 hot standby、不需要 cold standby。"
+tags: ["一人工程", "failover", "solo", "dr"]
+---
+
+团队有 failover。
+
+Failover：故障转移。Disaster recovery：灾难恢复 DR。Business continuity：业务连续性。Hot standby：热备份。Cold standby：冷备份。Active-passive：主备模式。$0-$5000 / 月 in DR infrastructure.
+
+每 startup 1 个 failover + 1 个 DR + 1 个 hot standby + 1 个 SRE。$200K-$500K / 年.
+
+solo engineer 没有 failover。
+
+我自己就是 failover。
+
+我想 failover 就 failover、想 recover 就 recover、想 standby 就 standby、想 switch 就 switch。我不需要 failover、不需要 disaster recovery、不需要 business continuity、不需要 hot standby、不需要 cold standby、不需要 active-passive.
+
+我没 failover 的必要——Vercel auto-failover。我没 disaster recovery 的必要——Vercel 自动 recover。我没 business continuity 的必要——访问量 1000 不需要 continuity。我没 hot standby 的必要——Vercel = hot standby。我没 cold standby 的必要——没 cold standby。我没 active-passive 的必要——Vercel active-active。我没 $0-$5000 / 月 的必要——Vercel free。我没 SRE 的必要——没 SRE。我没 $200K-$500K / 年 的必要——没 DR strategy.
+
+团队的 failover 价值是「让 service 在故障时自动切换 + 减少 downtime」。前提是有 critical service、需要 downtime reduction、需要切换。solo engineer 没这个问题——Vercel auto-failover、access 1000、commit log = recovery.
+
+一人工程的 failover = Vercel Edge Network + git commit。不是 active-passive + DR $5000/月 + SRE 团队.
+
+---

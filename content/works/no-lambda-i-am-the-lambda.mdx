@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Lambda，我自己就是 lambda"
+slug: no-lambda-i-am-the-lambda
+date: 2026-08-21
+description: "团队有 Lambda / serverless / Cloud Functions / Vercel Edge Function / FaaS / 无服务器。solo engineer 没有 Lambda，我自己 = lambda、不需要 Lambda、不需要 FaaS。"
+tags: ["一人工程", "lambda", "solo", "serverless"]
+---
+
+团队有 Lambda。
+
+Lambda：AWS serverless function。Cloud Functions：GCP serverless。Azure Functions：Azure serverless。Vercel Edge Function：Vercel serverless。Cloudflare Workers：Cloudflare serverless。FaaS：function as a service。$0.20 / 1M requests.
+
+每 startup 1 个 Lambda + 1 个 serverless engineer + 1 个 FaaS strategy。$100K-$300K / 年。
+
+solo engineer 没有 Lambda。
+
+我自己就是 lambda。
+
+我想 invoke 就 invoke、想 run 就 run、想 deploy 就 deploy。我不需要 Lambda、不需要 Cloud Functions、不需要 Azure Functions、不需要 Vercel Edge Function、不需要 Cloudflare Workers。
+
+我没 Lambda 的必要——访问量 1000 不需要 serverless。我没 Cloud Functions 的必要——没 GCP。我没 Azure Functions 的必要——没 Azure。我没 Vercel Edge Function 的必要——Next.js = edge function。我没 Cloudflare Workers 的必要——Vercel Edge = Workers Workers。我没 FaaS 的必要——访问量 1000 不需要 function。我没 $0.20 / 1M requests 的必要——Vercel free 100K requests/月。我没 $100K-$300K / 年 的必要——没 serverless engineer。
+
+团队的 Lambda 价值是「让 function auto-scale + 按使用付费」。前提是有 high traffic、需要 auto-scale、需要 cost optimization。solo engineer 没这个问题——访问量 1000、Vercel auto-scale、commit log = cost。
+
+一人工程的 Lambda = Next.js Route + Vercel Edge。不是 AWS Lambda $0.20/1M。
+
+---

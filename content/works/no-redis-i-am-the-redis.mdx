@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Redis，我自己就是 Redis"
+slug: no-redis-i-am-the-redis
+date: 2026-08-21
+description: "团队有 Redis / cache / in-memory cache / KV store / Memcached / ElastiCache / Redis cluster。solo engineer 没有 Redis，我自己 = cache、不需要 ElastiCache、不需要 Memcached。"
+tags: ["一人工程", "redis", "solo", "cache"]
+---
+
+团队有 Redis。
+
+Redis：in-memory KV store。Cache：缓存。In-memory cache：内存缓存。KV store：键值存储。Memcached：alternative cache。ElastiCache：AWS managed Redis。Redis cluster：Redis 集群。Redis sentinel：Redis 高可用。$50-$500 / 月 in Redis hosting。
+
+每 startup 1 个 Redis cluster + 1 个 cache engineer + 1 个 cache invalidation 策略。$200K-$500K / 年。
+
+solo engineer 没有 Redis。
+
+我自己就是 Redis。
+
+我想 cache 就 cache、想 store 就 store、想 read 就 read、想 invalidate 就 invalidate。我不需要 Redis、不需要 cache、不需要 Memcached、不需要 ElastiCache、不需要 Redis cluster。
+
+我没 Redis 的必要——Vercel Edge Network 是 cache。我没 cache 的必要——访问量 1000，不需要 cache。我没 in-memory cache 的必要——没大数据集。我没 KV store 的必要——没 KV store 需求。我没 Memcached 的必要——没 Memcached。我没 ElastiCache 的必要——没 AWS。我没 Redis cluster 的必要——没 cluster。我没 Redis sentinel 的必要——没 high availability 需求。我没 $50-$500 / 月 的必要——Vercel free tier。我没 $200K-$500K / 年 的必要——没 cache engineer。
+
+团队的 Redis 价值是「让 latency < 10ms + 处理高 QPS」。前提是有高 QPS、需要 low latency、需要 cache invalidation 策略。solo engineer 没这个问题——Vercel free tier latency < 100ms 够用、访问量 1000 没 QPS、commit log = cache invalidation。
+
+一人工程的 Redis = Vercel Edge Cache。不是 ElastiCache $500/月。
+
+---

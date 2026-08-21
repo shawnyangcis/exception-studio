@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 rate limiting，我自己就是 rate limiting"
+slug: no-rate-limiting-i-am-the-rate-limiting
+date: 2026-08-21
+description: "团队有 rate limiting / rate limit / throttling / quota / backpressure / leaky bucket / token bucket / sliding window。solo engineer 没有 rate limiting，我自己 = rate limiting、不需要 token bucket、不需要 leaky bucket。"
+tags: ["一人工程", "rate-limiting", "solo", "throttling"]
+---
+
+团队有 rate limiting。
+
+Rate limiting：限流。Rate limit：速率限制。Throttling：节流。Quota：配额。Backpressure：背压。Leaky bucket：漏桶算法。Token bucket：令牌桶算法。Sliding window：滑动窗口。$0-$100 / 月 in rate limiting.
+
+每 startup 1 个 rate limiting + 1 个 throttling + 1 个 quota strategy + 1 个 backpressure。$100K-$300K / 年.
+
+solo engineer 没有 rate limiting。
+
+我自己就是 rate limiting。
+
+我想 limit 就 limit、想 throttle 就 throttle、想 quota 就 quota、想 backpressure 就 backpressure。我不需要 rate limiting、不需要 rate limit、不需要 throttling、不需要 quota、不需要 backpressure、不需要 leaky bucket、不需要 token bucket、不需要 sliding window.
+
+我没 rate limiting 的必要——Vercel auto rate limit。我没 rate limit 的必要——Vercel free。我没 throttling 的必要——Vercel auto throttling。我没 quota 的必要——访问量 1000 不需要 quota。我没 backpressure 的必要——没 backpressure。我没 leaky bucket 的必要——没 leaky bucket。我没 token bucket 的必要——没 token bucket。我没 sliding window 的必要——没 sliding window。我没 $0-$100 / 月 的必要——Vercel free。我没 quota strategy 的必要——没 strategy。我没 $100K-$300K / 年 的必要——没 rate limiting infrastructure.
+
+团队的 rate limiting 价值是「让 service 防止滥用 + 保护 backend + 公平分配」。前提是有 high QPS、需要 abuse protection、需要 fairness。solo engineer 没这个问题——访问量 1000、Vercel auto-limit、commit log 是 fair.
+
+一人工程的 rate limiting = Vercel + git commit。不是 token bucket + leaky bucket + rate limiting 团队.
+
+---

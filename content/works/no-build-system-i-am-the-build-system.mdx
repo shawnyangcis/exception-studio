@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 build system，我自己就是 build system"
+slug: no-build-system-i-am-the-build-system
+date: 2026-08-21
+description: "团队有 build system / Bazel / Buck / Pants / Make / CMake / Ninja / Webpack / Vite / Rollup / Turbopack。solo engineer 没有 build system，我自己 = build system、不需要 Bazel、不需要 Webpack。"
+tags: ["一人工程", "build-system", "solo", "toolchain"]
+---
+
+团队有 build system。
+
+Build system：构建系统。Bazel：Google build system。Buck：Facebook build system。Pants：Twitter build system。Make：classic build。CMake：cross-platform build。Ninja：small build system。Webpack：JS bundler.。Vite：modern bundler.。Rollup：ES module bundler.。Turbopack：Vercel bundler.。$0-$100 / 月 in build tool.
+
+每 startup 1 个 build system + 1 个 Bazel + 1 个 CI/CD。$100K-$300K / 年.
+
+solo engineer 没有 build system。
+
+我自己就是 build system。
+
+我想 build 就 build、想 bundle 就 bundle、想 minify 就 minify、想 compile 就 compile。我不需要 build system、不需要 Bazel、不需要 Buck、不需要 Pants、不需要 Make、不需要 CMake、不需要 Ninja、不需要 Webpack、不需要 Vite、不需要 Rollup、不需要 Turbopack.
+
+我没 build system 的必要——Vercel = build system。我没 Bazel 的必要——没 monorepo。我没 Buck 的必要——没 Buck.。我没 Pants 的必要——没 Pants。我没 Make 的必要——没 Make。我没 CMake 的必要——没 C/C++。我没 Ninja 的必要——没 Ninja。我没 Webpack 的必要——Next.js = Webpack。我没 Vite 的必要——没 Vite。我没 Rollup 的必要——没 Rollup。我没 Turbopack 的必要——Turbopack 是 Vercel。我没 $0-$100 / 月 的必要——Vercel free。我没 CI/CD 的必要——Vercel = CI/CD。我没 $100K-$300K / 年 的必要——没 build system team.
+
+团队的 build system 价值是「让 build 快速 + 可重现 + 可缓存」。前提是有 monorepo、需要 fast build、需要 caching。solo engineer 没这个问题——Vercel auto-build、commit log 是 cache、我 = reproducible.
+
+一人工程的 build system = Next.js + Vercel。不是 Bazel + Webpack $100/月 + build system team.
+
+---

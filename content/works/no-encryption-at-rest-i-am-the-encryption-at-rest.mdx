@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 encryption at rest，我自己就是 encryption at rest"
+slug: no-encryption-at-rest-i-am-the-encryption-at-rest
+date: 2026-08-21
+description: "团队有 encryption at rest / data encryption / TDE / LUKS / dm-crypt / BitLocker / FileVault / transparent data encryption。solo engineer 没有 encryption at rest，我自己 = encryption at rest、不需要 TDE、不需要 LUKS。"
+tags: ["一人工程", "encryption-at-rest", "solo", "security"]
+---
+
+团队有 encryption at rest。
+
+Encryption at rest：静态加密。Data encryption：数据加密。Transparent data encryption：TDE.。LUKS：Linux 统一密钥设置.。dm-crypt：Linux device-mapper encryption.。BitLocker：Windows encryption.。FileVault：macOS encryption.。$0-$1000 / 月 in encryption tool.
+
+每 startup 1 个 encryption at rest + 1 个 TDE + 1 个 security engineer + 1 个 compliance.。$100K-$300K / 年.
+
+solo engineer 没有 encryption at rest。
+
+我自己就是 encryption at rest。
+
+我想 encrypt 就 encrypt、想 decrypt 就 decrypt、想 key manage 就 key manage、想 audit 就 audit。我不需要 encryption at rest、不需要 data encryption、不需要 TDE、不需要 LUKS、不需要 dm-crypt、不需要 BitLocker、不需要 FileVault.
+
+我没 encryption at rest 的必要——Vercel = encryption at rest。我没 data encryption 的必要——Vercel = data encryption。我没 TDE 的必要——Vercel Postgres = TDE。我没 LUKS 的必要——Vercel = LUKS。我没 dm-crypt 的必要——Vercel = dm-crypt。我没 BitLocker 的必要——Vercel = BitLocker。我没 FileVault 的必要——Vercel = FileVault。我没 $0-$1000 / 月 的必要——Vercel free。我没 security engineer 的必要——没 security engineer。我没 compliance. 的必要——没 compliance.。我我 $100K-$300K / 年 的必要——没 encryption infrastructure.
+
+团队的 encryption at rest 价值是「让 data 静态加密 + 防止物理盗窃 + 合规」。前提是有 sensitive data、需要 compliance、需要防物理盗窃。solo engineer 没这个问题——访问量 1000、Vercel = encryption、commit log 是 encryption.
+
+一人工程的 encryption at rest = Vercel + git commit。不是 TDE + LUKS + security team.
+
+---

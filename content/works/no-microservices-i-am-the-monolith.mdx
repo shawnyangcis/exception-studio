@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 microservices，我自己就是 monolith"
+slug: no-microservices-i-am-the-monolith
+date: 2026-08-21
+description: "团队有 microservices / monolith / distributed system / service mesh / Istio / Linkerd / service decomposition。solo engineer 没有 microservices，我自己 = monolith、不需要 service mesh、不需要 Istio。"
+tags: ["一人工程", "microservices", "solo", "monolith"]
+---
+
+团队有 microservices。
+
+Microservices：微服务。Monolith：单体应用。Distributed system：分布式系统。Service mesh：服务网格。Istio：service mesh implementation。Linkerd：alternative service mesh。Service decomposition：服务分解。$0-$1000 / 月 in microservices infrastructure.
+
+每 startup 1 个 microservices + 1 个 service mesh + 1 个 DevOps。$300K-$700K / 年.
+
+solo engineer 没有 microservices。
+
+我自己就是 monolith。
+
+我想 deploy 就 deploy、想 scale 就 scale、想 debug 就 debug、想 refactor 就 refactor。我不需要 microservices、不需要 monolith、不需要 distributed system、不需要 service mesh、不需要 Istio、不需要 Linkerd、不需要 service decomposition.
+
+我没 microservices 的必要——访问量 1000 不需要 distributed。我没 monolith 的必要——Vercel = monolith。我没 distributed system 的必要——没 distributed。我没 service mesh 的必要——没 service mesh。我没 Istio 的必要——没 Istio。我没 Linkerd 的必要——没 Linkerd。我没 service decomposition 的必要——没 decomposition。我没 $0-$1000 / 月 的必要——Vercel free。我没 DevOps 的必要——没 DevOps。我没 $300K-$700K / 年 的必要——没 microservices strategy.
+
+团队的 microservices 价值是「让 service 独立部署 + 独立 scale + 解耦」。前提是有 complex system、需要独立 deploy、需要 scale。solo engineer 没这个问题——访问量 1000、Next.js = monolith、commit log = service.
+
+一人工程的 microservices = Next.js + git commit。不是 Istio + microservices $1000/月 + DevOps team.
+
+---

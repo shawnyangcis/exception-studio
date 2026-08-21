@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 blue-green，我自己就是 blue-green"
+slug: no-blue-green-i-am-the-blue-green
+date: 2026-08-21
+description: "团队有 blue-green deployment / canary deployment / rolling update / phased rollout / zero-downtime deployment。solo engineer 没有 blue-green，我自己 = blue-green、不需要 canary、不需要 rolling update。"
+tags: ["一人工程", "blue-green", "solo", "deployment"]
+---
+
+团队有 blue-green。
+
+Blue-green deployment：双环境切换。Canary deployment：金丝雀发布。Rolling update：滚动更新。Phased rollout：分阶段发布。Zero-downtime deployment：零停机部署。Red-black deployment：蓝绿变体。$0-$1000 / 月 in deployment infrastructure.
+
+每 startup 1 个 blue-green + 1 个 canary + 1 个 deployment engineer。$100K-$300K / 年.
+
+solo engineer 没有 blue-green。
+
+我自己就是 blue-green。
+
+我想 deploy 就 deploy、想 switch 就 switch、想 rollback 就 rollback、想 phase 就 phase。我不需要 blue-green、不需要 canary、不需要 rolling update、不需要 phased rollout、不需要 zero-downtime deployment、不需要 red-black.
+
+我没 blue-green 的必要——Vercel 自动 deploy + commit = blue-green。我没 canary 的必要——commit log 是 canary。我没 rolling update 的必要——commit log 是 rolling update。我没 phased rollout 的必要——commit = phased rollout。我没 zero-downtime deployment 的必要——Vercel zero-downtime。我没 red-black 的必要——没 red-black。我没 $0-$1000 / 月 的必要——Vercel free。我没 deployment engineer 的必要——没 deployment engineer。我没 $100K-$300K / 年 的必要——没 deployment strategy.
+
+团队的 blue-green 价值是「让 deploy 无风险 + 快速 rollback + 零停机」。前提是有 high traffic、需要零停机、需要 rollback。solo engineer 没这个问题——Vercel zero-downtime、commit log 是 rollback、我 = 无风险.
+
+一人工程的 blue-green = Vercel + git branch。不是 blue-green infrastructure + deployment 团队。
+
+---

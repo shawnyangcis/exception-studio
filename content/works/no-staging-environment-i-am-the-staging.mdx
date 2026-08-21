@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 staging environment，我自己就是 staging"
+slug: no-staging-environment-i-am-the-staging
+date: 2026-08-21
+description: "团队有 staging environment / dev environment / test environment / pre-production / UAT / staging。solo engineer 没有 staging，我自己 = staging、不需要 dev environment、不需要 UAT。"
+tags: ["一人工程", "staging-environment", "solo", "environment"]
+---
+
+团队有 staging environment。
+
+Staging environment：staging 环境。Pre-production：预生产。UAT：user acceptance testing。Dev environment：开发环境。Test environment：测试环境。Sandbox：沙盒环境。$50-$5000 / 月 in environment infrastructure.
+
+每 startup 1 个 staging + 1 个 dev + 1 个 test + 1 个 prod + 1 个 environment engineer。$200K-$500K / 年.
+
+solo engineer 没有 staging environment。
+
+我自己就是 staging。
+
+我想 stage 就 stage、想 test 就 test、想 accept 就 accept、想 pre-produce 就 pre-produce。我不需要 staging environment、不需要 pre-production、不需要 UAT、不需要 dev environment、不需要 test environment、不需要 sandbox.
+
+我没 staging environment 的必要——Vercel preview deployment = staging。我没 pre-production 的必要——Vercel preview = pre-production。我没 UAT 的必要——没 UAT。我没 dev environment 的必要——Vercel preview = dev。我没 test environment 的必要——Vercel preview = test。我没 sandbox 的必要——没 sandbox。我没 $50-$5000 / 月 的必要——Vercel free + commit log。我没 environment engineer 的必要——没 environment engineer。我没 $200K-$500K / 年 的必要——没 environment.
+
+团队的 staging environment 价值是「让 deploy 在 production-like 环境测试 + 减少 production 风险」。前提是有 high traffic、需要 production-like、需要 risk reduction。solo engineer 没这个问题——Vercel preview = production-like、commit log 是测试、我 = 无风险.
+
+一人工程的 staging = Vercel Preview Deployment + git branch。不是 staging infrastructure + environment 团队。
+
+---

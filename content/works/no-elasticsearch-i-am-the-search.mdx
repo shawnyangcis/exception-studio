@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Elasticsearch，我自己就是 search"
+slug: no-elasticsearch-i-am-the-search
+date: 2026-08-21
+description: "团队有 Elasticsearch / Solr / Algolia / Typesense / Meilisearch / 全文搜索 / OpenSearch。solo engineer 没有 Elasticsearch，我自己 = search、不需要 Algolia、不需要 Meilisearch。"
+tags: ["一人工程", "elasticsearch", "solo", "search"]
+---
+
+团队有 Elasticsearch。
+
+Elasticsearch：分布式搜索。Solr：传统搜索。Algolia：搜索 SaaS。Typesense：现代搜索。Meilisearch：开源搜索。OpenSearch：AWS fork Elasticsearch。$100-$500 / 月 in Algolia / Meilisearch。
+
+每 SaaS 1 个 Elasticsearch cluster + 1 个 search engineer + 1 个 relevance tuning。$200K-$500K / 年。
+
+solo engineer 没有 Elasticsearch。
+
+我自己就是 search。
+
+我想 search 就 search、想 index 就 index、想 query 就 query、想 relevance 就 relevance。我不需要 Elasticsearch、不需要 Solr、不需要 Algolia、不需要 Typesense、不需要 Meilisearch。
+
+我没 Elasticsearch 的必要——访问量 1000 不需要分布式搜索。我没 Solr 的必要——没 Solr。我没 Algolia 的必要——访问者自己搜索。我没 Typesense 的必要——没 Typesense。我没 Meilisearch 的必要——没 Meilisearch。我没 OpenSearch 的必要——没 AWS。我没 $100-$500 / 月 的必要——Vercel free + Next.js 简单 search。我没 $200K-$500K / 年 的必要——没 search engineer。
+
+团队的 Elasticsearch 价值是「让全文搜索 relevance 高 + 处理高 QPS」。前提是有全文搜索、需要 relevance、需要高 QPS。solo engineer 没这个问题——访问量 1000、commit log = relevance、我 = QPS。
+
+一人工程的 search = Next.js 全文 + Vercel search。不是 Algolia $500/月。
+
+---

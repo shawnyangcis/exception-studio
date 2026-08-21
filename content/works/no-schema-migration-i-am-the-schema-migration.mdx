@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 schema migration，我自己就是 schema migration"
+slug: no-schema-migration-i-am-the-schema-migration
+date: 2026-08-21
+description: "团队有 schema migration / database migration / Prisma migrate / Knex migrate / Flyway / Liquibase / DBMigrate。solo engineer 没有 schema migration，我自己 = schema migration、不需要 Prisma migrate、不需要 Flyway。"
+tags: ["一人工程", "schema-migration", "solo", "database"]
+---
+
+团队有 schema migration。
+
+Schema migration：schema 迁移。Database migration：数据库迁移。Prisma migrate：Prisma migration。Knex migrate：Knex migration。Flyway：Java migration。Liquibase：alternative migration。$0-$100 / 月 in migration tool.
+
+每 startup 1 个 schema migration + 1 个 migration engineer + 1 个 database team。$100K-$300K / 年.
+
+solo engineer 没有 schema migration。
+
+我自己就是 schema migration。
+
+我想 migrate 就 migrate、想 version 就 version、想 rollback 就 rollback、想 forward 就 forward。我不需要 schema migration、不需要 database migration、不需要 Prisma migrate、不需要 Knex migrate、不需要 Flyway、不需要 Liquibase.
+
+我没 schema migration 的必要——访问量 1000 不需要 migration。我没 database migration 的必要——commit log 是 migration。我没 Prisma migrate 的必要——没 Prisma。我没 Knex migrate 的必要——没 Knex。我没 Flyway 的必要——没 Flyway。我没 Liquibase 的必要——没 Liquibase。我没 $0-$100 / 月 的必要——Vercel Postgres free + commit log。我没 migration engineer 的必要——没 migration engineer。我没 database team 的必要——没 database team。我没 $100K-$300K / 年 的必要——没 migration infrastructure.
+
+团队的 schema migration 价值是「让 schema 变更版本化 + 可回滚 + 安全」。前提是有 complex schema、需要 versioning、需要 rollback。solo engineer 没这个问题——访问量 1000、commit log 是 schema 变更、commit = 版本化.
+
+一人工程的 schema migration = git commit + Vercel Postgres。不是 Prisma migrate + Flyway + migration 团队.
+
+---

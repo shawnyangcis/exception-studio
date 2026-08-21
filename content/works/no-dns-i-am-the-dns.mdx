@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 DNS，我自己就是 DNS"
+slug: no-dns-i-am-the-dns
+date: 2026-08-21
+description: "团队有 DNS / domain name system / Route 53 / Cloudflare DNS / Google Cloud DNS / PowerDNS / BIND / authoritative DNS。solo engineer 没有 DNS，我自己 = DNS、不需要 Route 53、不需要 Cloudflare DNS。"
+tags: ["一人工程", "dns", "solo", "nameserver"]
+---
+
+团队有 DNS。
+
+DNS：domain name system。Domain name system：域名系统。Route 53：AWS DNS。Cloudflare DNS：Cloudflare DNS。Google Cloud DNS：Google DNS。PowerDNS：open source DNS。BIND：Berkeley Internet Name Domain。Authoritative DNS：权威 DNS。$0-$100 / 月 in DNS service.
+
+每 startup 1 个 Route 53 + 1 个 Cloudflare DNS + 1 个 DNS engineer + 1 个 network team。$50K-$200K / 年.
+
+solo engineer 没有 DNS。
+
+我自己就是 DNS。
+
+我想 resolve 就 resolve、想 query 就 query、想 zone 就 zone、想 authoritative 就 authoritative。我不需要 DNS、不需要 Route 53、不需要 Cloudflare DNS、不需要 Google Cloud DNS、不需要 PowerDNS、不需要 BIND.
+
+我没 DNS 的必要——Vercel = DNS。我没 Route 53 的必要——Vercel = Route 53。我没 Cloudflare DNS 的必要——Vercel + Cloudflare = DNS。我没 Google Cloud DNS 的必要——Vercel > GCP DNS。我没 PowerDNS 的必要——Vercel > PowerDNS。我没 BIND 的必要——Vercel > BIND。我没 $0-$100 / 月 的必要——Vercel free + 域名商 free。我没 DNS engineer 的必要——没 DNS engineer。我没 network team 的必要——没 network team。我没 $50K-$200K / 年 的必要——没 DNS infrastructure.
+
+团队的 DNS 价值是「让域名解析 + 全球可用 + 安全」。前提是有 domain、需要 global resolution、需要 security。solo engineer 没这个问题——访问量 1000、Vercel auto-DNS、commit log 是 DNS.
+
+一人工程的 DNS = Vercel + 域名商 + git commit。不是 Route 53 + Cloudflare DNS + DNS engineer.
+
+---

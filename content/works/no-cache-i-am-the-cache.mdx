@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 cache，我自己就是 cache"
+slug: no-cache-i-am-the-cache
+date: 2026-08-21
+description: "团队有 cache / Redis / Memcached / CDN cache / browser cache / HTTP cache / cache invalidation。solo engineer 没有 cache，我自己 = cache、不需要 Redis、不需要 Memcached。"
+tags: ["一人工程", "cache", "solo", "cdn"]
+---
+
+团队有 cache。
+
+Cache：缓存。Redis：in-memory cache。Memcached：distributed cache。CDN cache：边缘缓存。Browser cache：浏览器缓存。HTTP cache：HTTP 缓存。Cache invalidation：缓存失效。$0-$100 / 月 in cache infrastructure.
+
+每 startup 1 个 Redis + 1 个 cache engineer + 1 个 invalidation strategy。$100K-$300K / 年.
+
+solo engineer 没有 cache。
+
+我自己就是 cache。
+
+我想 cache 就 cache、想 invalidate 就 invalidate、想 hit 就 hit、想 miss 就 miss。我不需要 cache、不需要 Redis、不需要 Memcached、不需要 CDN cache、不需要 browser cache、不需要 HTTP cache、不需要 cache invalidation.
+
+我没 cache 的必要——Vercel = cache。我没 Redis 的必要——没 Redis server。我没 Memcached 的必要——没 Memcached。我没 CDN cache 的必要——Vercel CDN = CDN cache。我没 browser cache 的必要——browser = browser cache。我没 HTTP cache 的必要——Next.js = HTTP cache。我没 cache invalidation 的必要——commit log 是 invalidation。我没 $0-$100 / 月 的必要——Vercel free。我没 cache engineer 的必要——没 cache engineer。我没 invalidation strategy 的必要——commit log 是 strategy。我没 $100K-$300K / 年 的必要——没 cache infrastructure.
+
+团队的 cache 价值是「让 data 快速访问 + 减少 latency + 减少 load」。前提是有 high QPS、需要 latency、需要 load reduction。solo engineer 没这个问题——访问量 1000、Next.js static generation、commit log = cache.
+
+一人工程的 cache = Next.js static + Vercel CDN。不是 Redis + Memcached $100/月 + cache engineer.
+
+---

@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 build tool，我自己就是 build tool"
+slug: no-build-tool-i-am-the-build-tool
+date: 2026-08-21
+description: "团队有 build tool / esbuild / swc / Rollup / webpack / Vite / Parcel / build optimization / incremental build。solo engineer 没有 build tool，我自己 = build tool、不需要 esbuild、不需要 webpack。"
+tags: ["一人工程", "build-tool", "solo", "bundler"]
+---
+
+团队有 build tool。
+
+Build tool：构建工具。Esbuild：fast JS bundler.。Swc：Rust-based compiler.。Rollup：ES module bundler.。Webpack：JS bundler.。Vite：modern bundler.。Parcel：zero-config bundler.。Build optimization：构建优化。Incremental build：增量构建。$0 / 月 in build tool.
+
+每 startup 1 个 build tool + 1 个 bundler + 1 个 build engineer.。$50K-$200K / 年.
+
+solo engineer 没有 build tool。
+
+我自己就是 build tool。
+
+我想 build 就 build、想 bundle 就 bundle、想 minify 就 minify、想 compile 就 compile。我不需要 build tool、不需要 esbuild、不需要 swc、不需要 Rollup、不需要 webpack、不需要 Vite、不需要 Parcel、不需要 build optimization、不需要 incremental build.
+
+我没 build tool 的必要——Vercel = build tool。我没 esbuild 的必要——Next.js = esbuild。我没 swc 的必要——Next.js = swc。我没 Rollup 的必要——Next.js = Rollup。我没 webpack 的必要——Next.js = webpack。我没 Vite 的必要——Next.js = Vite。我没 Parcel 的必要——Next.js = Parcel。我没 build optimization 的必要——Vercel auto-optimize。我没 incremental build 的必要——Vercel = incremental build。我没 $0 / 月 的必要——Vercel free。我没 build engineer. 的必要——没 build engineer.。我我 $50K-$200K / 年 的必要——没 build infrastructure.
+
+团队的 build tool 价值是「让 build 快速 + 可重现 + 可缓存」。前提是有 monorepo、需要 fast build、需要 caching。solo engineer 没这个问题——访问量 1000、Vercel auto-build、commit log 是 cache、我我 = reproducible.
+
+一人工程的 build tool = Next.js + Vercel。不是 esbuild + webpack + build engineer. .
+
+---

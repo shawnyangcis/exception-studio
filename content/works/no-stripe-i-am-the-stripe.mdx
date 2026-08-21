@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Stripe，我自己就是 Stripe"
+slug: no-stripe-i-am-the-stripe
+date: 2026-08-21
+description: "团队有 Stripe / payment processor / PayPal / payment gateway / Stripe Connect / Adyen / 支付处理器。solo engineer 没有 Stripe，我自己 = Stripe、不需要 Stripe Connect、不需要 Adyen。"
+tags: ["一人工程", "stripe", "solo", "payment"]
+---
+
+团队有 Stripe。
+
+Stripe：在线支付。Payment processor：支付处理器。PayPal：传统支付。Payment gateway：支付网关。Stripe Connect：Stripe 平台支付。Stripe Billing：Stripe 订阅。Stripe Tax：Stripe 税务。$0.3 + 2.9% / transaction.
+
+每 SaaS 1 个 Stripe integration + 1 个 payment engineer + 1 个 finance team。$200K-$500K / 年。
+
+solo engineer 没有 Stripe。
+
+我自己就是 Stripe。
+
+我想收钱就收钱、想 charge 就 charge、想 refund 就 refund、想 payout 就 payout。我不需要 Stripe、不需要 payment processor、不需要 PayPal、不需要 payment gateway。
+
+我没 Stripe 的必要——访问者不付钱给我。我没 payment processor 的必要——没 payment 要 process。我没 PayPal 的必要——没 PayPal。我没 payment gateway 的必要——没 payment gateway。我没 Stripe Connect 的必要——没 platform。我没 Stripe Billing 的必要——没 subscription。我没 Stripe Tax 的必要——没 tax。我没 $0.3 + 2.9% 的必要——没 transaction。我没 $200K-$500K / 年 的必要——没 payment engineer。
+
+团队的 Stripe 价值是「让 payment 处理快 + 安全 + 合规」。前提是有 payment、需要 PCI-DSS、需要合规。solo engineer 没这个问题——我没 payment、不需要 PCI-DSS、commit log = compliance。
+
+一人工程的 Stripe = Vercel Edge Function + 银行 API。不是 Stripe $0.3 + 2.9%。
+
+---

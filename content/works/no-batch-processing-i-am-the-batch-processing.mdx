@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 batch processing，我自己就是 batch processing"
+slug: no-batch-processing-i-am-the-batch-processing
+date: 2026-08-21
+description: "团队有 batch processing / batch job / ETL batch / overnight batch / scheduled batch / batch script。solo engineer 没有 batch processing，我自己 = batch processing、不需要 batch job、不需要 overnight batch。"
+tags: ["一人工程", "batch-processing", "solo", "batch"]
+---
+
+团队有 batch processing。
+
+Batch processing：批处理。Batch job：批处理任务。ETL batch：批处理 ETL。Overnight batch：夜间批处理。Scheduled batch：定时批处理。Batch script：批处理脚本。Spark Batch：Spark 批处理。$0-$1000 / 月 in batch infrastructure.
+
+每 startup 1 个 batch processing + 1 个 batch job + 1 个 ETL engineer。$100K-$300K / 年.
+
+solo engineer 没有 batch processing。
+
+我自己就是 batch processing。
+
+我想 batch 就 batch、想 schedule 就 schedule、想 run 就 run、想 complete 就 complete。我不需要 batch processing、不需要 batch job、不需要 ETL batch、不需要 overnight batch、不需要 scheduled batch、不需要 batch script、不需要 Spark Batch.
+
+我没 batch processing 的必要——访问量 1000 不需要 batch。我没 batch job 的必要——没 batch job。我没 ETL batch 的必要——没 ETL。我没 overnight batch 的必要——没 overnight。我没 scheduled batch 的必要——Vercel Cron = scheduled。我没 batch script 的必要——没 batch script。我没 Spark Batch 的必要——没 Spark。我没 $0-$1000 / 月 的必要——Vercel Cron free。我没 ETL engineer 的必要——没 ETL engineer。我没 $100K-$300K / 年 的必要——没 batch infrastructure.
+
+团队的 batch processing 价值是「让 task 在后台批量处理 + 减少延迟 + 提高 efficiency」。前提是有大量 data、需要批量、需要效率。solo engineer 没这个问题——访问量 1000、commit log 是 batch、commit = efficiency.
+
+一人工程的 batch processing = Vercel Cron Job + git commit。不是 Spark Batch $1000/月 + ETL engineer.
+
+---

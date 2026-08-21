@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 KV store，我自己就是 KV store"
+slug: no-kv-store-i-am-the-kv-store
+date: 2026-08-21
+description: "团队有 KV store / Vercel KV / Upstash / Redis / DynamoDB / 键值存储 / in-memory KV。solo engineer 没有 KV store，我自己 = KV store、不需要 Upstash、不需要 DynamoDB。"
+tags: ["一人工程", "kv-store", "solo", "vercel-kv"]
+---
+
+团队有 KV store。
+
+KV store：键值存储。Vercel KV：Vercel managed KV。Upstash：serverless Redis。DynamoDB：AWS KV。Redis：in-memory KV。Memcached：alternative。$1-$50 / 月 in KV hosting.
+
+每 startup 1 个 KV store + 1 个 cache engineer + 1 个 data layer。$100K-$300K / 年。
+
+solo engineer 没有 KV store。
+
+我自己就是 KV store。
+
+我想 store 就 store、想 read 就 read、想 write 就 write、想 delete 就 delete。我不需要 KV store、不需要 Vercel KV、不需要 Upstash、不需要 DynamoDB。
+
+我没 KV store 的必要——访问量 1000 不需要 KV。我没 Vercel KV 的必要——Vercel KV $1/月够用，但访问量 1000 不需要。我没 Upstash 的必要——没 Upstash。我没 DynamoDB 的必要——没 AWS。我没 Redis 的必要——没 Redis server。我没 Memcached 的必要——没 Memcached。我没 $1-$50 / 月 的必要——Vercel free + commit log。我没 $100K-$300K / 年 的必要——没 cache engineer。
+
+团队的 KV store 价值是「让 data 持久化 + 快速 read/write」。前提是有 high QPS、需要持久化、需要 low latency。solo engineer 没这个问题——访问量 1000、commit log 持久化、commit log = KV。
+
+一人工程的 KV store = git commit log + Vercel KV free tier。不是 DynamoDB $50/月。
+
+---

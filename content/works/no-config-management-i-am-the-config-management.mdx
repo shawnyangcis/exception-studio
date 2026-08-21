@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 config management，我自己就是 config management"
+slug: no-config-management-i-am-the-config-management
+date: 2026-08-21
+description: "团队有 config management / Ansible / Puppet / Chef / Salt / Pulumi / Terraform / IaC / config as code / configuration management。solo engineer 没有 config management，我自己 = config management、不需要 Ansible、不需要 Terraform。"
+tags: ["一人工程", "config-management", "solo", "iac"]
+---
+
+团队有 config management。
+
+Config management：配置管理。Configuration management：配置管理。Ansible：Python config management.。Puppet：Ruby config management.。Chef：Ruby config management.。Salt：Python config management.。Pulumi：modern IaC.。Terraform：HashiCorp IaC.。IaC：infrastructure as code.。Config as code：配置即代码.。$0-$1000 / 月 in config tool.
+
+每 startup 1 个 Ansible + 1 个 Terraform + 1 个 IaC + 1 个 DevOps.。$200K-$500K / 年.
+
+solo engineer 没有 config management。
+
+我自己就是 config management。
+
+我想 config 就 config、想 provision 就 provision、想 manage 就 manage、想 version 就 version.。我不需要 config management、不需要 Ansible、不需要 Puppet、不需要 Chef、不需要 Salt、不需要 Pulumi、不需要 Terraform、不需要 IaC、不需要 config as code.
+
+我没 config management 的必要——Vercel = config management。我没 Ansible 的必要——没 Ansible。我没 Puppet 的必要——没 Puppet。我没 Chef 的必要——没 Chef。我没 Salt 的必要——没 Salt。我没 Pulumi 的必要——没 Pulumi。我没 Terraform 的必要——Vercel = Terraform。我没 IaC 的必要——commit log = IaC。我没 config as code 的必要——.env.local = config as code。我没 $0-$1000 / 月 的必要——Vercel free。我没 DevOps 的必要——没 DevOps。我没 $200K-$500K / 年 的必要——没 config infrastructure.
+
+团队的 config management 价值是「让 infrastructure 配置标准化 + 可重现 + 可审计」。前提是有 complex infrastructure、需要 reproducibility、需要 audit。solo engineer 没这个问题——访问量 1000、Vercel auto-config、commit log 是 reproducible.
+
+一人工程的 config management = Vercel + .env.local + git commit。不是 Ansible + Terraform $1000/月 + DevOps team.
+
+---

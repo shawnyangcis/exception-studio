@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 GraphQL，我自己就是 GraphQL"
+slug: no-graphql-i-am-the-graphql
+date: 2026-08-21
+description: "团队有 GraphQL / Apollo / Relay / Hasura / schema / resolver / federation。solo engineer 没有 GraphQL，我自己 = GraphQL、不需要 Apollo、不需要 federation。"
+tags: ["一人工程", "graphql", "solo", "apollo"]
+---
+
+团队有 GraphQL。
+
+GraphQL：query language for APIs。Apollo：GraphQL server。Relay：GraphQL client。Hasura：instant GraphQL。Schema：GraphQL schema。Resolver：GraphQL resolver。Federation：跨 service GraphQL。$100-$500 / 月 in Apollo Server.
+
+每 enterprise 1 个 Apollo Server + 1 个 schema designer + 1 个 federation。$200K-$500K / 年。
+
+solo engineer 没有 GraphQL。
+
+我自己就是 GraphQL。
+
+我想 query 就 query、想 mutation 就 mutation、想 resolve 就 resolve。我不需要 GraphQL、不需要 Apollo、不需要 Relay、不需要 Hasura。
+
+我没 GraphQL 的必要——访问量 1000，没必要做 query 优化。我没 Apollo 的必要——没 Apollo Server。我没 Relay 的必要——没 client。我没 Hasura 的必要——没 instant GraphQL。我没 Schema 的必要——TypeScript 类型 = schema。我没 Resolver 的必要——function = resolver。我没 Federation 的必要——没 service federation。我没 $100-$500 / 月 的必要——Vercel free。我没 $200K-$500K / 年 的必要——没 schema designer。
+
+团队的 GraphQL 价值是「让 client 灵活 query + 减少 over-fetching」。前提是有 multiple client、需要 flexibility、需要减少 over-fetching。solo engineer 没这个问题——我是唯一 client、commit log = query、我 = under-fetching。
+
+一人工程的 GraphQL = TypeScript type + REST。不是 Apollo $500/月。
+
+---

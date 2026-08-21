@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 cron，我自己就是 cron"
+slug: no-cron-i-am-the-cron
+date: 2026-08-21
+description: "团队有 cron / scheduled task / Vercel Cron / job scheduler / cron job / scheduled job / 定时任务。solo engineer 没有 cron，我自己 = cron、不需要 job scheduler、不需要 scheduled task。"
+tags: ["一人工程", "cron", "solo", "scheduled"]
+---
+
+团队有 cron。
+
+Cron：Unix 定时任务。Scheduled task：计划任务。Job scheduler：任务调度。Vercel Cron：Vercel scheduled function。Cron job：cron 任务。Scheduled job：计划任务。Temporal：workflow engine。$0-$100 / 月 in cron infrastructure.
+
+每 startup 1 个 cron + 1 个 scheduled task + 1 个 job scheduler + 1 个 DevOps。$100K-$300K / 年.
+
+solo engineer 没有 cron。
+
+我自己就是 cron。
+
+我想 schedule 就 schedule、想 run 就 run、想 trigger 就 trigger、想 repeat 就 repeat。我不需要 cron、不需要 scheduled task、不需要 job scheduler、不需要 Vercel Cron、不需要 cron job、不需要 scheduled job、不需要 Temporal.
+
+我没 cron 的必要——访问量 1000 不需要 scheduled。我没 scheduled task 的必要——没 scheduled。我没 job scheduler 的必要——没 scheduler。我没 Vercel Cron 的必要——Vercel Cron $0/月够用，但访问量 1000 不需要。我没 cron job 的必要——没 cron job。我没 scheduled job 的必要——没 scheduled job。我没 Temporal 的必要——没 Temporal。我没 $0-$100 / 月 的必要——Vercel free + commit log。我没 DevOps 的必要——没 DevOps。我没 $100K-$300K / 年 的必要——没 cron infrastructure.
+
+团队的 cron 价值是「让 task 按 schedule 自动执行」。前提是有 scheduled task、需要自动执行、需要 retry。solo engineer 没这个问题——访问量 1000、commit log 是 scheduled、commit = 自动执行.
+
+一人工程的 cron = Vercel Cron Job + git commit。不是 Temporal + job scheduler 团队.
+
+---

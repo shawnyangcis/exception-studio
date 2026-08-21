@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 versioning，我自己就是 versioning"
+slug: no-versioning-i-am-the-versioning
+date: 2026-08-21
+description: "团队有 versioning / API versioning / URL versioning / header versioning / semantic versioning / SemVer / backward compatibility / deprecation。solo engineer 没有 versioning，我自己 = versioning、不需要 SemVer、不需要 backward compatibility。"
+tags: ["一人工程", "versioning", "solo", "api"]
+---
+
+团队有 versioning。
+
+Versioning：版本管理。API versioning：API 版本管理。URL versioning：URL 版本管理。Header versioning：HTTP header 版本管理。Semantic versioning：语义版本管理 SemVer。Backward compatibility：向后兼容。Deprecation：弃用。$0 / 月 in versioning.
+
+每 startup 1 个 versioning + 1 个 API versioning + 1 个 backward compatibility + 1 个 deprecation strategy。$50K-$200K / 年.
+
+solo engineer 没有 versioning。
+
+我自己就是 versioning。
+
+我想 version 就 version、想 deprecate 就 deprecate、想 compat 就 compat、想 migrate 就 migrate。我不需要 versioning、不需要 API versioning、不需要 URL versioning、不需要 header versioning、不需要 semantic versioning、不需要 SemVer、不需要 backward compatibility、不需要 deprecation.
+
+我没 versioning 的必要——我是 1 个 engineer 我控制 version。我没 API versioning 的必要——没 API versioning。我没 URL versioning 的必要——没 URL versioning。我没 header versioning 的必要——没 header versioning。我没 semantic versioning 的必要——commit hash 是 SemVer。我没 SemVer 的必要——没 SemVer。我没 backward compatibility 的必要——commit log 是 backward compatibility。我没 deprecation 的必要——没 deprecation。我没 $50K-$200K / 年 的必要——没 versioning strategy.
+
+团队的 versioning 价值是「让 API 变更可控 + 兼容老 client + 渐进式迁移」。前提是有 external client、需要 compatibility、需要 migration。solo engineer 没这个问题——访问者自己来、commit hash 是 version、commit = migration.
+
+一人工程的 versioning = git commit hash + 散文。不是 SemVer + URL versioning + backward compatibility 团队.
+
+---

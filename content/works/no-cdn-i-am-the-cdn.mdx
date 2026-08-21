@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 CDN，我自己就是 CDN"
+slug: no-cdn-i-am-the-cdn
+date: 2026-08-21
+description: "团队有 CDN / edge cache / CloudFlare / Akamai / Fastly / CloudFront / 边缘缓存。solo engineer 没有 CDN，我自己 = CDN、不需要 CloudFlare、不需要 Akamai。"
+tags: ["一人工程", "cdn", "solo", "edge-cache"]
+---
+
+团队有 CDN。
+
+CDN：content delivery network。Edge cache：边缘缓存。CloudFlare：现代 CDN。Akamai：传统 CDN。Fastly：开发者友好 CDN。CloudFront：AWS CDN。CDN POP：CDN 节点。CDN routing：CDN 路由。$100-$10K / 月 in CDN cost。
+
+每 enterprise 1 个 CDN 合同 + 1 个 CDN engineer + 1 个 multi-CDN strategy。$500K-$5M / 年。
+
+solo engineer 没有 CDN。
+
+我自己就是 CDN。
+
+访问者从最近节点 = 我自己。Vercel Edge Network = 我的 CDN。commit log = CDN log。我不需要 CDN、不需要 edge cache、不需要 CloudFlare、不需要 Akamai。
+
+我没 CDN 的必要——Vercel 是 CDN。我没 edge cache 的必要——Vercel Edge Cache 是 cache。我没 CloudFlare 的必要——Vercel Edge Network 比 CloudFlare 更 deep。我没 Akamai 的必要——没 enterprise contract。我没 Fastly 的必要——Vercel Edge Network 是 Fastly-compatible。我没 CloudFront 的必要——没 AWS。我没 CDN POP 的必要——Vercel 有 100+ POP。我没 CDN routing 的必要——Vercel 自动 route。我没 $100-$10K / 月 的必要——Vercel $20/月。我没 $500K-$5M / 年 的必要——没 CDN engineer。
+
+团队的 CDN 价值是「让全球 latency < 50ms + 处理高流量」。前提是有全球 user、需要 low latency、需要 traffic spike。solo engineer 没这个问题——访问量 1000 全球都有、Vercel < 50ms latency、我 = traffic。
+
+一人工程的 CDN = Vercel Edge Network。不是 CloudFlare $10K/月。
+
+---

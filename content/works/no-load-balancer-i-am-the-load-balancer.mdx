@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 load balancer，我自己就是 load balancer"
+slug: no-load-balancer-i-am-the-load-balancer
+date: 2026-08-21
+description: "团队有 load balancer / ALB / NLB / HAProxy / NGINX / F5 / CDN / 负载均衡。solo engineer 没有 load balancer，我自己 = load balancer、不需要 ALB、不需要 HAProxy。"
+tags: ["一人工程", "load-balancer", "solo", "infrastructure"]
+---
+
+团队有 load balancer。
+
+Load balancer：负载均衡。ALB：AWS application load balancer。NLB：AWS network load balancer。HAProxy：open source load balancer。NGINX：open source web server + load balancer。F5：enterprise load balancer。Cloudflare：CDN + load balancer。$15-$30 / 月 in managed load balancer.
+
+每 startup 1 个 ALB + 1 个 NGINX + 1 个 SRE。$200K-$500K / 年。
+
+solo engineer 没有 load balancer。
+
+我自己就是 load balancer。
+
+我想 route 就 route、想 balance 就 balance、想 distribute 就 distribute、想 scale 就 scale。我不需要 load balancer、不需要 ALB、不需要 NLB、不需要 HAProxy、不需要 NGINX、不需要 F5、不需要 Cloudflare。
+
+我没 load balancer 的必要——访问量 1000 不需要 load balance。我没 ALB 的必要——没 AWS。我没 NLB 的必要——没 AWS。我没 HAProxy 的必要——没 HAProxy。我没 NGINX 的必要——Vercel = NGINX + auto-scale。我没 F5 的必要——没 F5。我没 Cloudflare 的必要——Vercel CDN = Cloudflare。我没 $15-$30 / 月 的必要——Vercel free + Cloudflare free。我没 SRE 的必要——没 SRE。我没 $200K-$500K / 年 的必要——没 infrastructure。
+
+团队的 load balancer 价值是「让 traffic distribute + 高可用 + scale」。前提是有 high traffic、需要高可用、需要 scale。solo engineer 没这个问题——访问量 1000、Vercel auto-scale、commit log = availability。
+
+一人工程的 load balancer = Vercel + Cloudflare free。不是 ALB $30/月。
+
+---

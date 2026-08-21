@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 message queue，我自己就是 queue"
+slug: no-message-queue-i-am-the-queue
+date: 2026-08-21
+description: "团队有 message queue / RabbitMQ / Kafka / SQS / PubSub / event bus / 消息队列。solo engineer 没有 message queue，我自己 = queue、不需要 Kafka、不需要 RabbitMQ。"
+tags: ["一人工程", "message-queue", "solo", "kafka"]
+---
+
+团队有 message queue。
+
+Message queue：消息队列。RabbitMQ：传统 MQ。Kafka：分布式 streaming。SQS：AWS managed queue。PubSub：Google managed queue。Event bus：事件总线。Dead letter queue：死信队列。$100-$1K / 月 in MQ hosting。
+
+每 enterprise 1 个 Kafka cluster + 1 个 stream team + 1 个 event bus。$500K-$2M / 年。
+
+solo engineer 没有 message queue。
+
+我自己就是 queue。
+
+我想 queue 就 queue、想 process 就 process、想 publish 就 publish、想 subscribe 就 subscribe。我不需要 message queue、不需要 RabbitMQ、不需要 Kafka、不需要 SQS。
+
+我没 message queue 的必要——访问量 1000，不需要 async。我没 RabbitMQ 的必要——没 RabbitMQ。我没 Kafka 的必要——没 streaming 需求。我没 SQS 的必要——没 AWS。我没 PubSub 的必要——没 Google Cloud。我没 event bus 的必要——没 event。我没 dead letter queue 的必要——没 dead letter。我没 $100-$1K / 月 的必要——Vercel free。我没 $500K-$2M / 年 的必要——没 stream team。
+
+团队的 message queue 价值是「让 service 异步解耦 + 处理高吞吐」。前提是有 service、需要 async、需要高吞吐。solo engineer 没这个问题——我没 service、不需要 async、commit log = 高吞吐。
+
+一人工程的 message queue = git push event。不是 Kafka $1K/月。
+
+---

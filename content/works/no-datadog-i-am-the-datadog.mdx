@@ -1,0 +1,27 @@
+---
+title: "solo engineer 没有 Datadog，我自己就是 Datadog"
+slug: no-datadog-i-am-the-datadog
+date: 2026-08-21
+description: "团队有 Datadog / monitoring / observability / APM / log management / dashboard / Grafana / Prometheus。solo engineer 没有 Datadog，我自己 = Datadog、不需要 Grafana、不需要 Prometheus。"
+tags: ["一人工程", "datadog", "solo", "monitoring"]
+---
+
+团队有 Datadog。
+
+Datadog：APM / monitoring。Grafana：dashboard。Prometheus：metrics。New Relic：APM。Splunk：log management。ELK Stack：Elasticsearch + Logstash + Kibana。$15-$35 / host / 月。
+
+每 startup 1 个 Datadog + 1 个 monitoring engineer + 1 个 SRE。$300K-$700K / 年。
+
+solo engineer 没有 Datadog。
+
+我自己就是 Datadog。
+
+我想 monitor 就 monitor、想 alert 就 alert、想 dashboard 就 dashboard、想 trace 就 trace。我不需要 Datadog、不需要 Grafana、不需要 Prometheus、不需要 ELK。
+
+我没 Datadog 的必要——Vercel analytics 够用。我没 monitoring 的必要——没 infrastructure。我没 observability 的必要——没 scale。我没 APM 的必要——没 APM。我没 log management 的必要——没 log 要 manage。我没 Grafana 的必要——没 dashboard 要画。我没 Prometheus 的必要——没 metrics 要 scrape。我没 ELK Stack 的必要——没 log。我没 New Relic 的必要——没 APM。我没 Splunk 的必要——没 log。我没 $15-$35 / host / 月 的必要——Vercel free。我没 $300K-$700K / 年 的必要——没 SRE。
+
+团队的 Datadog 价值是「让 infrastructure 监控 + 告警 + 性能优化」。前提是有 infrastructure、需要监控、需要告警。solo engineer 没这个问题——Vercel 监控 够用、没 infrastructure、commit log = alert。
+
+一人工程的 Datadog = Vercel Analytics。不是 Datadog $35/host/月。
+
+---
