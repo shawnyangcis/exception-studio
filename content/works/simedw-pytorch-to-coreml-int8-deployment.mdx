@@ -1,0 +1,141 @@
+---
+title: "simedw 部署哲学：PyTorch → Core ML + INT8 量化"
+slug: simedw-pytorch-to-coreml-int8-deployment
+date: "2026-08-21"
+summary: "Simedw PyTorch 训练 → Core ML 部署 + INT8 量化。量化损失换 iOS 部署 + 端侧默认 = 0 隐私风险。一人工程部署哲学 = 训练与部署可分离 + 量化是 solo engineer 默认 + 端侧默认 = 9 核心哲学之一。"
+tags: ["一人工程", "AI 音乐", "simedw", "Core ML", "INT8", "部署", "端侧"]
+cover: ""
+---
+
+simedw 部署哲学详细：
+
+PyTorch → Core ML + INT8 量化 = simedw 部署的核心。
+
+## simedw 部署管线
+
+simedw 部署管线：
+
+1. PyTorch 训练（Python，4 × RTX 4090）
+2. ONNX 导出（中间格式）
+3. Core ML 转换（Apple 生态）
+4. INT8 量化（iOS 部署）
+5. iPhone 15 上跑 108 notes/sec
+
+5 个部署步骤。
+
+## 训练与部署可分离
+
+simedw 训练用 PyTorch（标准研究工具），部署用 Core ML（Apple 优化）。
+
+训练与部署可分离的好处：
+
+- 研究期间选 PyTorch（社区支持好 + 灵活）
+- 部署期间选 Core ML（Apple 优化 + iOS 集成）
+- 不绑定一个 framework
+- 可针对不同平台选不同 framework
+
+4 个好处 = 训练与部署可分离哲学。
+
+## INT8 量化损失换部署
+
+INT8 量化 = 32-bit float 量化到 8-bit int：
+
+- 模型大小 4× 减少（125M × 4 bytes → 125M × 1 byte）
+- 推理速度 2-3× 提升
+- 量化损失（精度小幅下降）
+
+3 个 INT8 量化效果。
+
+simedw 接受量化损失换：
+
+- iOS 部署（INT8 模型在 iPhone 跑得动）
+- 模型大小（125M × 1 byte = 125MB → 可放进 iPhone）
+- 推理速度（108 notes/sec）
+
+3 个 simedw INT8 优势。
+
+## 端侧默认 = 0 隐私风险
+
+simedw 模型在 iPhone 上跑，不上传云端。
+
+端侧默认的好处：
+
+- 用户输入不上传（隐私 0 风险）
+- 模型不上传（Apple 不掌握 simedw 模型）
+- 推理在本地（断网也能用）
+- 隐私协议简单（不需要 GDPR / CCPA）
+
+4 个端侧默认好处。
+
+## 跟云端 AI 部署的对照
+
+云端 AI 部署：
+
+- 用户输入上传云端
+- 模型在云端
+- 推理需要联网
+- 隐私协议复杂
+
+simedw 端侧部署：
+
+- 用户输入不上传
+- 模型在本地
+- 推理不需要联网
+- 隐私协议简单
+
+4 个对照 = 端侧默认 vs 云端部署哲学。
+
+## simedw 为什么选端侧默认
+
+simedw 选端侧默认因为：
+
+- 钢琴 MIDI 数据 = 隐私数据（用户的钢琴录音 / 续写）
+- 上传云端 = 隐私风险
+- iPhone 算力够（108 notes/sec）
+- 端侧 = 一人工程 9 核心哲学之一
+
+4 个 simedw 端侧默认理由。
+
+## 量化 vs 不量化的对照
+
+不量化（FP32）：
+
+- 模型大小 500MB（125M × 4 bytes）
+- iOS 部署困难（iPhone 内存限制）
+- 推理速度慢
+
+INT8 量化：
+
+- 模型大小 125MB（125M × 1 byte）
+- iOS 部署可接受
+- 推理速度快（108 notes/sec）
+
+3 个对照 = 量化胜出（端侧部署）。
+
+## 一人工程的部署哲学
+
+solo engineer 部署哲学：
+
+- 训练与部署可分离（PyTorch + Core ML）
+- 量化是 solo engineer 默认（INT8）
+- 端侧默认 = 0 隐私风险
+- iOS 部署优先（Apple 生态）
+
+4 个事实 = solo engineer 部署哲学。
+
+## 一人工程的部署哲学总结
+
+solo engineer 部署哲学：
+
+- 训练用 PyTorch（研究）
+- 部署用 Core ML（Apple 优化）
+- 量化用 INT8（iOS 部署）
+- 默认端侧（0 隐私）
+
+4 个事实 = solo engineer 部署哲学的全部。
+
+simedw 部署 = PyTorch + Core ML + INT8 + 端侧 = 一人工程部署哲学的全部。
+
+---
+
+这是 50+ 篇散文的部署篇。Simedw PyTorch → Core ML + INT8 量化 + 端侧默认 = 0 隐私风险 = 训练与部署可分离 + 量化是 solo engineer 默认 = 一人工程部署哲学的全部。

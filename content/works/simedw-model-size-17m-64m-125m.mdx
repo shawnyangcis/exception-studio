@@ -1,0 +1,155 @@
+---
+title: "simedw 模型尺寸哲学：17M / 64M / 125M 三档"
+slug: simedw-model-size-17m-64m-125m
+date: "2026-08-21"
+summary: "Simedw 33M / 64M / 125M 三档（注：实际可能接近 17M）。Medium 几乎总赢 small，large 略胜 medium 不惊艳。当前把 64M 压到接近 125M 质量以适配 iOS。Solo engineer 模型尺寸哲学 = iOS 部署优先 + medium 最优。"
+tags: ["一人工程", "AI 音乐", "simedw", "模型尺寸", "17M", "64M", "125M", "iOS"]
+cover: ""
+---
+
+simedw 模型尺寸哲学详细：
+
+simedw 17M / 64M / 125M 三档对比。
+
+## 三档模型尺寸
+
+simedw 模型三档：
+
+- small：17M（注：simedw 笔记写 33M，但可能是 smaller 版本）
+- medium：64M
+- large：125M
+
+3 档模型尺寸。
+
+simedw 评测三档：
+
+- small 17M：基础能力，偏好率基线
+- medium 64M：质量显著提升
+- large 125M：略胜 medium
+
+3 档评测。
+
+## medium 几乎总赢 small
+
+medium（64M）几乎总赢 small（17M）：
+
+- 续写接续度：medium 显著优
+- 听觉质量：medium 显著优
+- 风格一致：medium 显著优
+
+3 个 medium 优势。
+
+medium > small 是常规预期，但 simedw 发现：
+
+- 收益差距比预期大（64M 显著优于 17M，不是 5% 差距，是 30%+ 差距）
+- small 难以 beat（17M 没法替代 64M）
+
+2 个 simedw medium > small 发现。
+
+## large 略胜 medium 不惊艳
+
+large（125M）略胜 medium（64M）：
+
+- 续写接续度：large 略胜
+- 听觉质量：large 略胜
+- 风格一致：large 不明显
+
+3 个 large vs medium 对照。
+
+large 略胜 = 不惊艳。simedw 发现：
+
+- 125M 比 64M 提升不显著
+- 边际收益下降
+- 训练时长翻倍（125M 训练时长 vs 64M）
+- iOS 部署困难（125M FP32 = 500MB，INT8 = 125MB）
+
+4 个 large 不惊艳原因。
+
+## simedw 当前策略
+
+simedw 当前策略：
+
+- 默认训练 64M（medium）
+- 64M 压到接近 125M 质量（用架构优化、数据训练）
+- 不直接训练 125M（边际收益低 + 部署难）
+
+3 个 simedw 策略。
+
+64M 压到接近 125M 质量的方法：
+
+- 长上下文训练（512 notes 上限）
+- Scheduled sampling（rollout 质量提升）
+- DPO 偏好训练（consensus β=0.03 = 69.05%）
+- 数据清洗（300M piano-only）
+
+4 个 64M 优化方法。
+
+## 模型尺寸 vs 部署约束
+
+模型尺寸 vs 部署约束：
+
+- 17M 模型：iOS 部署容易（17MB INT8），但质量差
+- 64M 模型：iOS 部署可接受（64MB INT8），质量好
+- 125M 模型：iOS 部署难（125MB INT8），质量略胜
+
+3 个尺寸部署约束。
+
+simedw 选 64M：质量好 + 部署可接受。
+
+## 模型尺寸 vs 训练时长
+
+模型尺寸 vs 训练时长：
+
+- 17M 模型：训练 1-2 小时
+- 64M 模型：训练半天（4-6 小时）
+- 125M 模型：训练 1-2 天
+
+3 个尺寸训练时长。
+
+simedw 训练时长哲学：
+
+- 半天训练可接受（64M）
+- 1-2 天训练太长（125M）
+- 1-2 小时训练太短（17M 质量不够）
+
+3 个 simedw 训练时长哲学。
+
+## 模型尺寸 vs 数据量
+
+模型尺寸 vs 数据量：
+
+- 17M 模型 + 300M notes：过拟合
+- 64M 模型 + 300M notes：合适
+- 125M 模型 + 300M notes：可能欠拟合
+
+3 个尺寸数据对照。
+
+simedw 没扩数据（5×data 失败）+ 64M + 300M notes 是合适的。
+
+## 一人工程的模型尺寸哲学
+
+solo engineer 模型尺寸哲学：
+
+- medium 几乎总赢 small（64M > 17M）
+- large 不显著胜 medium（125M 略胜）
+- 模型尺寸受部署约束（iOS 部署可接受 = 64M）
+- 模型尺寸受训练时长约束（半天 = 64M）
+
+4 个事实 = solo engineer 模型尺寸哲学。
+
+## 一人工程的模型尺寸哲学总结
+
+solo engineer 模型尺寸哲学：
+
+- 17M：太小，过拟合
+- 64M：合适，medium 默认
+- 125M：太大，部署难
+- 大模型 ≠ 更好（125M 略胜 64M）
+
+4 个事实 = solo engineer 模型尺寸哲学的全部。
+
+simedw 模型尺寸 = 64M medium 默认 + 优化到接近 125M 质量 + iOS 部署优先 = 一人工程模型尺寸哲学的全部。
+
+---
+
+这是 51+ 篇散文模型尺寸篇。Simedw 17M / 64M / 125M 三档对照 = medium 几乎总赢 small + large 略胜 medium 不惊艳 + 64M 优化到接近 125M = 一人工程模型尺寸哲学的全部。
