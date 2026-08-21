@@ -1,0 +1,161 @@
+---
+title: "solo engineer 哲学的反例：什么时候不适合 solo engineer"
+slug: solo-engineer-philosophy-counterexamples
+date: "2026-08-21"
+summary: "Solo engineer 哲学 23 核心 + final + reality check 之后的反例视角：什么情况下 solo engineer 哲学不适用。Solo engineer 不是万能解，是一类解。"
+tags: ["一人工程", "solo engineer", "反例", "边界", "适用"]
+cover: ""
+---
+
+solo engineer 哲学 23 核心 + final + reality check 之后的反例视角：
+
+什么情况下 solo engineer 哲学不适用？
+
+## 哲学不是万能解
+
+solo engineer 哲学 23 核心看起来完美，但不是万能解。
+
+什么情况下不适用？
+
+## 不适用 1：需要大 compute 的项目
+
+需要大 compute 的项目：
+
+- >100B 参数模型训练
+- 大规模 RLHF（OpenAI RLHF）
+- 大规模 cluster 训练（Google TPU pod）
+- 大规模 inference（每天 10B 请求）
+
+4 个大 compute 项目 = solo engineer 不适用。
+
+solo engineer 哲学选 1 人 + 1 台机器 + 1 项目。1 台机器 = 4 × RTX 4090 ≠ 1000 × TPU pod。
+
+## 不适用 2：需要大团队的领域
+
+需要大团队的领域：
+
+- 硬件（手机 / 芯片 / 服务器）
+- 操作系统
+- 数据库（PostgreSQL / MySQL）
+- 编译器（GCC / LLVM）
+
+4 个大团队领域 = solo engineer 不适用。
+
+solo engineer 哲学选 1 人 = 1 个角色。1 个角色 ≠ 100 个角色（芯片需要 100+ 工程师）。
+
+## 不适用 3：需要大数据的项目
+
+需要大数据的项目：
+
+- 多模态大模型（CLIP / GPT-4V）
+- 大规模推荐系统（YouTube / TikTok）
+- 大规模广告系统（Google Ads）
+- 大规模语音识别（Whisper 训练）
+
+4 个大数据项目 = solo engineer 不适用。
+
+solo engineer 哲学选 300M piano-only MIDI notes。300M ≠ 10T web 文本。
+
+## 不适用 4：需要大社区的项目
+
+需要大社区的项目：
+
+- Linux kernel
+- Python / PyTorch
+- Kubernetes
+- React
+
+4 个大社区项目 = solo engineer 不适用。
+
+solo engineer 哲学选 1 人维护 + 1 项目。1 人维护 ≠ 1000+ contributor 维护。
+
+## 不适用 5：需要大合规的项目
+
+需要大合规的项目：
+
+- 医疗 AI（FDA 批准）
+- 金融 AI（SEC 合规）
+- 自动驾驶（NHTSA）
+- 航空 AI（FAA 批准）
+
+4 个大合规项目 = solo engineer 不适用。
+
+solo engineer 哲学选公开 + 透明。透明 ≠ 合规（合规需要文档 + 审计 + 批准）。
+
+## 不适用 6：需要大营销的项目
+
+需要大营销的项目：
+
+- 消费品（可口可乐 / 苹果手机）
+- SaaS（Slack / Zoom）
+- 社交（Twitter / Facebook）
+- 电商（Amazon / 淘宝）
+
+4 个大营销项目 = solo engineer 不适用。
+
+solo engineer 哲学选 1 人 marketing + HN show + App Store。1 人 ≠ 100 人营销团队。
+
+## 6 个不适用 = solo engineer 哲学的边界
+
+6 个不适用场景：
+
+- 大 compute
+- 大团队
+- 大数据
+- 大社区
+- 大合规
+- 大营销
+
+6 个大 = solo engineer 哲学的边界。
+
+## 适用的场景
+
+solo engineer 哲学适用：
+
+- AI 模型小（125M MIDI transformer）
+- 数据小（300M piano-only notes）
+- 团队小（1 人）
+- 社区小（HN show 评论者）
+- 合规小（不需要 FDA / SEC）
+- 营销小（HN show + App Store）
+
+6 个小 = solo engineer 哲学适用的边界。
+
+## 大 vs 小的对照
+
+大 vs 小的对照：
+
+- 大 compute vs 小 compute（1000 × TPU pod vs 4 × RTX 4090）
+- 大团队 vs 小团队（100+ 工程师 vs 1 人）
+- 大数据 vs 小数据（10T tokens vs 300M MIDI notes）
+- 大社区 vs 小社区（1000+ contributor vs 1 人 + 8 评论者）
+- 大合规 vs 小合规（FDA vs HN show 公开）
+- 大营销 vs 小营销（Coca-Cola vs HN show 帖）
+
+6 个对照 = solo engineer 哲学的适用边界。
+
+## solo engineer 不是万能解
+
+solo engineer 哲学 23 核心：
+
+- 适用：6 个小 = 一人工程
+- 不适用：6 个大 = 大公司项目
+
+solo engineer 不是万能解，是一类解（小的、个人的、可工程的）。
+
+## 一人工程的反例哲学
+
+solo engineer 反例哲学：
+
+- 哲学不是万能解（6 个大不适用）
+- 哲学适用边界（6 个小适用）
+- 大 vs 小的对照 = solo engineer 哲学的边界
+- solo engineer 不是全部（是一类）
+
+4 个事实 = solo engineer 反例哲学的全部。
+
+solo engineer 一人 = 23 核心哲学 + 反例边界 = 一人工程的全部。
+
+---
+
+这是 42 篇 solo engineer 哲学系列之后的反例篇。Solo engineer 哲学 23 核心 + final + reality check + 反例 = 24 + 16 = 40+ 篇散文。Solo engineer 不是万能解，是一类解。
