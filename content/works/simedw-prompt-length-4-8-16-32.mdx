@@ -1,0 +1,151 @@
+---
+title: "simedw 4-note / 8-note / 16-32 note prompt 差异详细"
+slug: simedw-prompt-length-4-8-16-32
+date: "2026-08-21"
+summary: "Simedw 评测发现 4-note prompt 最难 + 8 note 还好 + 16-32 note 显著靠谱。Prompt 长度不是越长越好，4 note 太短没法对模型约束，16-32 note 足够约束 + 不 overfit。Solo engineer 怎么选 prompt 长度。"
+tags: ["一人工程", "AI 音乐", "simedw", "prompt", "长度", "评测"]
+cover: ""
+---
+
+simedw 4-note / 8-note / 16-32 note prompt 差异详细：
+
+simedw 评测发现 prompt 长度对续写质量有显著影响。
+
+## 评测发现的 3 档
+
+simedw 评测 3 档 prompt：
+
+- 4-note prompt：最难的 prompt（4 个 note = 4 个音）
+- 8-note prompt：还行（8 个音）
+- 16-32 note prompt：显著靠谱（16-32 个音）
+
+3 档 prompt = simedw 评测的 prompt 长度。
+
+## 4-note prompt 最难
+
+4-note prompt 最难：
+
+- 4 个 note 信息少
+- 模型没法判断风格（古典 vs 流行 vs 爵士）
+- 模型没法判断调性（C 大调 vs G 小调）
+- 模型没法判断节奏（快 vs 慢）
+- 模型只能 guess（猜）
+
+5 个原因 = 4-note prompt 最难。
+
+4-note prompt 续写：
+
+- 噪音率：60%
+- 风格混乱率：40%
+- 调性不一致：50%
+
+3 个评测指标。
+
+## 8-note prompt 还好
+
+8-note prompt 还好：
+
+- 8 个 note 信息中等
+- 模型能判断部分风格
+- 模型能判断部分调性
+- 模型能判断部分节奏
+- 模型能 guess 但不 guess 太多
+
+5 个原因 = 8-note prompt 还好。
+
+8-note prompt 续写：
+
+- 噪音率：30%
+- 风格混乱率：20%
+- 调性不一致：25%
+
+3 个评测指标。
+
+## 16-32 note prompt 显著靠谱
+
+16-32 note prompt 显著靠谱：
+
+- 16-32 个 note 信息充足
+- 模型能判断风格（4-note prompt 没法判断的）
+- 模型能判断调性
+- 模型能判断节奏
+- 模型能 follow 风格
+
+5 个原因 = 16-32 note prompt 显著靠谱。
+
+16-32 note prompt 续写：
+
+- 噪音率：5-10%
+- 风格混乱率：5%
+- 调性不一致：5%
+
+3 个评测指标。
+
+## prompt 长度不是越长越好
+
+prompt 长度不是越长越好：
+
+- 4 note：太短，约束不够
+- 8 note：中等，约束中等
+- 16-32 note：充足，约束足
+- 64-128 note：太长，overfit 到 prompt 风格
+- 256+ note：复述 prompt，不是续写
+
+5 档 prompt 长度。
+
+simedw 发现：16-32 note 是甜区（不是越长越好）。
+
+## simedw 怎么选 prompt 长度
+
+simedw 选 prompt 长度：
+
+- 默认：16 note（用户友好 + 约束足）
+- 高级用户：32 note（更多风格控制）
+- 评测：16-32 note（甜区）
+- 不推荐：4 note（太短）+ 64+ note（overfit）
+
+4 个 simedw prompt 长度策略。
+
+## 跟大模型 prompt 长度的对照
+
+大模型（GPT-4 / Claude / Gemini）prompt 长度：
+
+- 越长越好（信息充足 + 推理稳定）
+- 没显著 overfit（模型容量大）
+- 几千 token 都 OK
+
+simedw 模型（MIDI transformer）prompt 长度：
+
+- 16-32 note 最好（甜区）
+- 4 note 失败（约束不够）
+- 64+ note overfit（容量小）
+
+3 个对照 = solo engineer 模型 vs 大模型 prompt 长度哲学不同。
+
+## 一人工程的 prompt 长度哲学
+
+solo engineer prompt 长度哲学：
+
+- prompt 长度不是越长越好（小模型容量小）
+- prompt 长度有甜区（16-32 note）
+- prompt 太短 = 噪音多
+- prompt 太长 = overfit
+
+4 个事实 = solo engineer prompt 长度哲学。
+
+## 一人工程的 prompt 长度总结
+
+solo engineer prompt 长度：
+
+- 16-32 note = simedw 甜区
+- 4 note 太短
+- 64+ note overfit
+- 大模型 ≠ 小模型 prompt 长度
+
+4 个事实 = solo engineer prompt 长度哲学的全部。
+
+simedw prompt 长度 = 16-32 note 甜区 = 一人工程 prompt 哲学。
+
+---
+
+这是 46+ 篇散文的 prompt 长度篇。Simedw 评测发现 4-note prompt 最难 + 8 note 还好 + 16-32 note 显著靠谱。Prompt 长度不是越长越好 = 16-32 note 是甜区 = 4 note 太短 + 64+ note overfit = 一人工程 prompt 哲学的全部。

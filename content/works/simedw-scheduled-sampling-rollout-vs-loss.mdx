@@ -1,0 +1,149 @@
+---
+title: "simedw scheduled sampling 50%：验证 loss 上升但 rollout 质量变好"
+slug: simedw-scheduled-sampling-rollout-vs-loss
+date: "2026-08-21"
+summary: "Simedw scheduled sampling 实验：50% 概率用模型预测的 pitch 作为后续字段输入。验证 loss 上升但 rollout 质量变好。Gemini pairwise 偏好 64.3% vs 35.7%。Solo engineer 怎么理解验证 loss vs rollout 质量悖论。"
+tags: ["一人工程", "AI 音乐", "simedw", "scheduled sampling", "loss", "rollout", "验证"]
+cover: ""
+---
+
+simedw scheduled sampling 50% 实验详细：
+
+simedw 14 次实验里最反直觉的一次。
+
+## scheduled sampling 是什么
+
+scheduled sampling = 训练时按概率用模型预测的 token 作为后续字段输入（替代 ground truth）。
+
+传统训练：
+
+- 100% 用 ground truth
+- 模型只看「正确答案」
+- 不接触自己预测的 token
+
+scheduled sampling：
+
+- 50% 概率用模型预测
+- 50% 概率用 ground truth
+- 模型在训练时就接触自己预测的 token
+- 减少 train-test mismatch
+
+2 个对照。
+
+simedw 用 50% 概率（不是 100% scheduled sampling）。
+
+## simedw scheduled sampling 实验结果
+
+simedw scheduled sampling 实验结果：
+
+- 验证 loss 上升（比 100% ground truth 训练差）
+- rollout 质量变好（比 100% ground truth 训练好）
+- Gemini pairwise 偏好 64.3% vs 35.7%
+
+3 个实验结果。
+
+验证 loss 上升 = simedw 不应该选 scheduled sampling（按验证 loss 选）。
+
+但 Gemini pairwise 64.3% 偏好率 = simedw 应该选 scheduled sampling（按 Gemini pairwise 选）。
+
+## 验证 loss vs rollout 质量悖论
+
+验证 loss 上升 + rollout 质量变好 = 悖论。
+
+按验证 loss 选：
+
+- 100% ground truth（验证 loss 低）
+- 0% scheduled sampling（验证 loss 最低）
+- 不选 scheduled sampling
+
+按 rollout 质量选：
+
+- 50% scheduled sampling
+- rollout 质量好（Gemini pairwise 64.3%）
+- 选 scheduled sampling
+
+2 个选择冲突 = 悖论。
+
+## 悖论的解释
+
+悖论的解释：
+
+- 验证 loss 抓「逐 token 准确度」
+- rollout 抓「完整序列质量」
+- 逐 token 准确度高 ≠ 完整序列质量好
+- scheduled sampling 牺牲逐 token 准确度，换取完整序列质量
+
+4 个解释。
+
+## simedw 为什么选 rollout 质量
+
+simedw 选 rollout 质量作为评测标准，因为：
+
+- 最终用户用 rollout 听（不逐 token 检查）
+- 完整序列质量 = 用户体验
+- 逐 token 准确度 = 模型内部指标，不是用户指标
+
+3 个理由 = simedw 选 rollout 质量。
+
+## 跟 DPO 实验的对照
+
+DPO 实验：
+
+- DPO 偏好率高 = 选 DPO（不按验证 loss 选）
+- consensus β=0.03 = 69.05%
+
+scheduled sampling 实验：
+
+- rollout 质量好 = 选 scheduled sampling（不按验证 loss 选）
+- Gemini pairwise 64.3% vs 35.7%
+
+2 个实验对照 = simedw 不按验证 loss 选，按偏好率选。
+
+## 14 次 commit 里跟验证 loss 相关的失败
+
+simedw 14 次 commit 里跟验证 loss 相关的失败：
+
+- 验证 loss 漏了 rollout 质量（simedw 自己总结）
+- 验证 loss 作为单一评测指标失败
+
+2 个失败。
+
+验证 loss 作为单一评测指标失败 = simedw 评测困境的一部分（与第 44 篇评测困境详细对应）。
+
+## simedw 怎么平衡验证 loss 和 rollout 质量
+
+simedw 平衡：
+
+- 验证 loss 作为 sanity check（不是主要评测）
+- rollout 质量作为主要评测（Gemini pairwise + 自己听）
+- 自动指标作为辅助（重复音 + 长停顿）
+
+3 个评测维度。
+
+## 一人工程的验证 loss vs rollout 哲学
+
+solo engineer 验证 loss vs rollout 哲学：
+
+- 验证 loss 抓逐 token 准确度
+- rollout 抓完整序列质量
+- 两者不一致时选 rollout
+- 验证 loss 是 sanity check，不是主要评测
+
+4 个事实 = solo engineer 评测哲学。
+
+## 一人工程的 scheduled sampling 哲学
+
+solo engineer scheduled sampling 哲学：
+
+- scheduled sampling 牺牲逐 token 准确度
+- scheduled sampling 换完整序列质量
+- rollout 质量 > 验证 loss
+- 按 rollout 选 scheduled sampling
+
+4 个事实 = solo engineer scheduled sampling 哲学。
+
+simedw scheduled sampling = 50% 概率 + Gemini pairwise 64.3% + 选 rollout 质量 = 一人工程 scheduled sampling 哲学的全部。
+
+---
+
+这是 47+ 篇散文的 scheduled sampling 篇。Simedw 验证 loss 上升但 rollout 质量变好 = 64.3% vs 35.7% 偏好率 = 选 rollout 不选验证 loss = 一人工程 scheduled sampling 哲学的全部。

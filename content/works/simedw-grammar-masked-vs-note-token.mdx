@@ -1,0 +1,152 @@
+---
+title: "simedw grammar-masked vs NOTE 单 token：表征哲学"
+slug: simedw-grammar-masked-vs-note-token
+date: "2026-08-21"
+summary: "Simedw 选了 NOTE 单 token 而不是 grammar-masked。Grammar-masked 语法有效但慢（4 个 autoregressive step 出一个音），NOTE 单 token 一个 token 包含 5 个属性。Solo engineer 表征哲学 = 1 token > 4 tokens。"
+tags: ["一人工程", "AI 音乐", "simedw", "grammar-masked", "NOTE", "token", "表征"]
+cover: ""
+---
+
+simedw grammar-masked vs NOTE 单 token 对照详细：
+
+simedw 怎么从 grammar-masked 走向 NOTE 单 token。
+
+## grammar-masked 是什么
+
+grammar-masked = 语法约束的 token 序列：
+
+- 4 种 token 类型：NOTE_ON + NOTE_OFF + TIME_SHIFT + VELOCITY / PITCH / DURATION
+- 一次 autoregressive step 出一个 token
+- 4 个 autoregressive step 出一个完整音（NOTE_ON + PITCH + VELOCITY + TIME_SHIFT）
+
+3 个 grammar-masked 特点。
+
+grammar-masked 的优势：
+
+- 语法有效（不会出现无效 token 组合）
+- 模型不需要学约束
+- token 组合灵活
+
+3 个优势。
+
+## grammar-masked 的劣势
+
+grammar-masked 的劣势：
+
+- 慢（4 个 autoregressive step 出一个音）
+- 长序列（200 音 = 800 token）
+- iOS 部署难（200 音 800 token 推理时间）
+- 长上下文超 512 tokens 限制
+
+4 个劣势。
+
+simedw grammar-masked 实验结果：
+
+- 训练时长 1 天（vs NOTE 单 token 半天）
+- 推理速度 27 notes/sec（vs NOTE 单 token 108 notes/sec）
+- iOS 部署延迟高（>500ms / 200 音）
+
+3 个实验结果。
+
+## NOTE 单 token 是什么
+
+NOTE 单 token = 一个 token 包含 5 个属性：
+
+- pitch（音高）
+- delta_onset（起始时间）
+- duration（持续时间）
+- velocity（力度）
+- silence 表达（delta_onset 足够大时是 silence）
+
+5 个属性 = NOTE 单 token 的设计。
+
+simedw 内部走 5 个 categorical field（event_type / pitch / delta / duration / velocity），每个 field 独立 embedding，output 也是 5 个 head。
+
+## NOTE 单 token 的优势
+
+NOTE 单 token 的优势：
+
+- 1 个 autoregressive step 出一个完整音
+- 短序列（200 音 = 200 token）
+- iOS 部署快（108 notes/sec）
+- 长上下文够（200 音 vs 512 notes 上限）
+
+4 个优势。
+
+simedw NOTE 单 token 实验结果：
+
+- 训练时长半天（vs grammar-masked 1 天）
+- 推理速度 108 notes/sec（vs grammar-masked 27 notes/sec）
+- iOS 部署延迟低（<100ms / 200 音）
+
+3 个实验结果。
+
+## grammar-masked vs NOTE 单 token 对照
+
+6 个对照：
+
+- 训练时长：半天 vs 1 天
+- 推理速度：108 notes/sec vs 27 notes/sec
+- 序列长度：200 token vs 800 token
+- iOS 部署延迟：<100ms vs >500ms
+- 语法约束：5 个 head 联合 vs grammar mask
+- 上下文：200 音够 vs 200 音超 512
+
+6 个对照 = NOTE 单 token 全胜。
+
+## simedw 为什么选 NOTE 单 token
+
+simedw 选 NOTE 单 token 因为：
+
+- iOS 部署优先（108 notes/sec 必须）
+- 训练时长可接受（半天）
+- 5 个 head 联合 + nested decoder 提供语法约束
+- 长上下文够（200 音）
+
+4 个理由。
+
+## nested decoder 怎么保证语法
+
+nested decoder：
+
+- 主 transformer 主干每个音只跑一次
+- 小型 nested decoder 让后字段条件依赖前字段
+- 5 个 field 联合约束
+
+3 个 nested decoder 特点。
+
+nested decoder 的作用：
+
+- 代替 grammar mask（语法约束）
+- 训练时间可接受
+- 推理时间不变
+
+3 个作用。
+
+## solo engineer 表征哲学
+
+solo engineer 表征哲学：
+
+- 1 token > 4 tokens（同信息量下更短）
+- 5 个 categorical field 联合 = 语法约束可学习
+- nested decoder = 训练时学约束，推理时不慢
+- iOS 部署优先 = 表征设计受部署约束
+
+4 个事实 = solo engineer 表征哲学。
+
+## 一人工程的表征哲学总结
+
+solo engineer 表征哲学：
+
+- 1 token > 4 tokens（NOTE > grammar-masked）
+- nested decoder 替代 grammar mask
+- 5 个 field 联合约束
+- 表征设计受部署约束
+
+4 个事实 = solo engineer 表征哲学的全部。
+
+simedw NOTE 单 token = 5 field + nested decoder + iOS 108 notes/sec = 一人工程表征哲学的全部。
+
+---
+
+这是 48+ 篇散文的表征篇。Simedw grammar-masked vs NOTE 单 token 对照 = 1 token > 4 tokens = nested decoder 替代 grammar mask = 一人工程表征哲学的全部。
