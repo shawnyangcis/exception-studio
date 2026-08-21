@@ -1,0 +1,191 @@
+---
+title: "compound note events：一个 token 装下 5 个属性"
+slug: compound-note-events-deep-dive
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, MIDI, compound note events, 表征, 5 head, 5× speedup]
+cover: https://exception-studio.vercel.app/works/compound-note-events-deep-dive
+---
+
+simedw 的 5× speedup 不是从优化里来的，是从「一个 token 装下 5 个属性」这个表征改变里来的。
+
+## 朴素表征：note-on / note-off / time-shift
+
+直觉方案：
+
+- NOTE_ON(pitch, velocity) → 一个 token
+- NOTE_OFF(pitch) → 一个 token
+- TIME_SHIFT(delta_ms) → 一个 token
+
+一个真实音符至少需要 3 个 autoregressive step：
+
+1. NOTE_ON(pitch=60, velocity=80)
+2. TIME_SHIFT(delta_ms=500)
+3. NOTE_OFF(pitch=60)
+
+加上 velocity 100 档、delta_ms 100 档，3 step 总计产生 3 个 categorical 决策。
+
+## 飘音问题
+
+朴素表征有两个隐藏缺陷：
+
+1. **「note-on 但 note-off 漏了」**：模型预测 NOTE_ON 后，下一个 token 是 NOTE_OFF 还是 TIME_SHIFT？都有可能。预测错 = 音符一直 active 直到下一个 NOTE_OFF。
+2. **「active 状态搞丢」**：如果模型中途预测 NOTE_ON(pitch=62)，后面预测 NOTE_OFF(pitch=62) 时 pitch=62 已经过期。
+
+第二个问题是「状态管理」问题——朴素表征里所有 active 音符都必须记在生成器的「外部状态」里。每次生成新 token 时生成器要查这个外部状态，模型本身不知道。
+
+## grammar-masked：标准化
+
+Google Magenta 的标准方案：
+
+- [NOTE_ON, pitch, velocity] | [NOTE_OFF, pitch] | [TIME_SHIFT, duration]
+
+语法上规定 NOTE_ON 后必须接 pitch + velocity，NOTE_OFF 后必须接 pitch，TIME_SHIFT 后必须接 duration。
+
+比朴素严格，但仍要 4 个 autoregressive step 出一个音（NOTE_ON + pitch + velocity + TIME_SHIFT，或者 NOTE_ON + pitch + velocity + NOTE_OFF）。
+
+仍然慢。
+
+## compound note events：一个 token 装 5 个属性
+
+simedw 落地的方案：
+
+- NOTE(pitch, delta_onset, duration, velocity)
+
+一个 token 包含 4 个属性：
+
+1. **pitch**：88 个钢琴键（A0-C8）+ 一个 sil/special token = 89 个值。
+2. **delta_onset**：相对前一个 NOTE 的 onset 偏移。silence 用 delta_onset 表达。
+3. **duration**：从 onset 到 offset 的持续时间。
+4. **velocity**：0-127。
+
+每次生成 1 个 token → 1 个音。模型知道「这个音的完整身份」，不需要外部状态管理。
+
+## 5 个 categorical head
+
+实际实现：
+
+- event_type：NOTE vs SILENCE（区分音 vs 静默）—— 第 5 个 head
+- pitch
+- delta_onset
+- duration
+- velocity
+
+5 个 head，每个独立 embedding + 独立输出。
+
+主干 transformer 每个音只跑一次（不是 5 次）。生成 token 时：
+
+- 主干跑一次 → 5 个 head 输出 logits
+- 每个 head 独立 softmax → 5 个独立 categorical 决策
+
+5 个 head 之间用「nested decoder」让后字段条件依赖于前字段：
+
+- event_type 决定 pitch / delta / duration / velocity 哪个 active
+- pitch 给后续字段提供 context
+- delta_onset / duration 互依
+- velocity 给 duration 提供 context
+
+5× speedup 的来源：1 个音 = 1 个 transformer step，而不是 3-4 个。
+
+## 5× speedup 数学
+
+朴素方案：1 音 = 3 step × 100ms/step = 300ms/音。
+
+compound 方案：1 音 = 1 step × 60ms/step = 60ms/音。
+
+3 step × 100ms = 300ms vs 1 step × 60ms = 60ms = 5× speedup。
+
+但 step 时间不同——朴素方案 step 的 logits 只决定 1 个属性，candidate set 小；compound 方案 step 的 logits 决定 5 个属性，candidate set 大。两者大致抵消。但 autoregressive 步数差 3 倍，所以总体 3-5 倍加速。
+
+simedw 测出来 5× speedup。
+
+## 一人工程的表征哲学
+
+OpenAI 的 GPT 系列表征：
+
+- BPE token 字典 ~50K
+- 1 token = 1 个词片段
+- autoregressive step 数 = token 数
+
+simedw 的 compound 表征：
+
+- 5 个 head，每个 head 自己的 categorical set（pitch 89 / delta 100 / duration 200 / velocity 128 / event_type 2）
+- 1 token = 1 个音（4 个属性 + 1 个 event_type）
+- autoregressive step 数 = 音数
+
+OpenAI 的 1 token = 1 词片段。simedw 的 1 token = 1 音（多个属性）。两人工程「装更多内容进一个 token」=「减少 autoregressive step」=「5× speedup」。
+
+## simedw 的哲学：表征 > 优化
+
+simedw 在 HN 评论里多次提「表征 > 优化」。这条来自他自己 14 次实验的体感：
+
+- 实验 1：note-on/note-off 飘音 → 失败。
+- 实验 2：grammar-masked 慢 → 失败。
+- 实验 3：compound note events → 成功，5× speedup。
+
+前 2 次失败都是「在错表征上做优化」，第 3 次成功是「换表征」。
+
+「优化」是「在错表征上加 quantization / distillation / sampling」。「表征」是「换数据建模方式」。换表征的杠杆 >> 优化。
+
+一人工程的表征哲学：先问「数据怎么建模」，再问「模型怎么优化」。表征对了，优化只决定「多快收敛到好模型」。表征错了，优化只能在错的分布里挣扎。
+
+## 5 个 head 的「nested decoder」
+
+5 个 head 不完全独立——后字段条件依赖前字段。simedw 用 small nested decoder 让这个条件依赖成立：
+
+- event_type head 输出 → 决定后续字段是否 active
+- pitch head 输出 → 给 duration / velocity 提供 context
+- delta_onset head 输出 → 给 duration 提供 context
+- duration head 输出 → 给 velocity 提供 context
+- velocity head 输出 → 给下一个 NOTE 提供 context
+
+nested decoder 的设计：
+
+- 主干 transformer 输出 1 个 hidden state
+- 5 个 head 每个独立处理这个 hidden state
+- head 之间用 small LSTM / transformer layer 连接
+- total 参数增加 < 5%（不是 5 个独立 transformer）
+
+5× speedup 的「5」来自 1 token = 1 音，nested decoder 只负责让 5 个属性 coherent。
+
+## 5 个 head 的训练
+
+训练目标 = 5 个 head 的交叉熵求和：
+
+- L = L_event_type + L_pitch + L_delta + L_duration + L_velocity
+
+每个 head 的 categorical accuracy 单独可看：
+
+- event_type accuracy: 99%
+- pitch accuracy: 70%
+- delta accuracy: 60%
+- duration accuracy: 50%
+- velocity accuracy: 75%
+
+pitch / delta / duration / velocity 都是「多模态」（同一音高可能有多个有效 delta / duration）。event_type 99% 是因为绝大部分都是 NOTE。
+
+## sil token 的作用
+
+compound note events 的 silence = delta_onset 表达：
+
+- 正常 NOTE：delta_onset = 50ms（前一个音后 50ms 触发）
+- 长 silence：delta_onset = 2000ms（前一个音后 2s 触发，下一个音）
+
+不需要额外的 TIME_SHIFT token。delta_onset 自己的 categorical set 包含 0 - 2000ms 的 buckets，长 silence 自动出现。
+
+「sil/special token」是 event_type 的另一个值，用来标记「这一帧没有音」。极少出现（只在曲子开头）。
+
+## 14 次实验里表征的位置
+
+- 实验 1：note-on/note-off 飘音 → 失败。
+- 实验 2：grammar-masked 慢 → 失败。
+- 实验 3：compound note events → 成功，5× speedup。
+- 实验 4-14：在 compound 表征上做 DPO / scheduled sampling / 蒸馏 / 量化。
+
+compound note events 是 simedw 14 次实验的「地基」。没有它，后面 11 次实验都没意义。
+
+「表征 > 优化」的核心案例：换表征 1 次 = 5× speedup；优化 10 次 = 累计 < 2× speedup。
+
+## signature
+
+solus opus。

@@ -1,0 +1,199 @@
+---
+title: "Copilot 还是 Duet：simedw 的两个 framing"
+slug: copilot-vs-duet-two-framings
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, framing, GitHub Copilot, Duet, 工具, 伙伴, Naitik88]
+cover: https://exception-studio.vercel.app/works/copilot-vs-duet-two-framings
+---
+
+simedw 自评 RollTab 是「Copilot for piano」。Naitik88 在 HN 评论升级成「更像另一个音乐家在实时响应你」。两个 framing 都是 simedw 1 人 + 1 个 iPhone app 的版本。
+
+## Copilot framing：工具
+
+simedw 自己给的类比：
+
+> Copilot for piano, like GitHub Copilot but for piano
+
+工具 framing：
+
+- 用户写代码 / 弹琴
+- Copilot 续写代码 / 续写音乐
+- 用户决定接受还是拒绝
+- 用户控制创作主动权
+
+GitHub Copilot 是这个 framing 的原型——程序员写函数名 + 几行，Copilot 续写完。用户是主，Copilot 是副。
+
+RollTab 用 Copilot framing：
+
+- 用户弹 4 个音
+- 模型续写 4 个音
+- 用户接受（保留）或拒绝（再弹）
+- 用户控制「写什么 + 多少」
+
+## Duet framing：伙伴
+
+Naitik88 在 HN 评论里升级的 framing：
+
+> 不只是 autocomplete，更像另一个音乐家在实时响应你
+
+伙伴 framing：
+
+- 两个人在即兴合奏
+- 一个起主题，另一个接主题
+- 互相响应，互相递进
+- 谁是主谁是副动态切换
+
+Google 的 Project Duet（2017 年 I/O 演示的 AI 钢琴）是这个 framing 的原型——AI 和人类一起在 YAMAHA 钢琴上即兴合奏。
+
+RollTab 用 Duet framing：
+
+- 用户弹 4 个音
+- 模型续写 4 个音 = 「应答」
+- 用户再弹，模型再应答 = 「对话」
+- 来回 16 次 = 「一段对话」
+
+## 两个 framing 的对照
+
+| 维度 | Copilot | Duet |
+|---|---|---|
+| 谁是主 | 人 | 人 + AI 动态 |
+| AI 角色 | 工具 | 伙伴 |
+| 反馈循环 | 用户 → AI → 用户决定 | 用户 ↔ AI 来回对话 |
+| 评估标准 | 接得对 / 接得快 | 接得有音乐性 |
+| 用户期望 | 「帮我续写」 | 「和我对话」 |
+| 类比 | GitHub Copilot | Project Duet |
+| 失败体验 | 「接得不对」 | 「接得没音乐感」 |
+
+simedw 自己倾向 Copilot framing（更谦虚、更准确）。Naitik88 倾向 Duet framing（更雄心、更富想象）。
+
+## 为什么两个 framing 都是对的
+
+Copilot framing 准确：
+
+- 模型续写 = autocomplete
+- 用户弹 4 个音，模型只续 4 个音
+- 用户控制 prompt
+- 工具不是主体
+
+Duet framing 准确：
+
+- 用户弹 → 模型接 → 用户再弹 = 来回对话
+- 模型续写有「音乐感」，不是机械补全
+- AI 像「另一个音乐家」
+
+两个 framing 描述同一个产品（RollTab），但视角不同：
+
+- Copilot framing：产品视角（功能是什么）。
+- Duet framing：体验视角（用起来感觉是什么）。
+
+产品视角对技术人员友好。体验视角对普通用户友好。
+
+## simedw 的妥协
+
+simedw 自己只说 Copilot framing，不说 Duet framing。这是谦逊 + 准确：
+
+- RollTab 不是 Project Duet。Duet 是 Google 的 demo，演示级，不是产品级。simedw 不夸大。
+- RollTab 是 autocomplete，不是即兴合奏。模型在 prompt 上续写，不主动起主题。
+- 「另一个音乐家」 = 用户感受到的音乐感，是模型输出的副产品，不是模型主动设计的能力。
+
+但 Naitik88 的 Duet framing 是诚实的——用起来真的像和另一个音乐家对话。Duet framing 不是营销话术，是用户体感。
+
+## Naitik88 的诚实
+
+Naitik88 的 HN 评论：
+
+> 不只是 autocomplete，更像另一个音乐家在实时响应你
+
+这句话没夸大。RollTab 用起来就是「实时响应」。4 音 prompt → 4 音续写 = 30ms 延迟，远低于人类反应时间（~250ms）。
+
+人感受不到 30ms 延迟。人感受到的是「我刚弹完 4 个音，模型立刻接了一段」。这是 Duet 体验，不是 Copilot 体验。
+
+Copilot 体验 = 「我写了 function name，Copilot 跳出来一段代码」。用户能看到「这是 AI 写的」。
+
+Duet 体验 = 「我弹了 4 个音，模型接了一段」。用户感受不到「这是 AI 写的」，只感受到「这一段接得很自然」。
+
+RollTab 用起来更像 Duet。
+
+## 一人工程的 framing 哲学
+
+OpenAI 给 ChatGPT 的 framing：
+
+- 「ChatGPT」= 对话工具 → 用户是主。
+- 「GPT-4」= 模型版本号 → 中性。
+- 「AI co-pilot」= 工具比喻 → 副驾驶。
+
+OpenAI 不给 Duet framing（不让用户觉得 AI 是伙伴）。OpenAI 的 framing 是「工具 + 安全 + 中性」。
+
+simedw 的 framing：
+
+- 「RollTab」= 中性产品名。
+- 「Copilot for piano」= 工具比喻。
+- 用户体感 Duet = Naitik88 升级。
+
+simedw 没有主动用 Duet framing（他只说 Copilot）。但产品用起来就是 Duet。这是「产品体验 > 营销 framing」的诚实姿态。
+
+## GitHub Copilot 的 framing 对照
+
+GitHub Copilot 自己的 marketing：
+
+- 「Your AI pair programmer」= 伙伴 framing。
+- 「Fly through code at the speed of thought」= 速度 framing。
+- 「Less boilerplate, more focus」= 效率 framing。
+
+GitHub Copilot 选「AI pair programmer」= 伙伴 framing（类似 Duet），不是工具 framing。
+
+RollTab 选「Copilot for piano」= 工具 framing（继承 GitHub Copilot 的比喻，但弱化为工具）。
+
+两个 Copilot 产品的 framing 不一致：
+
+- GitHub Copilot：伙伴（AI pair programmer）。
+- RollTab：工具（Copilot for piano）。
+
+为什么 simedw 选工具 framing？
+
+- RollTab 用户更可能怀疑 AI 的「伙伴」能力（钢琴家会挑剔）。
+- GitHub Copilot 用户没那么挑剔（程序员接受代码 suggestion）。
+- 工具 framing = 更低预期 = 更少失望。
+- 伙伴 framing = 更高预期 = 更多失望。
+
+## Duet framing 的产品哲学
+
+Project Duet 2017 年发布，Google 的 Magenta 团队 + YAMAHA 钢琴合作。视频里 AI 和人来回对话 5-6 段，每段 8-16 个音。
+
+Duet 演示的核心：
+
+- AI 不是补全 prompt，是「应答」。
+- AI 应答有音乐感（不只是重复 prompt）。
+- 人和 AI 互相递进。
+- 整个过程是「一段对话」，不是「一段续写」。
+
+RollTab 是 Duet 演示的现代版本：
+
+- 模型在 iPhone 上运行（不是云端）。
+- 30ms 延迟（比 Duet 的 200ms 快）。
+- 模型 64M INT8（比 Duet 的 RNN + 100K 字典复杂但小）。
+
+Project Duet 没产品化（Google 没发布）。RollTab 是第一个「Duet 体验的产品化」。
+
+## simedw vs Naitik88 的 framing 差异
+
+simedw 自己：
+
+- 「Copilot for piano」= 工具 framing。
+- 谦虚 + 准确。
+- 不夸大产品能力。
+- 接受「RollTab 没那么神奇」的姿态。
+
+Naitik88：
+
+- 「另一个音乐家」= 伙伴 framing。
+- 诚实 + 雄心。
+- 不低估产品体验。
+- 接受「RollTab 用起来真像 Duet」的体感。
+
+两个 framing 都是 simedw 1 人 + 1 个 iPhone app 的版本。simedw 是作者，Naitik88 是用户。两个 framing 加起来才是 RollTab 的完整画像。
+
+## signature
+
+solus opus。

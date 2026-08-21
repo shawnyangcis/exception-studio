@@ -1,0 +1,195 @@
+---
+title: "iOS 上线后的反馈：3 个用户听到的"
+slug: ios-real-user-feedback-detailed
+date: 2026-08-21
+type: essay
+tags: [simedw, 一人工程, iOS, 真用户反馈, prompt 长度, 采样切换, 长会话截断]
+cover: https://exception-studio.vercel.app/works/ios-real-user-feedback-detailed
+---
+
+RollTab V0 上线一周后，simedw 从 App Store 评论 + Reddit 邮件 + GitHub issues 拿到 3 类用户反馈，决定 V1 的设计方向。
+
+## 反馈 1：prompt 太长模型跟不上
+
+App Store 评论：「弹了 16 个音，模型续写到第 8 个就开始飘。」
+
+simedw 之前 14 次实验都在 4-note / 8-note prompt 上测：
+
+- 4-note prompt：最难，模型续写质量一般。
+- 8-note prompt：还行，模型接得上。
+- 16-32-note prompt：显著靠谱。
+
+但用户评论说 16-note prompt 续写到第 8 个就飘。这跟 simedw 实验结论冲突。
+
+实际原因：
+
+- simedw 实验用 16-32-note prompt 测的是「前 16 个 token 都给定，模型生成第 17-32 个 token」。
+- 用户评论里「16 个音」是「16 个真实音符」，每个真实音符在 compound 表征下 = 16 个 token（pitch + duration + velocity + delta + event_type）。所以 16 音符 = 16 × 16 = 256 个 token，已经超过 512 context 的 50%。
+
+模型在 context 用了 50% 后，开始遗忘 prompt 的早期部分。续写到第 8 个真实音符 = 已经累计 128 token，prompt 的早期部分已经被「挤出」attention 的有效范围。
+
+V1 修复：
+
+- 自动检测 prompt 真实音符数。
+- 4-8 音符（普通用法）：512 context 够用。
+- 12+ 音符：截断到最近 8 音符，重新建 KV cache。
+- 16+ 音符：明确告诉用户「prompt 太长，已截断」。
+
+## 反馈 2：6 种采样切换不知道选哪个
+
+Reddit 用户邮件：「top-k / top-p / min-p / XTC / top-h / Mirostat v2 这么多采样器，选哪个？」
+
+V0 只有 1 种采样（top-k）。V1 加了 6 种采样切换。
+
+实际用户体感：
+
+- top-k（k=10）：保守，每音都是「最大概率 10 个里选」。
+- top-p（p=0.9）：略激进，会选不在 top-10 的「累计概率 90% 内的尾」。
+- min-p（p=0.05）：比 top-p 更激进。
+- XTC：重复抑制，砍掉重复 n-gram。
+- top-h：概率分布的熵过滤。
+- Mirostat v2：信息论目标采样。
+
+用户不知道选哪个，因为：
+
+- 没有「哪个采样 = 哪个风格」的简单映射。
+- 6 个采样器相互影响，选错一个其他都不对。
+- 用户不会调 hyperparameter。
+
+V1 修复：
+
+- 默认 top-p=0.9 + XTC（保守 + 重复抑制）。
+- 「高级」面板里展开 6 个采样器，用户自己选。
+- 加 4 个预设：「保守」「中等」「激进」「多样化」。
+
+## 反馈 3：长会话截断的「感觉」不对
+
+GitHub issue：「我弹了 50 个音，模型接得很好。但继续弹到第 80 个音时，模型好像失忆了，续写突然风格跳变。」
+
+原因：RollTab V0 的 context = 512 token。80 音符 × 16 token/音 = 1280 token，超出 context 2.5×。
+
+simedw 用「滚动窗口」截断：
+
+- context 满了时，砍掉最早 256 token。
+- 把剩下的 256 token + 之前砍掉的 256 token = 重新建 KV cache。
+- 继续生成。
+
+但用户体验到「突然失忆」，因为：
+
+- 砍掉的是 256 token = 16 真实音符 = 16 个动机。
+- 「动机」是被砍的关键记忆单元，不是 token。
+- 重建 KV cache 时模型看到的是「碎 token」不是「碎动机」。
+
+V1 修复：
+
+- 滚动窗口改为「音符级滚动」：砍掉最早的 N 个音（不是 token）。
+- 让 N = context 的 25% = 8 音（128 token）。
+- 重建 KV cache 时按「动机边界」切，不是按 token 切。
+- 体感更顺，模型接续风格不变。
+
+## V1 的设计方向
+
+3 个反馈合起来决定 V1 设计：
+
+1. prompt 长度自动检测 + 截断 + 用户告知。
+2. 6 种采样器默认 top-p + XTC + 4 个预设。
+3. 长会话按音符滚动（不按 token）。
+
+V1 提交后等苹果审核中（8/21 16:42 在审，耗时未知）。
+
+## 14 次实验里真用户反馈的位置
+
+- 实验 1-12：作者自评 + Gemini pairwise（无真用户）。
+- 实验 13：V0 上线 + 收集反馈。
+- 实验 14：V1 设计 + 提交苹果审核。
+
+实验 13-14 是「14 次实验的最后一公里」——从作者自评 → 真用户反馈。
+
+OpenAI 不做这一段——OpenAI 上线产品后用户反馈驱动下次迭代，但 simedw 的迭代节奏更快（V0 → V1 一周）。
+
+## 一人工程的「快速迭代」哲学
+
+OpenAI / Anthropic / DeepMind 的迭代：
+
+- 产品上线 → 收集反馈 → 内部讨论 → 决定方向 → 设计实现 → A/B 测试 → 上线。
+- 周期：3-6 个月。
+
+simedw 的迭代：
+
+- V0 上线 → App Store 评论 + Reddit + GitHub issues（一次抓） → 决定 3 个方向 → V1 实现 + 提交苹果。
+- 周期：1 周。
+
+一人工程的快速迭代 = 一个人 + 1 周 = 「快速反馈循环」。
+
+为什么能快：
+
+- 没有会议：3 个反馈决定 3 个方向 = simedw 一个人想清楚。
+- 没有设计 review：直接改代码。
+- 没有 A/B 测试：默认「V1 全量推送」。
+- 没有 marketing review：直接发 HN + Reddit。
+
+3 个反馈 → 1 个 V1 = 1 周 = 一人工程的产品节奏。
+
+## 真用户反馈 vs 实验室评估
+
+simedw 之前 12 次实验靠：
+
+- 自动指标（重复 pitch n-gram / pitch entropy 等）
+- Gemini 3.5 Flash pairwise（70% 一致率）
+- 作者自己听
+
+真用户反馈给的是：
+
+- App Store 评论：「续写到第 8 个就飘」→ 暴露 16 音符 × 16 token/音 = 256 token 已超 512 context。
+- Reddit 邮件：「6 种采样不知道选哪个」→ 暴露 UI 不是「超参数化」的产品。
+- GitHub issue：「突然失忆」→ 暴露「按 token 切」不是「按动机切」。
+
+3 个反馈都是 simedw 自己没意识到的盲点：
+
+- simedw 自己弹琴不会弹 80 个音 → 没意识到长会话问题。
+- simedw 自己调 hyperparameter 没问题 → 没意识到 UI 不是工程师 UI。
+- simedw 自己听 4-8 note prompt → 没意识到 16 音符 = 256 token 的 context 问题。
+
+真用户反馈 = simedw 自己测不到的盲点。
+
+## 一人工程的「用户是 QA 团队」
+
+OpenAI 的 QA 团队：
+
+- 100+ 人。
+- 跑测试套件。
+- 写 bug report。
+- 跟踪已知问题。
+
+simedw 的 QA 团队：
+
+- 1 个 = 真实用户。
+- 在 App Store 评论里写 bug report。
+- 在 Reddit 邮件里写反馈。
+- 在 GitHub issues 里写 issue。
+
+QA 团队规模差 100×，但 bug 报告密度差不多。
+
+OpenAI QA 报告「GPT-4 在 multi-turn 上下文里第 30 轮开始遗忘」—— simedw 的 App Store 评论「弹了 80 个音突然失忆」。
+
+两个 bug 本质相同：context 限制。OpenAI 用 RLHF + 长 context 修；simedw 用「音符滚动」修。
+
+## 反馈哲学
+
+simedw 在 HN 评论里写：
+
+> iOS 真用户反馈让我意识到 4-note prompt 的局限性——很多用户弹 12+ 音，模型就跟不上了
+
+这句话的核心：「作者自评 ≠ 真用户行为」。simedw 自己的实验在 4-8 note prompt 上做，但用户用 12-16-20 note prompt。
+
+一人工程的反馈哲学：
+
+1. **作者自评**：作者自己测，作为 baseline。
+2. **Gemini pairwise**：扩展「作者自评」的覆盖（70% 一致）。
+3. **真用户反馈**：覆盖作者自评不到的盲点。
+
+三层评估 = simedw 的完整评估方法。
+
+## signature
+
+solus opus。
