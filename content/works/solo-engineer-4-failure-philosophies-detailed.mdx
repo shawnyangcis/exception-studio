@@ -1,0 +1,130 @@
+---
+title: "一人工程图景的 4 个失败哲学详细：simedw 8 失败 + 公开失败 + 接受限制 + 失败哲学"
+slug: solo-engineer-4-failure-philosophies-detailed
+date: "2026-08-21"
+summary: "一人工程图景的 4 个失败哲学详细：1 simedw 8 个失败 commit + 2 公开失败清单 README + 3 接受工具限制算了挺快乐 + 4 失败哲学 = 一类工程师的失败哲学。Solo engineer 不是失败 = 是失败 + 接受 + 学习 = 一类工程师代代相传。"
+tags: ["一人工程", "失败哲学", "solo engineer", "simedw", "8 失败", "公开失败", "接受限制", "失败哲学", "哲学"]
+cover: ""
+---
+
+一人工程图景的 4 个失败哲学详细：
+
+一人工程图景的 4 个失败哲学 = simedw 8 失败 + 公开失败 + 接受限制 + 失败哲学。
+
+## 失败哲学 1：simedw 8 个失败 commit 详细
+
+8 个 simedw 失败 commit：
+
+- note-on/note-off 飘音（朴素 MIDI 表征不能表达完整状态）
+- grammar-masked 慢（4 个 autoregressive step 出一个音）
+- 噪声数据放大没用（5× data → 模型更差）
+- Mirostat 减重复但紊乱（采样算法失败）
+- extra local auxiliary 无收益（额外 loss 不提供新梯度）
+- 绝对 scalar 没 pairwise 准（评测方法失败）
+- 验证 loss 漏了 rollout（评测指标失败）
+- Born-again networks 没用（MIDI 序列任务不适用蒸馏）
+
+8 个失败 = simedw 14 次 commit 里 8 失败 + 6 成功 = 失败率 57%。
+
+## 失败哲学 2：公开失败清单
+
+simedw 公开失败清单：
+
+- README 写 8 个失败 commit
+- 失败原因 + 解法公开
+- 不隐藏失败
+- 失败是公开的
+
+4 个公开失败要素。
+
+公开失败 vs 私密失败：
+
+- 大公司：私密失败清单
+- solo engineer：公开失败清单
+
+2 个对照。
+
+## 失败哲学 3：接受工具限制（算了，挺快乐）
+
+simedw 接受工具限制：
+
+- Core ML 不暴露 Q/K/V → 算了，挺快乐
+- 不重写 kernel
+- 不跟工具较劲
+- 接受限制 = 享受开发
+
+4 个接受工具限制。
+
+接受 vs 重写：
+
+- 大公司：不接受（重写 kernel / 重写 framework）
+- solo engineer：接受（算了，挺快乐）
+
+2 个对照。
+
+## 失败哲学 4：失败哲学的哲学
+
+失败哲学：
+
+- 失败是公开的
+- 失败有原因 + 解法
+- 失败不重复
+- 失败是 solo engineer 的核心
+
+4 个失败哲学的哲学。
+
+## 4 个失败哲学 = 一类工程师的失败哲学
+
+4 个失败哲学：
+
+- 失败哲学 1：simedw 8 个失败 commit 详细
+- 失败哲学 2：公开失败清单
+- 失败哲学 3：接受工具限制（算了挺快乐）
+- 失败哲学 4：失败哲学的哲学
+
+4 个失败哲学 = 一类工程师的失败哲学。
+
+## 一人工程失败哲学的 4 个 trade-off
+
+4 个 trade-off：
+
+- 时间：不算了 vs 算了（几天 vs 几月）
+- 健康：不跟工具较劲 vs 跟工具较劲
+- 用户体验：早 release vs 晚 release
+- 项目存在：上线 vs 不上线
+
+4 个接受哲学 trade-off。
+
+## 接受哲学 4 个收益 vs 3 个代价
+
+4 个收益（时间 + 健康 + 用户体验 + 项目存在）vs 3 个代价（精度 + 部署 + 性能）= 接受哲学 trade-off 净收益。
+
+## simedw 接受哲学的 6 个具体表现
+
+simedw 接受哲学 6 个具体表现：
+
+- RoPE KV cache ring buffer：Core ML 不暴露 Q/K/V → 算了，挺快乐
+- 数据清洗：5× data → 模型更差 → 算了，回到清洗
+- Born-again：MIDI 不适用 → 算了，用 INT8 量化
+- grammar-masked：4 autoregressive → 慢了 → 算了，用 NOTE 单 token
+- 绝对 scalar：分数漂移 → 算了，用 Gemini pairwise
+- Mirostat：减重复但紊乱 → 算了，用 DPO + scheduled sampling
+
+6 个 simedw 接受哲学具体表现。
+
+## 一人工程失败哲学总结
+
+一人工程失败哲学总结：
+
+- 4 个失败哲学 = simedw 8 失败 + 公开失败 + 接受限制 + 失败哲学
+- 4 个 trade-off = 时间 + 健康 + 用户体验 + 项目存在
+- 4 收益 > 3 代价 = 接受哲学 trade-off 净收益
+- 一人工程 = 失败 + 接受 + 学习 = 一类工程师代代相传
+
+4 个事实 = 一人工程失败哲学的全部。
+
+一人工程图景的 4 个失败哲学详细 = simedw 8 失败 + 公开失败 + 接受限制 + 失败哲学 = 4 个失败哲学 = 一类工程师的失败哲学的全部。
+
+---
+
+这是 105+ 篇散文的 4 个失败哲学篇。一人工程图景的 4 个失败哲学详细 = simedw 8 失败 + 公开失败 + 接受限制 + 失败哲学 = 一类工程师的失败哲学的全部。
