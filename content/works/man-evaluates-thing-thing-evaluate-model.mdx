@@ -1,0 +1,105 @@
+---
+title: "man evaluates thing thing evaluate model"
+slug: "man-evaluates-thing-thing-evaluate-model"
+date: "2026-08-21"
+summary: "洞穴人格式第八篇。plink / note / training / ship / realtime / pipeline / readme / evaluation —— 八层抽象。simedw 评测困境：自动指标失效 + 自己听 30 分钟 + Gemini pairwise 70% 一致。一人工程没有 evals team，靠 5 种评测方法叠加。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "simedw", "评测", "Gemini", "DPO"]
+cover: ""
+---
+
+plink / note / training / ship / realtime / pipeline / readme 七层抽象之后，第八层是 evaluation。
+
+## 评测是什么
+
+评测 = 给模型打分 = 量化模型好坏。AI 模型训练的最后一关。
+
+simedw 的评测困境：
+
+1. 自动指标失效：pitch n-gram / chord entropy 只抓明显失败，挑不出最佳模型
+2. 自己听 30 分钟：能分噪音 / 不噪音，分不出 β=0.03 vs β=0.10 偏好
+3. Gemini 3.5 Flash pairwise 70% 一致：偏好比绝对 scalar 准
+4. 绝对 scalar 不一致：不同 prompt 分数漂移大
+5. A/B 偏好比绝对分好：两两对比比单一分可靠
+
+5 种评测方法，没有一种完美。叠加用。
+
+## evaluation 是抽象层第八层
+
+plink = 抽象层 1（领域）
+note = 抽象层 2（表示）
+training = 抽象层 3（方法）
+ship = 抽象层 4（部署）
+realtime = 抽象层 5（运行模式）
+pipeline = 抽象层 6（流程）
+readme = 抽象层 7（文档）
+evaluation = 抽象层 8（评测）
+
+evaluation 跟其他七个不同：其他七个是 build 层，evaluation 是 judge 层。
+
+build 是造模型，judge 是评模型。两者形成 AI 工程的闭环。
+
+## 评测是 solo engineer 的核心负担
+
+大公司项目：评测团队（3-10 人）+ 标注团队（10-100 人）+ 标注平台 + 标注规范 + QA。
+
+一人工程：simedw 一人 + Gemini 3.5 Flash + 自己耳朵 + 30 分钟 / 次 + 14 次实验 = 5 种评测方法叠加。
+
+5 种方法叠加是 solo engineer 评测的现实：
+
+- pitch n-gram（自动指标，快）
+- chord entropy（自动指标，快）
+- 自己听（人工，慢，准）
+- Gemini pairwise（半自动，中等）
+- 一致率检查（统计，慢）
+
+叠加用，不是单一用。
+
+## 为什么评测是 solo 工程瓶颈
+
+simedw 在 blog 写过：评测比训练慢。
+
+训练：半天（125M 模型 + 4 × RTX 4090）。
+评测：14 次实验 × 30 分钟 = 7 小时。
+
+评测时间 > 训练时间。
+
+原因：评测需要看 rollout 质量，需要听，需要 pairwise 对比，不能只看 loss 曲线。一人工程的评测工作量是 solo engineer 的核心瓶颈。
+
+## 评测是哲学问题
+
+评测困境背后是 AI 评测的哲学问题：
+
+自动指标 vs 人工评测：
+
+- 自动指标：可重复、便宜、但抓不住细微差异
+- 人工评测：细腻、贵、但不可重复
+
+solo engineer 选什么？
+
+simedw 选 5 种叠加。这不是妥协，是 solo engineer 的现实选择。
+
+大公司选标注团队 + 评测团队。
+solo engineer 选 5 种方法叠加 + Gemini 4 折中。
+
+评测方法的选择本身也是 solo engineer 的设计决策。
+
+## 洞穴人第八个代词
+
+plink / note / training / ship / realtime / pipeline / readme / evaluation 八层抽象：
+
+- plink = 领域
+- note = 表示
+- training = 方法
+- ship = 部署
+- realtime = 运行模式
+- pipeline = 流程
+- readme = 文档
+- evaluation = 评测
+
+洞穴人八个词，描述 AI 音乐的八个抽象层。
+
+simedw 5 种评测方法走完 evaluation 全程。一人工程的评测在 14 次 commit + 5 种方法 + Gemini 3.5 Flash 里完成。
+
+---
+
+这是 isoprophlex 洞穴人格式系列的第八篇。前七篇是 plink / note / training / ship / realtime / pipeline / readme，第八篇是 evaluation。八个代词对应 AI 音乐的八个抽象层：领域、表示、方法、部署、运行模式、流程、文档、评测。一人评测是 5 种方法叠加 + 14 次 commit 调试 + Gemini pairwise 70% 一致。
