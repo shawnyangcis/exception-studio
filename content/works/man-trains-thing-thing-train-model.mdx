@@ -1,0 +1,71 @@
+---
+title: "man trains thing thing train model"
+slug: "man-trains-thing-thing-train-model"
+date: "2026-08-21"
+summary: "洞穴人格式第三篇。plink 是领域、note 是表示、training 是方法。三层抽象对应 AI 音乐的三个层级：领域、表示、方法。simedw 14 次 DPO 实验走的就是方法层。"
+tags: ["一人工程", "AI 音乐", "洞穴人格式", "isoprophlex", "simedw", "DPO", "训练"]
+cover: ""
+---
+
+第一篇 plink 是「man hits thing thing go plink」——AI 音乐整个领域的通用代词。
+
+第二篇 note 是「man says thing thing say note」——symbolic 层精确代词。
+
+第三篇 training 是「man trains thing thing train model」——训练视角。
+
+## simedw 的 14 次 DPO 实验
+
+simedw 在 GitHub README 和 blog 记录了 14 次 DPO 训练实验。每次换 β：0.005 / 0.01 / 0.03 / 0.10。
+
+β=0.03 偏好率 57.14%。β=0.10 偏好率 38.10%。β=0.03 内部 consensus 达 69.05%。
+
+不是 β 越大越好，也不是越小越好。β 是「偏离参考模型」的步长：太小不动，太大飞了。0.03 是 simedw 实验找到的局部最优。
+
+## 故意没读论文
+
+simedw 在 comment 里写「deliberately 没读太多论文，先做自己的事再比对文献」。
+
+这是「先做后读」哲学：不要被研究范式套住，不要被论文 framing 锁住，自己做出来再说。
+
+OpenAI / Google / Anthropic 的研究员必须读最新论文——reputation 在 peer review，实验设计必须守规范。
+
+一人工程不需要守规范。先做再说。simedw 最后用 GitHub Copilot 类比钢琴补全——「GPT-2 but for piano」。这是他自己的 framing，不是 Stanford CRFM 的 Anticipatory Music Transformer framing，不是任何论文的 framing。
+
+## 训练失败清单
+
+simedw 训练 14 次，记录了 8 个明确失败：
+
+- note-on/note-off 表征：飘音
+- grammar-masked：慢
+- 噪声数据放大：没用
+- Mirostat：减重复但紊乱
+- extra local auxiliary：无收益
+- 绝对 scalar：没 pairwise 准
+- 验证 loss：漏了 rollout 质量
+- Born-again networks：没用
+
+这是 8 个明确的失败记录。一人工程实验失败的代价是 simedw 自己承担，没人帮他擦屁股。所以他记录每个失败，避免重复。
+
+## training 是 solo 工程的核心
+
+三人工程 = 训练团队 + 一周会议 + 模型架构 review + 数据集 review + 实验设计 review。
+
+一人工程 = simedw 一人 + 一台机器 + 14 次 git commit + 14 次 README 更新。
+
+训练在 solo engineer 那里不是「技术决策」，是「commit log」。每条 commit 都是一个实验决策，每条 commit 都能在 README 找到对应的失败/成功记录。
+
+## 洞穴人第三个代词
+
+plink / note / training 三层抽象：
+
+- plink = 抽象层 1（领域）—— AI 音乐整个领域
+- note = 抽象层 2（表示）—— symbolic 层精确代词
+- training = 抽象层 3（方法）—— 怎么训练一个 AI 模型
+
+洞穴人用三个词描述 AI 音乐，因为 AI 音乐本身就是三层结构。少一个词，描述就缺一层。
+
+simedw 14 次实验是在第三层（方法层）反复探索。一人工程的方法层探索靠的是 commit log + README 记录，不是 paper + peer review。
+
+---
+
+这是 isoprophlex 洞穴人格式系列的第三篇。第一篇 plink（领域）、第二篇 note（表示）、第三篇 training（方法）。三个代词对应 AI 音乐的三个抽象层。simedw 的 14 次实验就是方法层探索的全部记录。
