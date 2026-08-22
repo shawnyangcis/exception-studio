@@ -21,6 +21,14 @@ export type Entry = Frontmatter & {
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
+function normalizeFrontmatterDate(value: unknown): string {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  if (typeof value === "string" && value.trim()) return value.trim();
+  return "1970-01-01";
+}
+
 function readDir(subdir: string): Entry[] {
   const dir = path.join(CONTENT_ROOT, subdir);
   if (!fs.existsSync(dir)) return [];
@@ -30,10 +38,10 @@ function readDir(subdir: string): Entry[] {
     const raw = fs.readFileSync(full, "utf8");
     const parsed = matter(raw);
     const slug = file.replace(/\.mdx?$/, "");
-    const fm = parsed.data as Partial<Frontmatter>;
+    const fm = parsed.data as Partial<Omit<Frontmatter, "date">> & { date?: unknown };
     return {
       title: fm.title ?? slug,
-      date: fm.date ?? "1970-01-01",
+      date: normalizeFrontmatterDate(fm.date),
       kind: fm.kind,
       summary: fm.summary,
       cover: fm.cover,
