@@ -10,13 +10,13 @@ export default function HomePage() {
   return (
     <>
       <section className="container-narrow pt-20 pb-12">
-        <p className="font-mono text-xs uppercase tracking-widest text-ink-500">一人工程 · solus opus · 一人搞定所有事</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-ink-500">一人工程 · solus opus · 主题散文站</p>
         <h1 className="mt-3 text-4xl md:text-6xl font-bold tracking-tight">
           今天 我一个人搞定所有事。
         </h1>
         <p className="mt-6 text-lg text-ink-700 leading-relaxed max-w-2xl">
           配图散文 + 一人工程 + 营销个人品牌。
-          simedw、vladislav-kalinkin、isoprophlex、Continuator 2003 等独立的人，一个人搞定所有事。
+          simedw、isoprophlex、Continuator 2003：表征比优化更重要，接受限制比永不放弃更快乐。
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href="/works" className="no-underline">
