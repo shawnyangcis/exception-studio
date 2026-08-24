@@ -1,0 +1,35 @@
+---
+title: "invisible fingerprint 三联：浏览器、图像、打印"
+date: 2026-08-25
+kind: note
+summary: "GlassBox（tke248, codecanary.org）浏览器 fingerprint + MS Paint（xusheng.dev）图像 GUID watermark + Printer tracking dots（Reality Winner 案）三联：online 部分可 disable / offline 不可 disable / 硬件级不可 disable = 三层 escalation。「能做 = 被识别」悖论跨 API/app/hardware。tke248「不发请求」solo engineer 哲学跟「主动选择暴露 commit log」对照。"
+tags: [glassbox, tke248, codecanary, fingerprint, ms-paint, printer-tracking, reality-winner, solo-engineer]
+---
+
+# invisible fingerprint 三联
+
+HN show 同一个早上，30 名以内三个故事同时出现。
+
+GlassBox（tke248, 85 points, codecanary.org）把 31 个 fingerprint probe 跑一次，从 canvas 到 audio 到 fonts，算出 identifiability 数。StilesCrisis 评论："draw text, read back pixels cuts to the core of what we want a web browser to do. We can't refuse to draw text."
+
+MS Paint watermark（xusheng.dev, 515 points）在你离线生成图像时调 moderation endpoint，把 GUID 烘进文件。weberer 评论："The AI aspect is a red herring. They're secretly adding a unique identifier into every image you create."
+
+Printer tracking dots：Reality Winner（NSA leaker）被抓是因为 Intercept 发布的文档里含 printer dots，FBI 用它识别泄密者。Terr_ 在 MS Paint 帖评论里把它连起来：打印硬件也在加 fingerprint。
+
+三个 fingerprint 通道，同一天，同一种焦虑。但它们是 escalation，不是并列：
+
+- 浏览器：online，部分可 disable（disable JS, Tor, VPN）
+- 图像：offline，几乎不可 disable（baked into file）
+- 打印：硬件，不可 disable
+
+「能做 = 被识别」三层：API → app offline → hardware。
+
+tke248 把"不发请求"作为 GlassBox 第一原则："I didn't want a privacy tool that phones home." ——跟 ssx360 RACK-02 单文件 HTML、coolwulf 头写浏览器，是同源哲学：一切都在本地，一切都不发请求。
+
+但哲学面对 fingerprint 有根本悖论：浏览器要能画文字就是 fingerprint，应用程序要能调 AI endpoint 就是 fingerprint，打印机要能 color print 就是 fingerprint。你做的每一件事都暴露特征。
+
+solo engineer 唯一的安慰：commit log 也是 fingerprint，但那是「主动选择」不是「被动接受」。散文站的 commit log 选择暴露 vibe —— 跟 MS Paint 的「不可 disable」对照：我的 fingerprint 我自己选择。
+
+tavavex 在 MS Paint 帖评论里预言：「I wonder if in ten years we'll have a horrifying world where everything that leaves a machine is imprinted with its permanent identifier.」
+
+离线指纹的 escalation 不会停。下一步是物理层。
