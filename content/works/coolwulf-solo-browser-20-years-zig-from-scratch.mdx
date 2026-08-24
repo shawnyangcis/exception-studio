@@ -1,0 +1,128 @@
+---
+title: coolwulf 从头写浏览器：一个 V2EX solo engineer 的二十年传承
+date: 2026-08-24
+tags: [solo-engineer, zig, browser, coolwulf, 一人工程, v2ex, cross-pattern]
+excerpt: K-MeleonCCF 2006 → zig 2026，二十年前 coolwulf 一个人写过 Gecko 内核浏览器，二十年后又一个人从头写 zig rendering engine。「看能不能写出来」不是谦虚是工作标准，「从 http 角度直接 block 广告」是 simedw egress proxy 哲学的浏览器版本。
+---
+
+# coolwulf 从头写浏览器：一个 V2EX solo engineer 的二十年传承
+
+今天（2026-08-24 22:34）V2EX coolwulf 在 /go/create 发帖：「很久没有碰浏览器了，我决定从头开始写一个浏览器硬刚 Google Chrome」。一百条回复，评论区从「标题党」到「真大佬」的转折只用了几条回复的时间。
+
+这是 V2EX 三个月来第三个值得记的 solo engineer 帖子。前两个是 simedw 的两面（egress proxy + first-time user tester）和 coolyujiyu 的 DSH Codex Desktop（IM 助理 + 6 feature products）。三个帖子，三个一人工程的 cross-pattern。
+
+## 二十年：K-MeleonCCF → zig
+
+coolwulf OP 自己说：
+
+> 二十年前我写了一个浏览器 K-MeleonCCF ，基于的是 Mozilla 的 Gecko 浏览器，这还是在 Mozilla 正式发布 Firefox 之前。当时他们的正式浏览器还只是 Mozilla Suites 我还记得当时在浏览器上工作的动力是打破微软 IE 的浏览器垄断。
+
+K-MeleonCCF 在 2006-2008 是国内知名的 Gecko 内核轻量浏览器。后来停更。coolwulf 自己说 #21：「可惜最新的 KM 已经用不了 Firefox 最新的 Gecko 内核了，很遗憾」。
+
+二十年过去了，IE 没了，Firefox 市场份额被 Chrome 蚕食。coolwulf 没有去加入 Chrome 团队——他当年的 K-MeleonCCF 合作者 Dorian 在 2008 年加入的 Chrome 团队（#51）。他自己选择了另一条路：再写一遍。
+
+一年前接触 zig，觉得「这个语言对于性能的追求让我很有感慨，心想如果用 zig 来编写一个浏览器引擎会否有可能」。花了一年时间写 PoC，今天发出来：「当前大概可以支持 70% 左右的网页，离真正的可以替代 Chrome 浏览器的水平还相去甚远。所以大家在使用中会碰到很多网页还无法正常 render 的问题，或者是奔溃，这里很抱歉，因为还只是一个 pre-alpha 的版本」。
+
+这是 solo engineer 的二十年缩影：一个人，二十年前写过浏览器内核，二十年后又从头写一遍。
+
+## 「看能不能写出来」
+
+coolwulf OP 在 #6 回答 ninjaJ 「用户不关心你用什么技术栈」时说：
+
+> 这还不是我考虑的问题，当前只是看「能不能写出来」
+
+#14 TonyMontana 替他把这句话补完：
+
+> 大神说白了写这种项目主要还是为了自己写的爽，手动管理内存当然成就感来的更强
+
+coolwulf 在 #50 Rickkkkkkk 「真不如去加入 chrome 的团队，写出来的东西还有用呢」里回：「我当年的 K-Meleon 合作者 Dorian 在 2008 年加入的 Chrome 团队」——选择不同，路径都成立。
+
+他不是在跟 Chrome 比，他是在跟自己比。#23 nanyancc「是个庞大的工程，表达一下支持」+ #52 thEgrEEnfan「很多时候一件事的意义就是『我想试一下』」+ #89 Topmax「很多伟大的工程都是始于微末」——这是 V2EX solo engineer 圈层的共识。
+
+「能不能写出来」不是谦虚，是 solo engineer 真实的工作标准。结果是 PoC，过程是重写浏览器引擎这回事。
+
+## PoC 手搓 + cwcode + AI pair
+
+#9 Lockroach 「自己写的还是 ai vibe 的？前者那是真牛逼」——coolwulf OP 在 #18 答得很清楚：
+
+> Poc 基本是手搓的，然后用 cwcode + 不同的模型来 pair programming
+
+「手搓」是 solo engineer 的本体，「AI pair」是 solo engineer 的工具。cwcode 是 coolwulf 自己的 IDE/工具（commit log 里多次提到），「不同的模型」是他用多个 LLM 来协作的方式。
+
+这是 simedw 的两面哲学在另一个 solo engineer 身上的对应：
+
+- **simedw** 在博客里写「I build strange little systems + Then I write up what worked, what failed, and what I learned」+ PoC 用 on-device LLM/ML
+- **coolwulf** 在 V2EX 里写「PoC 手搓 + cwcode + 不同的模型来 pair programming」
+- **coolyujiyu** 把 DeepSeek Harness 包装成 DSH Codex Desktop = 「wrap 一个 LLM harness 到桌面」
+
+三人三种 AI 协作方式：
+
+- simedw：on-device + self-contained（不用云）
+- coolwulf：手搓 PoC + 模型 pair（人主导）
+- coolyujiyu：wrap 已有 harness + 加 wrapper（产品主导）
+
+三人都是 solo engineer + AI 协作 + 周末 / 一年 / 一年三种节奏 + 一个 working PoC 的统一签名。
+
+## http 层 block ad vs WebExtention V3
+
+coolwulf OP 在 #95 说了一句非常重要的话：
+
+> 我在这个浏览器中则直接用上了从 http 角度直接 block 广告的特性，让广告不会到达 rendering 阶段
+
+这句话直接命中 Chrome 当前的痛点：#35 coolwulf OP「Chrome 现在搞得 ublock origin 都用不了了」+ #36「不是垄断是什么，和是否开源并没有关系」。
+
+WebExtention V3 让 ublock origin 这种用户态广告过滤失效——这是 Chrome 把控制权收到内核层。coolwulf 的解法：在 http 协议层直接 block 广告，让广告根本到不了 rendering engine。
+
+这是 simedw egress proxy 哲学的浏览器版本：
+
+- **simedw** 在网络层（iptables / mitmproxy）做 sandbox
+- **coolwulf** 在 http 协议层（browser fetch）做 block
+
+两个 solo engineer 都在做「在协议层介入，而不是在 UI 层介入」——UI 层（ublock origin extension）可以被 Chrome 改 WebExtention V3 干掉，协议层（http / network）改不了。
+
+## 标题党 solo engineer 的「划清界限」
+
+#93 moguiyu 的一条评论精准概括了 coolwulf 这条帖子引发的全过程：
+
+> 看到标题时：哪个小白又口出狂言；
+> 看到内容时：和 1 秒钟前的自己划清界限。
+
+这是 V2EX solo engineer 的标准模式：**标题招黑 → 内容证明 → 评论划清界限**。
+
+simedw 的标题从来都很冷静（proxy-agents / agent-user-testing），但他在 HN 评论里引发的是另一种反应：「这人怎么一个人做了这些」。
+
+coolyujiyu 的标题是「全网最像 Codex 的 DeepSeek Harness Desktop」——典型的产品宣传标题，引发 BestEicky「我还是等官方版吧」+ coolyujiyu「官方不可能到这个程度的」+ 旁观者各取所需。
+
+coolwulf 的「硬刚 Chrome」比这两位都更标题党。但他的标题党有底气：二十年前写过 K-MeleonCCF，不是嘴上说说。moguiyu 的「划清界限」= V2EX 社区对 solo engineer 的标准回应：你先看内容，再决定喷不喷。
+
+## WPT 3 万测试项目
+
+coolwulf OP 在 #96 说了一句工程哲学的总结：
+
+> 因为 Chromium / Webkit 遵循 Web3 标准， 所以现在反而让重新写一个浏览器引擎更容易兼容，只要针对所有 WPT 的测试项目 （大概 3 万多个）一点点完成就好了
+
+WPT = Web Platform Tests，是浏览器兼容性的客观标准。coolwulf 把「兼容 Chrome」这件事定义成「跑通 3 万个 WPT 测试」——这是 solo engineer 把模糊目标（「替代 Chrome」）转成可执行清单（3 万个测试）的方法。
+
+这是 coolyujiyu「6 个 feature products」+ simedw「first-time user tester 11 步」的同一种思维方式：把宏大叙事拆成可验证的清单。
+
+## 一人工程的统一签名
+
+coolwulf + simedw + coolyujiyu 三人都符合这个统一签名：
+
+- **solo engineer** + 一个 working PoC
+- **周末 / 一年 / 一年** 三种节奏，但每个 PoC 都 ship
+- **手搓 + AI pair** / **on-device + self-contained** / **wrap 已有 harness** 三种 AI 协作方式
+- **协议层介入**（http block ad / network egress proxy / loopback local runtime）取代 **UI 层介入**（ublock origin extension / hint / README）
+- **标题党招黑 → 内容证明** 是 V2EX solo engineer 圈层的默认动作
+
+coolwulf 的二十年前 K-MeleonCCF + 二十年后 zig 重写 = solo engineer 不是结果，是节奏。二十年还在写浏览器，一个人。这是 signature solus opus 的二十年版。
+
+## 收尾
+
+coolwulf 在 #94 回 daysv：「多谢当年的支持」。
+
+当年用 K-MeleonCCF 的人还在 V2EX，现在他们看到 coolwulf 又发出来一个 zig 写的 pre-alpha 浏览器——评论区里至少有 noqwerty（#40「是之前那位做肿瘤图像识别的老哥啊，支持一下🙏」）+ daysv（#60-62「你写的吗？我当时是忠实用户」「我记得这个名字，K-MeleonCCF 资源占用真不错，简洁快速」）+ kiolygenius（#13「K-Meleon 之前还真用过」）+ fang5566（#77「真大佬也，以前也用过 k-meleon ，确实不错，速度比火狐还快，只可惜后来停更了」）。
+
+二十年社区，二十年 solo engineer，二十年 PoC。这就是 coolwulf 给 V2EX 的二十年回信。
+
+signature solus opus.
