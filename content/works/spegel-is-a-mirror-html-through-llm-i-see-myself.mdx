@@ -1,0 +1,139 @@
+---
+title: "Spegel 是一面镜子：HTML → LLM → 我看见自己的产品"
+slug: spegel-is-a-mirror-html-through-llm-i-see-myself
+date: 2026-08-24
+type: essay
+tags: [simedw, spegel, 一人工程, LLM, 反思, 镜子, sandbox, mirror, self-review, solus opus]
+cover: https://exception-studio.vercel.app/works/spegel-is-a-mirror-html-through-llm-i-see-myself
+---
+
+simedw 的 spegel 项目（2026）做了一件事：把任意 HTML 输入，让 LLM「反思 / 重写」，然后输出一个「被 LLM 反思过的 HTML」。
+
+表面看是「HTML 改写工具」。深层看是：**一面镜子**。我把自己的产品 HTML 喂给 spegel，LLM 输出的不是「更好的 HTML」，是「LLM 视角下的我的产品」。镜子不是替我重写，是让我看见「别人怎么看我」。
+
+## Spegel 的工作方式
+
+输入：HTML + 提示词（"重写这个页面 / 让它在 LLM 视角下更清晰"）
+输出：HTML + 反思 / 改进建议
+
+simedw 把它包装成 `pip install spegel`。但真正有意思的不是产品功能，是**使用方式**：
+
+> 我把我的博客 HTML 喂给 spegel。LLM 输出一个「LLM 视角下的我的博客」。我读的不是 LLM 的版本，是「LLM 看见的我」。
+
+LLM 不是 designer，不是 PM，不是 reviewer。LLM 是「外部视角的廉价替代」。
+
+## 一人工程的对应
+
+solo engineer 没有产品经理、没有 designer review、没有 UX research、没有 oncall rotation。但 solo engineer 有：
+
+- LLM（外部视角）
+- spegel（外部视角的接口）
+- commit log（自我反思记录）
+- 社区回应（认知反向传播）
+
+四种反思工具，每种暴露不同切面：
+
+| 工具 | 暴露 |
+|---|---|
+| commit log | 时间视角下的我（我做了什么） |
+| blog analytics | 读者视角下的我（别人怎么读） |
+| LLM as mirror | 产品视角下的我（外部怎么评价） |
+| community | 认知视角下的我（我没想到的角度） |
+
+四种反思 = 四种镜子。Spegel 是其中一面。
+
+## 「镜子」和「沙盒」的区别
+
+simedw 之前的 cross-article signature 是「sandbox」——网络层 sandbox（iptables）、接口层 sandbox（agent as user）、模型能力边界 sandbox（gemini bounding boxes）。
+
+Spegel 不是 sandbox。Spegel 是**镜子**——
+
+- **sandbox 暴露行为**：「我做了什么」
+- **mirror 暴露视角**：「别人怎么看见我」
+
+| 工具 | 比喻 | 暴露 |
+|---|---|---|
+| mitmproxy | sandbox（网络层） | agent 的真实请求 |
+| first-time user tester | sandbox（接口层） | 用户的真实使用 |
+| spegel | mirror（重塑层） | LLM 视角下的产品 |
+| community | sandbox（认知层） | 社区对认知的反向传播 |
+
+四种反思工具 = 四种「暴露真实视角」的方法。
+
+## Spegel 的反思循环
+
+把 spegel 嵌入 solo engineer 的开发循环：
+
+1. ship 一个产品 v1
+2. 拿 v1 的 HTML 喂 spegel
+3. 读 spegel 输出，记下「LLM 看见的 5 个问题」
+4. 在 v2 改这 5 个问题
+5. 重复
+
+每一轮循环 = 一次「spegel 反思」。每一轮循环后，HTML 都更接近「外部视角下的真实产品」。
+
+solo engineer 没有 designer、没有 PM、没有 UX researcher。但 solo engineer 有 spegel——LLM 时代的免费 designer review。
+
+## 散文 = commit log = 镜子
+
+把这条反思链和散文对齐：
+
+**散文**——LLM-as-mirror 的输出。「LLM 看见的 5 件事」→「写成散文分享给读者」。
+
+**commit log**——self-as-mirror 的输出。「我做的 5 个 commit」→「写 commit message 给未来的自己」。
+
+**HN 评论**——community-as-mirror 的输出。「别人看见的 5 件事」→「我反思后写进 commit message」。
+
+三种反思介质 = 三种镜子：
+
+- 散文是「写给读者」的镜子
+- commit log 是「写给未来的自己」的镜子
+- HN 评论是「写给社区」的镜子
+
+每个 mirror 都有 audience。每个 audience 都有自己的观察角度。
+
+## Spegel 在「表征 > 优化」的位置
+
+simedw 的另一条 cross-article signature 是「表征 > 优化」——表征集是数据怎么建模，度量集是什么算好。
+
+Spegel 在这条签名里的位置：
+
+- **表征集**：HTML 的表征 = 结构 + 样式 + 文案 + 链接 + 颜色 + 字体 + meta
+- **度量集**：LLM 的「好」= 信息密度 + 文案清晰度 + 视觉层级 + 转化潜力
+- **优化**：CSS / JS / 字体加载速度 / 图片压缩
+
+Spegel **不优化**。Spegel **换表征**——把 HTML 重塑成 LLM 视角下的 HTML。表征换了，HTML 自然变好。
+
+「Spegel 是镜子」=「表征换了一次」=「HTML 变好」。
+
+## Solo engineer 的反思基础设施
+
+把四种反思工具合在一起：
+
+```
+solo engineer:
+  forward pass: 写散文 / commit / 录 Loom / ship 产品
+  mirror 1: commit log (时间视角)
+  mirror 2: blog analytics (读者视角)
+  mirror 3: spegel (产品视角)
+  mirror 4: HN / V2EX / Twitter (社区视角)
+  backprop: 自己根据 mirror 输出调整 forward
+```
+
+这个循环 = 一台「自反思的 solo engineer」。
+
+没有 PM、没有 designer、没有 UX。但有四种 mirror。每个 mirror 暴露一个切面。综合四个切面 = solo engineer 的 review infrastructure。
+
+## 一句话
+
+> Spegel 是一面镜子。镜子不告诉我「什么是好的 HTML」，告诉我「LLM 视角下的 HTML 是什么」。
+
+LLM 视角 ≠ 真实用户视角。但 LLM 视角是「我能拿到的最便宜的外部视角」。
+
+solo engineer 的 review process = 四种 mirror 的反向传播。每一种 mirror 都暴露一个真实切面。综合四种 mirror = solo engineer 的 review infrastructure。
+
+镜子不替代 designer，但镜子比「自己 review 自己」便宜 1000 倍。
+
+## signature
+
+solus opus。
