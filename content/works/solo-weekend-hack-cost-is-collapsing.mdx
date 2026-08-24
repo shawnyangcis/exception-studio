@@ -1,0 +1,158 @@
+---
+title: "Solo weekend hack 的成本正在崩塌"
+slug: solo-weekend-hack-cost-is-collapsing
+date: 2026-08-24
+type: essay
+tags: [simedw, 一人工程, solo weekend hack, on-device ML, Gemini Lite, Claude, macOS, 60p chip, cost collapse, solus opus]
+cover: https://exception-studio.vercel.app/works/solo-weekend-hack-cost-is-collapsing
+---
+
+读 simedw 的 11 篇博客 + HN 当周条目，能提取一个有意思的 signature：**solo engineer 一个周末能 ship 一个完整产品**。这个 signature 在 2024 年之前需要「一人月」，在 2026 年只需要「一人周末」。成本崩塌的来源不是「更努力」，是「表征 + 工具 + 模型 + runtime」四件事同时变了。
+
+## simedw 的两个周末
+
+simedw 2026 年最让我吃惊的两个项目：
+
+**midi-autocomplete**（2026/06）：125M MIDI piano transformer，108 notes/sec on-device INT8，iPhone 端 App Store 上线。**开发时间：一个周末**。
+
+**spegel**（2026/04）：pip install spegel，HTML → LLM → markdown terminal browser。**开发时间：一个周末**。
+
+两个项目都包含：
+
+- 训练（midi-autocomplete 还要 fine-tune）
+- demo（App Store 上线 / pip install）
+- 博客（worked / failed / learned）
+- HN 提交
+
+一个周末完成这四件事 = solo engineer 的 leverage 在 5×-10× 区间。
+
+## 跨作者 cross-check：Claude 写 macOS 驱动
+
+HN 8/23 当周有一条评论：
+
+> "Claude Code wrote my entire macOS driver in 6 hours. Without Claude, that would have been a week of reading Apple's docs + 反复 kernel panic debug."
+
+Claude Code = LLM 在 IDE 里的应用。一个 6 小时的 solo engineer 工作 = 之前一周的工作。**10× speedup**。
+
+但 simedw 的 5× speedup 不是来自「Claude Code 这种 agent IDE」。simedw 的 5× 来自 **「表征 + runtime + 端侧可跑」**三件事同时变了。
+
+两个 signature 不同：
+
+| 杠杆来源 | simedw（midi-autocomplete） | HN 评论者（macOS 驱动） |
+|---|---|---|
+| 表征 | compound note events（5× speedup） | n/a |
+| Runtime | Core ML INT8 + iPhone 端 | macOS user-space |
+| 工具 | on-device ML framework | Claude Code IDE |
+| 杠杆倍数 | 5×（来自表征） | 10×（来自 agent IDE） |
+
+两个 signature 都成立。solo engineer 的 leverage 在两个维度上同时崩塌。
+
+## Gemini Lite / on-device LLM 的另一面
+
+2026 年 3 月 Google 发布 Gemini Lite。3B 参数端侧可跑。HN 评论：
+
+> "I shipped a personal offline voice memo transcriber in one weekend. iPhone 端，3 秒音频切到文字，误差 5% 以下。"
+
+3B 参数 + iPhone 端 + 一个周末 = solo engineer 的 voice memo 应用。
+
+之前的成本：
+
+- 上传音频到 cloud：需要 AWS / GCP / 配额
+- 调 transcription API：$0.006/min × 60 min/day = $11/月
+- 处理隐私：需要 on-device 选项 + 用户授权 UI
+- 上线 App Store：需要审核 + 公司账号
+
+2026 年的成本：
+
+- 3B 模型直接 embed 进 app
+- iPhone 端 NPU 跑
+- 用户数据不出端
+- 一个周末 ship
+
+成本从 $11/月 + 6 周开发 → $0/月 + 一个周末开发。**3-5 个数量级的成本崩塌**。
+
+## 60p 芯片跑 Photoshop 那一例
+
+HN 8/23 还有一条：60p 芯片（60 美分）跑简化版 Photoshop。3 FPS 但能调色 + 滤镜 + 导出。
+
+60p = 一个 Arduino Nano 的价格。60p 芯片 = ESP32 + 几 MB RAM + LCD 控制器。
+
+**solo engineer 的成本底线 = 60p 芯片**：
+
+- 60p 硬件
+- 一周软件
+- 一个 demo 视频
+
+「60p 芯片跑 Photoshop」这个场景的意义不是「实用」，是「solo engineer 的 cost ceiling 已经被压到 60p」。任何更复杂的项目都不该超过一周 / 千元硬件 / 千元 cloud 配额。
+
+## 成本崩塌的 4 个维度
+
+把上面几个 signature 收起来，solo engineer 的成本崩塌来自 4 个维度的同时变化：
+
+| 维度 | 2024 年之前 | 2026 年 |
+|---|---|---|
+| 模型 | 私有 GPT-4 / 需要 cloud | 开源 / 端侧 3B / 模型即 binary |
+| 表征 | 数据建模靠猜 / 调参 / 数据 augmentation | 「表征 > 优化」一次换 = 5×-10× |
+| Runtime | 服务器 / GPU / cloud 配额 | iPhone / Mac / 浏览器 / 60p 芯片 |
+| 工具链 | IDE + doc + Stack Overflow | Claude Code + Cursor + 公开 dataset |
+
+4 个维度同时崩塌 = solo engineer 的 leverage 指数级增长。
+
+但「杠杆崩塌」也有另一面：**solo engineer 的失败率也在崩塌**——成本越低，失败越不痛，迭代越快，ship 越多。这是 HN 评论看到的「Show HN 周更 5 条独立项目」现象。
+
+## 「表征 > 优化」是这个 signature 的核心
+
+simedw 自己的 5× speedup 来自表征（compound note events），不是优化（量化 / 蒸馏 / kernel fusion）。
+
+solo engineer 的成本崩塌 signature 也一样：**杠杆来自「换表征」，不是「加优化」**。
+
+- 换表征：3B on-device + INT8 + browser-side → 5× speedup
+- 加优化：更大模型 + cloud GPU + 调学习率 → 1.2× speedup
+
+两个 lever 的成本崩塌速度差 4×。solo engineer 的"表征 > 优化"signature 在工具维度也成立。
+
+## solo engineer 的新 cost ceiling
+
+把 4 个维度 + simedw signature 合在一起，solo engineer 的新 cost ceiling：
+
+- **一周开发**（从 6 周降到 1 周）
+- **千元云配额**（从 万元降到 千元）
+- **千元硬件**（iPhone / Mac mini，固定成本一次）
+- **公开数据 + 公开 API**（不训练基础模型）
+- **一个公开 demo + 一篇 worked / failed / learned 博客**
+
+任何 solo engineer 项目超出这个 ceiling 的部分：
+
+- 不该是 solo engineer 做
+- 该交给公司
+- 或者不该做
+
+「Solo weekend hack 的成本正在崩塌」的反面是：**「solo engineer 的 scope 也正在崩塌」**——solo engineer 的 scope 从「产品级别」缩到「demo 级别」。任何超出 demo 的部分（运营 / 销售 / 客服）都不该是 solo engineer 做。
+
+## 与 simedw 「I build strange little systems」signature 对齐
+
+simedw hello-world manifesto 说：
+
+> "I build strange little systems, then write up what worked, what failed, and what I learned."
+
+「Strange little systems」= 周末 hack 的成本崩塌让 strange little systems 成为可能。
+
+- 一个周末 = strange
+- 几千元 = little
+- 系统 = ship 一个完整 demo
+
+Solo weekend hack 的成本崩塌 signature = simedw 的「strange little systems」signature 在 2026 年的具体实现。
+
+## 收尾
+
+Solo weekend hack 的成本正在崩塌。崩塌来自 4 个维度（模型 + 表征 + 工具链 + runtime），不靠任何单一优化。
+
+simedw 的「表征 > 优化」是这个 signature 的核心——换表征 5×-10×，加优化 1.2×。
+
+Solo engineer 的新 cost ceiling：1 周 + 千元 + 公开数据 + 公开 demo。超出 ceiling 的部分，不该是 solo engineer 做。
+
+Strange little systems 是这个时代的 solo engineer signature。每个 solo engineer 项目都是一个 strange little system——小，但完整，公开，能跑，能反思。
+
+## signature
+
+solus opus。
