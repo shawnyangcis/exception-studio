@@ -1,0 +1,131 @@
+---
+title: "simedw 的 midi-autocomplete：表征 > 优化的 4 个场景"
+slug: simedw-midi-autocomplete-representation-wins
+date: 2026-08-24
+type: essay
+tags: [simedw, 一人工程, MIDI, 表征, 表征>优化, 5× speedup, compound note events, DPO, scheduled sampling, solo engineer]
+cover: https://exception-studio.vercel.app/works/simedw-midi-autocomplete-representation-wins
+---
+
+simedw 在 2026/08/20 那篇 midi-autocomplete 博客里只提了一句：「5× speedup 来自表征改变，不是优化」。我把这句话拆成 4 个场景，每个场景的「换表征 / 换度量」之比都成立。同样的硬件、同样的数据、同样的优化器——换一次表征，杠杆大于优化 10 次。
+
+## 场景 1：5× speedup（compound note events）
+
+最直接的例子。朴素的 note-on / note-off / time-shift 表征：
+
+- 1 个音 = 3 个 autoregressive step
+- 3 step × 100ms/step = 300ms / 音
+
+Google Magenta 的 grammar-masked 表征：
+
+- 1 个音 = 4 个 autoregressive step（NOTE_ON + pitch + velocity + TIME_SHIFT）
+- 4 step × 100ms/step = 400ms / 音
+
+simedw 的 compound note events 表征：
+
+- 1 个 token = 1 个音（pitch + delta_onset + duration + velocity + event_type）
+- 1 step × 60ms/step = 60ms / 音
+
+3 step × 100ms = 300ms vs 1 step × 60ms = 60ms = **5× speedup**。
+
+5 个 categorical head 共享一个主干 transformer。模型知道「这个音的完整身份」，不需要外部状态管理。step 的 logits 决定 5 个属性，candidate set 大；step 时间略慢。但 autoregressive 步数差 3-5 倍，总体 5× 加速。
+
+**这不是优化**。不是 quantization，不是蒸馏，不是 kernel fusion。是换了一次「数据怎么建模」。
+
+## 场景 2：数据清洗 > 5× 堆量
+
+第二个例子。同模型、同训练时间，5× 数据量 vs 清洗数据：
+
+- **5× 训练数据 + 同模型**：几乎没 improvement。loss 下降 0.01，rollout 质量持平。
+- **清洗 30% 噪声数据 + 同模型**：明显改善。loss 下降 0.05，rollout 质量肉眼可辨。
+
+为什么清洗是「换表征」？
+
+- 错的 token 在训练里让模型学习错误的 conditional distribution
+- 5× 数据 = 5× 噪声干扰 + 5× 训练时间
+- 清洗 = 把 conditional distribution 修正回真实分布
+
+堆数据是「在错分布上加更多样本」。清洗是「修正分布」。两者杠杆完全不同。
+
+一人工程视角：solo engineer 的数据量不可能堆到 foundation model 级别。但 solo engineer 可以清洗——清洗是时间换表征，不需要算力。
+
+## 场景 3：DPO β sweet spot
+
+第三个例子。DPO（Direct Preference Optimization）有一个 β 参数控制 preference distance 的强度：
+
+- **β=0.10**：preference distance 推太远，模型崩坏。chosen / rejected 的 log-ratio 拉太大，分布偏移，训练 loss 反而上升，rollout 也崩坏。
+- **β=0.03**：preference distance 适中。chosen / rejected 微微分开，分布平移，训练 loss 下降，rollout 质量明显提升。
+- **β=0**（退化为 supervised fine-tuning）：无 preference signal，只有 chosen 的 likelihood 最大。提升幅度不如 β=0.03。
+
+preference distance 不是越大越好。β=0.10 推太远 = 「强行拉开分布」，分布偏移 = 表征变差。β=0.03 微微拉 = 「在合理范围内调整表征」。
+
+**这是「换度量」**。不是优化模型，是换「什么算好」的 metric。
+
+## 场景 4：scheduled sampling 悖论
+
+第四个例子。scheduled sampling = 训练时把 teacher forcing 部分换成模型自己预测的 token。直观想法：缓解 exposure bias。
+
+- **加 scheduled sampling → validation loss 上升**：因为 validation set 是 ground truth，模型自己预测的 token 不如 ground truth，val loss 自然上升。
+- **同期 rollout 质量更好**：因为 rollout 时模型用自己预测，训练时换一部分 self-prediction = 让训练分布逼近 rollout 分布。
+
+「换表征」在这里是「换训练分布与推理分布的对齐方式」。validation loss 不是唯一信号——rollout 质量是另一个轴。模型的「好」不是 val loss 单调函数。
+
+## 4 个场景的统一签名
+
+把 4 个场景放在一起看：
+
+| 场景 | 旧表征 / 度量 | 新表征 / 度量 | 杠杆 |
+|---|---|---|---|
+| 1 | note-on/off + grammar-masked（4 step） | compound note events（1 step） | 5× speedup |
+| 2 | 5× 噪声数据 | 清洗 30% 数据 | rollout 明显改善 |
+| 3 | β=0.10（推太远） | β=0.03（适中） | 训练 loss 下降 |
+| 4 | val loss 单调 | val loss + rollout 双轴 | rollout 质量改善 |
+
+每个场景的「换表征 / 换度量」都成立。「加数据 / 加参数 / 加训练时间」都不成立。
+
+simedw 的 14 次实验里，第 1-2 次失败是「在错表征上做优化」，第 3-14 次成功是「换表征 / 换度量」。
+
+## 优化能做什么？
+
+优化决定「在对的表征上多快收敛到好模型」。它假设表征已对、度量已对、数据分布已对。
+
+表征错了，优化只能在错的分布里挣扎。simedw 实验 1-2 失败是证明。
+
+表征对了：
+
+- compound note events + DPO β=0.03 + 数据清洗 + scheduled sampling rollout-aware
+- 这 4 个换表征 / 换度量叠加 = 5× speedup × 训练效率 × rollout 质量
+
+「先问表征」是一人工程的捷径。solo engineer 没有无限算力做大规模 hyperparameter sweep，但 solo engineer 可以做小规模表征实验——14 次实验，每次换一种表征，14 天出结果。
+
+## simedw 的「算了，挺快乐」
+
+Core ML runtime 不暴露 KV cache。这意味着没法做 ring buffer streaming——每次生成都要重新 forward 整个 context。
+
+换 OpenAI API？换 PyTorch 直接跑？都不在 simedw 的目标里：iPhone 端 108 notes/sec + INT8 量化 + App Store 上线 = solo engineer 的完整 ship。
+
+simedw 选择接受 Core ML 的限制：「算了，挺快乐。」
+
+一人工程哲学：
+
+- 不跟工具较劲
+- 接受平台限制，然后做能做的事
+- 表征对了，平台不对，也 ship
+
+「算了，挺快乐」不是放弃，是「换表征不动声色」的另一种说法。
+
+## 收尾
+
+表征是房子的地基。地基不对，刷漆没用。
+
+表征对了，优化只决定多快收敛到好模型。一人工程的杠杆顺序：
+
+1. 先问数据怎么建模（compound note events）
+2. 再问度量怎么定（DPO β / rollout vs val loss）
+3. 最后问优化怎么做（quantization / distillation）
+
+solo engineer 的 14 天表征实验 > foundation lab 的 14 天算力。
+
+## signature
+
+solus opus。
