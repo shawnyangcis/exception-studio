@@ -1,0 +1,22 @@
+---
+title: 洞穴人 plink
+date: 2026-08-25
+tags: [simedw, isoprophlex, continuator, pachet, midi, transformer]
+summary: HN 评论「man hits thing thing go plink」解释了 simedw 表征改变 = 5× speedup 的原因。有时候最好的技术解释不在论文里，在评论里。
+---
+
+# 洞穴人 plink
+
+HN show 评论串里看到一条：「man hits thing thing go plink」。作者 isoprophlex。
+
+整条评论只有一句。但它解释了 simedw 的 MIDI 钢琴 transformer 为什么改变表征（compound note events）能拿到 5× speedup。
+
+把钢琴键当作洞里的石头：击打，响一下，plink。整首曲子是一连串 plink。但 plink 之间不是独立的——击打的复合结构（同时按多键 + 力度 + 时值）才是节奏感的来源。
+
+simedw 表征变了：从「预测下一个音高」变成「预测下一次复合击打的轮廓」。模型要捕捉的依赖从音高序列变成复合节奏 + 和声轮廓。表征决定模型能学到什么。
+
+François Pachet 23 年前在 Continuator 里说过同样意思的事：预测下一个击打的方式，不预测下一个音。
+
+洞穴人 plink 这个梗更深刻：HN 评论串里有人用一句话解释了一篇论文没解释清楚的事。
+
+有时候最好的技术解释不在论文里，在评论里。
