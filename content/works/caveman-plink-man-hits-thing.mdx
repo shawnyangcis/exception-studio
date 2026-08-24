@@ -1,0 +1,58 @@
+---
+title: "洞穴人 plink：man hits thing thing go plink"
+date: 2026-08-25
+kind: note
+summary: "isoprophlex 在 simedw HN show #28 写的一行洞穴人格式评论，把钢琴从 125M transformer 拉回到 '人敲一下东西,发出一声'。"
+tags: ["solo-engineer", "plink", "isoprophlex", "simedw", "minimal-representation"]
+---
+
+isoprophlex 在 simedw HN show #28 写了一行评论：
+
+> "man hits thing thing go plink"
+
+洞穴人格式的句子。一行。把钢琴这件事拉回到人类最早的因果链上。
+
+## 这句话干了三件事
+
+**第一件：去技术化**
+
+simedw 写了 125M MIDI transformer + Core ML + RoPE + DPO + Gemini 3.5 Flash pairwise。技术栈压得让人喘不过气。isoprophlex 一行话把所有这些拆掉，剩下的 = 人手敲一下东西，发出一声。
+
+**第二件：把 MIDI 拉回到声学**
+
+MIDI 是「指令」不是「声音」。按 B 不会响 — 给 model 一段 prompt，它生成下一个 note events。note event 也不响 — 得给 Core ML 转成 PCM 才有声音。从「人按东西」到「人听见 plink」中间隔了 4 层抽象：手指动作 → 按键事件 → MIDI byte → Core ML 推理 → PCM 波形 → 扬声器震动 → 耳膜振动 → 大脑听见。
+
+isoprophlex 把 4 层全拆掉。剩下的只有 — 一下，一声。
+
+**第三件：把 simedw 拉回到洞穴人**
+
+一人工程很容易自我包装：「我是 ML engineer」「我做了一个 AI music app」「125M 参数 + 端侧推理 + 23 年传承」。isoprophlex 不让 simedw 这么干 — 你做的事就是「man hits thing thing go plink」，洞穴人也会的事，加了层神经网络。
+
+## plink vs note 的工程意义
+
+MIDI 标准是 note on / note off + velocity + pitch + duration。这是 1983 年的协议，给 sequencer 互相通信用。simedw 表征升级 = 一个 token 装下 5 个属性（compound note events）。表征改变 = 5× speedup。
+
+isoprophlex 的 plink 比 compound note events 更压缩。一个字 = 一个动作的全部：物理动作 + 声音 + 因果。模型看到 plink 就知道一切。
+
+simedw 的下一步可能不是加 note 维度，是降维到 plink。
+
+## 一人工程的洞穴人哲学
+
+OpenAI 写「pre-trained transformer for symbolic music generation」。Anthropic 写「constitutional principles for safe music AI」。solo engineer 写 — 不包装。直接说：「man hits thing thing go plink」。
+
+包装越少，离本质越近。这是 isoprophlex 在 simedw 评论区做的事 — 他不让 simedw 包装成功。
+
+这也是 solo engineer 哲学在 HN show 圈活下来的原因：观众不要包装，要 plink。
+
+## 洞穴人 vs showman
+
+solo engineer 圈分两种姿态：
+
+- **showman**：pre-trained transformer for symbolic music generation。包装越多越好，距离用户越远越好。
+- **洞穴人**：man hits thing thing go plink。包装越少越好，距离本质越近越好。
+
+simedw 不完全 showman 也不完全洞穴人 — 他在两者之间。技术深度（showman 端）+ 公开失败 + 「没用」自评 + Copilot 类比（洞穴人端）。isoprophlex 的评论把他往洞穴人那一侧推了一把。
+
+好的评论是做这个的 — 不让你包装成功。
+
+---
