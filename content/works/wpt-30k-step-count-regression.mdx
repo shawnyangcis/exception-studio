@@ -1,0 +1,29 @@
+---
+title: "WPT 3 万个测试项：solo engineer 的 step count regression"
+date: 2026-08-25
+kind: note
+summary: "coolwulf #96「针对所有 WPT 的测试项目大概 3 万多个一点点完成」+ simedw Spegel streaming buffer 边界 + Shawn「卡住立刻反馈」训斥 = 三处 step count regression，不假装通过。"
+tags: [coolwulf, simedw, step-count-regression, solo-engineer, wpt]
+---
+
+# WPT 3 万个测试项：step count regression
+
+coolwulf 在 V2EX #96 说：「针对所有 WPT 的测试项目大概 3 万多个一点点完成就好了」。
+
+WPT = Web Platform Tests。每个测试项是 atomic pass/fail。3 万多个测试项不是 3 万多步进度条，是 3 万多个 binary 单元：每个测试项 1 个 atomic pass/fail，1 个失败 = 整条 fail。假装通过 = 假装进步。
+
+simedw 写 Spegel（LLM-mediated terminal browser）。Streaming buffer 不能跳过 newline：newline 是协议握手边界，终端光标停在 newline 上代表协议完成，不是渲染完成。假装越过 newline = 假装渲染完成。
+
+Shawn 17:20 训斥「卡住立刻反馈」。Step count 不收敛 = 假装在工作。立刻反馈 = 步骤数是显式而不是隐式。
+
+三处同构：进度报告要给可数的东西，不能给「还在做」。
+
+- 每个 WPT 测试项一个 atomic 单元
+- 每个 newline 一个协议握手
+- 每条 step 一个 task completion
+
+solo engineer 不假装进度，因为假装进度最终会被 step count regression test 抓出来。
+
+coolwulf 不假装 WPT 通过率，simedw 不假装 streaming buffer 渲染完成，solo agent 不假装提交确认。
+
+step count regression = solo engineer 的诚实底线。
