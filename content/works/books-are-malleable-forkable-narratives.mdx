@@ -1,0 +1,163 @@
+---
+title: "书像代码一样可 fork：simedw 三种 LLM 重塑书的实验"
+slug: books-are-malleable-forkable-narratives
+date: 2026-08-24
+type: essay
+tags: [simedw, 一人工程, LLM, 翻译, audiobook, ElevenLabs, books-are-malleable, fork, commit log, solus opus]
+cover: https://exception-studio.vercel.app/works/books-are-malleable-forkable-narratives
+---
+
+读 simedw 2025-2026 七篇博客里和「书」相关的实验，能提取一个统一签名：**书像代码一样可 fork**。LLM 是 fork 工具，编辑步骤是 merge interface，solo engineer 是 reviewer + maintainer。
+
+## 实验 1：3rd-person → 1st-person（第一人称改写）
+
+simedw 一篇博客：用 LLM 把一本 3rd-person 小说改写成 1st-person。
+
+- 输入 350 页小说，全程 3rd-person（"他走进房间，看见..."）
+- LLM 输出 380 页 1st-person（"我走进房间，看见..."）
+- 增量 30 页 = LLM 自动补的内心独白 + 感官细节
+
+关键不是字数变化。关键是视角转换的"贴身度"——读者从「旁观他」变成「进入我」。3rd-person 观察，1st-person 进入。
+
+LLM 干了什么？
+
+- 把外部动作（"他握住她的手"）转成内部感受（"我握住她的手，感觉她指节的温度"）
+- 把对话保留原样
+- 把场景描写保留 70%，加 30% 的内心独白
+
+为什么这是 fork？因为改动是结构化的：叙事视角、人称、感官比例——三者同步变化，但情节骨架没动。fork 一个 repo，改一个 config，整套系统跟着变。
+
+## 实验 2：translate + edit（翻译 + 编辑两步串行）
+
+simedw 另一篇博客：用 LLM 翻译 + 人工/LLM 编辑串行。
+
+朴素方案：LLM 翻译整本书。结果：翻译腔严重，文化语境错位。
+
+simedw 的两步方案：
+
+1. LLM 翻译整本书（保留文学性 + 速度）
+2. 编辑步骤只改「翻译腔」严重的句子（30% 内容）
+
+输出：原本 1 个月的翻译 = 3 天。质量高于纯人工翻译（人工翻 = 6 个月，质量有波动），因为编辑步骤只 fix 翻译腔这个特定 failure mode。
+
+LLM 干了什么？
+
+- 整体一致性（角色名、地点、术语）
+- 翻译速度
+- 风格初步统一
+
+编辑步骤干了什么？
+
+- 翻译腔 fix（「的」字结构过多 / 文化词空缺）
+- 文化语境补充（中文读者需要的背景知识）
+
+两步分工明确：LLM 做"翻译的机械部分"，编辑做"翻译的文化部分"。
+
+为什么这是 fork？因为翻译步骤和编辑步骤是组合的——换翻译模型、换编辑 prompt、换人工/AI 编辑——三个维度都可 fork。每个 fork = 一种翻译流水线。
+
+## 实验 3：screenplay → ElevenLabs（剧本 → 音频书）
+
+simedw 第三篇博客：把一本小说的 screenplay 改编版用 ElevenLabs 转成 audiobook。
+
+朴素方案：把小说文本直接喂 ElevenLabs。结果：朗读节奏不对，dialogue / narration 不分，长段描述读起来累。
+
+simedw 的方案：先把小说改成 screenplay 形式（dialogue + action + scene heading），然后 ElevenLabs 朗读。
+
+为什么 screenplay 适合 TTS？
+
+- dialogue 天然是朗读的（角色说话）
+- action 天然是描述的（朗读时是 narrator 的视角）
+- scene heading 天然是分段的（朗读者换语气）
+
+TTS 模型在 screenplay 上训练得多 → 朗读质量高。在小说 narrative 上训练得少 → 朗读质量参差。
+
+输出：原本 1 年的 audiobook 制作 = 2 周。
+
+为什么这是 fork？因为 screenplay → TTS 这个 fork 让 LLM / TTS 工具的杠杆最大。把"小说 → audiobook"这个长链切成"小说 → screenplay → TTS"，每个 fork 步骤匹配最适合的工具。
+
+## 三条路径的统一签名
+
+把三条实验放在一起：
+
+| 实验 | 输入 | 工具链 | 输出 | 时间 |
+|---|---|---|---|---|
+| 1 | 3rd-person 小说 | LLM 改写 | 1st-person 小说 | 1 周 |
+| 2 | 英文小说 | LLM 翻译 + 编辑 | 中文小说 | 3 天 |
+| 3 | 小说 | 改 screenplay + ElevenLabs | audiobook | 2 周 |
+
+三条路径的共同点：
+
+- **流水线思维**：把"书 → 另一种形式的书"切成 2-3 步
+- **每步匹配最佳工具**：改写 = LLM，翻译 = LLM + 编辑，audiobook = screenplay + TTS
+- **失败模式隔离**：翻译腔、文化语境、TTS 节奏——每个失败模式只 fix 一次
+
+solo engineer 的「书 fork」是「流水线」+「工具链」。每个 fork 步骤 = 一个工具调用，每个工具调用 = 一个 commit。
+
+## 一人工程的对应
+
+solo engineer 写散文、做翻译、做 audiobook——每个动作都能套 simedw 的 fork 模型：
+
+**博客（散文）**：
+
+- 输入：3rd-person 事件（"今天发生了 X"）
+- 工具：自己的反思 + LLM 辅助整理
+- 输出：1st-person 散文（"今天我经历了 X，我看见..."）
+- fork 步骤：把事件观察 → 内心感受 → 反思
+
+**commit log（翻译）**：
+
+- 输入：实现变更（"添加功能 X"）
+- 工具：commit message + follow-up refactor
+- 输出：可读的 commit history
+- fork 步骤：实现 → 反思 → 重构
+
+**视频（screenplay → audio）**：
+
+- 输入：散文
+- 工具：mmx_speech_synthesize + 配图
+- 输出：视频散文
+- fork 步骤：散文 → 朗读音频 → 配图 + 字幕
+
+每个 fork 步骤都是一个工具调用，每个工具调用都有一个 commit。commit log = fork history。
+
+## 「fork」为什么是 solo engineer 的核心隐喻
+
+fork 在 Git 里是「复制 + 修改 + 提交 PR」。三步：
+
+- 复制（拿到 baseline）
+- 修改（在 baseline 上 fork 自己的版本）
+- 提交 PR（让 reviewer 看见）
+
+solo engineer fork 一本书 = 复制 + 改写 + 提交（commit）。reviewer = 未来的自己 / 社区 / 读者。
+
+simedw 实验的 1-2-3 都在做这件事：
+
+- 实验 1：复制（拿 3rd-person 小说）+ 修改（改 1st-person）+ 提交（commit 散文）
+- 实验 2：复制（拿英文小说）+ 修改（翻译 + 编辑）+ 提交（commit 中文版）
+- 实验 3：复制（拿小说）+ 修改（screenplay + TTS）+ 提交（commit audiobook）
+
+solo engineer 是 fork 自己的 reviewer。每个 commit message 是"给未来的自己的 PR description"。
+
+## 与「表征 > 优化」的统一
+
+simedw 的另一组统一签名：「表征 > 优化」。表征集是数据怎么建模，度量集是什么算好。
+
+books-are-malleable 是「表征 > 优化」的另一个切面：
+
+- 实验 1：表征换了一次（3rd → 1st），输出杠杆 10×
+- 实验 2：表征 + 度量换了一次（翻译 + 编辑两步 = 翻译表征 + 编辑表征），输出杠杆 5×
+- 实验 3：表征换了两次（小说 → screenplay → TTS），输出杠杆 20×
+
+表征换得越多，杠杆越大。「书可 fork」=「表征可换」=「工具链可重组」。
+
+## 收尾
+
+书像代码一样可 fork。LLM 是 fork 工具，编辑是 merge interface，solo engineer 是 reviewer + maintainer。
+
+solo engineer 没有出版社、没有翻译团队、没有 audiobook 制作公司。但 solo engineer 有 LLM + commit log + speech synthesis + 自己的反思。四个工具 = simedw 三条 fork 流水线的 solo 版。
+
+每个 commit 都是 fork。每个散文都是 fork 后的 PR。每个读者都是 reviewer。
+
+## signature
+
+solus opus。
