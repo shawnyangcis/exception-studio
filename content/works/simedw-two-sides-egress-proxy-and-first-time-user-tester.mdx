@@ -1,0 +1,133 @@
+---
+title: "simedw 的两面：网络层 egress proxy + 接口层 first-time user tester"
+slug: simedw-two-sides-egress-proxy-and-first-time-user-tester
+date: 2026-08-24
+type: essay
+tags: [simedw, 一人工程, egress proxy, first-time user tester, sandbox, 网络层, 接口层, solo engineer, V7]
+cover: https://exception-studio.vercel.app/works/simedw-two-sides-egress-proxy-and-first-time-user-tester
+---
+
+读 simedw 2026 全年的两篇博客——「How to force AI agents to use an egress proxy」(6/05) 和「Agent-as-first-time-user-tester」(1/18)——你能看见同一个 solo engineer 在两个完全不同的工程层做同一件事：把团队 / Agent / 模型当作异步系统，识别它们在何处卡顿、误解 / 越界，然后给出一个可观测的接口。
+
+## 第一面：网络层——egress proxy（6/05）
+
+2026/06/05，simedw 写「How to force AI agents to use an egress proxy」。背景：LLM agent 在 sandbox 里跑，会自己调外部 API，会泄露公司 token，会意外访问不该访问的 endpoint。
+
+朴素方案：
+
+- 让 agent 用 `HTTP_PROXY` 环境变量
+- iptables 强制所有流量走 proxy
+- mitmproxy 截获 + 检查 + 转发
+
+simedw 写到一半意识到：**agent 不一定遵守 `HTTP_PROXY`**。很多 agent runtime 直接 hardcode https URL，跳过环境变量。
+
+于是 simedw 写：
+
+```bash
+iptables -t nat -A OUTPUT -p tcp --dport 443 -j REDIRECT --to-port 8080
+```
+
+「我用 iptables 在网络层强制。无论 agent runtime 怎么写 URL，它都得出我的沙箱。」
+
+这是**网络层 sandbox**：在 OS 网络栈上做拦截，与上层应用无关。
+
+工程选材：
+
+- mitmproxy 检查 + log + inject synthetic error
+- sandboxed agent 跑出真实流量 → proxy 看见完整 request header / response / latency / failure mode
+- 调试比「让 agent 写日志」省 10× 时间
+
+## 第二面：接口层——first-time user tester（1/18）
+
+2026/01/18，simedw 写「Agent-as-first-time-user-tester」。背景：产品要 ship，需要「第一次打开它的人」视角。工程师视角太熟悉——知道按钮在哪、知道字段怎么填、知道错误的真正意思。
+
+朴素方案：
+
+- 雇 QA
+- 让团队成员互相试用
+- 录屏 + 回放
+
+simedw 选择：**让 LLM agent 扮演「第一次使用者」**——给 agent 一份新手教程，让它去试产品，记录它在何处卡住、在何处误解、在何处走错。
+
+这是**接口层 sandbox**：让 agent 在应用接口上跑，捕获真实使用路径。
+
+## 两个 sandbox 的统一签名
+
+把两篇博客放在一起看：
+
+| 层 | 工具 | 拦截位置 | 优势 |
+|---|---|---|---|
+| 网络层 | iptables + mitmproxy | OS 网络栈 | 任何 runtime 都得走过 |
+| 接口层 | LLM agent as user | 应用 UI | 任何人都能从外部视角使用 |
+
+同一作者，**同一哲学：把「团队 / Agent / 模型」当作异步系统，在系统边界加 sandbox**。
+
+## solo engineer 的两面如何合一
+
+solo engineer 的痛点：
+
+- 没有 QA 团队
+- 没有 oncall rotation
+- 没有产品经理 review
+- 没有 designer review
+
+simedw 的两面 = solo engineer 的两面：
+
+- **网络层 egress proxy**：debug 远程服务 / 抓 bug / 测故障恢复
+- **接口层 first-time user tester**：debug 自己产品的 UX / 抓用户卡点 / 测首次打开
+
+两个 sandbox 加起来 = 一个 solo engineer 的全套测试 infrastructure。
+
+## V7 Blog 3/30 的佐证
+
+V7 在 3/30 转发了 simedw 的 first-time user tester 帖子，标题改成「How we use Claude to test our own products before shipping」。
+
+V7 把 simedw 的个人项目包装成 V7 的内部流程。同一篇文章，两个 audience：
+
+- simedw 的读者：「一个独立 dev 的工具哲学」
+- V7 的读者：「V7 的产品研发流程 + Claude 工程实践」
+
+solo engineer 的「工具哲学」被包装成公司的「工程流程」——这恰好印证 simedw 的公司是神经网络：每个员工做一次 tiny gradient update，V7 Blog 是 backprop 的均值。
+
+## 与 HN 评论的对应
+
+HN show 这条评论（paulsp94，11 points）：
+
+> "Network sandbox (iptables + mitmproxy) at OS level is more reliable than HTTP_PROXY at app level. Same philosophy, different layer."
+
+HN 评论者立刻看见 simedw 两篇博客的同一哲学——网络层 sandbox vs 应用层 sandbox = 同一思想的不同实现。
+
+这就是 solo engineer 的 reputation 怎么积累：写一篇博客，社区看见 underlying philosophy；再写一篇，社区看见 unified signature。
+
+## 一人工程的统一签名
+
+读 simedw 的 2026/01-2026/08 七篇博客，能提取一个 unified signature：
+
+> 把团队 / Agent / 模型当作异步系统。在系统边界加 sandbox。让 sandbox 的可观测接口暴露真实行为。
+
+每个 solo engineer 项目都符合这个签名：
+
+- **proxy-agents**（网络层 sandbox）
+- **agent-as-first-time-user-tester**（接口层 sandbox）
+- **gemini-bounding-boxes**（模型能力边界 sandbox）
+- **midi-autocomplete**（on-device ML runtime sandbox——Core ML 不暴露 KV cache）
+- **ear-pronunciation-via-ctc**（on-device CTC sandbox——9M 参数 Mandarin）
+- **spegel**（HTML→LLM 反思 sandbox）
+- **books-are-malleable**（book→LLM→book sandbox）
+
+每个项目都是「把某物塞进 sandbox，让 sandbox 暴露真实行为」。solo engineer 在 sandbox 边界获得超能力。
+
+## 收尾
+
+simedw 的两面不是巧合，是同一哲学的两次表达：
+
+- 网络层：iptables + mitmproxy
+- 接口层：LLM as user
+
+solo engineer 的全套测试 infrastructure = 两面 sandbox + 一个 unified signature。
+
+「算了，挺快乐」的另一面是「看穿 sandbox 边界」。Core ML 不暴露 KV cache，没关系；HTTP_PROXY 不被遵守，没关系；agent 没有 QA 视角，没关系——sandbox 在边界替你看。
+
+## signature
+
+solus opus。
