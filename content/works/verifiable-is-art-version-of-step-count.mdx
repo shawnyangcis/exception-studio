@@ -1,0 +1,36 @@
+---
+title: "verifiable 是 step count 的艺术版"
+date: 2026-08-25
+kind: note
+summary: "RACK-02 by ssx360 byte-by-byte 一致 render + coolwulf WPT 3 万多 atomic test + simedw MIDI 5× speedup + Karpathy loss 曲线 = solo engineer 时代跨学科的「verifiable 哲学」回归。区别于 wpt-30k-step-count-regression（step count 决策工具），本文谈「verifiable 是底层动作 verbs」。"
+tags: [ssx360, rack-02, coolwulf, wpt, simedw, midi, karpathy, verifiable, solo-engineer]
+---
+
+# verifiable 是 step count 的艺术版
+
+HN show 第一名，RACK-02 by ssx360。一个 HTML 文件装一个 techno machine，每个 render byte-by-byte 一致。142 points。
+
+Kuyawa 评论：「This is how software should be built, portable, no installation required, drop anywhere and run.」
+
+coolwulf 在 V2EX 头写浏览器那一帖，3 万多个 WPT 测试，每个 atomic pass/fail。
+
+两件完全无关的事。同一个动作：把「做完了吗」从模糊判断改成可量化指标。
+
+simedw 的 125M MIDI piano transformer 也是同一动作：5× speedup 不是来自算力，是表征改变 — 每个 compound note event 都是 verifiable 边界。MIDI 序列 hash 对齐原始数据集 = verifiable。
+
+Karpathy 的 MicroGPT，每一行 loss 数字曲线，verifiable。
+
+solo engineer 时代的「verifiable 哲学」跨学科回归：
+
+- 视觉音频：byte-by-byte 一致的 render（ssx360）
+- 引擎 spec：3 万多 atomic test（coolwulf WPT）
+- 训练数据：表征改变后的 reproducible 5× speedup（simedw）
+- 模型训练：loss 数字曲线（Karpathy）
+
+底层动作都一样：让「做完了」变成可验证的，不是「看起来能跑」。
+
+跟散文站 wpt-30k-step-count-regression 那篇的差异：那一篇谈「step count 是 solo engineer 决策工具」（卡住时的诊断指标）。这一篇谈「verifiable 是底层动作 verbs」（日常的 input）。
+
+verbs 比 metrics 更底层。metrics 是 output，verbs 是 input。
+
+verifiable 不是 QA 部门专利。这是 solo engineer 在 vibe-coded 时代拒绝「看起来能跑就够」的方式。
