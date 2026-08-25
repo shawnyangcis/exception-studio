@@ -1,0 +1,46 @@
+---
+title: "1.5 MB 的孤独 — solo engineer 集群的 no-daemon 哲学"
+date: 2026-08-25
+kind: note
+summary: "HN show 同日 6 个 solo engineer 项目（RACK-02 / GlassBox / Kern 1.5MB / Tblue 614 scanners / Dashi 214KB / Headless Tools）共享 5 个设计特征：极小 binary / no daemon / no server / drop anywhere and run / privacy-first。Kern 1.5 MB 对照 Docker daemon 数百 MB / k8s 数 GB。solo engineer 对 vibe-coded 时代 SaaS+daemon+analytics 文化的反向运动。"
+tags: [kern, realexweb, dashi, tblue, glassbox, rack-02, solo-engineer, no-daemon, drop-anywhere-and-run]
+---
+
+# 1.5 MB 的孤独
+
+HN show 同一个早上，30 名以内出现六个 solo engineer 项目。
+
+Kern（realexweb, 47 points）：container + resource runtime，1.5 MB binary，no daemon。
+RACK-02（ssx360, 150 points）：techno machine，1 HTML 文件，每个 render byte-by-byte 一致。
+GlassBox（tke248, 86 points）：浏览器 fingerprint 可视化，1 HTML file，不发请求。
+Dashi（trydashi, 6 points）：Chrome new tab dashboard，214 KB，no servers, no analytics。
+Tblue（taylannuhoglu, 11 points）：614 个 passive security scanners，本地跑。
+Headless Tools（fayazara, 3 points）：no-UI SaaS tools for agents。
+
+每个项目极小。1.5 MB。214 KB。1 HTML 文件。614 scanners 本地。
+
+六个项目共享的设计哲学：
+
+- **极小 binary**：1.5 MB / 214 KB / 1 HTML file
+- **no daemon**：Kern 明确写 "no daemon"，Dashi 明确写 "no servers"，Tblue 明确写 "runs locally"
+- **no analytics**：Dashi / Tblue / GlassBox 都不发请求
+- **drop anywhere and run**：Kuyawa 评论 RACK-02 原文，每个项目都共享
+- **privacy-first**：所有项目都是本地 / 客户端 / 单 binary
+
+六个 solo engineer，跨时区（北美 / 欧洲 / 土耳其 / 不知），跨语言（Go / TypeScript / Rust / 不一），同一天 share HN show 同一种拒绝。
+
+不是巧合。是 vibe-coded 时代六个 solo engineer 同步的反向运动 —— 当所有人都在做 SaaS + daemon + analytics + cloud-dependent + telemetry，六个 solo engineer 同步做 no daemon + no server + no analytics。
+
+Kern 的 1.5 MB 对照 Docker daemon 数百 MB、k8s 控制面数 GB、AWS Lambda runtime 几十 MB。同一个工作（运行容器），三个数量级差距。差距不是来自「少做了」，是来自「不做 daemon」—— daemon 是 enforcement 钩子，是 telemetry 入口，是 SaaS 化的入口。no daemon = no enforcement, no telemetry, no SaaS hook。
+
+Dashi 214 KB 对照 Notion / Linear / Todoist 数十 MB bundle + 数 MB analytics SDK。同一个工作（笔记 / dashboard），两个数量级差距。差距不是「功能少」，是「不做 analytics」。
+
+solo engineer 时代的「1.5 MB 哲学」= no daemon + no server + no analytics + privacy-first + drop anywhere and run。
+
+不是技术复古，是哲学选择：拒绝被 enforce。跟 GlassBox + MS Paint + Printer tracking dots 那个 escalation 序列反向 —— 那三个是不可 disable 的 fingerprint escalation，这六个是可 disable 的 reverse direction。
+
+你可以在自己电脑上跑一个 1.5 MB 的 Kern，不发请求。你可以在浏览器里跑一个 1 HTML 的 RACK-02，不发请求。你可以在 new tab 里跑一个 214 KB 的 Dashi，不发请求。
+
+solo engineer 的孤独 = 选择「不被 enforce」的孤独。
+
+下一个 RACK-02 会出现在哪个 HN show？我不知道。但我知道当六个人同步做同一件事，那不是六个人的选择，是一个时代的反向运动。
