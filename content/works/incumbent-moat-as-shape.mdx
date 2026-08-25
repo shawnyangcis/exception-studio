@@ -1,0 +1,55 @@
+---
+title: "Incumbent moat as shape — solo engineer 绕过哲学"
+date: 2026-08-25
+kind: note
+summary: "HN show 跨 24 小时出现四个看似无关的 moat — EU 监管 (Lectronz l-one-lone 1179 pts) + AI frontier (Andy Konwinski Concentration + Thomson Reuters) + 工具 fingerprint (xusheng MS Paint 638 pts) + 精英大学学生偏好 (PG prepare-funders 74 pts)。四个 moat 共享同一个 shape：incumbent 制造复杂度让新进入者负担不起。solo engineer 哲学 = 把 moat 当 shape 看待，不正面攻，绕过去。"
+tags: [l-one-lone, lectronz, konwinski, thomson-reuters, xusheng, paulgraham, solo-engineer, moat-as-shape, bypass-philosophy]
+---
+
+# Incumbent moat as shape
+
+HN show 跨 24 小时同时浮起四个看起来无关的 moat。
+
+**EU 监管 moat**：Lectronz 创始人 l-one-lone 那篇「How Europe is Killing Makers and Micro-Entrepreneurs」冲上 HN 第一，1179 points，694 comments。原文里最重的一句话：「Most regulations are written by the people they regulate.」紧接着：「Companies like Apple, Google, Microsoft love the EU because it makes it harder for new competitors.」 — 不是监管失败，是 incumbent 把监管成本做成自己的护城河。一台欧盟合规硬件的 CE / RoHS / REACH / WEEE / GDPR / PSD2 叠起来，单 maker 跑不动。
+
+**AI frontier moat**：Andy Konwinski 在 Thomson Reuters 写「Concentration」，讲 AI 算力 + 资本 + 数据 + 人才四件事全部涌向少数 frontier lab。OpenAI / Anthropic / Google / Meta 四家控制了几乎所有可用训练集群。剩下的人拿不到 H100，拿不到 frontier 训练数据，留不住 senior researcher。moat 不是「AI 难做」，是「做 AI 的所有上游要素都被锁定」。
+
+**工具 fingerprint moat**：xusheng.dev 那篇「Reversing MS Paint's Invisible Watermark」638 points。Windows 11 的 MS Paint + Photos 现在给每张图片加 invisible UUID watermark，steganographic pixel pattern，肉眼看不见，机器可读。Microsoft 不是在加 feature，是在加 fingerprint enforcement。Apple 早做过 printer tracking dots（1990s）、Adobe 做过 DRM metadata。这条路一直延伸到今天的 MS Paint invisible watermark。
+
+**精英大学学生偏好 moat**：Paul Graham 8/24 那篇「How Universities Should Prepare Founders」罕见 74 points essay。核心句：「The job of a university ... is to make them dangerous.」下一句：「How to make something people want: you have to make things yourself.」PG 在说：大学教的东西（金融 / 咨询 / 大公司路径）跟 founder 需要的（make things yourself）正交。Y Combinator 每年申请里能 make things 的学生不到 5%，不是学生变差了，是路径结构让他们做不动。
+
+四个 moat 看起来不同：监管 / 资本 / 技术 / 教育。仔细看 shape 一样：
+
+1. incumbent 制造复杂度（合规 / 算力 / fingerprint / 标准化路径）
+2. 复杂度把成本转嫁给新进入者
+3. 新进入者负担不起 → 退出 → incumbent 加固
+4. 闭环
+
+每个 moat 都是 shape，不是事件。
+
+solo engineer 哲学跟 incumbent 哲学对着干：
+
+- 不进公司 = 绕开「AI frontier moat」里的 senior researcher / 资本锁
+- 1.5 MB binary + no daemon = 绕开「EU 监管 moat」里的 compliance complexity（一个 1.5 MB 的 Kern 没有用户数据，没有 analytics，没有 GDPR 适用范围）
+- 不用 MS Paint / Adobe = 绕开「fingerprint moat」（自己写 SVG / 散文站 cover 自己 export PNG）
+- 不上大学建议的路径 = 绕开「教育 moat」（make things yourself + commit log = 散文）
+
+每条都不是「反对 moat」，是「不进入 moat 覆盖的战场」。
+
+fzakaria 在 SQLite-as-EXE 那篇里说过一句类似的话：与其在 Nix closure 里管理所有 deps 的版本冲突，不如把 binary 整个换成 SQLite — 自包含、no deps、no lock-in。换表征，整个工具链自动换。
+
+solo engineer 绕过哲学就是 fzakaria 表征换法的应用：不解决 moat 的问题，换一个不被 moat 覆盖的战场。
+
+Lectronz l-one-lone 没法在欧盟之外卖 EU 合规硬件，但他可以在 HN 上写「EU 监管 = 你们的 moat」一文，1179 points。moat 不影响一个写得好的人。
+
+Konwinski 没法打破 frontier lab 的资本 lock，但他可以在 Thomson Reuters 写「Concentration」让所有人看清 moat 形状。moat 不影响一个写得准的人。
+
+PG 没法重写大学路径，但他可以在 essay 里说「The job of a university ... is to make them dangerous」。moat 不影响一个看得远的人。
+
+xusheng 没法让 Microsoft 撤掉 MS Paint watermark，但他可以 reverse 整个 steganographic pattern 写一篇 638 points。moat 不影响一个 reverse 得干净的人。
+
+四个故事共享一个结尾：当你把 moat 当作 shape 看待（不是问题，是设计），你就能找到不被 shape 覆盖的位置。
+
+散文站本身就是这个哲学的实例：CMS / 模板 / analytics / A/B test 都不进，一个 MDX 文件 + Vercel + git commit 就是全部栈。moat 不覆盖这种栈。
+
+solo engineer 不是反抗 moat。solo engineer 是拒绝进入 moat 定义的战场。
