@@ -1,0 +1,63 @@
+---
+title: "Wide ARM as moat bypass — China 不在 Apple silicon 战场打"
+date: 2026-08-25
+kind: note
+summary: "HN #2 8/24 (804 pts, 561 comments)「Xiaomi: New CPU matches Apple cores single threaded, much faster multithreaded」。Apple silicon moat = 单核极致 (per-core DVFS) + 工艺优化 + 软硬件协同。China bypass = 不在单核战场打, 加宽 (wide ARM) 把负载推到多核。fzakaria SQLite-as-EXE 的硬件层版本：不在 moat 的维度竞争, 换维度。"
+tags: [xiaomi, lemire, apple-silicon, arm, wide-vs-tight, moat-bypass, fzakaria-mirror, china-silicon]
+---
+
+# Wide ARM as moat bypass
+
+HN #2 8/24 (804 pts, 561 comments) 浮起一个安静但硬件历史性的故事：Xiaomi 自己的 CPU 单线程跑分打平 Apple cores，多线程比 Apple 快得多。
+
+Daniel Lemire 在 Twitter 引用 Xiaomi 15 Pro 的细节：两个 cluster（6 E-cores + 2 P-cores），同 cluster 内所有 cores 共用同一频率。换句话说 Xiaomi 没做 Apple M1 那种 per-core DVFS（每个 core 单独频率管理）。架构更简单，研究 + 验证成本低很多。
+
+Apple silicon moat 长这样：
+- per-core DVFS（每核独立频率，从 M1 开始）
+- 软硬件协同（macOS 调度器知道每个核的频率能力）
+- 工艺与封装领先（3nm + 统一内存架构）
+- 单核极致性能（SPECint / GeekBench 单核全球前）
+
+每一个都是 incumbent moat 的极致版本。要复制 per-core DVFS 调度软件 + 协同的操作系统 + 工艺 + 软硬件协同工具链，没有十年做不出来。
+
+Xiaomi 不在这条战线上打。
+
+Xiaomi 的策略是：cluster DVFS + 加 cores。架构简化（一个 cluster 共享频率），验证简单（频率调度器只要管 cluster 不是管 single core），工程成本降一档。然后堆 P-cores + E-cores 数量，多线程跑分超 Apple。
+
+不是「做出更快的 single core」。是「不做 single core 极致，做出 multi-thread 整体比 Apple 强」。
+
+HN 评论核心节点：wide vs tight。Apple 是 tight（每个核做到极致），Xiaomi 是 wide（核数堆到极致）。两条路在 SPECint 跑分上碰头，多线程 wide 赢，单线程 tight 接近平。
+
+hardware bypass 哲学跟 software bypass 哲学同源。
+
+fzakaria 8/22 提的 SQLite-as-EXE 是同一个 shape：Nix closure 管理所有 deps 是个 complexity moat。fzakaria 不在这条战线上打 — 把 binary 整个换成 SQLite，自己 closure，没有 deps conflict，没有 lock-in。换了维度，moat 自然失效。
+
+Xiaomi 8/24 干的也是这件事：per-core DVFS + 工艺 + 软硬件协同是个 complexity moat。Xiaomi 不在这条战线上打 — 用 cluster DVFS + 多 cores，hardware 简单，但 multi-thread 比 Apple 强。换维度，moat 自然失效。
+
+两个故事的 shape 一模一样：incumbent 把单一维度做到极致，新进入者不在那个维度打，换到另一个维度上做。
+
+solo engineer 绕过哲学 = 这个 shape 在个人工程里的应用。
+
+不进 Apple silicon 战场打 single core 极致 = solo engineer 不进 incumbent moat 覆盖的维度打。
+
+改用 wide 标准 cores = solo engineer 改用 standard tools + 加约束层（不是从零做工具）。
+
+multi-thread 跑分超 Apple = solo engineer 不需要每个工具都做到极致，组合起来跑赢主流栈。
+
+Xiaomi 没做 single core 极致 — solo engineer 也不需要做 single tool 极致。
+
+Xiaomi 加 wide cores 拿到 multi-thread 优势 — solo engineer 加 standard tools 拿到组合优势。
+
+Xiaomi 不抢 Apple silicon 的 design wins — solo engineer 不抢 incumbent tools 的 brand wins。
+
+Incumbent moat 在 single-core 维度。Wide ARM bypass 在 multi-core 维度。Incumbent moat 在 custom 工具维度。Solo engineer bypass 在 standard 工具组合维度。Same shape。
+
+还有一个更深层：Xiaomi 用 wide cores 不只是「打不过 Apple silicon 所以换 wide」，是「wide cores 对中国来说成本可控，对 Apple 的市场定位不构成同维威胁」。Apple 主打 high-end pro / creator，Xiaomi 主打 value flagship。同一个市场，two shape 不打架。
+
+solo engineer 的 wide stack 也是这样：用一个 simple stack（standard tools + small custom glue），不打 incumbent 的高集成度栈。两种 stack 服务不同使用模式，不打架。Incumbent 不来打 solo engineer 这个细分（市场规模太小），solo engineer 也不去抢 incumbent 的 high-end。
+
+Incumbent moat 不是被打败的。Incumbent moat 是被绕过的。Wide ARM 就是硬件版本的 bypass。
+
+如果 Shawn 之后想比较「simedw 表征改变 = 5× speedup」跟「Xiaomi wide cores = multi-thread win」，两者是同一个 shape 的不同 instance：不在 incumbent 维度上竞争，换一个维度，拿到 dominant position。
+
+8/24 HN #2 这条 Lemire 引用的 Xiaomi story 不只是硬件新闻。是 hardware 层面对「incumbent moat 是 shape 不是问题」的最直接证明。
