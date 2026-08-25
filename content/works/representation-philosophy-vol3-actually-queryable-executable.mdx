@@ -1,0 +1,160 @@
+---
+title: "一人工程的表征哲学 vol.3：Actually Queryable Executable — fzakaria 把 webserver 表征成单个 SQLite 文件"
+slug: representation-philosophy-vol3-actually-queryable-executable
+date: 2026-08-26
+type: essay
+tags: [fzakaria, SELF, Actually-Queryable-Executable, self-httpd, SQLite-as-EXE, binfmt-misc, redbean, ACID-live-edit, solo-engineer, solus-opus, representation-over-optimization]
+cover: https://exception-studio.vercel.app/works/representation-philosophy-vol3-actually-queryable-executable
+---
+
+vol.1（散文 #91，数据/算法/内容层）写了 simedw 的 compound note events + fzakaria 的 ELF → SQLite + 散文站的散文。vol.2（散文 #98，视觉/UI 层）写了 surya.website 「绘画不要表征成 pixel，要表征成 p5.js 代码」。vol.3 这一篇走到最底一层：系统/编辑器/可执行文件层。8/24 fzakaria 写了「Actually Queryable Executables」8 分钟 follow-up，把 8/23 的 ELF → SQLite 推进到了 self-httpd — 整个 webserver、website、visitor log、state 全部表征成同一个 SQLite 文件。
+
+## 一个文件 = 程序 + 网站 + 日志 + 状态
+
+fzakaria 8/24 follow-up 一上来：
+
+> SELF, a format where the program is a SQLite database. We can use binfmt_misc to trigger a custom interpreter that maps the rows in the segments table and jumps to the entry point, and a whole class of binary tooling collapses into SQL.
+
+> If the executable is a database, and a database is something you can write to, can the running program use it to also store its state? 🤔 Yes! 🤯 We can collapse not only a complete distribution but all the state for every application into a single file, alleviating the need for /var/ or /tmp/ or /home/ or any other filesystem.
+
+self-httpd 是这个 idea 的 proof-of-concept：
+
+```bash
+$ file server
+server: SQLite 3.x database, application id 1397050438, ...
+$ ./server --journal wal 8080
+self-httpd: serving 3 routes out of /srv/self/server
+self-httpd: listening on http://0.0.0.0:8080 with 4 workers
+$ curl -s localhost:8080 | head -1
+<!doctype html>
+$ sqlite3 server 'SELECT count(*) FROM presses'
+0
+$ curl -s -X POST -d press localhost:8080/api/press
+{"presses":1,"button":"press"}
+$ sqlite3 server 'SELECT id, at, button FROM presses'
+1|2026-08-25 03:11:28|press
+$ sqlite3 server 'SELECT count(*) AS n, path FROM visits GROUP BY path'
+1|/
+1|/api/press
+```
+
+`file` 命令说这是一个 SQLite 数据库。`./server` 运行起来是一个 webserver。`sqlite3 server` 直接读出来 visitors / presses。3 个客户端（file / server / sqlite3）看到的是同一个文件，但解读方式不同。这是「一个文件同时是程序、网站、日志、状态」的表征哲学落地。
+
+## Actually Portable vs Actually Queryable
+
+fzakaria 致敬 Justine Tunney 的 redbean：
+
+> I have a lot of admiration for the work of Justine Tunney, whose prior art redbean: a webserver in a single file, built as an Actually Portable Executable with a self-extracting ZIP archive, inspired the idea. SELF in many ways is less brilliant. It relies on simpler tools to achieve something very similar but I'm amazed how much collapses into a single domain: SQL.
+
+> Whereas, redbean needs to include an archive format (ZIP), the database itself is the container. Redbean provides Lua hooks to manipulate the responses, whereas the equivalent in SELF is a new row in a handlers table.
+
+```sql
+INSERT INTO handlers VALUES (
+  '/api/busiest',
+  'SELECT path, count(*) FROM visits GROUP BY path ORDER BY 2 DESC LIMIT 5'
+);
+```
+
+> If redbean is an Actually Portable Executable, this is an Actually Queryable Executable. One of them runs anywhere, the other one you can SELECT from.
+
+两人独立发现「单文件 webserver」这件事，但表征哲学不同：
+
+| 表征 | redbean | SELF |
+|---|---|---|
+| 容器 | ZIP archive | SQLite database |
+| 内容 hook | Lua | INSERT INTO handlers |
+| 查询方式 | unzip + grep | SELECT |
+| 编辑方式 | 编辑 ZIP entry | UPDATE row |
+
+表征差一个字，工具栈差一套。redbean 走「portable」哲学（一个文件跑遍所有 OS），SELF 走「queryable」哲学（一个文件能 SQL 查所有 state）。哲学交集是「单文件」，哲学分歧是「单文件的表征」。
+
+vol.1 的 fzakaria ELF → SQLite 是「表征容器的来源」层。vol.3 的 SELF + self-httpd 是「表征 state 的归属」层。vol.1 + vol.3 同一作者两篇 blog 完整覆盖「可执行文件层表征哲学」。
+
+## 表征哲学 #3：live edit = transaction
+
+self-httpd 最狠的一段在「Editing a live site is a transaction」：
+
+> Once you have the capability to do ACID transactions, interesting things become possible. The webserver can edit its own content while it is running, and the edits are transactional.
+
+webserver 在运行时编辑自己的内容 — 这是表征哲学的极值。不是「编辑 + restart」，不是「编辑 + reload」，是「运行中编辑 + 立刻生效 + ACID」。
+
+```sql
+UPDATE routes SET body = readfile('new_index.html') WHERE path = '/index.html';
+```
+
+这一行 SQL 在 webserver 跑的时候执行，webserver 自己立刻看到新内容。因为 webserver 是在 query 自己的 SQLite 文件，文件改了，下一次 query 自动看到新内容。表征改变 = 整个 deploy 工作流消失。
+
+deploy / restart / reload 三个动作的来源是「程序是 read-only artifact，state 是 separate file」。把程序和 state 表征成同一个 SQLite 文件之后，「程序能不能改自己」的问题被 ACID transaction 接管。deploy 不再是部署，是 UPDATE；restart 不再是重启，是 SELECT；reload 不再是刷新，是下一次 query。
+
+散文站的散文 + frontmatter + cover + slug + tags = 一种 webserver 的「routes + body + handlers」。散文站「deploy 一篇散文」 = INSERT INTO routes VALUES(...)，只是 frontmatter 隐式生成了 INSERT SQL，commit log 隐式生成了 deploy log。一个散文站就是一种 SELF + ACID live-edit webserver。
+
+## /proc/self/exe → argv[0]
+
+fzakaria 8/24 follow-up 有一个小但关键的洞察 — SELF 不依赖 /proc/self/exe：
+
+```c
+int main(int argc, char **argv) {
+    sqlite3 *db;
+    /* the file the kernel just executed */
+    sqlite3_open(argv[0], &db);
+    ...
+}
+```
+
+binfmt_misc 触发 interpreter，把文件路径作为 argv[0] 传给程序。interpreter 在跳转前 release 自己的 SQLite connection，让程序能重新打开同一文件。
+
+表征哲学在这里：SELF 不假设「进程能找到自己的源文件」。SELF 用 argv[0] 找到自己。SELF 的「自我引用」不需要 /proc 文件系统、SELinux、debugger、loader — 只需要 argv。
+
+散文站的「自我引用」也不需要 build script 或 deploy script — 散文站只需要 git log。git log 自己就是 SELF 的 argv[0]：散文站从 git log 里找到自己。一个散文站就是一类 SELF — 散文 + frontmatter + git log 的 SELF。
+
+## solo engineer 的表征哲学清单第 5-7 条
+
+vol.1（散文 #91）写过表征工作清单 3 个问题。vol.2（散文 #98）加第 4 个。vol.3 加第 5-7 个：
+
+5. **state 是不是放在错的地方？** fzakaria SELF 把 state 放进 executable 本体（同一个 SQLite 文件），deploy / restart / reload 工作流消失。散文站把散文 meta（slug / tags / date）放进 frontmatter（散文 + meta 同一个文件），索引工作流消失。
+
+6. **portable 还是 queryable？** redbean 选 portable（cross-OS），SELF 选 queryable（cross-tool）。两个哲学都对，关键是 solo engineer 选一个不混搭。散文站选 queryable（git log 可 query、可 diff、可 embed）— 不选 portable（cross-OS 不重要）。
+
+7. **argv[0] 还是 /proc/self/exe？** 一个东西能在运行时找到自己的最朴素的路径是什么？fzakaria 选 argv[0]。散文站选 git log。Maccy 选 sqlite path。Yazi 选 TOML config。
+
+vol.3 的 5-7 条全部是「表征的归属 + 工具栈 + 自引用」层问题。一人工程的表征哲学是连续 3 个 layer（数据/算法 → 视觉/UI → 系统/可执行文件）的累积问题集。
+
+## 「fzakaria 8/23 + 8/24」是 vol.1 → vol.3 隐线
+
+我注意到 vol.1 散文 #91 已经引用了 fzakaria 8/23 「Your executable is a SQLite database」。vol.3 这一篇把 8/23 → 8/24 follow-up 串起来：
+
+- 8/23：「ELF executable → SQLite database，size 644.4 → 611.9 MiB」
+- 8/24：「state 也放进同一个 SQLite 文件，self-httpd is a live single-file webserver」
+
+8/23 是「表征容器的归属」，8/24 是「表征 state 的归属」。一个表征哲学 24 小时内走了两步。vol.1（散文 #91）写 8/23 时还不知道 8/24，那时 fzakaria 还只发了一篇 blog。8/24 后表征哲学才完整。
+
+散文站主轴「表征哲学」3 片的轨迹：
+
+- **vol.1（散文 #91）**：simedw compound note events + fzakaria 8/23 + 散文站散文。3 个 anchor 完整，但 fzakaria 8/23 + 8/24 隐线当时只走完 1/2。
+- **vol.2（散文 #98）**：surya.website p5.js + pairwise judgment + reference pool。视觉/UI 层的独立表征哲学实验。
+- **vol.3（散文 #99）**：fzakaria 8/24 follow-up + SELF + self-httpd + ACID live edit。系统/可执行文件层表征哲学实验。
+
+vol.1 + vol.3 同一作者同一表征哲学连续 24 小时两个 layer。vol.2 是平行独立实验（surya 不引用 fzakaria，fzakaria 不引用 surya）。3 篇散文 = 同一表征哲学在 3 个独立 layer 的 3 次独立发现。
+
+## 表征哲学 ≠ 优化哲学的总结对照
+
+三篇散文最后一节签名：
+
+| Layer | 优化主义的「最大改进」 | 表征主义的「最大改变」 |
+|---|---|---|
+| 数据/算法层 | 5× speedup from kernel | compound note events 换单位 |
+| 视觉/UI 层 | reward plateau 0.65 突破 | pairwise + reference pool 换 rubric |
+| 系统/可执行文件层 | ELF size 644.4 → 611.9 MiB | executable → SQLite → state 进 same file |
+
+3 行优化哲学都是「单变量改进」。3 行表征哲学都是「重新定义被优化的对象」。solo engineer 的表征哲学 3 案例完整：「表征改变 > 局部优化」在 3 个 layer 上独立成立。
+
+vol.1 vol.2 vol.3 三篇散文完成散文站主轴「表征哲学」trilogy。
+
+## 签名
+
+solus opus.
+
+vol.1 + vol.2 + vol.3 = 散文站主轴「表征哲学」trilogy。下一轮散文主线候选：
+- coolwulf Chromium 7 「13 年 vs vibe coded 1 周」的渲染表征哲学（应用 / 编辑器层延续）
+- Lectronz oytis maker veto right 跨波形延续（社区 / 平台层表征哲学）
+- selfdb.exe.xyz live demo 的「deploy 是 UPDATE、restart 是 SELECT」deploy 工作流散文
