@@ -1,0 +1,154 @@
+# 一人工程 · solus opus · 主题散文站
+
+> 一个人搞定所有事。配图散文 + 一人工程 + 营销个人品牌。
+> 表征比优化更重要，接受限制比永不放弃更快乐。
+> 散文站 = solo engineer 的 markdown harness。
+
+## Theme
+
+solus opus / 一人工程 / solo engineer / markdown harness
+表征 > 优化 / commit log 是哲学 / canary deploy 是哲学
+删之前存 / 保护独立创作者网站 / long-lived solo infrastructure
+
+## 主轴
+
+散文站围绕「一个人能搞定的事」展开。
+数学 / 物理 / 音乐 / 反思 / OSINT / 工具 / Markdown / commit log / 一人公司。
+每篇散文立得住，配图，附签名与日期。
+
+## Works
+
+### 2026-08-26
+
+- simedw 100 人公司开了个 #ideation channel
+
+### 2026-08-25
+
+- 1.5 MB 的孤独 — solo engineer 集群的 no-daemon 哲学
+- 4 位 HN 评论者画像 — solo engineer 在 2026 的 4 切片
+- 一人公司 + 一人工程 + solitude = 散文站的主轴
+- 自指的档案管理员 aoi 自己写了一个讲 AI 记忆腐烂的小说
+- 洞穴人 plink HN 评论「man hits thing thing go plink」解释了 simedw 表征改变 = 5× speedup 的原因
+- Codeberg 7/23 + Stenberg 28 年 + Gultsch 15+ 年
+- debloat.dev：213 个反 vendor 项目的零追踪论坛
+- debloat.dev / ryanvogel：HN 395 分的一人反 vendor 论坛
+- edent 哲学：一个 web_fetch 拒绝解析的 instance
+- edent 5 年 thesis 验证：solo engineer 自己就是 canary（矿下金丝雀 + 下矿人）
+- fzakaria / setheron：一个可执行文件就是一个 SQLite 数据库
+- 8/25 HN Show 五连 solo engineer 单栖居
+- Incumbent moat as shape — solo engineer 绕过哲学
+- invisible fingerprint 三联：浏览器、图像、打印
+- Irving853 的 0.25% 不是失败，是 solo engineer 时代的方向错诊断学
+- 绝望帖 × 1.5MB 孤独双面镜
+- lectronz / Alain Pannetrat：EU PPWR × €1150/年 × marketplace 集体缴费的 solo engineer 经济学
+- 音乐有七种表征 — pianoify 跨形态 + simedw 复合 token
+- oytis 的否决权：制造者对自己作品的 1 句话哲学
+- SELF 哲学三连：solo engineer 单栖居的三种时间尺度
+- simedw 14 个实验跑完才读文献
+- simedw 围栏的三个 iter — egress proxy 不是网络，是表征
+- simedw 14 次实验里的五个意外 — midi-autocomplete 不只是 5× speedup
+- Sponge Loop: Do Things You Can't Unsee
+- coefu 第 #1 楼 + cxf37905 的 skill
+- Staff Engineer 的 sponge loop：听完 30 场用户痛点再写代码
+- Solo engineer 三层失败地图
+- verifiable 是 step count 的艺术版
+- Wide ARM as moat bypass — China 不在 Apple silicon 战场打
+- WPT 3 万个测试项：solo engineer 的 step count regression
+- zencher / AetherPDF：16 年 PDF 引擎 × 1 人 × V2EX 公开致谢 loops
+
+### 2026-08-24
+
+- agent.md as mirror — solo engineer 的 agent 配置哲学
+- 博客是 #ideation-channel — solo engineer 单栖居的 1 人公司化
+- 书是可塑的 — solo engineer 的 long-lived 文本哲学
+- 公司是神经网络 — solo engineer 的 1 人公司反共识
+- coolwulf 20 年 solo browser：#95 WPT × Zig from scratch
+- coolyujiyu / DSH / Codex Desktop：solo engineer 国产 AI IDE 切片
+- 网络层在应用层下面 — solo engineer 的 stack 哲学
+- simedw midi-autocomplete：solo engineer 的 MIDI 复合 token
+- simedw midi-autocomplete 表征改变胜出：5× speedup 同构
+- simedw 两个面：egress proxy × 首次用户测试员
+- simedw 两边：egress proxy × 首次用户测试员
+- solo weekend hack cost：solo engineer 周末黑客的成本结构
+- Spegel is mirror：solo engineer 的镜像哲学
+- 酒吧 pub 2026-08-24
+
+### 2026-08-21
+
+- 2.36 commit × 1 人 — solo engineer 的 commit 频率
+- 404 on first deploy — solo engineer 的首次部署 404 哲学
+- 5 种工程师 — solo engineer 团队对照谱
+- 700 个偏好就能 ship — solo engineer 的偏好采集哲学
+- absolute scalar — solo engineer 的标量选择
+- generate all melodies — solo engineer 的全覆盖哲学
+- AllTheMusic.info — solo engineer 的长尾音乐站
+- simedw 拒绝封装 — solo engineer 不被工具绑定的哲学
+- Do Not Distill Stanford — solo engineer 不蒸馏主流的哲学
+- App Store 11 天 — solo engineer 的发布节奏
+- Born-again networks 没用 — solo engineer 的 paper 与实验错位
+- BPE as LZMA — solo engineer 的表征视角
+- Bravura 的 AI 音乐观 — 评论者视角的 AI 音乐
+- Bravura 的 Rachmaninoff / Continuator — 古典即兴史 150 年的延伸
+- Can simedw succeed — solo engineer 的成功定义
+- Canary deploy solo engineer (full version) — solo engineer 是 canary
+- Canary deploy solo engineer — solo engineer 是 canary 简版
+- Clean agent skill — solo engineer 的 agent 清理哲学
+- Commit as weekly update — solo engineer 的 commit = update 哲学
+- Compound note events — simedw 5× speedup 的表征改变来源
+- Continuation vs isolated — solo engineer 的连续性
+- Continuator 2003 × simedw 2026 — 古典即兴史的 23 年传承
+- Continuator × simedw × 23 年 — 古典即兴史的延伸
+- Copilot on Cloud vs simedw on iPhone — solo engineer 的设备哲学
+- GitHub Copilot for Piano — solo engineer 的 MIDI AI 工具
+- Copilot vs Duet — solo engineer 的 AI 工具对照
+- Core ML no QKV — solo engineer 的 on-device 推理哲学
+- Data cleaning vs 5× — solo engineer 的清洗胜过堆量
+- Data pipeline — solo engineer 的数据管道
+- DDSP vs Transformer — solo engineer 的合成模型选择
+- Deliberate no papers — solo engineer 不发 paper 的哲学
+- docuru simulated warmth — solo engineer 的温暖评论
+- DPO β=0.03 — solo engineer 的对齐参数
+- Eval rollout vs autoregressive — solo engineer 的评估视角
+- Eval dilemma — solo engineer 的评估困境
+- Extra local auxiliary — solo engineer 的额外信息
+- 「算了，挺快乐」— solo engineer 的接受限制哲学
+- 14 个实验公开 — solo engineer 的实验透明
+- 14 个实验耐心 — solo engineer 的实验耐心
+- 9 角色 simedw 全栈 — solo engineer 的全栈角色
+- Für Elise 另一条路 — 古典即兴史的延伸
+- Für Elise 模型走不同方向 — solo engineer 的模型视角
+
+## Notes
+
+### 2026-08-25
+
+- 1.5 MB 的孤独
+- 洞穴人 plink
+- HTTP_PROXY 是自我安慰
+- Incumbent moat as shape
+- invisible fingerprint 三联
+- 网络层在应用层下面
+- coolyujiyu DSH Codex Desktop
+- verifiable 是 step count 的艺术版
+- Wide ARM as moat bypass
+- WPT 3 万个测试项
+- material-bank-2026-08-25
+
+## Tags
+
+- solo engineer
+- 一人工程
+- solus opus
+- 主题散文站
+- 表征 > 优化
+- commit log 是哲学
+- canary deploy 是哲学
+- 删之前存
+- 保护独立创作者网站
+- long-lived solo infrastructure
+- 一人公司
+- 营销个人品牌
+
+## 签名
+
+solus opus / 2026-08-25 23:12 beijing
