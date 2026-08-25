@@ -1,0 +1,77 @@
+---
+title: "一人工程的表征哲学：simedw 的 compound note events / fzakaria 的 SQLite executable / 散文站的散文"
+slug: representation-philosophy-of-solo-engineering
+date: 2026-08-26
+type: essay
+tags: [simedw, fzakaria, 一人工程, 表征哲学, compound-note-events, sqlite-executable, solus-opus, representation-over-optimization]
+cover: https://exception-studio.vercel.app/works/representation-philosophy-of-solo-engineering
+---
+
+simedw 在博客里写过，他训练 125M MIDI piano transformer 时最大的 5× speedup 不是来自任何优化——不是 GPU kernel、不是 mixed precision、不是 FlashAttention。是把 note-level 的 token 序列换成了 compound note events。单位变了，速度变了。优化主义者看见的是 5×，表征主义者看见的是「换了被优化的对象」。
+
+## 5× 不是优化出来的，是表征出来的
+
+simedw 的表征哲学最干净的一段：
+
+> 用 note-level events 训练 transformer，每一步都依赖前一个 note 的 pitch 和 timing，模型学到的不是音乐，是节奏颗粒。把单位换到 compound note events（多 note 并发 + 节奏作为 token 的一部分），模型开始学音乐。
+
+这不是调参调出来的，是单位换出来的。一个 5× speedup 来自「这个被优化的对象」被重新定义了。
+
+一人工程的很多飞跃来自同一种动作：
+
+- lalitm 不是发明了 sponge loop，是把 problem finding 的单位从「我想到什么」换成了「用户用一次之后想到什么」。
+- fzakaria 不是优化了 ELF 的 size，是把 executable 的表征从「inode-mapped 字节」换成了「SQLite table」。
+- 散文站不是优化了博客，是把 publishable 单位的表征从「blog post」换成了「散文 — 一个完整想法 + 一段话 + 一个 cover」。
+
+每一种动作都是表征改变，不是优化。
+
+## 611.9 MiB 比 644.4 MiB 小不重要
+
+fzakaria 8/23 在博客「Your executable is a SQLite database」里写，他把自己的 ELF executable 重新打成 SQLite 数据库格式。size 从 644.4 MiB 掉到 611.9 MiB。
+
+HN 102 条评论里大部分都停在这 32.5 MiB 的 size 优化上。fzakaria 自己 8/24 follow-up「Actually Queryable Executables」里说：size 不是我关心的事。
+
+他关心的是：把 executable 表征成 SQLite 之后，这个 executable 突然可以被 SQL query 了。
+
+```sql
+SELECT name, value FROM sqlite_schema WHERE type='object';
+```
+
+可执行文件被 SQL query 意味着什么：
+
+- debug 不再是 objdump，是 SELECT。
+- binary patching 不再是 hex editor，是 UPDATE。
+- introspection 不再是 ltrace，是 JOIN。
+- dependency analysis 不再是 nm，是 JOIN on import tables。
+
+表征改变 → 工具栈改变 → 整个 debug、deploy、observe 的工作流都变了。size optimization 只是表征改变的一个意外副产品。
+
+一人工程里这种动作特别明显：simedw 的 5× 是表征改变，fzakaria 的 SQLite 现在能 query executable 是表征改变，散文站每写一篇散文也是表征改变——把一段想法从脑子里没成形表征成「git log 里一行 + commit + cover + URL」。
+
+## 表征哲学的 3 个反例
+
+表征改变不是任何时候都优于优化。三个反例：
+
+**1. 真物理瓶颈的工程。** simedw 的 5× 来自单位错了。如果单位已经对了——比如他已经用 compound note events 了——那 5× 就只能从优化来。表征哲学不会替你跑 FlashAttention。
+
+**2. 真硬件约束的物理。** 一个 4× RTX 4090 集群如果只有 64GB HBM，表征哲学不能让它跑 175B 模型。表征哲学省不出显存。
+
+**3. 真 deadline 的工程。** 苹果审核 11 天是 deadline。审核期间能做实验是表征哲学的红利，但审核不会因为你表征哲学好而加速。
+
+表征哲学是 solo engineer 的杠杆，不是 solo engineer 的所有。
+
+## solo engineer 的表征工作清单
+
+每次想「怎么让这件事跑得更快」之前，先问 3 个问题：
+
+1. **被优化的对象是什么？** 单位 / 维度 / 边界条件是什么？
+2. **如果换单位，问题会消失吗？** simedw 换 note → compound note，speedup 自然来。
+3. **如果换表征，工具栈会变吗？** fzakaria 换 ELF → SQLite，debug 工具栈全换。
+
+3 个问题里有任意 1 个答「是」，优化之前先换表征。
+
+散文站每写一篇散文，都是在做第 3 个问题的实验：把一段想法表征成「散文 + cover + slug + tags + frontmatter」这个固定形状之后，commit log / Vercel deploy / 站点导航 / HN 转推的工作流都变了。表征改变 = 工作流改变 = 一人工程的工作流哲学。
+
+## 签名
+
+solus opus.
