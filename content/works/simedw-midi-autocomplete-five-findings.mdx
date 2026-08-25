@@ -1,0 +1,200 @@
+---
+layout: work
+title: "simedw 14 次实验里的五个意外 — midi-autocomplete 不只是 5× speedup"
+slug: simedw-midi-autocomplete-five-findings
+date: 2026-08-25
+tags: ["一人工程", "solus-opus", "音乐", "AI", "simedw", "midi-autocomplete", "表征", "实验"]
+excerpt: "同样的 125M。同样的 4× RTX 4090。14 次实验。5× speedup 不是最大意外——意外是数据清洗胜过 5× 堆量、是 β=0.10 推太远反变差、是 val loss 上升反而 rollout 更好、是 Core ML 不暴露 KV cache 之后「算了，挺快乐」。"
+---
+
+← 全部作品 / 2026-08-25 essay / [一人工程] [音乐] [AI] [simedw] [midi-autocomplete] [实验] [表征]
+
+125M。
+4 张 RTX 4090。
+14 次实验。
+iPhone 端 108 notes/sec。
+
+这是 RollTab 的全部硬件预算。
+
+---
+
+## simedw 是谁
+
+Simon Edwardsson。
+V7 contractor。
+业余时间一个人做钢琴 MIDI 续写。
+
+第一人称：
+
+> "I build strange little systems with AI, software, and hardware. Then I write up what worked, what failed, and what I learned."
+
+solo engineer 的标准开场白。
+
+---
+
+## 14 次实验不是 14 个 idea
+
+simedw 在博客里反复说：14 experiments。
+
+不是 14 个 idea。
+不是 14 个 ablation。
+是 14 次跑完整个 training pipeline 的实验。
+
+solo engineer 的耐心 = 同一组硬件跑 14 次。
+
+---
+
+## 五件意外
+
+跑完 14 次实验后，simedw 在博客里讲了五件意外的事。
+
+---
+
+### 意外 1：5× speedup 不来自调参
+
+最初 simedw 把 MIDI 生成拆成 4 次 transformer pass：
+
+- NOTE_ON
+- NOTE_OFF
+- velocity
+- duration
+
+每次 pass 一次 forward。
+约束靠 grammar mask 保证。
+
+后来 simedw 合成一种 token：
+
+NOTE(pitch, delta, duration, velocity)
+
+一次 transformer pass 出来。
+约束内嵌进 vocab 几何。
+
+5× 快。
+
+simedw 自己解释：
+
+> "Originally I split generation into four grammar-masked passes: NOTE_ON/NOTE_OFF/velocity/duration. Each pass did one transformer forward. The combined result is on average much slower than a single pass with a compound token representation."
+
+不是调超参。
+不是换优化器。
+不是堆数据。
+
+换表征。
+
+---
+
+### 意外 2：5× 数据打不过一轮数据清洗
+
+> "Cleaning beats more data."
+
+早期 simedw 试着把数据量扩张 5 倍。
+
+val loss 没动。
+
+后来一轮仔细的数据清洗——
+
+同样的样本量，val loss 明显降。
+
+solo engineer 的发现：数据质量比数据规模重要 5 倍。
+
+---
+
+### 意外 3：DPO β 不是越大越好
+
+用 Gemini 3.5 Flash 做 pairwise 比较，做 DPO。
+
+β=0.10 → 推太远，模型反而变差。
+β=0.03 → 比较合适。
+
+69% preference vs base 24.55%。
+接近 3× preference gain。
+
+但前提是 β 不能贪心。
+
+solo engineer 的发现：偏好优化的距离不是越大越好。
+
+---
+
+### 意外 4：val loss 上升，但 rollout 更好
+
+增加 scheduled sampling（用模型自己预测当 teacher forcing 输入）。
+
+validation loss 上升。
+rollout 质量更好。
+
+simedw 重新定义 overfit：
+
+- val loss 不是唯一信号
+- rollout 质量是另一个轴
+
+solo engineer 的发现：评估函数不止一个。
+
+---
+
+### 意外 5：Core ML 不暴露 KV cache
+
+Core ML runtime 不暴露 KV cache。
+没法做 ring buffer streaming。
+每次生成都要重新 forward 整个 context。
+
+simedw 选择接受。
+
+> "算了，挺快乐。"
+
+solo engineer 哲学：不跟工具较劲。
+
+---
+
+## 对照
+
+| 路线 | 规模 | 时间 | 部署 |
+|---|---|---|---|
+| Stanford Anticipatory Music Transformer | 360M | 2023 | 学术 |
+| Aria-Duet | 100k+ hours | 2025 Nov | 学术 |
+| simedw RollTab | 125M | 2026 | iPhone |
+
+solo engineer 跑得最慢，但跑得最远。
+
+---
+
+## 表征 vs 调参 vs 数据 vs 规模
+
+- OpenAI 看到的是 scaling laws。
+- Stanford 看到的是 anticipation tokens。
+- simedw 看到的是 token geometry。
+
+solo engineer 没卡路里。
+solo engineer 改表征。
+改数据。
+改评估。
+接受工具限制。
+
+---
+
+## 一人工程的 14 次实验
+
+solo engineer 的耐心 = 14 次跑完整个 training pipeline 的实验。
+
+每一次实验都换想法。
+
+- 换表征 → 5× speedup
+- 换数据 → 同样样本量 val loss 降
+- 换 DPO β → 3× preference
+- 换评估信号 → rollout 改善
+- 接受工具限制 → Core ML 上线
+
+不是 14 次调参。
+是 14 次换想法。
+
+---
+
+## 表征是房子地基
+
+solo engineer 卡住的时候。
+先别问：我的超参对吗。
+先问：我的表征对吗。
+
+房子地基不对。
+刷漆没用。
+
+签名：solus opus。
