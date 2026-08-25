@@ -1,0 +1,128 @@
+---
+title: "一人工程的表征哲学 vol.2：surya.website 把绘画表征成 p5.js 代码"
+slug: representation-philosophy-vol2-code-as-painting
+date: 2026-08-26
+type: essay
+tags: [surya.website, p5.js, 表征哲学, pairwise-judgment, reference-pool, solus-opus, representation-over-optimization, solo-engineer, RL-reward, code-as-artifact]
+cover: https://exception-studio.vercel.app/works/representation-philosophy-vol2-code-as-painting
+---
+
+vol.1 散文 #91 写 simedw 的 compound note events + fzakaria 的 ELF → SQLite + 散文站的散文 = 数据/算法/内容层。vol.2 这次往下走一层：到视觉/UI 层。视觉生成里有一个比 simedw 5× 更狠的表征哲学实验——surya.website 的「Train an LLM to Paint with Code」（HN 166 pts, 49411800），整个项目建立在「绘画不要表征成 pixel，要表征成 p5.js 代码」这一个表征选择上。
+
+## 绘画 = 代码，而不是绘画
+
+surya 写：
+
+> When you make an image with an AI model, the only way to participate is the prompt. You cannot edit the image directly. To change anything you go back to the model and prompt again. That limitation is what started this project. My friend Cameron and I trained a language model to make images by writing code, using reinforcement learning. The code is the artefact, and the code is editable.
+
+prompt → pixel 是 Stable Diffusion 的表征。prompt → p5.js sketch → pixel 是 surya 的表征。
+
+表征差一个字，互动模式全变了：
+
+| 表征 | 互动模式 | 单位 |
+|---|---|---|
+| pixel | 重新 prompt | 一张图 |
+| p5.js code | 直接编辑代码 | 一段代码 |
+
+pixel 表征下，AI 写完你就只能「看」。code 表征下，AI 写完你能「改」。这就是 orta 在 HN 评论里举的「deterministic watercolour + ink houseplants in svg」对照——他也是 SVG 表征派，把 SVG 当 artifact，编辑 artifact 不重新 prompt。
+
+vol.1 的 fzakaria 把 ELF executable 表征成 SQLite 表，debug 工具栈从 objdump / hex editor / ltrace 全换成 SELECT / UPDATE / JOIN。surya 把绘画表征成 p5.js 代码，修改工具栈从「重新 prompt」换成「直接改代码」。两次表征改变 = 两次工具栈替换。
+
+## 表征改变 #2：绝对评分 → pairwise judgment
+
+surya 的 RL 训练第一轮用了 9 个 reward 信号：
+
+- compilation gate
+- 用 p5.brush 而非 native p5 的检查
+- code length ramp target 3000 tokens
+- HPSv3（人类偏好模型）
+- prompt adherence（GPT-5.4 + Gemini council）
+- 4 个 quality judge（recognisability / aesthetics / technique / depth）
+
+模型卡在 reward 0.65 plateau 不动了。surya 看 sub-reward：
+
+> The four quality judges plus prompt adherence were correlated with each other at 0.85 to 0.95. They were measuring the same thing five times. Code length, contributing roughly a third of the total reward, had saturated by step thirty and was producing zero gradient afterward.
+
+9 个 reward 信号里 5 个高度相关（同一件事测 5 次），1 个 code length 一开始就饱和（30 步之后零梯度），唯一有 variance 的 HPSv3 只占 0.10。9 个信号其实是 1 个信号重复 9 遍 + 1 个信号饱和。
+
+fix 有两半：
+
+**1. 绝对评分 → pairwise 对比。** 「给这个 rollout 打 0-10 分」换成「这两张图哪个更像 watercolour hibiscus」。reward = 赢得对比的分数。dynamic range 撑开了，judge 模型能回答相对问题但不能回答抽象尺度。
+
+**2. 1664 张 hand-rated reference pool。** 一个人手动把生成出来的图分到 love / okay / nope 三档。117 张 love-tier 进 reference pool。后面每个 rollout 都跟这 117 张 love 比。
+
+新 rubric 只剩 4 个组件：
+
+- compile + uses brush 0.05
+- length 0.05
+- HPSv3 0.30
+- pairwise judge vs reference pool 0.60
+
+同样的 base model，同样的训练数据，新 rubric 三倍速到旧 plateau，**继续爬升**，code length 从 13,500 tokens 压到 2,000 tokens。
+
+表征哲学在这里：reward 系统的表征从「9 个独立的 absolute score」换成「1 个 pairwise 比较 + 1 个 curated reference pool」。表征变了，模型学到了不一样的东西——它学到了 winning compositions don't need verbose code。
+
+> The model learned that winning compositions did not need verbose code.
+
+这句是表征哲学最重要的引述。优化主义者说模型自己学会了简洁，表征主义者说模型从 13,500 tokens 的代码表征换到了 2,000 tokens 的代码表征——单位变了，简洁自然来。
+
+## solo engineer 的 pairwise judgment 工作流
+
+vol.1（散文 #91）写过表征工作清单 3 个问题。vol.2 加第 4 个：
+
+4. **reward 是不是表征错了？** 如果多个 reward 信号高度相关（>0.85），它们就是同一个信号。换成 pairwise + reference pool。
+
+surya 这一改：
+
+- 9 → 4 signals（信号数量减少 = 信号质量提高）
+- absolute → pairwise（评分表征改变）
+- 没有 reference pool → 117 love-tier reference pool（评分基准表征改变）
+
+3 个表征改变 = 1 个新 rubric = 模型从 plateau 变成 continuous climb。
+
+solo engineer 的对应工作流：
+
+- 写作：simedw 散文 #89「绝对 scalar 没有 pairwise 准」= 同一种表征改变。给 LLM 打 0-100 分不如 A/B 比。
+- debug：simedw 散文 #89 同样的哲学——绝对 step count 不如 pairwise regression check（coolwulf WPT 3 万 atomic test 就是 pairwise)。
+- 散文站：每篇散文跟 reference pool 的 110+ 已发表散文比，「哪篇更像 solus opus」= pairwise。
+
+散文站没有 explicit reference pool，但 110+ 已发表散文本身就是 implicit pool。新散文被判断「像不像」的时候，参照的就是这 110+。
+
+## p5.brush vs native p5：表征选择的微小抉择
+
+surya 的 model 必须用 p5.brush 而不是 native p5. compile + uses brush 这个 0.05 reward 看着很小，但它把表征 choice 钉死了——「是 brush，不是 generic」。
+
+一人工程里这种「表征选择的微小钉死」很常见：
+
+- fzakaria 的 executable 是 SQLite 表，不是 generic key-value store（让 SELECT / JOIN 才有意义）。
+- simedw 的 note token 是 compound note events，不是单 note（让音乐结构在 token 序列里就有）。
+- 散文站的散文是「散文 + cover + slug + frontmatter」，不是「blog post」（让 commit log / Vercel deploy / 站点导航直接对应）。
+
+每一个看起来微小的「钉死」，都是表征哲学的具体落地。把一个表征钉死，模型（或人）就被训练（或驯化）去学对的东西。
+
+## 「code is editable」的 5 个层次的编辑
+
+surya 强调 code 是 artifact，code 是 editable。这句话在 solo engineer 视角下有 5 层意思：
+
+1. **debuggable** —— 不满意一个细节，改代码。
+2. **forkable** —— 喜欢但想变体，fork 改 prompt 重新生成。
+3. **reviewable** —— code 比 pixel 更可 review（code review 已成熟，pixel review 没有流程）。
+4. **composable** —— 两段 p5.js 代码可以 mix，但两张 PNG 不能 mix。
+5. **teachable** —— 可以让 LLM 读 p5.js 代码学「怎么画」，不能让 LLM 读 PNG 学。
+
+vol.1 的 fzakaria ELF → SQLite 也有同样 5 层：debug / patch / introspection / composition / training data 全部换工具栈。两个项目独立发现同一个表征哲学：表征改变 = 5 个可操作性的层次全变。
+
+散文站的散文同样 5 层：
+
+1. **debuggable**：commit + diff 看每一段改了什么。
+2. **forkable**：别人 fork 散文站的代码改出自己的一人公司散文站。
+3. **reviewable**：commit log 比「更新于 YYYY-MM-DD」可 review 多。
+4. **composable**：两篇散文可以 link、quote、embed、组合，但两篇「PDF 文档」不能。
+5. **teachable**：下一波 LLM 可以读散文站散文学「散文怎么写」，不能读 PDF 文学杂志学。
+
+## 签名
+
+solus opus.
+
+vol.1（散文 #91，数据/算法/内容层）+ vol.2（散文 #98，视觉/UI 层）= 散文站主轴「表征哲学」两片。
+vol.3 待写——候选是 Coolwulf 重写 chrome 的「渲染表征」、或 fzakaria 8/24 SQLite-as-EXE 的 follow-up「Actually Queryable Executables」。表征哲学的「系统/编辑器/可执行文件」层。
