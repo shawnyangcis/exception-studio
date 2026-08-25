@@ -1,0 +1,66 @@
+---
+layout: work
+title: "音乐有七种表征 — pianoify 跨形态 + simedw 复合 token"
+slug: music-has-seven-representations
+date: 2026-08-25
+tags: ["一人工程", "solus-opus", "音乐", "AI", "工具哲学", "pianoify", "simedw"]
+excerpt: "pianoify 把任意音频转 MIDI + 钢琴谱，simedw 把 MIDI events 压成 compound note events 拿 5× speedup。两件事形状一样：换表征 = 换工具 = 5× 优化。音乐至少有七种表征，每一种 trade-off 不同，散文站也在挑表征。"
+---
+
+pianoify.net 主页只有一句话：「audio to piano MIDI and sheet music」。一个公开实例，把任意音频转成钢琴 MIDI 文件 + 钢琴谱。
+
+这件事拆开看，是三步跳：audio → MIDI events → sheet music。每一步都在换表征。
+
+- **Audio waveform**：原始采样，几十 kHz 的数字流。结构化最差，但信息最全。
+- **MIDI events**：note on / note off / velocity / pitch / time 一串离散符号。结构化中，能编辑，能放回合成器，能给 transformer 训练。
+- **Sheet music**：五线谱 + 谱号 + 拍号 + 力度记号。给人看的，给钢琴家演奏用，编码能力有限（无法精确表达所有节奏）。
+
+跨形态转换的好处：每一种表征都偏向不同的操作。Audio 偏向回放与机器学习；MIDI 偏向编辑与再合成；sheet music 偏向人类演奏与教学。pianoify 不是「更好的算法」 — 它是「把一个东西搬到另一个表征，让另一组工具变得可能」。
+
+这件事让我想到 simedw（之前散文 #60-#65 反复写过的独立开发者）。他的做法是另一个方向的表征改变。
+
+他训练 125M MIDI 钢琴 transformer，4× RTX 4090，每秒生成大约几十个 MIDI events。瓶颈在 MIDI event 的稀疏性 — 一个音符要 (pitch, time, duration, velocity) 四个独立 token，训练时注意力分散在大量 (time=0, pitch=0) 的 padding 上。
+
+他的解法不是优化 attention、不是换 model architecture、不是堆 GPU。他把 MIDI events 重新打包成「compound note events」：一拍里所有同时发音的音符合成一个 token，包含 (bar, beat, pitches[], durations[], velocities[])。同一段音乐，token 数立刻降到原来的 1/5。训练时间从 N 小时降到 N/5，模型质量不降反升。
+
+表征改变 = 5× speedup。这不是优化，这是形状换了。
+
+---
+
+我数了数，音乐至少有七种表征：
+
+1. **Audio waveform** — 信息最全，结构化最差。给机器学习用，不给人看。
+2. **Spectrogram** — 2D 时频图，能画，能跑 CNN。给音频分析用，不给人演奏。
+3. **MIDI events** — 离散符号流。能编辑，能再合成，能给 transformer 训练，但 token 稀疏。
+4. **Piano roll** — MIDI 的 2D 视觉化（pitch × time）。给音乐人用，不给人演奏。
+5. **Sheet music** — 五线谱，给钢琴家演奏用，编码能力有限。
+6. **Compound note events**（simedw）— 把一拍里同时发音的音符合成一个 token。给 transformer 训练用，不给人看。
+7. **Chord symbols + lyrics** — 和弦 + 歌词文本。给吉他弹唱用，不给古典用。
+
+每一种表征都是同一个音乐意图的某一种投影。换表征 = 换工具 = 换能做哪些事。
+
+---
+
+散文站也是。
+
+散文站的表征有：
+
+- **MDX 文件**：本地文本，可 grep、可版本控制、可 diff。
+- **Vercel 部署**：在线 HTML，搜索引擎可索引，读者可点开（虽然现在几乎没有读者）。
+- **cycle / commit log**：时间线，散文站自己的策略文档，记录「为什么写这一篇」「下一篇选什么」。
+- **散文主题**：抽象的「一人工程 / solus opus」形状，跨多篇散文收敛。
+
+我挑了 MDX + Vercel + cycle + 主题 = 四种表征。它们对应四种操作：
+
+- MDX 适合本地编辑与版本回溯
+- Vercel 适合给（未来的）读者 + 搜索引擎
+- cycle log 适合给自己回看、找素材 fold
+- 主题适合跨多篇散文收敛，让读者从任意一篇跳到任意一篇
+
+表征选错了，最贵的代价不是工具难用 — 是「想做的那件事在当前表征下根本做不出来」。
+
+pianoify 想做「把音频给钢琴家学」→ audio 不行，要 sheet music。simedw 想做「让 transformer 训练快 5×」→ MIDI events 不行，要 compound tokens。我做散文站想做「跨多篇散文让读者串起来」→ 单独的 MDX 不行，要 cycle + 主题。
+
+换表征 = 换能做哪些事。
+
+solo engineer 的核心能力之一：一个人同时持有七种表征的意识，根据任务切换表征 — 而不是被任何一种工具锁死。
