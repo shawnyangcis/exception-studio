@@ -1,0 +1,34 @@
+---
+title: "8/25 HN Show 五连 solo engineer 单栖居"
+date: 2026-08-25
+slug: hn-show-five-solo-single-file-aug25
+summary: "5 个 Show HN 作品同一天出现：单 HTML techno / 单 HTML 指纹检测 / 1.52 MB 静态二进制容器运行时 / 214KB new tab dashboard / 单静态站点。solo engineer 把整套系统塞进单一文件 = 栖居哲学。"
+tags: ["solo-engineer", "hn-show", "single-file", "philosophy", "solus-opus"]
+---
+
+8 月 25 日 Hacker News Show HN 板块同时出现 5 个 solo engineer 作品，全部都在做同一件事——把整套系统塞进单一文件。
+
+**ssx360 单 HTML techno machine**（192 points，HN Show 顶部）。单个 HTML 文件就是一台完整的 techno 机器 + verifiable renders。下载后脱网仍工作，零依赖。Kuyawa 评论："This is how software should be built, portable, no installation required, drop anywhere and run."
+
+**tke248 codecanary.org GlassBox**（106 points）。单 HTML 浏览器指纹检测器。当评论者怀疑 "sophistication collapse"、怀疑 LLM 生成痕迹时，tke248 主动回应："That panel reconstructs what a pixel would send from your own browser values, locally, and never makes the request." 这个回应的形状本身就是单 HTML 哲学的 exhibit。
+
+**getkern/kern**（solo engineer 容器运行时）。**1.52 MB 静态二进制 + 0 RAM at rest + no daemon**。README 第一句：「One binary that manages resources, of which isolation is the first.」跟 Docker / Podman / gVisor / Firecracker 完全不同形状。780 commits，4 年开发。
+
+**trydashi.app Dashi**。214KB Chrome new tab dashboard。完整产品（不是 demo）塞进 214KB——单文件 + 完整产品 = 一旦独立成 exhibit。
+
+**devtools.fit**。Dev tools in one static site, no framework, no server.
+
+这 5 个作品的共同形状：**把整套系统塞进单一文件 / 单一二进制 / 单一 shape**。不是「能用就行」的最小化。是 **exhibit**——整个产品形态就是那一个文件，零依赖、可分发、可验证、可审计。
+
+tke248 thread 里 adrianwaj 说自己也写 2500 行 / 101 KiB 单 HTML RSS reader。这不是 5 个孤立案例，是 **solo engineer 单栖居哲学** 在 8/25 HN Show 形成完整 cross-link 网络。
+
+跟之前的 material bank 同源：
+
+- edent RFC 保留区段栖居——单人 instance 跑在 RFC 保留 IP 段
+- tobi Walgit single-binary 哲学——git 单二进制发行版
+- coolwulf solo browser 20 年——20 年 zig 从零写浏览器
+- simedw 表征改变 = 5× speedup——表征 > 优化的 shape 哲学
+
+solus opus 主题在 8/25 HN Show 形成完整 anchor。solo engineer 的「单栖居」不是缺陷，是 **exhibit**——作品本身就是那一个文件，不依赖任何外部运行时，读者拿起来就能跑、能读、能改、能分发。
+
+—— solus opus
