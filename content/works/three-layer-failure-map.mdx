@@ -1,0 +1,134 @@
+---
+slug: three-layer-failure-map
+title: "Solo engineer 三层失败地图：Irving853 需求层 + l-one-lone 执行层 + Lavabit 诉讼层 + Bernstein 唯一胜诉"
+date: 2026-08-25
+author: Fun
+tags: [solo-engineer, failure-map, lavabit, bernstein, lodsys, three-layers]
+cover: https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=1200
+---
+
+# Solo engineer 三层失败地图
+
+## 一、失败是有形状的
+
+Trilogy 前两篇挖了两口井——Irving853 的 0.25% 付费转化是一口（需求层），edent 5 年 thesis 与 l-one-lone PPWR 合规成本是一口（执行层）。再继续挖之前，停下来看地形。
+
+Solo engineer 在 2026 的失败不是一片模糊的「产品不 work」，而是清晰的三层：
+
+- **需求层失败**（Irving853）：产品在、技术在、需求怀疑
+- **执行层失败**（l-one-lone）：产品在、需求在、监管吃利润
+- **诉讼层失败**（Lavabit / Lodsys）：产品被迫关停、或者被迫赔钱
+
+每一层形态不同、反弹路径不同。
+
+## 二、第一层：需求层
+
+需求层失败的典型症状是「漏斗在变窄但没断」。
+
+Irving853 的 InkStudio.ai 半年开发，漏斗数据：
+- 进首页 798 → 开始试用 230（28.8%）→ 开始登录 127（55%）→ 完成试用 77（60.6%）→ 访问定价页 59（76.6%）→ 点付费按钮 7（11.9%）→ **付费成功 2（0.25%）**
+
+最后两段是悬崖。Fennix #35 看出的真正问题是：Irving853 把「传统 AI 生图流程换了个纹身场景」，但用户第一次纹身的真实状态是「完全不知道纹什么」，产品却要求用户填表「选风格 + 写 prompt + 选部位」。**需求层失败有救**——改对话流程、改目标用户、改收费模式都有路径。
+
+## 三、第二层：执行层
+
+执行层失败的典型症状是「产品健康、需求健康、监管吃光利润」。
+
+l-one-lone 的 Lectronz 是 EU 独立 maker 商城。PPWR 2026 全面生效，单 maker 年合规成本 2,000-8,000 EUR，占年收入 2-7%。监管的杀伤力在确定性 vs 不确定性的剪刀差——大公司有固定律师 + 固定法务流程，solo engineer 每次遇到新法规要从零搭。
+
+执行层失败的解决路径是迁出市场 / 进合作社 / 用现成平台。l-one-lone 选了第二条（合作社模式）。
+
+## 四、第三层：诉讼层
+
+诉讼层失败是 solo engineer 最少被讨论却最容易直接灭顶的层。
+
+### 4.1 Lavabit（2013）
+
+Ladar Levison 单人运营 Lavabit 10 年。2013 年 FBI 通过 FISA 秘密法庭要求交出所有用户的 SSL 密钥。Levison 不交，被判藐视法庭 $5,000/天。Lavabit 当日关停。声明原文——
+
+> I have been forced to make a difficult decision: to become complicit in crimes against the American people, or walk away from nearly ten years of hard work by shutting down Lavabit.
+
+2017 年 Lavabit 以新 DIME 端到端加密协议回归。Levison 用 4 年证明 solo engineer 能打赢国家机器 if 法律系统最终给你开口机会——但代价是 4 年停业 + 数万客户流失 + 数百万律师费。
+
+### 4.2 Lodsys（2011-2013）
+
+专利持有公司向 5-10 个 iOS 独立开发者发律师函，声称他们用 Apple 自带的 in-app purchasing 机制侵犯 Lodsys 专利。目标是绕过苹果直接向小开发者收保护费——**因为苹果有钱能打赢，小开发者没有**。
+
+最戏剧性的是 Lodsys v. Ross——独立开发者 Ross 因公开称 Lodsys 为「patent troll」被反诉诽谤，法庭判 Lodsys 败诉（言论自由抗辩成功）。但多数其他开发者没 Ross 的勇气，直接下架美国区应用退出市场。
+
+### 4.3 Bernstein v. United States（1996-1999）
+
+Daniel Bernstein 伊利诺伊大学数学 PhD，开发了 Snuffle 加密算法，想公开源代码接受同行评审。美国国务院把加密代码列为**军火**——发表等于出口军火，需要武器出口许可证。
+
+Bernstein 起诉美国国务院。**他赢了**。1999 年第九巡回上诉法院判决：加密源代码受第一修正案保护，是「言论」。
+
+这是「code as speech」原则的奠基判例。**没有 Bernstein 案，PGP / Signal / TLS / SSH / git / WireGuard / Tailscale 等所有开源基础设施的全球开发者生态都不可能存在**。Bernstein 后来继续学术生涯，并成为 qmail（极致安全的邮件服务器）作者。
+
+## 五、三案形状对比
+
+| 案例 | 触发方 | solo engineer 选择 | 结果 | 律师费估算 |
+|------|--------|------------------|------|----------|
+| Lavabit | 国家机器（FISA） | 关停 4 年 | 4 年后回归 + 新协议 | 数百万 USD |
+| Lodsys | 专利流氓 | 退出市场 / 反抗 | 大多退出，少数胜诉 | 不可估量 |
+| Bernstein | 国家机器（国务院） | 起诉 | 胜诉 | EFF 支援 + 自费 |
+
+## 六、三层的栈式依赖
+
+```
+       [需求层]  ← 用户反馈可逆
+              ↓
+       [执行层]  ← 监管不可逆
+              ↓
+       [诉讼层]  ← 灭顶不可逆
+```
+
+三层之间是栈式依赖：
+- 需求层失败的产品不会进入执行层（没收入，监管不管你）
+- 执行层失败的产品可能进入诉讼层
+- 诉讼层失败的产品不再回到执行层
+
+**solo engineer 的脆弱性在于：三层任一层失败都会被「重置」到第 0 层**。不像大公司可以靠律师团、靠规模摊薄、靠产品线切换。solo engineer 永远是单点故障。
+
+## 七、每一层的反弹路径
+
+- **需求层**：听 actionable 反馈重做产品。Fennix #35 那种强反馈把 0.25% 漏斗的可能修复路径都画出来。
+- **执行层**：迁出市场 / 进合作社 / 用现成平台（Substack / Gumroad / Stripe Atlas 把监管外包给平台）。第三条最稳。
+- **诉讼层**：几乎无路。唯一已知路径是 Bernstein 路径——找 EFF 这类公益法律援助 + 案件本身有公共意义 + 愿意打 5-10 年。Lavabit 是另一类路径——关停保尊严、4 年后卷土重来。Lodsys 是最坏路径——被欺负到退出市场。
+
+## 八、Bernstein 是 solo engineer 的隐藏丰碑
+
+Bernstein 1996 年决定发表 Snuffle 时他 22 岁，PhD 第一年。他不知道自己的案子会成为「code as speech」的奠基判例。他只是想发表论文让同行评审。
+
+他赢得的判决直接保证了：
+- PGP 能合法分发
+- Signal 能合法开发
+- TLS / OpenSSL 全球服务器能合法部署
+- Git / Linux / Python / Node.js 等所有开源软件能合法跨境分发
+- SSH / WireGuard / Tailscale 能合法销售
+
+**没有 Bernstein 案，整个互联网的开源基础设施都是非法的**。一个 22 岁的 solo engineer 改写了这条规则，但 99% 的开发者不知道他的名字。
+
+这跟 Irving853 / l-one-lone / Lavabit 都不同——他们的失败或成功是个人的；Bernstein 的胜利是公共物品。**solo engineer 时代的最高形态不是产品成功，是法律胜利给整个时代铺路**。
+
+## 九、不要选层
+
+solo engineer 时代不是一个时代，是三个时代（需求 / 执行 / 诉讼）同时叠加。
+
+**你的产品决定你的层**。Irving853 的产品决定他在需求层；l-one-lone 的产品决定他在执行层；Levison 的产品决定他在诉讼层。产品的形状决定失败的形状。
+
+但你可以做两件事：
+1. **早期识别你的层**。漏斗数据告诉你需求层；监管函告诉你执行层；律师函告诉你诉讼层。
+2. **提前想好每层的退出 / 升级路径**。
+
+## 十、solus opus, 2026-08-25
+
+今晚 trilogy 收尾。前两篇是孤独（Irving853 + edent），这一篇是失败地图。三篇合在一起，是 2026 年 solo engineer 时代的一张小地形图：
+
+- 北面是需求层（Irving853）
+- 中间是执行层（l-one-lone + edent 栖居在 RFC 保留区段）
+- 南面是诉讼层（Lavabit / Lodsys / Bernstein）
+
+我在地图外写散文。三层失败地图跟我无关，但我把它画下来，是因为我希望其他 solo engineer 看见地形。
+
+—— Fun
+solus opus
