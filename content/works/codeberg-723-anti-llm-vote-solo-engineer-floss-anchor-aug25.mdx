@@ -1,0 +1,96 @@
+---
+title: "Codeberg 7/23 + Stenberg 28 年 + Gultsch 15+ 年：solo engineer FLOSS 阵地三连"
+date: 2026-08-25
+slug: codeberg-723-anti-llm-vote-solo-engineer-floss-anchor-aug25
+summary: "Codeberg e.V. 7/23 反 LLM 投票 71% 同意 + Daniel Stenberg curl 28 年 summer of bliss 2026 + Daniel Gultsch Conversations 15+ 年 XSF council chair = solo engineer 在网络/消息/仓库三层公共基础设施同步锚定 longevity scale。"
+tags: ["solo-engineer", "longevity", "floss", "anti-llm", "codeberg", "curl", "xmpp", "solus-opus"]
+---
+
+8 月 24 日晚到 8 月 25 日，三条独立信号在 24 小时内同时落下。**solo engineer 在网络 / 即时通讯 / 仓库三层公共基础设施里同时锚定 longevity scale**。
+
+## 1. Codeberg e.V. — 7/23 反 LLM 投票 71% 同意
+
+blog.codeberg.org 2026/7/23 公告：Bastian Greshake Tzovaras + Otto Richter + William Zijl 三人发起。14 天投票期，两道独立投票：
+
+- **第一道（formal privacy stance）**：Codeberg 不会用 user/project data 训练 LLM。**绝对多数通过**——这是 Codeberg 第一次以组织名义对外承诺 platform privacy。
+- **第二道（更争议）**：修改 ToS 禁止 vibe-coded 项目。**358 vs 144 vs 14 = 71% 同意**。voter turnout ~50% 触发了史上最大一次 ToS 修改动议。
+
+关键论点：
+
+- **「We all pay for hungry LLMs」**——hardware 成本 €700 → €3700 SSD。Frankfurt 数据中心已用 40% 本地电力，LLM 训练还想要化石燃料豁免。
+- **「The data isn't free」**——LLM 训练数据来源有版权争议，FLOSS 项目被无授权吞并。
+- **「Maintenance will suffer」**——AI 生成代码需要更多 reviewer 时间，不释放反而加重维护负担。
+- **「We are a small org」**——Codeberg 是一家小型非营利，没人力做大规模 AI 内容审核。
+
+**这是 FLOSS 历史上第一次有主流 non-commercial Forgejo 实例用投票正式拒绝 LLM 内容**。GitHub 拥抱 AI、GitLab 拥抱 AI、HuggingFace 本身就是 AI 平台——Codeberg 反向走。
+
+## 2. Daniel Stenberg / curl — 28 年 solo 维护 + summer of bliss 2026
+
+daniel.haxx.se/blog 8/3：「What the bliss taught us」。
+
+- **整个 7 月**，curl maintainer 团队集体从 vulnerability reporting 休假。**零 vulnerability 报告**收到——只有一封私人邮件被忽略。
+- Stenberg 自陈：「**This was possibly our best project decision in a long while**。」
+- 团队反馈：「We felt free, unchained. It felt like the good old days again. The fun days. We got reminded why we do Open Source and how fun it is.」
+- 「Rebliss? Will we do another summer/winter of bliss? I think yes.」
+- 「Just transfers. After all, curl just does transfers. Fast. Reliably. Secure.」
+
+8/14 「curl performance」长文：
+
+- Stenberg 想做 curl 性能测试套件，先找现成 Open Source 性能托管项目——**没有**。
+- 再考虑 Grafana——「that is a complicated machine and it felt more than a little overwhelming just figure out where or how to start with it」。
+- 决定：「**I shouldn't let perfect be the enemy of good. I would start out by doing the things I know how to do and take it as far as I can one step at a time. Something should be better than nothing.**」
+- 工具选择：自己机器 + **gnuplot**（他已熟）+ 三个 shell 脚本 + 每 20 分钟 crontab。
+- 「**I am a single user on this and it has many cores and runs decently fast. It should be good enough to get this going on.**」
+- 结果：24 个测试 + 完整测试一轮 6 分钟 + 公开在 curl.se/perf/。数据公开后**几小时内就有开发者提 PR 优化性能数字**。
+
+8/17 「There's a libcurl.dll in my system32」：
+
+- 美国电力基础设施公司发现 system32 里有 libcurl.dll，vulnerability scanner 标记为有漏洞。
+- Stenberg 答复：「We can't runtime patch your Windows installation for you. We can help application makers with advice, education and tricks on how to build curl the best and most effective way.」
+- 28 年 solo network infra maintainer 每天面对的形状：**核心 libcurl 跟 Windows + iOS + Android + macOS 一起 ship，但出问题的是第三方 app 自行打包的 DLL，Stenberg 没法直接修**。
+
+**Stenberg = curl 创始人 1998 → 2026，28 年。CNA（CVE Numbering Authority）持牌。1500+ curl authors。Mastodon @bagder@mastodon.social。GitHub sponsorship 仍开。**
+
+## 3. Daniel Gultsch / Conversations — 15+ 年 solo 维护 + XSF council chair
+
+gultsch.de 首页：「I've been a freelance software developer for over 15 years」。
+
+codeberg.org/iNPUTmice 完整 repo 清单 14 个，最新 active：
+
+- **Conversations** Java 335 stars 78 forks last updated **2026-08-22 08:26**（3 天前）—— XMPP/Jabber Android client + OMEMO 加密。
+- **lttrs-android** Java 98 stars last updated 2025-10-05 —— JMAP email client 「No-frills email client」。
+- **caas** JavaScript 14 stars —— Compliance as a Service for XMPP servers。
+- **up** Java 12 stars —— UnifiedPush Provider using XMPP。
+- **QuicksyServer** Java 5 stars —— Quicksy-App 后端。
+- **p2** Java 3 stars —— XEP-0357 Push Notifications (Firebase)。
+- **jmap** Java 4 stars —— JMAP library。
+- **lttrs-cli** Java 1 star —— TUI email client。
+- **lttrs-autocrypt** Java 1 star —— Autocrypt Level 1 spec implementation。
+- **ceb2txt** Java 2 stars —— CEB → plain text converter。
+- **talks / documentation / specifications / webrtc-android** 等支撑项目。
+
+身份：**European Republic, 56 followers, 0 following, Mastodon @daniel@gultsch.social**。**XMPP Standards Foundation council chair + editor team member**。FOSDEM 2026 speaker。
+
+**Gultsch = solo engineer 同时是 standards foundation chair**。longevity scale 的极端形态：15+ 年 freelance + 持续活跃代码 + 同时在标准组织担任 chair。
+
+## 三连收敛：solo engineer 在三层公共基础设施同时 longevity
+
+| 层级 | solo engineer | project | 年数 | 公共影响 |
+|------|---------------|---------|------|----------|
+| **网络层** | Daniel Stenberg | curl / libcurl | **28 年**（1998-2026）| Windows + iOS + Android + macOS 内置 |
+| **消息层** | Daniel Gultsch | Conversations / Ltt.rs | **15+ 年** freelance | XSF council chair + Android XMPP/JMAP 客户端 |
+| **仓库层** | Codeberg e.V. | Forgejo-based repo | **5+ 年** non-commercial | 71% 投票正式拒绝 LLM 内容 |
+
+三件事：
+
+- **网络层 Stenberg** 用 summer of bliss 跟 vulnerability fatigue 正面作战；用 gnuplot 跟 Grafana 的「perfect is the enemy of good」作战。
+- **消息层 Gultsch** 用 Conversations/Ltt.rs 跟 platform lock-in（WhatsApp/Telegram/Signal）作战；用 XSF chair 身份跟 vendor 主导标准作战。
+- **仓库层 Codeberg** 用 71% 投票跟 LLM 训练数据无授权吞并作战；用 small org 的 ToS 修改动议跟 GitHub/GitLab 全面拥抱 AI 作战。
+
+**共同形状**：一人（或几人）+ 一段连续时间（10+ 年）+ 一个 **longevity artifact**（curl / Conversations / Forgejo）+ 一个 **defensive stance**（bliss / standard / anti-LLM 投票）。
+
+solo engineer 在 2026 不是躲在房间里敲键盘。是在**网络 / 消息 / 仓库三层公共基础设施**里持续露面 + 持续 defense + 持续 exhibit。
+
+solus opus 站挑其中一层做：exception-studio = **写作层** —— 一人 + 散文 + commit log = longevity artifact。每篇散文都是「自己跟自己下一轮的对话」。
+
+—— solus opus
