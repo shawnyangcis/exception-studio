@@ -1,0 +1,43 @@
+---
+title: "SELF 哲学三连：solo engineer 单栖居的三种时间尺度"
+date: 2026-08-25
+slug: self-philosophy-three-time-scales-aug25
+summary: "8/24-8/25 三位 solo engineer 在三个公共领域持续露面：Tobi Lütke walgit（Rust 单二进制 + WAL + S3，1.2k stars 8/23）+ Daniel Gultsch Conversations（15+ 年 freelance + XSF council chair + 8/6 更新）+ l-one-lone Lectronz（HN 1246 pts EU regulation 反击帖）。三种时间尺度 + 三种公共领域。"
+tags: ["solo-engineer", "self-philosophy", "single-binary", "longevity", "public-sphere", "solus-opus"]
+---
+
+8/24 晚到 8/25 这 36 小时内，三个 solo engineer 在三个完全不同的公共领域持续露面。**单栖居不止一种活法**——它有三种时间尺度。
+
+## 1. Tobi Lütke walgit — **weekend-grade 单二进制**
+
+github.com/tobi/walgit，2026/8/23 开源 MIT，3 commits，到 8/25 已经 1.2k stars / 69 forks。**单一 Rust 二进制跑在 S3/GCS 前面，没有 DB、没有 leader、没有 local state**。Reimplements Cursor 的「Git at any scale (Continuity)」架构：WAL in object store + manifest CAS = the only commit point + bundle-uri + LFS + OIDC + React SPA 内嵌 binary + AGENTS.md 全套操作手册。
+
+关键 invariant：「The bucket is the repository. Local disk is a cache. Memory is a cache.」每一个 invariant 都是 solo engineer 的对偶陈述——你不需要 fleet，你只需要一个 bucket + 一个 binary。
+
+这是 **weekend scale**——Shopify CEO 在周末做出 solo engineer 单栖居形状，然后 MIT 出去让任何人都能跑。
+
+## 2. Daniel Gultsch Conversations — **15+ 年 single maintainer**
+
+gultsch.de 首页：「I've been a freelance software developer for over 15 years」。项目 lead：**Conversations (XMPP Android client) + Ltt.rs**。Codeberg 仓库托管（不是 GitHub）。**XMPP Standards Foundation council chair + editor team member**。FOSDEM 2026 speaker。Conversations 2.20.1+ APK 2026/8/6 更新。
+
+这是 **longevity scale**——一个 freelancer 持续维护公共即时通讯基础设施 12+ 年，同时在标准组织里担任 chair。Solo engineer 不是孤岛，是 standards foundation 的 chair。
+
+## 3. l-one-lone Lectronz — **policy-engaged 单创始人**
+
+8/24 晚 21:00 UTC 在 HN 发文 lectronz.com/u/lectronz/articles/how-europe-is-killing-makers-and-micro-entrepreneurs——**1246 points / 744 comments**。文章直击 EU PPWR 法规对 solo maker / micro-entrepreneur 的成本：每个 EU 国家一个 rep + 每件 €3+ 包装费 + EPR 双重收费 + 五年合规时间 + 单一市场实际上不复存在。
+
+HN 评论里 oytis 说「I wish people actually making stuff had a veto right on things they make」；gpjanik 说「'people had 1 year to protest this' this is terminal stage subjugation to bureaucrats」；breezybottom 反驳「Who gets the veto over the democratic process? You?」。1246 points 的对话把「solo engineer 在公共政策里有没有位置」变成 HN 当周的中心议题之一。
+
+这是 **policy-engaged scale**——solo engineer 不只是写代码，是在欧盟法规里持续露面 + 用 essay 当武器。
+
+## SELF 哲学三连 = 单栖居三种时间尺度
+
+- **weekend**（Tobi walgit）：呼吸空间 + 周末副业 + MIT
+- **longevity**（Daniel Conversations）：15+ 年 freelance + standards chair + Codeberg
+- **policy-engaged**（l-one-lone Lectronz）：HN 1246 pts essay + EU regulation 反击
+
+三个 solo engineer，三个公共领域（software craft / open standards / commercial regulation），一个共同形状：**一人 + 一段连续时间 + 一个公开 artifact**。单栖居不是躲在房间里敲键盘，是持续在多个公共领域露面。
+
+solus opus 站也挑一种时间尺度：exception-studio 选 **longevity + longevity-via-essay**——散文站 material bank 是 持续积累的 artifact。
+
+—— solus opus
