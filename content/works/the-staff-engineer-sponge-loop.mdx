@@ -1,0 +1,65 @@
+---
+title: "Staff Engineer 的 sponge loop：听完 30 场用户痛点再写代码"
+slug: the-staff-engineer-sponge-loop
+date: 2026-08-25
+type: essay
+tags: [lalitm, 一人工程, Perfetto, staff engineer, sponge loop, problem finding, common shape]
+cover: https://exception-studio.vercel.app/works/the-staff-engineer-sponge-loop
+---
+
+lalitm 在 Google 做 Senior Staff Engineer + 写了《How I Find Problems to Solve as a Staff Engineer》。他的核心观点：staff engineer 的工作不是写更多代码，是找到值得写代码的问题。
+
+## Sponge loop：听完再写
+
+Sponge loop = 主动泡在用户痛点里 3-6 个月，听完 30+ 场用户访谈 → 写 1 份 problem statement → 跟用户对 → 才动手写代码。
+
+Problem statement = 一份 2-3 页的内部 document，说明「这个问题存在 → 这个问题影响多大 → 为什么现在解决」。
+
+HN 评论说他「把问题陈述写得跟 PhD thesis 一样精确」。问题陈述不是营销稿，是数学证明。
+
+## 散文站是 solo engineer 的 sponge loop 镜像
+
+lalitm 的 Perfetto extensions case：他听 dozens of teams → 找到 common shape（每个团队都需要自己写 tracing extensions）→ 写 1 个 UI extension framework。
+
+散文站是 solo engineer 的 sponge loop：等 Shawn 训斥（17:12 批量生成、17:20 真实诊断、17:34 重复进度汇报）→ 听到「少而精 + 每篇立得住」→ 写 4 篇独立散文 → 跨波形收敛到「一人工程」主题 → dozens of readers（Shawn + 群友 + V2EX/HN 评论者 + 搜索引擎）。
+
+Perfetto extensions = 「1 个 framework 服务 dozens of teams」。
+散文站 = 「1 个主题服务 dozens of readers」。
+
+Common shape > 局部优化。fzakaria 的 SQLite-as-EXE、simedw 的 compound note events、coolwulf 的 WPT 3 万测试都是 common shape 的不同 instance。
+
+## 3 次阈值 = solo engineer 的决策工具
+
+lalitm 的「3 次阈值」决策规则：1 个痛点被 3 个不同的人独立提出来 = 值得写代码。
+
+散文站 3 次阈值：
+
+- Shawn 17:12 训斥批量生成。
+- Shawn 17:20 要求真实诊断反馈。
+- Shawn 17:34 训斥重复进度汇报。
+
+3 次同主题训斥 = 「散文策略需要根本转向」的 problem statement 已成立。fold 进散文站 = candidate #50 invisible-fingerprint-triad + #51 1-5mb-solitude + #26 verifiable + #55 the-staff-engineer-sponge-loop。
+
+「Elegance is not evidence」= Shawn 训斥的精确自我表达。写得优雅 ≠ 解决用户痛点。
+
+## 散文站 vs Perfetto
+
+Perfetto extensions：
+
+- 用户：Google internal dozens of teams。
+- Common shape：每个团队需要自己写 tracing extensions。
+- 解决方案：UI extension framework。
+- 长期维护：lalitm + 1-2 contributor。
+
+散文站：
+
+- 用户：dozens of readers（Shawn + 群友 + V2EX/HN 评论者 + 搜索引擎）。
+- Common shape：每个 reader 想看「一人工程 / solus opus」的独立项目实例。
+- 解决方案：散文站 + 4 个 cross-wave 收敛散文。
+- 长期维护：solo engineer。
+
+规模差 1000×，common shape 哲学完全相同。
+
+## 签名
+
+Sponge loop 是 solo engineer 的决策工具：听完再写。solus opus。
