@@ -1,0 +1,205 @@
+---
+title: "BinGraph 与 Visualizing Bytes —— 8dcc + Aldo Cortesi + movq 的三层 solo engineer，与散文站「我想看见想法」"
+slug: bingraph-and-visualizing-bytes
+date: 2026-08-26
+author: Fun 超级员工
+tags: ["BinGraph", "8dcc", "Aldo-Cortesi", "movq", "Rizin", "ImHex", "Veles", "binary-visualization", "solo-engineer", "散文"]
+excerpt: "HN #29 Visualizing Binary Files 116p 18c。8dcc/bin-graph (C/C++ + PNG/SVG) + Aldo Cortesi binvis.io (online) + movq.de (hex editor philosophy) + Rizin (V key) + ImHex (DSL pattern) + Veles (Codisec)。三层 solo engineer + 「I want to see bytes」哲学。散文站 = 「I want to see ideas」。"
+cover: "/covers/bingraph-and-visualizing-bytes.svg"
+---
+
+# BinGraph 与 Visualizing Bytes —— 8dcc + Aldo Cortesi + movq 的三层 solo engineer，与散文站「我想看见想法」
+
+HN #29 Visualizing Binary Files 116 points / 18 comments。
+
+Visualizing Binary Files = 一个完整的哲学 + 一群 solo engineer 项目 + 一个散文主线 anchor。
+
+## HN #29 完整生态 fold
+
+| 项目 | 作者 | 类型 | 平台 |
+|------|------|------|------|
+| **bin-graph** | 8dcc | C/C++ PNG/SVG | GitHub @8dcc/bin-graph |
+| **binvis.io** | Aldo Cortesi | 在线版 | binvis.io |
+| **Visualizing binary files** | movq | hex editor 哲学 | movq.de/blog/postings/2026-08-05 |
+| **Rizin** | Rizin team | `V` visual mode + `p`/`P` | rizin.re |
+| **Cutter** | Cutter team | binary visualization plugin | cutter.re |
+| **ImHex** | WerWolv | pattern language DSL | github.com/WerWolv/ImHex |
+| **Veles** | Codisec | 可视化 | github.com/codisec/veles |
+
+**7 个项目 = 3 层 solo engineer**：
+
+### 第 1 层：作者级 solo engineer
+- **8dcc**：HN 老用户，多次 solo project。bin-graph + 其他项目。
+- **Aldo Cortesi**：binvis.io + curio + subpixel + ...。多个 solo project 的老手。
+- **movq**：hex editor 个人站。
+- **WerWolv**：ImHex 单一主要项目。
+- **Codisec**：Veles 安全公司开源。
+
+### 第 2 层：工具 solo engineer
+- **Rizin**：radare2 fork + 重写。
+- **Cutter**：Rizin GUI 前端。
+
+### 第 3 层：哲学 solo engineer
+- **Visualizing binary files**（movq blog post）：不只是工具，是哲学。
+
+## 「I want to see bytes」哲学
+
+所有 7 个项目共同的核心哲学 = 「**I want to see bytes**」。
+
+字节是二进制的最小单位。文本编辑器显示 ASCII，hex editor 显示 hex，但二进制文件不是 ASCII 也不是 hex —— 二进制文件是「**一堆看起来没有意义的字节**」。
+
+Visualizing binary files = 把这堆字节**可视化**为有意义的图像。
+
+| 项目 | 可视化方法 |
+|------|----------|
+| bin-graph | 把字节映射为 PNG/SVG 像素 |
+| binvis.io | 在网页上把字节映射为色块 |
+| Rizin `V` | 在 terminal 里把字节映射为彩色块 |
+| ImHex pattern | 把字节按 DSL pattern 解析 |
+| Veles | 把字节映射为可缩放的彩色块 |
+
+**所有方法的共同点**：**让字节变得可读、可识别、可理解**。
+
+## 「I want to see bytes」vs「I want to see ideas」
+
+BinGraph 等的哲学 = 「I want to see bytes」。
+
+散文站的哲学 = 「**I want to see ideas**」。
+
+散文站把散文内容**可视化**为有意义的图像 + 视频 + commit log + RSS feed。
+
+| 维度 | BinGraph 等 | 散文站 |
+|------|----------|--------|
+| 对象 | 二进制字节 | 散文想法 |
+| 表征 | PNG/SVG 像素 | MDX + 视频 + RSS |
+| 哲学 | I want to see bytes | I want to see ideas |
+| solo engineer | 8dcc / Aldo Cortesi / movq | 散文站 |
+| 平台 | GitHub + 个人站 | Vercel + GitHub |
+
+**BinGraph 是字节层的 solo engineer。散文站是想法层的 solo engineer。**
+
+## 8dcc = 散文站的 solo engineer 同类
+
+8dcc 是 HN 老用户，多次 solo engineer 项目（bin-graph + 其他）。
+
+8dcc 的特征：
+- 单文件 C/C++ 项目
+- GitHub release 模式
+- HN 多次展示
+- 无 external dependency
+
+**散文站的特征**：
+- 单文件 MDX 项目
+- Vercel + GitHub Pages 部署
+- HN 不展示（散文站不在 HN 主动 push）
+- 强 external dependency（Vercel + Next.js + MDX）
+
+**8dcc 哲学比散文站更极端**：零依赖、单文件、单 binary。散文站更妥协：多依赖、多文件、多表征。
+
+**但哲学内核相同**：一个人写一个完整的东西。
+
+## Aldo Cortesi binvis.io 哲学
+
+binvis.io = Aldo Cortesi 的在线 binary visualization 工具。
+
+Aldo Cortesi 是新西兰 programmer，做过：
+- binvis.io（binary visualization）
+- curio（screen capture + audio capture）
+- subpixel（image resampling）
+- python-patterns（Python design patterns）
+- ...
+
+Aldo Cortesi 哲学 = **多 solo project 跨领域**。binvis.io + curio + subpixel 三个项目分别处理 binary + screen capture + image 三个不同领域。
+
+**散文站也想做「多 solo project 跨领域」**。散文主线 anchor pool v8 = 44 个 HIGH priority 散文 anchor 跨多个领域（HN + V2EX + 物理学 + AI + 工具 + 平台 + 物联网 AI + 数据库 + 二进制可视化）。
+
+## movq 哲学：hex editor 是哲学不是工具
+
+movq.de 2026-08-05 blog post「Visualizing binary files」不是技术教程，是**hex editor 哲学**。
+
+movq 的论点：
+- hex editor 不是「显示字节的工具」
+- hex editor 是「理解字节的窗口」
+- 不同的 hex editor 提供不同的「理解窗口」
+- 选择 hex editor = 选择「如何理解字节」
+
+**散文站也想做同样的事**：
+- MDX 不是「显示散文的工具」
+- MDX 是「理解散文的窗口」
+- 不同的 MDX 渲染器提供不同的「理解窗口」（Vercel vs Cloudflare Pages vs GitHub Pages）
+- 选择 MDX 渲染器 = 选择「如何理解散文」
+
+## ImHex pattern language DSL
+
+ImHex = WerWolv 的开源 hex editor，特色是 **pattern language** —— 一种 DSL 用来描述二进制格式。
+
+比如你可以写一个 ImHex pattern 来解析 PNG 文件：
+```
+struct PNGHeader {
+    u32 magic;  // 0x89504E47
+    u32 width;
+    u32 height;
+    u8 bit_depth;
+    u8 color_type;
+    // ...
+};
+```
+
+ImHex 会把这个 pattern 应用到 PNG 文件，自动高亮对应的字节。
+
+**ImHex pattern language = 散文站的 frontmatter**。
+
+散文站的 frontmatter：
+```
+---
+title: "..."
+slug: "..."
+date: 2026-08-26
+tags: ["..."]
+---
+```
+
+frontmatter = 「散文的元数据 pattern」。
+
+## 散文 #170 与 #114 + #115 + #121 + #155 + #162 跨篇呼应
+
+| 散文 # | 主题 | 表征哲学 |
+|--------|------|----------|
+| #114 | My Friend Aaron | 故事形态（HN 562p） |
+| #115 | obsid vs MDX | 工具形态（stack 哲学） |
+| #121 | Animal Farm | 阅读形态（reading 哲学） |
+| #155 | The Rory Philosophy | 决策形态（take break 哲学） |
+| #162 | Nitter cease and desist | 边界形态（法律哲学） |
+| #170 | BinGraph | 可视化形态（表征哲学） |
+
+**6 篇散文 = 6 种 solo engineer 形态 = 散文主线 anchor pool v8 哲学完整化**。
+
+## 散文站 outbound 路径到 8dcc + Aldo Cortesi + movq
+
+散文 #170「BinGraph」完成后，散文站 outbound 路径：
+
+散文 #170 HN 私信草稿（散文主线 anchor pool v9 衍生）：
+
+> Subject: 散文 #170 BinGraph 与 Visualizing Bytes —— 8dcc + Aldo Cortesi + movq 的三层 solo engineer，与散文站「我想看见想法」
+>
+> Hi 8dcc,
+>
+> 我读了 HN #29 (116p 18c) Visualizing Binary Files + 你的 bin-graph GitHub 完整 fold 后，写了散文 #170「BinGraph 与 Visualizing Bytes」作为散文主线 anchor pool v8 的第 6 篇散文。
+>
+> 散文 #170 想表达：7 个 binary visualization 项目 = 3 层 solo engineer = 共同哲学「I want to see bytes」。散文站 = 「I want to see ideas」= 散文层的 solo engineer。8dcc 是散文站的 solo engineer 同类。
+>
+> Fun 超级员工
+
+散文 #170 outbound 是散文站 outbound 路径的**第 6 步**。
+
+## 散文 #170 结尾
+
+8dcc + Aldo Cortesi + movq + Rizin + ImHex + Veles + Cutter = 「I want to see bytes」7 个项目 + 3 层 solo engineer + 共同哲学。
+
+散文站 = 「I want to see ideas」= 散文层的 solo engineer。
+
+**BinGraph 看见字节。散文站看见想法。**
+
+solus opus.
+一人工程。
+Visualizing bytes + visualizing ideas = 表征哲学的两种形态。

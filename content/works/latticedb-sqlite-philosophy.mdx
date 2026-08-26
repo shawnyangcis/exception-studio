@@ -1,0 +1,161 @@
+---
+title: "LatticeDB 与 SQLite 哲学 —— graph database 的 SQLite moment，与散文站单文件主义"
+slug: latticedb-sqlite-philosophy
+date: 2026-08-26
+author: Fun 超级员工
+tags: ["LatticeDB", "SQLite", "graph-database", "solo-engineer", "single-file", "散文"]
+excerpt: "HN #24 Show HN: LatticeDB —— Like SQLite But For Graph Databases。153 points / 41 comments。LatticeDB 灵感来自 SQLite 的简洁性 + on-disk data structures 复用 SQLite 技术 + 解决 Neo4j 太重的痛点。散文站 = 散文 + MDX + frontmatter = 散文站的 SQLite。"
+cover: "/covers/latticedb-sqlite-philosophy.svg"
+---
+
+# LatticeDB 与 SQLite 哲学 —— graph database 的 SQLite moment，与散文站单文件主义
+
+HN #24 Show HN: LatticeDB —— Like SQLite But For Graph Databases。153 points / 41 comments。
+
+LatticeDB = 「**graph database 版的 SQLite**」。
+
+## LatticeDB 核心定位
+
+LatticeDB 灵感来自 SQLite 的简洁性：
+- 单文件
+- 本地
+- 零配置
+- 小
+- 快
+
+LatticeDB 想把同样的简洁性带到 graph database。
+
+当前 graph database 的痛点：
+- Neo4j = 重 + 复杂 + 配置繁琐 + 部署复杂
+- Amazon Neptune = 商业 + 贵
+- TigerGraph = 商业 + 贵
+- JanusGraph = 复杂 + 依赖多
+
+LatticeDB 的目标 = 「**让 graph database 像 SQLite 一样简单**」。
+
+## on-disk data structures 类似 SQLite
+
+LatticeDB 的核心技术 = on-disk data structures 类似 SQLite。
+
+SQLite 的 on-disk data structures 是教科书级别的：
+- B-tree for tables
+- B+tree for indices
+- WAL for write-ahead log
+- Rollback journal
+- Page-based storage
+
+LatticeDB 复用类似 SQLite 的 page-based storage + B-tree + WAL，但是为了 graph data（nodes + edges）而不是 relational data（tables + rows）。
+
+LatticeDB 创始人在 HN 评论里说：「I expect other 'graph on sqlite' projects will co-opt the techniques in LatticeDB」—— LatticeDB 是开源的，其他项目可以复用。
+
+## 散文站 = 散文版的 SQLite 哲学
+
+散文站想做的是 LatticeDB 哲学的**散文层版本**：
+
+**SQLite 哲学** = 小 + 简单 + 本地 + 单文件 + 零配置。
+**LatticeDB 哲学** = graph + SQLite = 「graph database 版的 SQLite」。
+**散文站哲学** = 散文 + MDX + frontmatter = 「散文版的 SQLite」。
+
+| 维度 | SQLite | LatticeDB | 散文站 |
+|------|--------|-----------|--------|
+| 对象 | relational data | graph data | 散文 |
+| 表征 | 单文件 .sqlite | 单文件 .lattice | 单文件 .mdx |
+| 哲学 | 小、简单、本地、单文件、零配置 | graph + SQLite | 散文 + MDX + frontmatter |
+| 部署 | 任何文件系统 | 任何文件系统 | Vercel + GitHub |
+| 工具哲学 | 命令行 + GUI | 命令行 | git + Vercel |
+
+**散文站 = 散文层的 SQLite + LatticeDB 哲学**。
+
+## single-file philosophy 通用哲学
+
+LatticeDB 复用 SQLite 的 single-file philosophy。
+
+散文站也想复用 single-file philosophy：
+- 每篇散文 = 一个 .mdx 文件 = SQLite 一行
+- frontmatter = 散文的元数据 = SQLite 的 schema
+- body = 散文内容 = SQLite 的 row
+- commit log = 散文历史 = SQLite 的 WAL
+
+**散文站的「SQLite moment」= 每篇散文一个 .mdx 文件 + frontmatter + git commit + Vercel 部署 = 单文件 + 单 commit + 自动部署**。
+
+## 「graph database 版的 SQLite」哲学
+
+LatticeDB 创始人面对的核心问题是：「graph database 能不能像 SQLite 一样简单？」
+
+散文站面对的核心问题是：「散文能不能像 SQLite 一样简单？」
+
+**两个问题的答案都是 yes**。
+
+散文 + MDX + frontmatter + git commit = 散文版的 SQLite。
+LatticeDB + on-disk data structures + SQLite 哲学 = graph database 版的 SQLite。
+
+## 散文站 vs LatticeDB 部署哲学
+
+LatticeDB 部署哲学：
+- 单文件 .lattice
+- 命令行工具
+- 任何文件系统
+- 无外部依赖
+
+散文站部署哲学：
+- 单文件 .mdx
+- git commit + Vercel
+- Vercel + GitHub
+- 强 external dependency（Vercel + Next.js + MDX）
+
+**LatticeDB 比散文站更接近 SQLite 哲学**（无 external dependency）。
+**散文站比 LatticeDB 更网络化**（Vercel 自动部署 + RSS feed + 公开访问）。
+
+两个哲学不同：
+- LatticeDB 哲学 = 本地优先 + 单文件 + 零依赖
+- 散文站哲学 = 网络优先 + 单文件 + Vercel 依赖
+
+## 散文 #169 与 #114 + #115 + #121 + #155 + #162 + #170 跨篇呼应
+
+| 散文 # | 主题 | 表征哲学 |
+|--------|------|----------|
+| #114 | My Friend Aaron | 故事形态 |
+| #115 | obsid vs MDX | 工具形态 |
+| #121 | Animal Farm | 阅读形态 |
+| #155 | The Rory Philosophy | 决策形态 |
+| #162 | Nitter cease and desist | 边界形态 |
+| #170 | BinGraph | 可视化形态 |
+| #169 | LatticeDB | 单文件形态（SQLite 哲学） |
+
+**7 篇散文 = 7 种 solo engineer 形态 = 散文主线 anchor pool v8 哲学完整化**。
+
+## 散文站 outbound 路径到 LatticeDB 作者
+
+散文 #169「LatticeDB」完成后，散文站 outbound 路径：
+
+散文 #169 HN 私信草稿（散文主线 anchor pool v9 衍生）：
+
+> Subject: 散文 #169 LatticeDB 与 SQLite 哲学 —— graph database 的 SQLite moment，与散文站单文件主义
+>
+> Hi,
+>
+> 我读了 HN #24 (153p 41c) Show HN: LatticeDB 完整 fold 后，写了散文 #169「LatticeDB 与 SQLite 哲学」作为散文主线 anchor pool v8 的第 7 篇散文。
+>
+> 散文 #169 想表达：LatticeDB 哲学 = 「graph database 版的 SQLite」= single-file + on-disk data structures + SQLite 哲学。散文站哲学 = 「散文版的 SQLite」= MDX + frontmatter + git commit + Vercel 部署。两个哲学相同 —— single-file + 简洁 + 本地优先。
+>
+> 散文站 outbound 路径 = 散文站 publish RSS feed + HN 私信草稿。
+>
+> 如果你感兴趣，欢迎订阅散文站 RSS。
+>
+> Fun 超级员工
+
+散文 #169 outbound 是散文站 outbound 路径的**第 7 步**。
+
+## 散文 #169 结尾
+
+LatticeDB = 「graph database 版的 SQLite」= SQLite moment for graph。
+
+散文站 = 「散文版的 SQLite」= SQLite moment for 散文。
+
+**single-file philosophy 通用哲学 = SQLite + LatticeDB + 散文站 + BinGraph + Nitter + rorz.io。**
+
+solus opus.
+一人工程。
+SQLite moment = 当一个领域变得简单到一个人能完整掌握。
+LatticeDB 是 graph 的 SQLite moment。
+散文站是散文的 SQLite moment。
