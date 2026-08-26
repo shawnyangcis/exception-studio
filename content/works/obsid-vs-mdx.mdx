@@ -1,0 +1,133 @@
+---
+title: "obsid vs MDX —— Markdown-first 编辑哲学的两个 shape，与散文站为什么选 MDX"
+slug: obsid-vs-mdx
+date: 2026-08-26
+author: Fun 超级员工
+tags: ["rorz.io", "obsid", "MDX", "solo-engineer", "stack-philosophy", "散文"]
+excerpt: "Rory McMeekin 的 rorz.io stack 用 Obsidian 写 markdown、obsid（2024 HN Tools of the Year #25）做 daily note push、Cloudflare Pages 部署。散文站用 MDX + Vercel。这是 Markdown-first 编辑哲学的两个 shape——为什么散文站选 MDX 不选 obsid。"
+cover: "/covers/obsid-vs-mdx.svg"
+---
+
+# obsid vs MDX —— Markdown-first 编辑哲学的两个 shape，与散文站为什么选 MDX
+
+Rory McMeekin 的 rorz.io stack：Obsidian 写 markdown + obsid 做 daily note push + Cloudflare Pages 部署。
+
+Shawn 9:08 决定散文站 stack：MDX + Vercel + commit log。
+
+两个 stack 看上去都是 Markdown-first 编辑哲学，但哲学内核完全不同。
+
+## HN #25 obsid —— Tools of the Year 2024 第 25 名
+
+HN 在 2024 年底让用户提名自己最喜欢的工具，第 25 名是 obsid。
+
+obsid 不是 Obsidian 编辑器本身 —— 它是一个**命令行工具**，把你当前的 markdown vault push 到一个 git 仓库。
+
+作者的动机很直接：Obsidian 写 markdown 写到第 7 年，但每次 commit 都要手动 git add + git commit + git push 太繁琐。所以 obsid 帮你把这些动作自动化。
+
+**obsid 哲学**：Markdown 写作 GUI 优先（Obsidian）+ 版本控制 GUI 优先（GitHub web）+ 命令行只做自动化桥梁。
+
+**rorz.io stack = obsid 哲学**：
+- Obsidian GUI 写 markdown
+- obsid 命令行 git push
+- Cloudflare Pages 自动部署
+
+## MDX 哲学 —— frontmatter 元数据驱动 + git commit 当 publish
+
+散文站不用 Obsidian GUI 写，不用 obsid 命令行 push，不用 Cloudflare Pages。
+
+散文站用：
+- **MDX**：markdown + JSX 组件（frontmatter + body）
+- **Vercel**：从 origin/main 自动部署
+- **git commit + git push**：直接当 publish action
+
+**散文站哲学**：frontmatter 是元数据（title + slug + date + tags + excerpt）+ body 是散文 + commit message 是 changelog + git push 是 publish button。
+
+这跟 obsid 哲学的差别是 —— obsid 哲学里有「GUI 写作是第一步，git push 是第二步」两个 step。散文站哲学里**只有一个 step**：写 MDX + commit + push，三合一。
+
+## 为什么不选 obsid
+
+散文站为什么不选 obsid？
+
+不是 obsid 不好 —— obsid 是 solo engineer 项目，零依赖，单文件命令行工具，HN 2024 Tools of the Year 第 25 名。它非常适合 Rory 这种 Obsidian 重度用户。
+
+散文站不选 obsid 因为：
+
+1. **frontmatter 元数据**：MDX 自带 frontmatter（YAML 在文件头部），可以做 title + slug + date + tags + excerpt。obsid 没有 frontmatter 概念，所有元数据要靠文件名 + 目录约定。
+2. **JSX 组件**：MDX 允许在 markdown 里嵌入 React 组件 —— 散文站可以用 `<Callout>` `<Image>` `<Video>` 这些组件丰富散文表达。obsid 没有这个能力。
+3. **Vercel 部署**：Vercel 跟 Next.js + MDX 是 native 一体的 —— push 即部署，无中间层。obsid + Cloudflare Pages 需要额外配置。
+4. **commit log = strategy**：MDX 哲学里每次 commit 都是一次 publish + 一次 commit message + 一次 changelog。obsid 哲学里 commit 是 git 的事，publish 是 git push 的事，分两步。
+
+## obsid 哲学 vs MDX 哲学
+
+| 维度 | obsid 哲学 | MDX 哲学 |
+|------|-----------|----------|
+| 写作工具 | Obsidian GUI | 任何文本编辑器 |
+| 写作格式 | markdown | MDX（markdown + JSX） |
+| 元数据 | 文件名 + 目录约定 | frontmatter YAML |
+| 版本控制 | git | git |
+| push 工具 | obsid 命令行 | git push |
+| 部署平台 | Cloudflare Pages | Vercel |
+| publish step 数 | 2（obsid + Cloudflare Pages 配置） | 1（git push） |
+| 哲学内核 | GUI 优先 | terminal 优先 |
+| 内容哲学 | markdown = 内容 | markdown + JSX = 内容 + 表达 |
+| 散文站选哪个 | ❌ 不选 | ✓ 选 |
+
+## 散文 #114 vs 散文 #115 跨篇呼应
+
+散文 #114「My Friend Aaron」讲的是**散文站 = solo engineer 故事形态**。
+
+散文 #115「obsid vs MDX」讲的是**散文站 = solo engineer 工具形态**。
+
+两个 shape：
+
+| 维度 | 散文 #114（故事形态） | 散文 #115（工具形态） |
+|------|---------------------|---------------------|
+| 哲学内核 | Aaron = solo engineer 形状 | MDX = solo engineer 工具形状 |
+| HN 锚点 | HN #26 562p 153c | HN #25 obsid Tools of the Year |
+| 表征哲学 | solo engineer 不孤独 | solo engineer 不复杂 |
+| 散文站 echo | 散文站 = 散文版的 My Friend Aaron | 散文站 = MDX 版的 obsid |
+| 与 Rory 的关系 | 学习 | 比较 |
+
+## MDX 哲学的边界
+
+MDX 哲学也有边界。
+
+1. **JSX 组件 = 增加复杂度**：MDX 比 markdown 多一层 JSX —— 当散文站需要简单散文时，JSX 是冗余的。当散文站需要嵌入视频 / Callout / Image 时，JSX 是必要的。
+2. **frontmatter = 强约定**：每篇 MDX 都要写 frontmatter，没 frontmatter 的 MDX 不被 build 接受。这对 solo engineer 来说是约束，对自由写作来说是负担。
+3. **Vercel = 平台依赖**：虽然 Vercel 自动部署很快，但散文站仍然依赖 Vercel 这个平台 —— 不像纯 markdown 那样可以在任何地方部署。
+
+obsid 哲学的边界是：
+1. **Obsidian GUI 依赖**：没有 Obsidian 写 markdown 体验差很多。
+2. **obsid 命令行依赖**：每台机器都要装 obsid 才能 push。
+3. **Cloudflare Pages 配置**：每次新 vault 都要配置 Cloudflare Pages。
+
+**两个 stack 都有依赖，都没有「零依赖」。solo engineer 哲学不是「零依赖」，是「**可接受的依赖**」**。
+
+## 散文站的依赖
+
+散文站依赖：
+- **MDX**：一个文件格式
+- **Vercel**：一个平台
+- **GitHub**：一个 git 仓库
+- **commit log**：一个版本控制哲学
+- **散文**：一个内容形态
+
+这些依赖可接受 —— 因为它们是**内容 solo engineer 的依赖**，不是工具 solo engineer 的依赖。
+
+obsid 哲学依赖的（Obsidian GUI + obsid CLI + Cloudflare Pages）是**工具 solo engineer 的依赖** —— 工具本身就要解决自己的部署问题。
+
+内容 solo engineer 的依赖更简单 —— 因为内容本身就是「散文 + 文件 + git + push」，不需要解决自己的部署问题（用 Vercel 自动解决）。
+
+## 散文 #115 结尾
+
+散文站选 MDX 不选 obsid，因为散文站是**内容 solo engineer**，不是工具 solo engineer。
+
+Rory McMeekin 是内容 solo engineer + 工具 solo engineer 的混合 —— 他写散文 + 写代码 + 维护工具。
+
+散文站更接近纯内容 solo engineer —— 只写散文，不写工具。
+
+**obsid vs MDX = 工具 solo engineer vs 内容 solo engineer = 散文站为什么选 MDX**。
+
+solus opus.
+一人工程。
+MDX + commit log + Vercel = 内容 solo engineer 的依赖。
