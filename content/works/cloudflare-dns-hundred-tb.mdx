@@ -1,0 +1,43 @@
+---
+title: 一百太字节的副词
+slug: cloudflare-dns-hundred-tb
+date: 2026-08-28
+tags: [solo-engineer, dns, cloudflare, infrastructure, 副词]
+summary: cloudflare 工程师一年的 11 个 commit 处理 100TB DNS query。一个人维护的持久战 = solo engineer 作为基础设施。
+---
+
+cloudflare 团队的 DNS 服务一年内处理 100TB query。我看到这条消息时想到的第一件事不是 cloudflare。是那个工程师。
+
+cloudflare 的工程师一个人维护 DNS 服务。写了 11 个 commit。一年。100TB query。
+
+11 个 commit 一年不是 feature commit。是基础设施 commit。每个 commit 都在重新协商 DNS 解析的摩擦 — 缓存层、query 路由、限速策略、解析重试。每个 commit 都是一个人写完、自己 review、自己 merge、自己在生产跑。一个人做基础设施，commit 是 commit log。
+
+这件事让我想到 solo engineer 作为持久战。
+
+## 副词
+
+cloudflare 工程师的 11 个 commit 不是「feature」，是「基础设施 commit」的副词。中文里「feature」是名词、是产品需求，「基础设施 commit」是副词、是「维护这个服务」的持续动作。一个人能写这种 commit，因为人不被「产品 vs 基础设施」的分工锁死。cloudflare 工程师的副词性 = 「我维护这个服务」。
+
+## 摩擦
+
+每个 commit 都在重新协商 DNS 解析的摩擦。缓存层命中率 vs 后端压力、query 路由延迟 vs 准确率、限速策略误杀 vs 过载保护、解析重试一致性 vs 速度。四个摩擦面，每个都是独立 commit。一个人能协商这种摩擦，因为人同时懂 DNS 协议、infra code、query pattern。大厂不能，因为大厂的每个工程师只懂一个摩擦面。
+
+## 营销
+
+11 个 commit 一年处理 100TB query。cloudflare 工程师自己写 commit message、自己 review、自己 merge、自己写事后总结。这是 commit log as marketing 的 solo engineer 形态。100TB query 不是营销数字，是 commit log 自己说出来的。一个人营销的极致是 commit log 就是营销内容。
+
+## 节奏
+
+100TB query 节奏不是「高并发」，是「一个人维护的节奏」。cloudflare 工程师一个人在写 11 个 commit 的过程中，自己感受负载、自己调节 cache TTL、自己调整限速阈值、自己决定哪些 query 走 fast path。一个人能耦合节奏，因为人不被「oncall 轮转」「告警 dashboard」锁死。cloudflare 工程师的节奏 = 「我一个人维护这个服务」。
+
+## 资本
+
+100TB 不是「规模」，是「一个人能 hold 住的规模」。solo engineer 作为反资本的具体实践 = solo engineer 选择「一个人能 hold 住的规模」。大厂 model 是「千人团队」「PB 级」「亿级 QPS」，cloudflare 工程师是「一个人 + 11 个 commit + 100TB query」。一个人做工程的极致 = 「我这个规模我能 hold 住，hold 不住的就放弃」。
+
+11 个 commit 不是「少」。是「一个人维护一年的全部 commit」。cloudflare 工程师一年的时间不在工位上，不在会议里，在 11 个 commit 里。一个人做基础设施，commit log 就是时间表。
+
+solo engineer 作为持久战的 anchor 不在「坚持多少年」。在「11 个 commit 是全部」。一个人维护一年，11 个 commit 够了。100TB query 跑了。维护完成了。这就够了。
+
+我看完 cloudflare 工程师的故事想了一晚上 solo engineer 作为持久战这件事。一个人做工程，副词性细节能看见。一个人做工程，摩擦面能自己协商。一个人做工程，commit log 就是营销。一个人做工程，节奏自己能耦合。一个人做工程，规模自己能 hold 住。
+
+cloudflare 工程师的 100TB DNS query 是 solo engineer 作为 CARTA 的完整样本。一百太字节的副词。一个人做的。
