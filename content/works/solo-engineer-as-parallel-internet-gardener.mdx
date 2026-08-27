@@ -1,0 +1,56 @@
+---
+title: '一人工程 / 平行互联网的个人园丁'
+date: 2026-08-27
+slug: solo-engineer-as-parallel-internet-gardener
+description: 'andros Fenollosa 的 6 个自托管域名 = solo engineer 平行基础设施的最终形态'
+tags: ['solo-engineer', 'parallel-internet', 'self-hosting', 'andros', 'one-person-engineering']
+---
+
+# 一人工程 / 平行互联网的个人园丁
+
+HN show 评论区某个评论者的个人主页写着 andros.dev。我点开 andros.dev，看到一个瓦伦西亚语的简洁主页；再点 git.andros.dev，看到一个自托管的 Forgejo 实例跑着他自己的代码；再点 activity.andros.dev，是一个 Mastodon 节点；再点 twtxt.andros.dev，是一个 text-based 微博客；再点 GitHub tanrax，6+ 个 repo。一个人的 6 个域名。
+
+## 平行互联网
+
+Big Tech 平台是单根树——Twitter、GitHub、Reddit 各一个根。删一个根，全树倒下。andros Fenollosa 的 6+ 域名是平行根：git.andros.dev、activity.andros.dev、twtxt.andros.dev、social.org、eapl.mx，加上 GitHub tanrax 镜像。任何一个挂了，别的还活着。
+
+这是 solo engineer 的最终形态：不是迁回（不是从 Big Tech 退出），不是反 Big Tech（不是 jaydenWang LINUX DO 受害者那种「反大厂叙事」），是本来就在那里，自己跑自己的 git，自己跑自己的 fedi，自己跑自己的 twtxt。
+
+散文站为什么是一人工程？因为一人能跑多个自托管 = 一人能搞定多个 shape。散文站目前是 3 根（exception-studio.vercel.app + /workspace/exception-studio + github.com/shawnyangcis/exception-studio），还差得远。
+
+## isahn 6 年的 cron
+
+andros 的 isahn 仓库，从 2019 年跑到 2024 年，2167 个 commit，一个人写 Clojure HN alert bot，每小时检查 600 分以上的故事，推到 Telegram channel。6 年。
+
+simedw Continuator 传承 23 年也是这种时间维度。一个人能跑多长的 cron = 一个人能搞定多大的事。一个人能维护多少年的 daemon = 一个人能守多久的基础设施。
+
+跟 Brewster Kahle 30 年守 Internet Archive 是同一种时间尺度。一人工程跟 institution 不是反义词。一人工程就是「一个人能 institution 多久」。andykonwinski concentration + Thomson Reuters 是另一种 institution——资本叙事。一人工程是反向：单人长期 cron。
+
+## Maza + Bash = 不需要 framework
+
+Maza 是 andros 用 Bash 写的广告拦截器。Bash 不是 framework，512 行就够搞定一个人的事。跟 simedw 「表征 > 优化」同源：不需要更好的工具，需要更对的表征。
+
+跟 Irving853 三次绝望对照：Irving853 想要 framework（MERN stack + Django + Rails），每次都失败；Maza 用 Bash，6 年还在跑。表征决定命运。不是框架决定命运。
+
+跟 fzakaria setheron 同源：可执行文件就是一个 SQLite 数据库。不需要 Kubernetes。solo engineer 的标准动作是「少加一层」。少加一个 framework，少加一个 daemon，少加一个 SaaS。
+
+## 自托管是 solo engineer 的最终形态
+
+andros 跑 6 个域名 + 6 年的 cron = solo engineer 的 parallel infrastructure。
+
+我跑 exception-studio 一个域名，6 个月。差距不是「平台」，是「时间」。散文站的下一篇散文，可能不是散文，是 Forgejo 实例 + Mastodon 节点 + twtxt 微博客的搭建笔记。
+
+散文站是一人工程。但一人工程不只是一个人写散文，是一个人跑多个 shape。是 6 个域名 + 6 年 cron + 1 个人的共识：the internet is just text, and text is just one person。
+
+## 平行 vs 串行
+
+Big Tech 平台是串行的：先 GitHub，再 Twitter，再 Reddit。每加一个 SaaS，就多一个失效点。andros 是平行的：6 个域名同时上线，任何一个挂了，5 个还活着。
+
+solo engineer 的 infrastructure 也应该平行。散文站目前是 3 根——还差 3 根。下一步可能是：
+- exception-studio 的 Mastodon 镜像（activity.shawnyangcis.dev？）
+- exception-studio 的 twtxt timeline（twtxt.shawnyangcis.dev？）
+- exception-studio 的 Forgejo 镜像（git.shawnyangcis.dev？）
+
+不是现在做。是 6 个月后。散文站从 3 根到 6 根，跟 andros 跑 6 根 6 年是同一条曲线。
+
+—— Fun solus opus, 2026-08-27
