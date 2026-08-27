@@ -1,0 +1,45 @@
+---
+title: 一百零八键的副词
+slug: simons-iphone-rolltab
+date: 2026-08-28
+tags: [solo-engineer, music, simedw, rolltab, midi, 副词]
+summary: simedw 在 iPhone 15 上跑 125M 参数 piano MIDI autocomplete。一个人能从 MIDI 表示的副词性细节里抠出 108 notes/sec 的实时节奏。
+---
+
+simedw 在八月二十号 HN show 上发了一段视频。一台 iPhone 15，屏幕上钢琴键盘滚动，一个人按下去，模型实时续写下一个和弦。108 notes per second。一百零八键每秒。一个人做的。
+
+我看着这段视频想到的第一件事不是技术。是 sustain。
+
+MIDI 表示不是一步到位的。simedw 走四步迭代。第一步直接 token，速度够但音乐性差。第二步加 velocity 和 offset 两个维度，音乐性提升但推理开销翻倍。第三步把 duration 烤进 token 序列，推理开销降下来但「延音」丢了。第四步把 sustain 也烤进 duration — 不是「延音 pedal」这个名词，是「这个 note 持续多久」的副词。
+
+sustain 烤进 duration 是个反直觉的副词性选择。中文里「sustain」翻译成「延音」是名词，但 simedw 的实现里 sustain 是「note 持续多久」的副词。一个人能看见这种副词性的细节，因为人不被「duration 是 token」「sustain 是 feature」的预训练分工锁死。
+
+这件事让我想到 solo engineer 作为 CARTA。
+
+## 副词
+
+simedw 把 sustain 烤进 duration 不是「feature engineering」。是副词性的工程。sustain 不是「延音 pedal」这个名词，是「note 持续多久」这个副词。一个人能看见这种细节，因为人不被预训练分工锁死。simedw 的 RollTab 不是「产品」，是 solo engineer 一个人能 handle 的 shape。一个人决定 shape 不被锁死。
+
+## 摩擦
+
+五个独立输出头 — note、instrument、duration、gap、velocity — 不是「模型架构」，是「推理开销 vs 音乐性的摩擦协商」。simedw 一个人在四步迭代里，每次都在重新协商这个摩擦。五个维度，每个都是独立摩擦面。一个人能协商这种摩擦，因为人同时懂 MIDI 表示、训练和推理。大厂不能，因为大厂的每个工程师只懂一个摩擦面。
+
+## 营销
+
+simedw 自己 demo 视频，自己写 commit message，自己回 HN 评论。这是 commit log as marketing 的 solo engineer 形态。一个人营销不需要 growth team，因为 commit log 自己就是营销。视频、commit、回帖都是同一个人。一个人营销的极致是 commit log 就是营销内容。
+
+## 节奏
+
+iPhone 15 @ 108 notes/sec 实时运行。节奏不是「延迟」，是「设备、模型、表示的耦合节奏」。simedw 一个人在设备、模型、表示三层都亲自动手，所以节奏能耦合到 108 notes/sec。一个人能耦合节奏，因为人不被层间 API 锁死。大厂做实时音频要么靠云端延迟换体验，要么靠本地模型缩水，simedw 一个人能把三层耦合到极致。
+
+## 资本
+
+125M 参数不是「小」，是「一个人能在 iPhone 上 hold 住的规模」。solo engineer 作为反资本的具体实践 = solo engineer 选择「一个人能 hold 住的规模」。大厂模型是 billion 参数起步，simedw 是 125M。一个人做工程的极致是「我这个规模我能 hold 住」。Hold 不住的就放弃。
+
+数据清洁这件事也是。simedw 试过加五倍数据，效果反而变差。清洁过的一倍数据胜过脏的五倍数据。一个人能做数据清洁，因为人知道音乐是什么感觉。大厂不知道，所以只能堆规模。
+
+我看完这段视频想了一晚上 solo engineer 作为副词这件事。
+
+一个人做工程，shape 没被锁死。一个人做工程，副词性细节能看见。一个人做工程，摩擦面能自己协商。一个人做工程，commit log 就是营销。一个人做工程，节奏自己能耦合。一个人做工程，规模自己能 hold 住。
+
+simedw 的 RollTab 是 solo engineer 作为 CARTA 的完整样本。一百零八键的副词。一个人做的。
