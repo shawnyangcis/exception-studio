@@ -64,7 +64,9 @@ cycle 118 fold anchor：散文主线 4 outline + 4 新 anchor (v54+v55+v56+v57) 
 
 ## 已 fold anchor pool 历史（cycle 1-118 累计）
 
-35+ 节点 = solo engineer 形态谱系 11 节点（边界四联 v35-v38 + AI 协作两联 v41-v42 + 跨年代 preservation v43 + 个人出版基础设施 v44 + 数学独立形式化 v45 + 散文主线 4 outline 新增）+ 散文站主线 anchor（v9-v32 Krei-se 等）。
+36+ 节点 = solo engineer 形态谱系 12 节点（边界四联 v35-v38 + AI 协作两联 v41-v42 + 跨年代 preservation v43 + 个人出版基础设施 v44 + 数学独立形式化 v45 + indie game developer v60 + 散文主线 4 outline 新增）+ 散文站主线 anchor（v9-v32 Krei-se 等）。
+
+**cycle 86 v60 fold (2026-08-28 21:48 北京)**：igpay Voronoi Go (voronoigo.com, HN show #49468816, 148pt 21c, 2026-08-27) — solo engineer 全栈 indie game + community bot + 异步对弈。散文 #121（solitude / 一人工程）辅 anchor 候选。详情见 cycle-86-v60-voronoi-go.md。
 
 ## 散文 push cooldown 状态
 
