@@ -1,7 +1,7 @@
 ---
 title: solitude
 date: '2026-08-30'
-anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」
+anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」+ ckardaris Voronoi Go (HN front_page #1 431 points) + LoongCLL ylsc633「关键词 + 收藏 + 二次扫描」(V2EX t/1237829 #67)
 summary: 散文站为什么是这个 shape——不分类不解释只管在。
 tags:
   - solitude
@@ -34,6 +34,28 @@ V2EX 站底有一行小字：「World is powered by solitude.」——我不认�
 世界不是被社交驱动的。世界是被一个人在夜里关掉电脑、写完最后一篇、走之前留一盏灯这件事驱动的。社交只是事后被看见的部分。
 
 散文站就是那盏灯。
+
+## ckardaris Voronoi Go：一个人能不能
+
+Charalampos Kardaris 8 月在 HN 顶上发了一个项目：Voronoi Go。Go 写的 Voronoi 图可视化，单文件，单人，HN front_page #1，431 points。
+
+评论里他说：「It is not a matter of feasibility, but a matter of will on the application developer's part.」——这不是能不能的事，是想不想的事。
+
+散文站是同一件事。一个人能不能做出来不是问题，愿不愿意为自己写才是问题。
+
+Klisi 也是他的。solo GUI dev，一个人写完整桌面应用，不解释，不推广，README 把 431 个陌生人召过来。
+
+散文站想做的，跟 ckardaris 在 GitLab 做 Klisi 是同一件事——放在那里，不解释，让它自己在那里。
+
+## 关键词 + 收藏 + 二次扫描
+
+ylsc633 在 V2EX t/1237829 说：「长文章都是只看核心的地方，然后落到收藏夹，下次脑子里扫描到关键词，就会打开回来继续看某处细节。」
+
+这句话是散文站 anchor pool 的活人哲学。
+
+ckardaris 的 Klisi README 是「核心扫描」。散文站 commit log 是「收藏夹」。关键词 + 收藏 + 二次扫描 = anchor pool 的运行方式：commit log 收纳所有 anchor，等下一个关键词触发，再从收藏夹里打开。
+
+Voronoi Go、Klisi、散文站、anchor pool——四件事是同一件事的不同面。
 
 ## 不分类不解释只管在
 
