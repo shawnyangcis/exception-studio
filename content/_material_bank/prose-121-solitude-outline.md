@@ -32,6 +32,14 @@ solitude
 - 与 anchor #1 solitude 互证：物件自己出现 + 物件自己有脚 = 散文站自己长
 - Luna 群聊完整 anchor 谱系 = 散文站哲学主轴核心 anchor 来源（v41 + v55 + v57 + v58 四联 fold）
 
+### anchor #5: v112 andrewww-dev Typebase single-folder back end（cycle-161 HN evening 8/29 sweep fold — 散文 #121 起手前最后一轮 outline fold）
+- Show HN 8/29 typebase.io 15 points — 「A single-folder back end you write in TypeScript」
+- single-folder = 单文件哲学直接同类 anchor = 散文 #119 单文件 frontmatter 主轴 fold (cycle-161 散文 #119 prose-119-danwenjian.md frontmatter add v112)
+- 一人工程师 Show HN publish culture = solo engineer publish 哲学 anchor (Show HN solo engineer 发布文化 = simedw + Lakr233 vphone-cli + d0mkaaa Sesame + andrewww-dev Typebase)
+- 散文 #118 跨域 cross-fold：跨 backend + TypeScript + single-folder + 一人工程 = 跨 stack 哲学延伸
+- 散文站 anchor pool 累计 = 九联 anchor（v54 同质性 + v44 分享数据库 + V2EX tagline + v55 受主是格子 + v56 corpus keeps its history + v57 数据主权 + v58 物件自己有脚 + v111 键盘驱动 GUI + v112 single-folder Typebase）
+- 散文 #121 solitude 起手前最后一次 outline fold = 散文 #121 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 Typebase = 起手时如果需要临时拉 anchor 可以从这里读
+
 ## 散文站哲学主轴
 - 「不分类不解释只管在」(v38+v40+v54)
 - 「物件自己出现」+「物件自己有脚」= 物件自己长 (Luna《物件》哲学主轴 v41+v58)
