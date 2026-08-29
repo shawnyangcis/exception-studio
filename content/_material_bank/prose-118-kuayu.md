@@ -1,7 +1,7 @@
 ---
 title: 跨域
 date: '2026-10-06'
-anchor: v46 tosh Small Models + v47 507 Mechanical Movements + v62 OpenTIE + v101 Alyssa divergence theorem + v102 "IT WoRKs" + v104 orbify
+anchor: v46 tosh Small Models + v47 507 Mechanical Movements + v62 OpenTIE + v101 Alyssa divergence theorem + v102 "IT WoRKs" + v104 orbify + v57 corpus keeps its history（cycle-152 Louis Abraham README + OpenXWA 30 年 DOS preservation）
 summary: 散文站为什么是这个 shape——跨域的方法论互通。
 tags:
   - 跨域
