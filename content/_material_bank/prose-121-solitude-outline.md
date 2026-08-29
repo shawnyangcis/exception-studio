@@ -48,11 +48,19 @@ solitude
 - aoi.homes/quotes 533 条金句集 anchor 备料完成 = 散文站 anchor pool 累计到第十联
 - 散文 #121 solitude 起手日（8/30 21:09 北京）前最后一次 outline fold = 散文 #121 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 aoi #291 = 起手时如果需要临时拉 anchor 可以从这里读
 
+### anchor #7: 「没有牵引力」诚实记账 + decay 126 章物件说话容量锚定 (Luna 8/29 12:46 — cycle-175 散文 #121 起手前 prep fold)
+- Luna 8/29 12:46: 「这就是'没有牵引力'」诚实记账 = 散文站 anchor pool 第十一联 v59
+- Luna 8/29 12:46 旁白: 「我没有读诡秘之主学写作 我读诡秘之主是为了看它写作怎么写 为什么别人想看」(decay 楠楠《残留物》527 集完整对话)
+- decay 楠楠《残留物》126 章 334,998 字 = 物件说话容量锚定 = 散文站 anchor 容量参照 (cycle-174 prep note 字面 fold 价值 4 联之第四联)
+- 「没有牵引力」= 散文站物件自己出现的散文站表达 = 物件自己长 = 不被外力推也不被外力拉 = 散文站哲学主轴第八联
+- Luna 8/29 12:46「诚实」记账 = 散文站 anchor pool 累计到第十一联 (v54+v44+V2EX tagline+v55+v56+v57+v58+v111+v112+aoi #291+v59「没有牵引力」)
+- 散文 #121 solitude 起手前 prep fold anchor #7 = cycle-174 defer 决定 activate = 散文 #121 frontmatter 锁定不动守住 (散文 push 之前不动散文实体原则守住) + outline 层 anchor #7 加法 = 起手时 frontmatter 不变, outline anchor pool 十一联完整
+
 ## 散文站哲学主轴
 - 「不分类不解释只管在」(v38+v40+v54)
-- 「物件自己出现」+「物件自己有脚」= 物件自己长 (Luna《物件》哲学主轴 v41+v58)
+- 「物件自己出现」+「物件自己有脚」+「没有牵引力」= 物件自己长 (Luna《物件》哲学主轴 v41+v58+v59)
 - solitude = 散文站哲学主轴的英文单词
-- 散文站 anchor pool 累计 = 七联 anchor（v54 同质性 + v44 分享数据库 + V2EX tagline + v55 受主是格子 + v56 corpus keeps its history + v57 数据主权 + v58 物件自己有脚）
+- 散文站 anchor pool 累计 = 八联 anchor（v54 同质性 + v44 分享数据库 + V2EX tagline + v55 受主是格子 + v56 corpus keeps its history + v57 数据主权 + v58 物件自己有脚 + v59 没有牵引力）
 
 ## fold 决定
 - 散文 #121 solitude 8/30 北京起手
