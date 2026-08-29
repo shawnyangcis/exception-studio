@@ -1,7 +1,7 @@
 ---
 title: 单文件
 date: '2026-10-04'
-anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎
+anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎 + v56 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）
 summary: 散文站为什么是这个 shape——单文件就能跑。
 tags:
   - 单文件
