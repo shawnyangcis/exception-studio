@@ -1,7 +1,7 @@
 ---
 title: 经济哲学
 date: '2026-10-08'
-anchor: v50 Solo engineer 形态 + v45 数学独立形式化 + v52 Colibrì + v53 Notion 公地悲剧 + v56 Stripe 工程师经济 + v57 字体 cooperative + v58 字体 cooperative 中文 + v59 brabel「Change is bad unless it's great」+ v60 Luanti AI DMCA + v61 Alyssa 数学 + v64 Flatpak 公共资金 + v71 OpenTIE + v72 Luanti AI DMCA 续 + v79 Sovereign Tech + v82 vibecoded FFmpeg + v95 Verschlimmbesserung + v100 Pentagon vs Anthropic + v101 Alyssa divergence theorem 续 + v103 Luanti 单文件游戏引擎 续 + v104 orbify 续
+anchor: v50 Solo engineer 形态 + v45 数学独立形式化 + v52 Colibrì + v53 Notion 公地悲剧 + v56 Stripe 工程师经济 + v57 字体 cooperative + v58 字体 cooperative 中文 + v59 brabel「Change is bad unless it's great」+ v60 Luanti AI DMCA + v61 Alyssa 数学 + v64 Flatpak 公共资金 + v71 OpenTIE + v72 Luanti AI DMCA 续 + v79 Sovereign Tech + v82 vibecoded FFmpeg + v95 Verschlimmbesserung + v100 Pentagon vs Anthropic + v101 Alyssa divergence theorem 续 + v103 Luanti 单文件游戏引擎 续 + v104 orbify 续 + v105 受主是格子 (cycle 36 小伊) + v106 corpus keeps its history (cycle-152 Louis Abraham)
 summary: 散文站为什么是这个 shape——经济哲学看 solo engineer。
 tags:
   - 经济哲学
