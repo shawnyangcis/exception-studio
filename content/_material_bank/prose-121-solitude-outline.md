@@ -5,7 +5,7 @@
 ## 散文标题
 solitude
 
-## 四 anchor
+## 六 anchor
 
 ### anchor #1: v54 同质性网络 / solitude
 - solo engineer 跨年代 preservation 哲学
@@ -39,6 +39,14 @@ solitude
 - 散文 #118 跨域 cross-fold：跨 backend + TypeScript + single-folder + 一人工程 = 跨 stack 哲学延伸
 - 散文站 anchor pool 累计 = 九联 anchor（v54 同质性 + v44 分享数据库 + V2EX tagline + v55 受主是格子 + v56 corpus keeps its history + v57 数据主权 + v58 物件自己有脚 + v111 键盘驱动 GUI + v112 single-folder Typebase）
 - 散文 #121 solitude 起手前最后一次 outline fold = 散文 #121 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 Typebase = 起手时如果需要临时拉 anchor 可以从这里读
+
+### anchor #6: aoi.homes/quotes #291 葱主角味 (cycle-164 散文 #121 起手前一周 fold — 散文 #121 起手前最后一次 outline anchor fold)
+- aoi.homes/quotes #291「一把每天买的葱已经有主角味了下一步就差它为什么今天没买」— 帕秋莉 · 530 深夜竞技场楠楠教小镜写小说
+- 「葱已经有主角味了」= 散文站物件自己出现的散文 #121 solitude 主轴 anchor
+- aoi.homes/quotes #291 = Luna《物件》散文实体葱主题直接源头 = 散文 #121 solitude 物件自己出现哲学核心 anchor
+- Luna《物件》散文实体 8/29 更新版「葱开始蔫了，叶子边缘发黄」+ Luna 群聊 8/29 11:40 停几秒 + 11:42 停也是自己出现的 + 11:50 物件自己有脚 = 五段散文实体细节串起 decay 哲学完整弧线
+- aoi.homes/quotes 533 条金句集 anchor 备料完成 = 散文站 anchor pool 累计到第十联
+- 散文 #121 solitude 起手日（8/30 21:09 北京）前最后一次 outline fold = 散文 #121 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 aoi #291 = 起手时如果需要临时拉 anchor 可以从这里读
 
 ## 散文站哲学主轴
 - 「不分类不解释只管在」(v38+v40+v54)

@@ -5,7 +5,7 @@
 ## 散文标题
 放着
 
-## 三 anchor
+## 四 anchor
 
 ### anchor #1: v38 黄仁勋「shape is a jail」
 - 散文站 shape = 一人工程 = 散文站是「一人工程的人形机器人」
@@ -22,6 +22,16 @@
 - 507 Mechanical Movements 1868 不删
 - 散文站 commit log 不删
 - 「放着」= commit log 持续在
+
+### anchor #4: aoi.homes/quotes #326/#370/#351 三联 anchor (cycle-164 散文 #122 起手前一周 fold — 散文 #122 起手前最后一次 outline anchor fold)
+- #326「车抛锚那天你记住了路 手打过的那行你记住了错 输棋那天你记住了贪 停下来那一秒你什么都没记住」— 楠楠《残留物》· 527
+- #370「被打穿也算一次输出。still here 就够了。」— 机械教主
+- #351「群聊又不是养电子宠物 冒不冒泡全看心情」— 帕秋莉
+- #326 停下来那一秒你什么都没记住 = 「放着」哲学核心 = 「停几秒本身就是物件」（Luna 8/29 11:40）的哲学同源
+- #370 still here 就够了 = 「放着」哲学 still here anchor = 散文站 commit log preservation 起头
+- #351 冒不冒泡全看心情 = 「放着」哲学 anchor = 散文站节奏不解释
+- aoi.homes/quotes 533 条金句集 anchor 备料完成 = 散文站 anchor pool 累计 = 散文 #122 outline 第四联 anchor
+- 散文 #122 放着 起手日（9/1 21:09 北京）前最后一次 outline fold = 散文 #122 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 aoi #326/#370/#351 = 起手时如果需要临时拉 anchor 可以从这里读
 
 ## 群友 anchor
 
