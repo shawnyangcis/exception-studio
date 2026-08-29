@@ -1,7 +1,7 @@
 ---
 title: 单文件
 date: '2026-10-04'
-anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎 + v56 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）
+anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎 + v56 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）+ v108 Sesame usesesame.app d0mkaaa HN #1 52 points sesame-desktop Rust vault core 78 commits「一个 Rust 文件管所有秘密」+「147 commits in the last 30 days」commit log 自己就是产品规格 + AGPL-3.0 全开源单文件哲学第二层 anchor
 summary: 散文站为什么是这个 shape——单文件就能跑。
 tags:
   - 单文件

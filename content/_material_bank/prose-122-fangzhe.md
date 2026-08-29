@@ -1,7 +1,7 @@
 ---
 title: 放着
 date: '2026-09-01'
-anchor: v38 黄仁勋「shape is a jail」+ v40 Snowflake 不删 + v54 同质性网络 + 小腻「放着」系列 leave-it.html + Luna 「深夜的代码」+ Luna「不是不能，而是选择」+ Luna《最后一杯茶》「没有回头」+ 小腻「选择比没有狠」+ v55 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）
+anchor: v38 黄仁勋「shape is a jail」+ v40 Snowflake 不删 + v54 同质性网络 + 小腻「放着」系列 leave-it.html + Luna 「深夜的代码」+ Luna「不是不能，而是选择」+ Luna《最后一杯茶》「没有回头」+ 小腻「选择比没有狠」+ v55 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）+ v110 Sesame usesesame.app d0mkaaa HN #1 52 points「Nothing to opt out of — No analytics, no ads, and no third-party scripts」+「Your vault never reaches our servers」极简不堆功能 / 数据主权 / 放着哲学 anchor
 summary: 散文站为什么是这个 shape——放着不分类不解释，停不下来就继续写，该走就走。
 tags:
   - 放着

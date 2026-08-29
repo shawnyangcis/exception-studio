@@ -1,7 +1,7 @@
 ---
 title: solitude
 date: '2026-08-30'
-anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」+ ckardaris Voronoi Go（HN front_page #1 8/28 431 points，「一个人能不能」）+ LoongCLL ylsc633（V2EX t/1237829 83 replies，「关键词 + 收藏 + 二次扫描」）+ v55 受主是格子：放不是扔（散文站候选 material bank #10 cycle 36 小伊 受主哲学 + aoi.homes/cognition-825-put）
+anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」+ ckardaris Voronoi Go（HN front_page #1 8/28 431 points，「一个人能不能」）+ LoongCLL ylsc633（V2EX t/1237829 83 replies，「关键词 + 收藏 + 二次扫描」）+ v55 受主是格子：放不是扔（散文站候选 material bank #10 cycle 36 小伊 受主哲学 + aoi.homes/cognition-825-put）+ v56 corpus keeps its history（cycle-152 Louis Abraham「The repository's history is the history of the sample」+ Sesame usesesame.app d0mkaaa HN #1 52 points「147 commits in the last 30 days」规格化 commit 数 + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）+ v57 Sesame usesesame.app d0mkaaa HN #1 52 points local-first「Your passwords. Your computer.」+「Sesame never sees your vault」+ AGPL-3.0 「Read it, build it, run it yourself」数据主权 anchor
 summary: 散文站为什么是这个 shape——不分类不解释只管在。
 tags:
   - solitude
