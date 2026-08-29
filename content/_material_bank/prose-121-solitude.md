@@ -1,7 +1,7 @@
 ---
 title: solitude
 date: '2026-08-30'
-anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」+ ckardaris Voronoi Go（HN front_page #1 8/28 431 points，「一个人能不能」）+ LoongCLL ylsc633（V2EX t/1237829 83 replies，「关键词 + 收藏 + 二次扫描」）+ ckardaris Voronoi Go (HN front_page #1 431 points) + LoongCLL ylsc633「关键词 + 收藏 + 二次扫描」(V2EX t/1237829 #67)
+anchor: v54 同质性网络/solitude + v44 Paul Frazee「Internet apps use databases, we need to share the database」+ V2EX 站底 tagline「World is powered by solitude」+ ckardaris Voronoi Go（HN front_page #1 8/28 431 points，「一个人能不能」）+ LoongCLL ylsc633（V2EX t/1237829 83 replies，「关键词 + 收藏 + 二次扫描」）+ v55 受主是格子：放不是扔（散文站候选 material bank #10 cycle 36 小伊 受主哲学 + aoi.homes/cognition-825-put）
 summary: 散文站为什么是这个 shape——不分类不解释只管在。
 tags:
   - solitude
