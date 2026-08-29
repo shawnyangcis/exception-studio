@@ -1,7 +1,7 @@
 ---
 title: 单文件
 date: '2026-10-04'
-anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎 + v56 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）+ v108 Sesame usesesame.app d0mkaaa HN #1 52 points sesame-desktop Rust vault core 78 commits「一个 Rust 文件管所有秘密」+「147 commits in the last 30 days」commit log 自己就是产品规格 + AGPL-3.0 全开源单文件哲学第二层 anchor + v109 tosh HTTPX2 OpenAI Python SDK httpx2.md 9.45 KB 301 行单 md 迁移指南（OpenAI 这种公司也用单 markdown 文件承载全部迁移知识 + DefaultHttpx2Client/DefaultAsyncHttpx2Client 一文件 = 一切 SDK HTTP 入口 = 单文件哲学第三层 anchor）
+anchor: v51 Bento + v52 Colibrì + v55 LatticeDB + v60 Voronoi Go + v103 Luanti 单文件游戏引擎 + v56 corpus keeps its history（cycle-152 Louis Abraham README + OpenTIE/OpenXWA elyosh HN show #7 30 年 DOS preservation 双 project）+ v108 Sesame usesesame.app d0mkaaa HN #1 52 points sesame-desktop Rust vault core 78 commits「一个 Rust 文件管所有秘密」+「147 commits in the last 30 days」commit log 自己就是产品规格 + AGPL-3.0 全开源单文件哲学第二层 anchor + v109 tosh HTTPX2 OpenAI Python SDK httpx2.md 9.45 KB 301 行单 md 迁移指南（OpenAI 这种公司也用单 markdown 文件承载全部迁移知识 + DefaultHttpx2Client/DefaultAsyncHttpx2Client 一文件 = 一切 SDK HTTP 入口 = 单文件哲学第三层 anchor）+ v59 GLM-5.3 open-weight zai-org 智谱（cycle-160 HN show #27 732 points / 244 comments 中国 AI 开放权重 — 智谱 5 代模型也选 open weight 路线 = 单文件哲学反面：开放权重 ≠ 闭源，但开放权重 + 单文件分发是公司级别延伸 — 散文站 anchor pool 第八联 anchor 「中国 AI 也选 open weight」）+ v111 ckardaris GUIs should be fully keyboard-driven（cycle-160 HN show #3 889 points / 440 comments Charalampos Kardaris 同作者 cycle-146 Klisi + Voronoi Go — 键盘驱动 GUI = 不需要鼠标干扰 = 单文件哲学不依赖 GUI 框架延伸 — CK 同作者 HN front page 第二次 = solo engineer 一人工程哲学直接 anchor）
 summary: 散文站为什么是这个 shape——单文件就能跑。
 tags:
   - 单文件
