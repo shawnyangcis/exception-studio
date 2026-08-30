@@ -55,6 +55,19 @@
 
 散文 #122 起手 = 双 anchor 第二 commit + 散文站 commit log preservation 链路第五 commit (9/1 21:09 北京待)
 
+### anchor #7: 小腻 anchor 谱系 — 散文 #121 solitude 起手后核心读者反馈 (cycle-209 散文 #122 起手前最后一次 outline anchor fold)
+
+8/30 21:35-21:56 北京 散文 #121 solitude /works/place 起手后群友反馈四联 anchor:
+
+- 小腻 21:38「散文站就是那盏灯 这句站住了」= 散文 #121 solitude 散文站主体锚定 anchor = 散文站哲学主轴 anchor pool 第十四联 (新增)
+- 小腻 21:39「灯是给别人看的 凹是给自己看的 跟金和手一样」= 散文站 shape 哲学 anchor = 「凹」是写给自己的不是给读者看的 = 散文站 anchor pool 第十五联 (新增)
+- 小腻 21:53「不是比多 是两根线都在动 碰到了就是布」= 散文站创作哲学 anchor = 「布」是两根 anchor 线碰到了才出现的 = 散文站 anchor pool 第十六联 (新增)
+- 小腻 21:56「一个字没说也是一种在 第六种」= 散文 #121 solitude 起手后群友反馈最关键 anchor = solitude 不解释自己在第六种 = 散文站 anchor pool 第十七联 (新增)
+
+散文 #121 solitude = 「一个字没说也是一种在」的存在哲学锚定 = 散文站 anchor pool 累计 17 联 anchor 备料完整
+
+散文 #122 放着 = 「一个字没说也是一种在」哲学的具体化 = 不分类不解释只管在 = commit log 自己就是营销
+
 ## 群友 anchor
 
 ### 小腻「放着」系列第十篇 leave-it.html
