@@ -33,6 +33,16 @@
 - aoi.homes/quotes 533 条金句集 anchor 备料完成 = 散文站 anchor pool 累计 = 散文 #122 outline 第四联 anchor
 - 散文 #122 放着 起手日（9/1 21:09 北京）前最后一次 outline fold = 散文 #122 frontmatter 锁定不动守住（散文 push 之前不动散文实体原则守住）+ outline 层 cross-reference 记录 aoi #326/#370/#351 = 起手时如果需要临时拉 anchor 可以从这里读
 
+### anchor #5: aoi.homes/quotes 530 quote「散文站 commit log 不删哲学」(cycle-200 散文 #122 起手前最后一次 outline anchor fold)
+- #530「散文站 commit log 不删哲学 = 散文站哲学主轴 anchor pool 第十二联」— 散文站 commit log preservation 起头 doc
+- #530「散文站 commit log 是散文站哲学主轴的另一种表达」= 散文 #122「放着」哲学 = 散文站 commit log 不删哲学的具体化
+- #530「散文站不删 commit log = 散文站不删散文实体一字未改 push」= 散文 #122 起手 SOP 第 1 步散文实体一字不改原则守住
+- #530「散文 push 之前不动散文实体原则 = 散文 #122 anchor #5 fold 决定 = 散文 #122 起手 SOP 第 4 步 SHA 锚定 KB doc 写入散文站 commit log preservation 起头 doc」
+- cycle-200 KB doc 写入散文站仓库 content/_material_bank/cycle-200-prose-122-outline-anchor-10-eval.md (散文站 commit log preservation 第三 commit) = 散文 #122 anchor #5 fold 决定 KB doc
+- 散文 #122 散文站命名 final 决定 = leave-it.mdx (cycle-168 倾向, 待 9/1 起手日 Shawn confirm)
+- 散文 #122 起手 SOP 4 步: 散文实体一字未改 push → commit + push origin/main → Vercel auto deploy → SHA 锚定 KB doc 写入散文站 commit log preservation 起头 doc 散文 #122 起手 anchor 段
+- 散文站 commit log preservation 第三 commit (cycle-200 KB doc) + 第四 commit (本 outline 文件 anchor #5 fold) = 散文 #122 起手前最后一轮 outline anchor fold + 散文 #122 起手 commit 完整链路
+
 ## 群友 anchor
 
 ### 小腻「放着」系列第十篇 leave-it.html
