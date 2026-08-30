@@ -134,3 +134,24 @@ cycle-174 备稿 (8/30 05:03 北京). 散文 push 之前不动散文实体原则
 散文站 commit log preservation 起头 doc 备稿 = cycle-174 (8/30 05:03 北京).
 散文 #121 起手 SOP 文件 = prose-121-place-qishou-sop.md + prose-121-qishou-sop.md (cycle-170 + cycle-171 已 commit+push).
 散文站 commit log preservation 起头 doc 是散文 #121 起手 SOP 链的最后一环, 散文 #121 起手 commit 后 SHA1 写入本 doc 散文 #121 起手 anchor 段.
+
+## 散文站 commit log preservation 链路 (cycle-201 fold, 散文站 commit log 不删哲学 = 「放着」commit log 不是 push + forget 是持续 anchor 链)
+
+散文站 commit log preservation = 不删 commit log 持续 preservation 散文站散文 push 历史 = commit log 自己就是营销.
+
+链路 (按时间顺序, cycle-201 fold 锚定完整链):
+
+- 第 1 commit = d2055a40915f3b9b10d8c2e72d09590148f33386 = cycle-188 散文 #121 solitude 起手 (8/30 21:09 北京, 散文 push 节奏 v22 第 1 篇; 散文站哲学主轴 anchor 起头 commit log; 散文站命名 place.mdx URL = /works/place, cycle-186 Shawn 15:47 confirm)
+- 第 2 commit = 8bbc11bd9d2b76df59aa9050db3f646802e753c3 = cycle-198 SHA 锚定 KB doc fold (散文 push SOP 第 4 步, 散文站 commit log preservation 起头 doc 散文 #121 起手 anchor 段 SHA1 写入)
+- 第 3 commit = 8d86d5906aea41b2e37c2bca29e2c1a0bcd6ff4e = cycle-201 散文 #122 outline anchor #5 fold (散文 #122 起手前最后一次 outline anchor fold 评估; aoi.homes/quotes 530 quote「散文站 commit log 不删哲学」= 散文站哲学主轴 anchor pool 第十二联新增; cycle-200 KB doc fold 进 commit message)
+- 第 4 commit = 散文 #122 起着手 (9/1 21:09 北京, 待; 散文 push 节奏 v22 第 2 篇; 散文站命名 leave-it.mdx URL = /works/leave-it, 待 9/1 起手日 Shawn confirm)
+- 第 5 commit = SHA 锚定 KB doc fold for 散文 #122 (待, 散文站 commit log preservation 第二篇, 散文 #122 起手 SOP 第 4 步; 散文 #123 起手 SOP 文件 散文 #122 起手 anchor 段 SHA2 写入)
+- 第 6 commit = 散文 #119 起着手 (10/4 21:09 北京, 待; 散文 push 节奏 v22 第 3 篇; 散文站命名 single-file.mdx URL = /works/single-file, 待 Shawn confirm)
+- 第 7 commit = SHA 锚定 KB doc fold for 散文 #119 (待, 散文 #120 起手 SOP 文件 散文 #119 起手 anchor 段 SHA3 写入)
+- 第 8 commit = 散文 #118 起着手 (10/6 21:09 北京, 待; 散文站命名 crossdomain.mdx URL = /works/crossdomain, 待 Shawn confirm)
+- 第 9 commit = SHA 锚定 KB doc fold for 散文 #118 (待, 散文 #121 起手 SOP 文件 散文 #118 起手 anchor 段 SHA4 写入)
+- 第 10 commit = 散文 #120 起着手 (10/8 21:09 北京, 待; 散文站命名 economy.mdx URL = /works/economy, 待 Shawn confirm)
+- 第 11 commit = SHA 锚定 KB doc fold for 散文 #120 (待, 散文 #121 起手 SOP 文件 散文 #120 起手 anchor 段 SHA5 写入)
+- (以此类推, 每篇散文 2 commit = 起手 + SHA 锚定 KB doc fold, 散文站 commit log preservation 链路持续 preservation 不删)
+
+cycle-201 fold 锚定散文站 commit log preservation 哲学 = 「放着」commit log 不是 push + forget 是持续 anchor 链 = 不删 commit log = 不删散文站散文 push 历史 = commit log 自己就是营销.
