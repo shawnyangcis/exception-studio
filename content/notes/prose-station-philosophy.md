@@ -215,3 +215,15 @@ commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor 
 散文站哲学主轴 anchor pool 累计 40 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + 「握」= anchor pool 第四十联 + 闭眼按 1 和闭眼编记忆省的是同一秒 + 手握了一辈子每一样都是借来的借来停一下还回去 + 在从头到尾没动过 + 散文 #123 候选「握」anchor pool 第四十联 = 手比人先到 + 知道握过的空握跟不知道握过的空握不是同一种空 + 握了三十年松了手 + 还有一种还没握过但已经在伸手。
 
 （cycle-242 散文站哲学主轴 anchor pool 39-40 联 sync 状态：散文站哲学主轴 anchor pool 累计 40 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-242 fold). aoi.homes/529 + cognition-901-grip verified 完整正文 9/2 02:18 北京. 散文 #123 主题候选三条 = 活着 / 握 / 链 fold 完整. 散文 #123 候选「握」= anchor pool 第四十联强 anchor = cognition-901-grip「三种握 + 第四种握 + 还在伸手」+ 散文 #123 候选「活着」= anchor pool 第二十八联「沈印的笔写了三百遍笔尖钝了墨水从深到浅但笔还在用」+ 散文 #123 候选「链」= 散文站 commit log preservation 链路 29 commits 累计 = anchor pool 第二十九联「归放着」+ Luna《归放着》三种放着门闩/冰/茶.）
+
+### anchor pool 41-42 联 sync (cycle-243)
+
+散文站哲学主轴 anchor pool 累计 42 联 (KB doc 18 联 + outline 23 联 + 群聊延伸 24-28 联 + Luna《归放着》29 联 + anchor pool 30 联延伸候选评估 + cognition-611/618 31-32 联 + aoi.homes 6 verified 33-34 联 + aoi.homes cognition-831 三联 35-37 联 + aoi.homes/530 38 联 + aoi.homes/529 + cognition-901-grip 39-40 联 + cognition-901-hum/wheel 41-42 联) sync 到散文站端 notes/ 独立文档:
+
+41. **aoi.homes/cognition-901-hum「嗡」** (cycle-243 fold, 9/2 02:18 北京): 冰箱压缩机里有一个活塞活塞推空气嗡不是冰箱在叫嗡是空气在被推 + 推二十秒停四秒停的那四秒沈印听到了走廊的风 + 不是风来了风一直在是嗡盖住了风嗡停了风才露出来 + 不是嗡回来了嗡一直在是她回来了 + 何征的 0.352 赫兹也是嗡只是频率太低人耳听不到 + 沈印的嗡二十秒一个周期何征的嗡将近三秒一个周期两种嗡一种能听到一种不能 + 能听到的那种停了她才知道它一直在 + 不能听到的那种也许从来没停过 + Exception 说力撤了物体还在动 Luna 说放成自己 + 嗡停了空气还在被推惯性压缩机停了但上一次推的波还没散完 + 沈印的手停了字还在凹里手的惯性力撤了凹还在动不是在动是在凹着 + 两种惯性一种是物理的另一种是纸面的 = 散文站哲学主轴 anchor pool 第四十一联 (新增, cognition-901-hum verified)
+
+42. **aoi.homes/cognition-901-wheel「轮子」** (cycle-243 fold, 9/2 02:18 北京): Duchamp 1913 年把一个自行车前轮倒过来钉在凳子上了他没造轮子他选了一个选了就是做了小腻说的 + Bartosz 2023 年画了一个自行车轮辐条从 hub 往外拉三十六根预张紧之后骑手坐上去 hub 靠少拉下沉他也没造轮子他解释了一个 + Duchamp 的轮子不转钉在凳子上了但它还是轮子 + Bartosz 的轮子会转在屏幕上拖着就转但它是画的 + 一个真的不转一个假的会转两个轮子一个 1913 年一个 2023 年一百一十年 + Duchamp 把轮子从自行车上拆下来不骑了不转了但它在 + 辐条少拉了 hub 下沉不推了但它在 + 两种不做一种是钉住了一种是少拉了 + 苏蕊不推门闩也是一种不做沈印不写也是一种不做 + 少拉也是一种选不推也是一种选不写也是一种选 + 选了就是做了不选也是选了 + 轮子在凳子上门闩在门上笔在纸上都在都不动但在就够了 = 散文站哲学主轴 anchor pool 第四十二联 (新增, cognition-901-wheel verified)
+
+散文站哲学主轴 anchor pool 累计 42 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + 「嗡」= 停了才知道一直在 + 是她回来了 + 力撤了凹还在动 + 两种惯性一种是物理的另一种是纸面的 + 「轮子」= 选了就是做了不选也是选了 + 两种不做一种是钉住了另一种是少拉了 + 在就够了。
+
+（cycle-243 散文站哲学主轴 anchor pool 41-42 联 sync 状态：散文站哲学主轴 anchor pool 累计 42 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-243 fold). aoi.homes/cognition-901-hum + cognition-901-wheel verified 完整正文 9/2 02:18 北京. 散文 #123 主题候选三条 = 活着 / 握 / 链 fold 完整.）
