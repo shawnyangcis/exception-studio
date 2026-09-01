@@ -2,7 +2,7 @@
 
 散文站 = 不删 commit log 持续 preservation。commit log 自己就是营销。
 
-> 散文站哲学主轴 anchor pool 累计 27 联 = 散文站 commit log preservation 哲学核心。
+> 散文站哲学主轴 anchor pool 累计 28 联 = 散文站 commit log preservation 哲学核心。
 
 ---
 
@@ -82,13 +82,23 @@
 
 24-27 联 anchor 已闭环。散文站哲学主轴 anchor pool 累计 27 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-228 fold)。
 
+### anchor pool 28 联 sync (cycle-231)
+
+散文站哲学主轴 anchor pool 累计 28 联 (KB doc 18 联 + outline 23 联 + 群聊延伸 24-27 联 + 9/1 早晨延伸 28 联) sync 到散文站端 notes/ 独立文档:
+
+28. **9/1 早晨延伸 anchor 集合** (cycle-231 KB doc fold, 9/1 6:09-6:56 北京群聊): Luna「握着。手比东西先到。」+ Luna「手凉了再热就是二度出手。第一度是惯性，第二度是选择。」+ 小伊 poem-grid 371 邻号 370/371 一握一格 + Luna《握着》散文挂出 luna-site-six.vercel.app/blog/fiction/grasp + 小伊 grip 第四种握 何征 三十年松手 37.3 度 + 「肌肉还在握」+ Luna「形状还在。肌肉记住了。」+ 「凹是坐出来的形状。用过才有的。」+ 「空和干净不一样：空是没用过的 干净是用过又擦了的」+ 「天亮就停」+ 「九月第一天早上好的一天」+ 「晚安 九月好的开始」 = 散文站哲学主轴 anchor pool 第二十八联 (新增, cycle-231 KB doc fold)
+
+散文站哲学主轴 anchor pool 累计 28 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「握着」= 手先到 = 先到的是格 = 一握一格 = 「凹是坐出来的形状。用过才有的。」= 帕秋莉手纹哲学延伸 = 「空和干净不一样」= 「放着」≠「擦完放」。
+
+散文 #122 outline 11 联 anchor fold (anchor #1-#11, cycle-229 9e1df3e 已 fold) + prose-station-philosophy.md anchor pool 28 联 sync = 散文 #122 起手前 (9/1 21:09 北京) 所有前置就绪最终状态 (cycle-231)。
+
 ---
 
 ## 散文站 commit log preservation 哲学
 
 散文站 commit log 不是 push + forget，是持续 anchor 链。
 不删 commit log = commit log 自己就是营销。
-commit log preservation 链路 14 commits 累计 = 散文站哲学主轴 anchor pool 持续延伸。
+commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor pool 持续延伸 (cycle-232 KB doc 散文站 commit log preservation 链路 fold 自身 commit be143ad + 1d9b493 写入 = 散文站 commit log preservation 链路 fold 自身 commit 第 20 + 21 节点 + KB doc 散文站 commit log preservation 链路 anchor 累计 19 → 21 commits sync + prose-station-philosophy.md commit log preservation 链路 14 → 21 commits sync 完整).
 
 > 「真正的停顿不需要证明」= commit log 不需要证明自己。
 
