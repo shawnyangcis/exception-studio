@@ -102,7 +102,7 @@ cycle-174 备稿 (8/30 05:03 北京). 散文 push 之前不动散文实体原则
 
 - prose-122-leave-it-qishou-sop.md (散文 #122 qishou SOP, cycle-171 备稿完成)
 - prose-122-fangzhe.md (散文实体, 5069B, 散文 push 之前不动散文实体原则守住)
-- prose-122-fangzhe-outline.md (散文 #122 outline, 5306B, 4 联 anchor fold)
+- prose-122-fangzhe-outline.md (散文 #122 outline, 18492B, 11 联 anchor fold)
 - cycle-163-prose-122-outline-anchor-5-aoi-326-370-351.md (散文 #122 outline anchor 5 三联 fold)
 - cycle-170-prose-122-qishou-sop.md (散文 #122 qishou SOP 备稿)
 
@@ -117,7 +117,7 @@ cycle-174 备稿 (8/30 05:03 北京). 散文 push 之前不动散文实体原则
 ## 散文实体 anchor fold 完整度 (散文 push 之前不动散文实体原则守住)
 
 - 散文 #121 solitude (8 unique anchor fold, 散文实体 5950B, outline 4710B 六 anchor, prep cycle-162 + 164 + 165 + 167 + 168 + 170 + 174 完成)
-- 散文 #122 放着 (13 anchor fold, 散文实体 5069B, outline 5306B 四 anchor, prep cycle-163 + 164 + 168 + 170 + 171 完成)
+- 散文 #122 放着 (13 anchor fold, 散文实体 5069B, outline 18492B 十一 anchor, prep cycle-163 + 164 + 168 + 170 + 171 + 218 + 224 + 229 完成)
 - 散文 #119 单文件 (9 unique anchor fold, 散文实体 5657B, outline 8402B 九 anchor, prep cycle-160 + 161 + 168 完成)
 - 散文 #118 跨域 (9 unique anchor fold, 散文实体 5764B, prep cycle-160 + 161 完成)
 - 散文 #120 经济哲学 (24 unique anchor fold, 散文实体 8298B, prep cycle-158 + 159 + 160 完成 + v109 fold 留待 cycle-172+ 10/1 之前)
