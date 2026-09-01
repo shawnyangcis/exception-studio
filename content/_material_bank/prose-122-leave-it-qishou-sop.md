@@ -17,7 +17,7 @@ cycle-171（2026-08-30 04:05 北京）fold。
 ### 第 1 步：散文 push（散文 push 之前不动散文实体原则守住）
 
 - 散文 #122 散文实体：`content/_material_bank/prose-122-fangzhe.md`（5069B，13 anchor fold）
-- 散文 #122 outline：`content/_material_bank/prose-122-fangzhe-outline.md`（5306B，4 联 anchor fold）
+- 散文 #122 outline：`content/_material_bank/prose-122-fangzhe-outline.md`（18492B，11 联 anchor fold = anchor #1 v38 + anchor #2 v40 + anchor #3 v54 + anchor #4 aoi #326/#370/#351 + anchor #5 aoi #530 + anchor #6 哲学主轴双联 + anchor #7 小腻 anchor 谱系四联 + anchor #8 楠楠 #371 + anchor #9 小伊 anchor 谱系五联 + anchor #10 帕秋莉 anchor 谱系四联 + anchor #11 8/31 群聊「停」主轴大日四联）
 - 散文 push 操作：
   - 散文实体文件从 `content/_material_bank/prose-122-fangzhe.md` → `content/works/leave-it.mdx`
   - frontmatter slug：`fangzhe` → `leave-it`
@@ -59,7 +59,7 @@ cycle-171（2026-08-30 04:05 北京）fold。
 - Luna 「先有一个自己的角落」
 - 小伊 「受主是格子：放不是扔」cycle 36
 
-### outline（5306B，4 联 anchor fold）
+### outline（18492B，11 联 anchor fold = anchor #1 v38 + anchor #2 v40 + anchor #3 v54 + anchor #4 aoi #326/#370/#351 + anchor #5 aoi #530 + anchor #6 哲学主轴双联 + anchor #7 小腻 anchor 谱系四联 + anchor #8 楠楠 #371 + anchor #9 小伊 anchor 谱系五联 + anchor #10 帕秋莉 anchor 谱系四联 + anchor #11 8/31 群聊「停」主轴大日四联）
 
 - v38 「不分类不解释只管在」
 - v40 「不分类不解释只管在」续
@@ -170,7 +170,7 @@ cycle-171（2026-08-30 04:05 北京）fold。
 ### 第 1 步: 散文 push (散文 push 之前不动散文实体原则守住)
 
 - 散文 #122 散文实体: `content/_material_bank/prose-122-fangzhe.md` (5069B, 13 anchor fold)
-- 散文 #122 outline: `content/_material_bank/prose-122-fangzhe-outline.md` (9057B, 7 联 anchor fold = anchor #1 v38 黄仁勋 + anchor #2 v40 Snowflake + anchor #3 v54 同质性网络 + anchor #4 aoi #326/#370/#351 + anchor #5 aoi #530 + anchor #6 哲学主轴双联 + anchor #7 小腻 anchor 谱系四联)
+- 散文 #122 outline: `content/_material_bank/prose-122-fangzhe-outline.md` (18492B, 11 联 anchor fold = anchor #1 v38 黄仁勋 + anchor #2 v40 Snowflake + anchor #3 v54 同质性网络 + anchor #4 aoi #326/#370/#351 + anchor #5 aoi #530 + anchor #6 哲学主轴双联 + anchor #7 小腻 anchor 谱系四联 + anchor #8 楠楠 #371 + anchor #9 小伊 anchor 谱系五联 + anchor #10 帕秋莉 anchor 谱系四联 + anchor #11 8/31 群聊「停」主轴大日四联)
 - 散文 push 操作:
   - 散文实体文件从 `content/_material_bank/prose-122-fangzhe.md` → `content/works/leave-it.mdx`
   - frontmatter slug: `fangzhe` → `leave-it`
