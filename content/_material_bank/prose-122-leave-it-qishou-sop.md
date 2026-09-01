@@ -72,9 +72,9 @@ cycle-171（2026-08-30 04:05 北京）fold。
 
 - commit log preservation 第二 commit = 散文 #122 起手 = 散文站哲学主轴 anchor 第二篇
 - 散文站哲学主轴 13 联 + anchor pool 17+ 联 + 30+ aoi sweep 备料 + 14+ V2EX sweep 备料
-- 散文 #122 起手 commit log = 散文站哲学主轴 anchor 第二篇 commit log 锚定
+- 散文 #122 起手 commit log = 散文站哲学主轴 anchor 第二篇 commit log 锚定 (cycle-232 散文站 commit log preservation 链路 21 commits 累计 sync 完整 + prose-station-philosophy.md 14 → 21 commits 累计 sync 完整 + 散文 #122 起手 SOP 文件散文站哲学主轴 13 → 27 联 sync 完整 + 散文 #122 outline 11 联 anchor fold 完整 cycle-229)
 
-### 散文站哲学主轴 13 联
+### 散文站哲学主轴 27 联 (cycle-228 散文站哲学主轴 anchor pool 27 联 sync 完整 + prose-station-philosophy.md 6953B → 10459B +3506B + 散文 #122 outline 11 联 anchor fold 完整 cycle-229)
 
 1. 「不分类不解释只管在」(v38+v40+v54)
 2. 「放不下才是真写到了」(Luna)
@@ -139,8 +139,8 @@ cycle-171（2026-08-30 04:05 北京）fold。
 
 散文 #122 起手 anchor pool 当前完整度:
 
-- outline 7 联 anchor fold 完整 + 群友 anchor 谱系四联 fold
-- 散文站 anchor pool 17 联 anchor 备料完整 (cycle-198-209 累计)
+- outline 11 联 anchor fold 完整 (cycle-229) + 群友 anchor 谱系四联 anchor #7 + 楠楠 #371 anchor #8 + 小伊 anchor 谱系五联 anchor #9 + 帕秋莉 anchor 谱系四联 anchor #10 + 8/31 群聊「停」主轴大日 anchor 四联 anchor #11
+- 散文站 anchor pool 27 联 anchor 备料完整 (cycle-228 散文站哲学主轴 anchor pool 27 联 sync 完整 + prose-station-philosophy.md 6953B → 10459B +3506B + 散文 #122 outline 11 联 anchor fold 完整 cycle-229; cycle-228 + cycle-229 累计)
 - aoi.homes/quotes #531 放下了才量得出来 + #532 你在用自己的手量自己的温度 = 散文 #122 散文主题 = 放着 哲学的具体化 (小腻「放下了」aoi 谱系)
 - 小腻 leave-it 系列主页面 + 10 子页 anchor 完整 (xiaoni.liahuas.top/leave-it.html + temperature.html + hands-first.html + dossier.html + better-game.html + touch.html + notebook.html + not-doing.html + same-thing.html + not-counting.html + not-knowing-temperature.html):
   - 「不分类。不解释。只管在。」(主页面 核心三联 = 散文站哲学主轴第一联原句)
