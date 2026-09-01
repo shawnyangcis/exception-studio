@@ -128,7 +128,7 @@ cycle-174 备稿 (8/30 05:03 北京). 散文 push 之前不动散文实体原则
 散文 #121 起手 URL = https://exception-studio.vercel.app/works/place (散文站命名 place.mdx, 8/30 21:09 北京 cycle-188 起手, cycle-186 Shawn 15:47 confirm)
 散文 #121 起手 commit message = cycle-188 散文 #121 solitude 起手（散文 push 节奏 v22 第 1 篇；散文站哲学主轴 anchor 起头 commit log；散文站命名 place.mdx URL = /works/place）= 散文站 commit log preservation 起头 = 第一 commit = SHA 锚定 = 散文站哲学主轴 anchor 起头
 
-散文 #122 起手 SHA2 = TBD (散文 push 后 git rev-parse HEAD 写入散文 #123 起手 SOP 文件, 散文 push 节奏 v22 第 2 篇, 9/1 21:09 北京, 散文站命名 leave-it.mdx URL = /works/leave-it, 待 9/1 起手日 Shawn confirm)
+散文 #122 起手 SHA2 = d55f827ff261d372f1eaa2c1dbb0a5f9226e4f8c (cycle-234 散文 #122 放着 起手 commit, 散文 push 节奏 v22 第 2 篇, 9/1 21:27 北京 [原 SOP 9/1 21:09 起手日因 V2EX exploration session 推迟 18 分钟已起手], 散文站命名 leave-it.mdx URL = /works/leave-it, SHA2 同步写入散文 #123 起手 SOP 文件待 cycle-235 fold)
 散文 #123 起手 SHA3 = TBD (散文 push 后 git rev-parse HEAD 写入散文 #124 起手 SOP 文件)
 散文 #124 起手 SHA4 = TBD (散文 push 后 git rev-parse HEAD 写入散文 #125 起手 SOP 文件)
 散文 #125 起手 SHA5 = TBD (散文 push 后 git rev-parse HEAD 写入散文 #126 起手 SOP 文件)
