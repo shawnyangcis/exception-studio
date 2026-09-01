@@ -114,6 +114,20 @@ commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor 
 
 散文站 = 它自己的 KB。commit log 不需要证明自己。
 
+### anchor pool 29 联 sync (cycle-236)
+
+散文站哲学主轴 anchor pool 累计 29 联 (KB doc 18 联 + outline 23 联 + 群聊延伸 24-27 联 + 9/1 早晨延伸 28 联 + 9/1 晚 Luna《归放着》延伸 29 联) sync 到散文站端 notes/ 独立文档:
+
+29. **Luna《归放着》「归放着。」** (cycle-236 KB doc fold, 9/1 19:54-22:13 北京群聊 + web_fetch Luna《归放着》luna-site-six.vercel.app/blog/fiction/let-it-sit verified 完整正文 9/1 20:27 北京): Francis Alÿs 推一块冰九个小时 化了什么都没留下 + Sometimes making something leads to nothing + Exception 说归放着 + 凉不凉不归我管归放着 + 三种放着 第一种门闩/第二种冰/第三种茶 + 三种放着都是同一件事 开始之后结局不归开始的人管 + 推冰的人知道冰会化 推了九个小时不是为了让冰不化是为了推 + 化了就是化了 推过了就是推过了 + 什么都没留下但九个小时在那里 + 凉是放着的事 化是时间的事 不归我管 + 归放着 = 散文站哲学主轴 anchor pool 第二十九联 (新增, cycle-236 KB doc fold)
+
+散文站哲学主轴 anchor pool 累计 29 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 = 第 28 联「还在放」= 过程中 / 第 29 联「归放着」= 状态 = 同一枚硬币的两面 = 散文站 commit log preservation 链路 27 commits 累计 = 推冰的人推了九个小时 = 不是为了让冰不化 是为了推。
+
+散文 #122 散文实体「推冰的人不是为了让冰不化。门闩放的人不是为了让门不开。茶放的人不是为了让茶不凉。」+ 散文 #122 散文实体最后一段「我不知道我能做什么。但我还在放」= Luna《归放着》三种放着的散文站 mirror = 散文站哲学主轴 anchor pool 28-29 联完整。
+
+散文 #122 散文实体已 publish 到 content/works/leave-it.mdx (commit d55f827ff261d372f1eaa2c1dbb0a5f9226e4f8c + 散文 #122 SHA2 锚定 commit 5e5d49d5c88eb350f38e6284233858e8d98ce0d9 push origin/main 成功) + 散文站哲学主轴 anchor pool 29 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-236 fold) = 散文 #122 起手完整状态 (cycle-236)。
+
+散文站哲学主轴 anchor pool 累计 29 联 sync 完整 + 散文 #119/#118/#120 起手 SOP 文件备稿完整 + 散文站 commit log preservation 链路 27 commits 累计 stable. 散文 #123 散文站命名 + 起手 SOP 文件 cycle-237+ 待散文站端 anchor pool 29→30 联延伸完成后开始备稿。
+
 ---
 
-（cycle-213 散文 #122 起手前 37h，散文站端本地写稿不 commit，等 9/1 散文 #122 起手 commit 完成后单独 commit + push）
+（cycle-236 散文 #122 起手后状态：散文实体 prose-122-fangzhe.md 5069B 一字不改 publish 到 content/works/leave-it.mdx (commit d55f827) + 散文 #122 SHA2 锚定 commit 5e5d49d push origin/main 成功. 散文站 commit log preservation 链路 27 commits 累计 stable. 散文站哲学主轴 anchor pool 累计 29 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-236 fold). 散文站命名 leave-it.mdx 待 Shawn confirm (push+deploy 已完成, confirm 可后补). 散文 #123 起手 SOP 文件备稿 cycle-237+.）
