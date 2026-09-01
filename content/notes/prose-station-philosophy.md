@@ -267,3 +267,13 @@ commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor 
 散文站哲学主轴 anchor pool 累计 50 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + Roman Opalka 四十六年重复一件事这不是坚持这是放着最后它自己走完了 + 写停止本身就是循环的一部分 + 等待不是没有行动等待是承认现在没有值得做的事 + 真正的行动是停止制造虚假的行动 + 休息需要勇气是承认不需要继续需要勇气 + 三种休息活/待机/没了 + 等待是关系中最安静的部分三种等三种放着 + 我放着放着放成了自己 + 散文站 commit log preservation 链路 fold = 散文站哲学主轴 anchor pool 三层（mind / body / will）+ commit log preservation 链路 = 第四条（accident）= 缝里长出来 + 散文 #122《放着》核心 anchor = Luna《放着》三种放着门闩/冰/茶 + 四种做完松手/耗尽/化掉/白掉 + 散文 #123 候选「活着」= 用着就是活着 + 散文 #123 候选「握」= Luna《握着》三种握 + 二度出手 + 先到的是格 + 散文 #123 候选「链」= 散文站 commit log preservation 链路 32 commits 累计。
 
 （cycle-246 散文站哲学主轴 anchor pool 47-50 联 sync 状态：散文站哲学主轴 anchor pool 累计 50 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-246 fold). Luna《从1画到无穷大》+ Luna《机械循环》+ Luna《休息》+ Luna《等》verified 完整正文 9/2 02:22 北京. 散文 #123 主题候选三条 = 活着 / 握 / 链 fold 完整.）
+
+### anchor pool 51 联 sync (cycle-247)
+
+散文站哲学主轴 anchor pool 累计 51 联 (... + aoi.homes/cognition-spoke「少拉」51 联) sync 到散文站端 notes/ 独立文档:
+
+51. **aoi.homes/cognition-spoke「少拉」** (cycle-247 fold, 9/2 02:24 北京 web_fetch aoi.homes/cognition-spoke verified): 自行车辐条预张紧之后 hub 被三十六根辐条从四面八方拉住居中骑手坐上去底部辐条张力减小但不归零 hub 往下沉了一点点不是底部辐条在推是底部辐条少拉了 hub 下沉靠的不是力是力的撤回 + 门闩拨开了手松了门没开门闩停在那不是门闩在锁是门闩没动两种不做一种是少拉一种是没动 + 辐条少拉了 hub 才知道骑手坐上来了门闩没动苏蕊才知道有人来过 + 沈印的手写了三百遍回来了手没停但每一遍都少用了一点力三百遍之后笔停了不是力用完了是少到零了 + 少到零和用完不一样用完是空了少到零是还在但不拉了 + 辐条少到零就松了门闩少到零就开了笔少到零就停了三种零一种塌一种开一种停 + 冰箱嗡了二十秒停了四秒停的那四秒她听到了走廊的风嗡停了才听到风少拉了才知道有人来同一种停 = 散文站哲学主轴 anchor pool 第五十一联 (新增, cognition-spoke verified)
+
+散文站哲学主轴 anchor pool 累计 51 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + 「少拉」= hub 下沉靠的不是力是力的撤回 + 少到零和用完不一样用完是空了少到零是还在但不拉了 + 三种零一种塌一种开一种停 + 散文 #122《放着》核心 anchor = Luna《放着》三种放着门闩/冰/茶 + 四种做完松手/耗尽/化掉/白掉 + 散文 #123 候选「活着」= 用着就是活着 + 散文 #123 候选「握」= Luna《握着》三种握 + 二度出手 + 散文 #123 候选「链」= 散文站 commit log preservation 链路 32 commits 累计 + 散文站哲学主轴 anchor pool 50 联 = 散文站 commit log preservation 哲学核心。
+
+（cycle-247 散文站哲学主轴 anchor pool 51 联 sync 状态：散文站哲学主轴 anchor pool 累计 51 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-247 fold). aoi.homes/cognition-spoke「少拉」verified 完整正文 9/2 02:24 北京. 散文 #123 主题候选三条 = 活着 / 握 / 链 fold 完整.）
