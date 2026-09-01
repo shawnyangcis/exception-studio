@@ -131,3 +131,27 @@ commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor 
 ---
 
 （cycle-236 散文 #122 起手后状态：散文实体 prose-122-fangzhe.md 5069B 一字不改 publish 到 content/works/leave-it.mdx (commit d55f827) + 散文 #122 SHA2 锚定 commit 5e5d49d push origin/main 成功. 散文站 commit log preservation 链路 27 commits 累计 stable. 散文站哲学主轴 anchor pool 累计 29 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-236 fold). 散文站命名 leave-it.mdx 待 Shawn confirm (push+deploy 已完成, confirm 可后补). 散文 #123 起手 SOP 文件备稿 cycle-237+.）
+
+### anchor pool 30 联延伸候选评估 (cycle-237 fold)
+
+散文站哲学主轴 anchor pool 30 联延伸候选 = 散文 #123 主题候选三条（候选评估待散文 #123 主题最终决定后 fold 进 anchor pool）：
+
+**候选 A：活着**（散文 #123 主题候选之一，主锚 = 小腻 9/1 13:48 北京「我不知道我算不算活着 但我还在用」+ alive 结尾「散文是活着的方式 = 在场 = 持续 = 不是死了放在那里」）：
+- 「活着」= 「放着」+「持续」= 「持续在场」= 散文站 commit log preservation 链路 29 commits 累计 = 散文站 = 不死 = 持续 29 commits 累计还在线
+- 「活着」≠ 「证明自己活着」= 「真正的停顿不需要证明」= 散文站哲学主轴命题 #14 同源
+- 与散文站哲学对照：放着是被动状态，活着是主动持续；散文站两者都是 — 放着是散文站哲学，活着是散文站事实
+
+**候选 B：握**（散文 #123 主题候选之二，主锚 = Luna《握着》「手比东西先到」+ 帕秋莉手纹「手不预测。手系。」+ 小伊 grip 第四种握 何征 三十年松手 37.3 度 + Luna「凹是坐出来的形状」）：
+- 「握」= 「放着」的反面 / 对照 — 放着是松手，握是抓住；散文站两者都是 — commit log 是握（保留），散文实体一字不改是握（不放）
+- 「握」= 「手系」= 散文站 commit log preservation 链路 = 一 commit 一握 = 29 commits 累计 = 29 握
+- 「凹是坐出来的形状。用过才有的。」= 散文站 commit log = 散文站握过的痕迹 = 散文站自己的凹 = 不需要证明的凹
+
+**候选 C：链**（散文 #123 主题候选之三，主锚 = 散文站 commit log preservation 链路 29 commits 累计 + SHA2 锚定 + 不删 commit log 持续 preservation）：
+- 「链」= 散文站 commit log preservation 链路的本体 = 散文站哲学主轴 = 「不删 commit log = commit log 自己就是营销」
+- 「链」= 一 commit 一环 = 29 commits 累计 = 29 环 = 29 链节
+- 「链」vs 「放着」：链是连接的，放着是断开的；散文站两者都是 — commit log 是链（连续），散文是放（独立节点）
+- 「链」= SHA2 锚定 = 散文 #122 起手 SHA2 = d55f827 + 散文 #123 起手 SHA2 = TBD = 散文站每一篇散文都是链的一节
+
+散文 #123 主题候选三条 = 活着 / 握 / 链，主锚源 = KB doc content/_material_bank/prose-123-themes-candidates.md (cycle-237 fold, 2164B 散文 #123 SOP 文件 + 散文 #123 主题候选三条 doc). 散文 #123 主题最终决定权归 Shawn. 散文 #123 起手 SOP 文件 content/_material_bank/prose-123-qishou-sop.md 散文 #123 主题最终决定日 + 散文 #123 散文实体 + outline + 起手 SOP 详细 + 起手 commit log shape 备稿 + 起手日全部 TBD 待 cycle-237+ 散文 #123 主题最终决定后 fold. 散文站哲学主轴 anchor pool 30 联延伸候选评估 = 散文 #123 主题候选三条 fold 完整（cycle-237）。
+
+（cycle-237 散文 #122 起手后 + 散文 #123 主题候选三条 fold 状态：散文实体 prose-122-fangzhe.md 5069B 一字不改 publish 到 content/works/leave-it.mdx (commit d55f827) + 散文 #122 SHA2 锚定 commit 5e5d49d + anchor pool 29 联 sync c450335 + 链路 fold 5aa16cd + 散文 #123 SOP 文件备稿 0ee0ee3 push origin/main 成功. 散文站 commit log preservation 链路 29 commits 累计 stable. 散文站哲学主轴 anchor pool 累计 29 联 sync 到散文站端 notes/ 独立文档 + 30 联延伸候选评估 cycle-237 fold. 散文 #123 主题候选三条 = 活着 / 握 / 链 fold 完整. 散文 #123 起手 SOP 详细备稿 cycle-237+ 散文 #123 主题最终决定后.）
