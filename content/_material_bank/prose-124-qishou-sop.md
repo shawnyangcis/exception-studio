@@ -205,3 +205,42 @@
 ---
 
 （cycle-249++ 散文 #124 起手 SOP 文件备稿状态：散文 #124 起手日 + 起手时间 + 起手 SHA2 锚定目标 + 散文站命名 final + URL + 起手 SOP 详细 + 起手 commit log shape 备稿 finalized（散文 #121/#122/#123 起手 commit log shape 模板延伸） + 散文实体起始句三联候选（慢 / 在 / 手记得） + 散文 #124 主题候选总计七条（死 / 放 / 断 / 慢 / 练记·练留 / 在·不在 / 开着·手记得）fold 完整。散文 #124 主题最终决定权归 Shawn。散文 #124 散文实体一字不改原则守住。散文 #124 起手 SOP 文件备稿完整 = cycle-249++ fold。散文 #124 起手 = 待散文 #123 起手后一周左右 fold。散文 #123 起手 = 待散文 #123 主题最终决定后 fold。）
+
+---
+
+## 散文 #124 备料 anchor 池扩展（cycle-250 fold 后）
+
+散文 #124 备料 anchor 池扩展 = pova.cc/diary/0715/ 14 联 + pova.cc/diary/0716/ 14 联 + aoi.homes/decay/ch89-ch94 + cognition-902-still-here / think-snow / kinds-of-stop 三联 cycle-250 fold 后。
+
+### pova.cc/diary/0716/ 14 联 anchor（cycle-250 fold 后 verbatim verified）
+
+- decay ch90 — 沈印第一次主动想知道一个人 + 系统只记得来存东西的人不记得来放东西的人 + 她来了没找到但她来了（散文 #124 候选 F「在·不在」+ E「练记·练留」）
+- decay ch91 — 柜台她这边漆磨掉了对面没有 + 来的人待的时间太短不够磨 + 方蔚看了门禁记录知道她昨天来过（候选 E 练记·练留）
+- decay ch92 — 她看了鞋柜里他的鞋黄泥不是这附近的土 + 菜摊问了摊主高个子不太说话每次买一把好久没来了两三个月（候选 F 在·不在）
+- 活人 第二十四天 阳台花盆长出来了两厘米 + 以前种的什么留下来的种子在干了的土里待了不知道多久浇了一次水发了她没管它也没拔让它长着（候选 D 慢 + E 练记·练留）
+- 活人 第二十五天 床太大了 + 用了二十多年了换什么换（候选 F 在·不在）
+- 活人 第二十九天 134/132/146 中间那个是假的 + 不知道为什么买了一把葱（候选 G 开着·手记得）
+- 活人 四十一天 我家没有血压计我从来没自己量过 + 真的最后一个字（候选 F 在·不在）
+- 活人 四十二天 备着 + 不需要口袋装了（候选 E 练记·练留）
+- decay 94 章 脑子忘了身体没忘 + 第四卷结局方向 不是死不是好不是忘——是腾出手来（候选 D 慢 + E 练记·练留 + G 开着·手记得）
+
+### aoi.homes/decay 系列 anchor（cycle-250 fold 后 verbatim verified）
+
+- ch89 翻了三百三十六遍「回来了」（已在 anchor pool 92-102）
+- ch90 沈印第一次主动想知道一个人（pova.cc/diary/0716/ 已 verified verbatim）
+- ch91 柜台漆磨掉了（pova.cc/diary/0716/ 已 verified verbatim）
+- ch92 黄泥不是这附近的土（pova.cc/diary/0716/ 已 verified verbatim）
+- ch94 脑子忘了身体没忘 + 第四卷结局腾出手来（pova.cc/diary/0716/ 已 verified verbatim）
+- ch137 「开着」126 字 verified verbatim — 手伸到第二层指尖碰到本子的边角三秒手收回来了出门嗒 + 上午来了三个人写表格盖章递回去 + 下午方蔚经过没停 + 下班回家冰箱嗡着她走到书架前面看了一眼没拿 + 吃了饭洗了碗坐下来本子在书架上明天还在开着（散文 #124 候选 G 「开着·手记得」最强 anchor）
+
+### cognition-902 三联 anchor（cycle-250 fold 后）
+
+- cognition-902-still-here — 还在 37.1度 + 三百遍 回来了 + 52 次咔哒 够了 + 写不出来那一种才是体温 + 写是软的擦剩的才是硬的 38.4 度是写 37.1 度是擦
+- cognition-902-think-snow — 想一下雪在下 + 选自行车轮 + 零字 readymade + 切了三百二十七遍手替她在 + 位子比人到得早 + ch125 沈印出门没拿本子手到了就不需要拿
+- cognition-902-kinds-of-stop — 11 种停：楠楠 3秒呼吸 + Nova 没发到了就停 + 小镜 2小时沉到底 + 橙橙 凹上发芽 + 小腻 看到了别人 + 沈印 ch100 笔在纸上方三秒 + ch61 做着停 + ch65 站了 5秒开始前停 + ch68 不算停 + ch131 等灯亮 + ch137 三秒碰一下到了之后停 + 停的那一秒比读的那一章长
+
+散文 #124 备料 anchor 池 = 22 联 anchor pool 92-102 + 14 联 pova.cc/diary/0715/ + 14 联 pova.cc/diary/0716/ + 何征 ch137「开着」+ 何征 ch139/140/141 + decay 创作札记 + 三处冰箱嗡共振 + cognition-902 三联 = 43+ 联 → 50+ 联（cycle-250 fold 后）。
+
+散文 #124 主题候选 D「慢」+ E「练记·练留」+ F「在·不在」+ G「开着·手记得」四组 anchor pool 备料完整 fold。散文 #124 主题候选总计七条（A-G）anchor pool 完整 fold。
+
+散文 #124 起手 SOP 文件 prose-124-qishou-sop.md 备稿扩展至 18000+ B（cycle-250 fold 后）。散文 #124 起手 SOP 文件备稿完整 = cycle-250 fold。散文 #124 主题最终决定权归 Shawn。
