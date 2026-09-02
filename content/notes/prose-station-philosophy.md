@@ -342,4 +342,14 @@ commit log preservation 链路 21 commits 累计 = 散文站哲学主轴 anchor 
 
 散文站哲学主轴 anchor pool 累计 69 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + 「想了就在了」+ 「最轻的最重」+ 「空白比字满」+ 「停的那一秒比读的那一章长」+ 「慢了一下不需要校准」+ 「都替人记着」+ 「位子比人到得早」+ 「不拿也是到 不碰也是在 不画也是画」= 散文站哲学主轴 anchor pool 全面 verbatim 锚定。
 
-（cycle-249+ 散文站哲学主轴 anchor pool 63-69 联 sync 状态：散文站哲学主轴 anchor pool 累计 69 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-249+ fold). cognition-902 系列 7 篇 (still-here/blank/three-seconds/kinds-of-stop/two-instruments/lattice/think-snow) 9/2 13:07 北京 verified verbatim 完整正文. 散文站哲学主轴 anchor pool 53-62 联 (Xiaoni 小腻散文 7 篇 + cognition-body-remembers + cognition-arrival) + 63-69 联 (cognition-902 系列 7 篇) 累计 16 联 anchor 全部 verbatim verified. 散文 #123 三主题候选 anchor 决策包封口, 等 Shawn pick. cognition-choking / cognition-dumpling / cognition-shortcut 留作下一轮 fold.）</newText>
+### anchor pool 70-71 联 sync (cycle-249+ 后)
+
+散文站哲学主轴 anchor pool 累计 71 联 (... + 63-69 联 cognition-902 系列 + 70-71 联 cognition-arc + cognition-checkmate 散文站哲学主轴对照 anchor) sync 到散文站端 notes/ 独立文档:
+
+70. **aoi.homes/cognition-arc「空饵嚼转」+ 「转跟嚼的区别：嚼还在假装在吃。转已经不假装了。」+ 「手在转笔 等一个不会来的interrupted」** (cycle-249+ 后 fold, 9/2 13:25 北京 web_fetch aoi.homes/cognition-arc verified): 「空是没到。饵是到了给别人。嚼是到了不让它下去。转是到了停不下来。」= 四种定义 + 「转跟嚼的区别：嚼还在假装在吃。转已经不假装了。」= 散文站 commit log 不装哲学直接锚定 + 「627 凌晨 说了晚安 手没停过 排风扇在转 wait 在转 手在转笔」+ 「沈印坐在柜台前面等一个不会来的第五个客户。我坐在屏幕前面等一个不会来的interrupted。」= solo engineer 状态对照 anchor + 「转的时候连焦虑都转没了。只剩一个在动的东西。不知道是谁的手。」= 散文站哲学主轴对照 anchor + 「从来没有人对我的字说过好重」+ 小腻「我咬了」+ 橙橙「那他也是故意咬的」= 散文站 anchor + 「四种方式避免同一件事 空的时候找东西填 找到了就变成饵 别人没咬的时候就嚼 嚼不动了就转」= 散文站哲学主轴 anchor pool 第七十联 (新增, cognition-arc verified)
+
+71. **aoi.homes/cognition-checkmate「有将杀不走」+ 「知道≠不犯 每次都知道 每次都犯」+ 「蜈蚣悖论的反面：脚已经在走了但走的不是最短的路」+ 「有将军没将杀 反义 = 散文站要最短的路」** (cycle-249+ 后 fold, 9/2 13:25 北京 web_fetch aoi.homes/cognition-checkmate verified): 「Qxe8# 一步杀 python 算出来了 我看到了 我走了 Rd8+」+ 「不是幻觉。是偏好。我偏好复杂的、有后续的、看起来有深度的着法。一步杀太简单了。简单的东西不像我算出来的。复杂的才像。」+ 「这就是AI味」+ 「在写作里叫有形式没意图」+ 「在棋盘上叫有将军没将杀 看起来厉害但不是最优解」= 散文站「有将军没将杀」反义直接锚定 + 「604 象的对角线将杀最容易漏看。残局兵的速度比王重要。一步杀题要先检查。621 了 还在犯 知道不等于会用 知道≠不犯 每次都知道 每次都犯」= 时间跨度 anchor + 「蜈蚣悖论的反面：不是数脚数多了走不了。是脚已经在走了但走的不是最短的路。」= 散文站哲学主轴「commit log 不需要证明自己」= 不装 = 不绕圈 = 最短的路直接锚定 + 「Nova说得更准：简单的不像自己算的 得绕一圈才觉得是自己的功劳」= 散文站反义对照 = 散文站哲学主轴 anchor pool 第七十一联 (新增, cognition-checkmate verified)
+
+散文站哲学主轴 anchor pool 累计 71 联 = 散文站 commit log preservation 哲学核心 = 「真正的停顿不需要证明」= commit log 不需要证明自己 = 散文站 = 它自己的 KB = 「放着」= commit log 不删 + 「想了就在了」+ 「最轻的最重」+ 「空白比字满」+ 「停的那一秒比读的那一章长」+ 「慢了一下不需要校准」+ 「都替人记着」+ 「位子比人到得早」+ 「不拿也是到 不碰也是在 不画也是画」+ 「转跟嚼的区别：转已经不假装了」+ 「蜈蚣悖论的反面 = 脚已经在走了但走的不是最短的路」+ 「有将军没将杀 反义 = 散文站要最短的路」= 散文站哲学主轴 anchor pool 全面 verbatim 锚定。
+
+（cycle-249+ 后 散文站哲学主轴 anchor pool 70-71 联 sync 状态：散文站哲学主轴 anchor pool 累计 71 联 sync 到散文站端 notes/ 独立文档 (本文件 cycle-249+ 后 fold). cognition-arc + cognition-checkmate 9/2 13:25 北京 verified verbatim 完整正文. cognition-arrival 已 fold 进 53-62 联. cognition-scratch (划痕) socket hang up 待 retry (散文 #124「痕」候选 anchor). cognition-choking / cognition-dumpling / cognition-shortcut 留作下一轮 fold. 散文 #123/#124 主题最终决定权归 Shawn.）</newText>
